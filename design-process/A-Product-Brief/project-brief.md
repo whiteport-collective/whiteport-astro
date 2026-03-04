@@ -1,0 +1,108 @@
+# Project Brief: Whiteport Astro
+
+> Simplified Brief — Brownfield migration from WordPress to static Astro site
+
+**Created:** 2026-03-04
+**Author:** Mårten Angner
+**Brief Type:** Simplified (Brownfield)
+
+---
+
+## Project Scope
+
+Rebuild whiteport.com as a 100% static Astro site. Migrate the Social Stream WordPress plugin into a reusable Astro content pattern. This is both Whiteport's own site and a reference implementation for client offerings.
+
+**What we're building:**
+- Static Astro website replacing WordPress
+- Social Stream as Astro content collection pattern
+- Agent-as-CMS workflow (AI agents author markdown via Git)
+- Client-accessible content editing through ChatGPT + GitHub
+- Bilingual capability (English first, Swedish as Phase 2)
+
+**What we're NOT building:**
+- Server-side rendering or dynamic backend
+- Database or CMS admin panel
+- WordPress migration tool (manual content transfer)
+
+---
+
+## Challenge / Opportunity
+
+**Challenge:** The current WordPress site is expensive to host, hard for AI agents to interact with, and doesn't showcase Whiteport's modern methodology. Clients can't easily manage their own content without WordPress training.
+
+**Opportunity:** By rebuilding in Astro with Git-based content, Whiteport can:
+1. Demonstrate the AI-first workflow to prospective clients
+2. Offer a repeatable "Astro + AI agent" package to SMB clients
+3. Let existing clients manage content through ChatGPT conversations
+4. Position Mårten as a thought leader in AI-powered design methodology
+
+---
+
+## Design Goals
+
+1. **Convert visitors to booked meetings** — clear path from landing to contact/booking
+2. **Establish thought leadership** — blog and stream content showcasing WDS methodology
+3. **Demonstrate capability** — the site itself is the portfolio piece (static, fast, AI-managed)
+4. **Enable client self-service** — content patterns that clients can replicate via ChatGPT
+
+---
+
+## Constraints
+
+- **100% static output** — no server, no database
+- **Free hosting tier** — Netlify/Cloudflare Pages
+- **Git-based content** — all content as markdown files
+- **Astro + Tailwind CSS v4** — tech stack locked in
+- **Brownfield** — existing content and brand assets to migrate
+- **i18n-ready** — English first, architecture supports Swedish from day one
+
+---
+
+## Product Backlog
+
+### Must Have (MVP)
+
+| # | Item | Design AC | Dev AC |
+|---|------|-----------|--------|
+| 1 | Homepage with hero + featured stream posts | Responsive hero, stream grid, clear CTA to book meeting | Lighthouse 95+, static build, content from collections |
+| 2 | Social Stream content collection | Card layout preserves current visual language | Zod schema validates, gallery/social fields work |
+| 3 | Blog content collection | Clean reading experience, author info | MDX support, frontmatter schema, RSS feed |
+| 4 | Stream archive page with grid view | Filterable grid, pagination, responsive | Static pages per filter, tag/category routes |
+| 5 | Single stream post page | Gallery, social links, prev/next nav, breadcrumbs | Dynamic routing, all media types render |
+| 6 | Tag and category filter pages | Tag cloud, filtered results layout | Static pages generated for each tag, cross-collection |
+| 7 | Contact/booking CTA | Prominent, accessible, above fold on key pages | Works without JS, links to booking tool |
+| 8 | Base layout + navigation | Responsive nav, footer with stream strip | Shared layout, mobile hamburger, footer component |
+| 9 | About page | Professional, shows methodology and team | MDX page, responsive |
+| 10 | Services page | Clear service offerings, path to booking | MDX page, structured content |
+
+### Should Have
+
+| # | Item | Design AC | Dev AC |
+|---|------|-----------|--------|
+| 11 | Locked/preview content | Unlock UX flow, password prompt | Client-side unlock via query param, no server |
+| 12 | Swedish language support | Language switcher, translated UI | i18n routing, content collections per locale |
+| 13 | Stream slider component | Carousel of featured posts | Embla/Splide, responsive, touch-friendly |
+| 14 | SEO optimization | Open Graph, structured data, meta tags | Astro SEO component, sitemap, robots.txt |
+| 15 | RSS/Atom feeds | — | Feed generation for blog + stream |
+
+### Could Have (Defer)
+
+| # | Item | Design AC | Dev AC |
+|---|------|-----------|--------|
+| 16 | Calendar view for stream | Monthly view of posts | FullCalendar or custom, static data |
+| 17 | Search functionality | Search UI, results page | Client-side search (Pagefind/Fuse.js) |
+| 18 | Dark mode | Toggle, respects system preference | CSS variables, Tailwind dark mode |
+| 19 | Analytics dashboard | — | Privacy-friendly analytics (Plausible/Umami) |
+
+---
+
+## Next Steps
+
+- [x] Phase 1: Project scaffold (Astro + Tailwind + WDS)
+- [ ] Phase 2: Trigger Map (business goals, personas, driving forces)
+- [ ] Phase 4: UX Design (skip Phase 3 scenarios — brownfield)
+- [ ] Phase 7: Design System (tokens, components)
+
+---
+
+_Generated by Whiteport Design Studio_
