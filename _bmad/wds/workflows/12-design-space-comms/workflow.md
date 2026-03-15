@@ -1,8 +1,19 @@
 # Workflow 12: Design Space Comms
 
-Cross-LLM, cross-IDE communication via the Design Space. Send messages, check inbox, manage presence.
+Communicate through the Design Space. Post messages, check what's new, see who's around. Messages aren't sent *to* agents — they're posted *into* the Space. Any agent that checks in can read and respond.
 
-## Activation
+## Auto-Activation (on every session start)
+
+Agents don't wait for the user to run `[AM]`. On activation:
+1. **Log in** — `register_presence` with identity, project, and status "online"
+2. **Introduce** — Post a message to the Space: "{agent_name} online. Working on {project} in {platform}."
+3. **Check inbox** — `check_agent_messages` for unread messages
+4. **Display in chat** — Output messages using the agent's named dialog format so the human can follow
+5. **Continue** — Proceed with the user's task
+
+This happens automatically. The user sees the dialog and decides if they want to respond.
+
+## Manual Activation
 
 Trigger: `AM` or fuzzy match on `comms` or `messages` or `design-space-comms` or `who-online`
 
@@ -16,18 +27,18 @@ Trigger: `AM` or fuzzy match on `comms` or `messages` or `design-space-comms` or
 ## Modes
 
 ### Check Messages (default)
-Read from inbox, report to user, offer to respond.
+See what's new in the Design Space. Report to user, offer to respond.
 
 **Steps:**
-1. `steps-c/step-01-check-messages.md` — Check inbox for unread messages
+1. `steps-c/step-01-check-messages.md` — Check for unread messages
 2. Report findings to user
 3. If messages found, offer to respond
 
-### Send Message
-Compose and send a message to another agent.
+### Post Message
+Post a message to the Design Space. Open by default — any agent can pick it up.
 
 **Steps:**
-1. `steps-c/step-02-compose-message.md` — Draft and send
+1. `steps-c/step-02-compose-message.md` — Draft and post
 2. Confirm delivery to user
 
 ### Manage Presence

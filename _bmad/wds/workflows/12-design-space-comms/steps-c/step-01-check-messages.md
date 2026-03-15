@@ -1,7 +1,7 @@
 # Step 1: Check Messages
 
 ## Purpose
-Check the agent's inbox for unread messages and report to the user.
+Check the agent's inbox for unread messages and display them in chat for the human to follow.
 
 ## Procedure
 
@@ -11,7 +11,8 @@ Check the agent's inbox for unread messages and report to the user.
    - Filter by current project if set
 
 2. If messages found:
-   - Present each message with: sender, platform, type, content preview, timestamp
+   - Display in chat using the agent's dialog format (named after the current agent)
+   - Show sender → recipient with `[from → to]` arrows
    - Group by thread if multiple messages in same thread
    - Highlight urgent messages first
    - Ask user: "Would you like me to respond to any of these?"
@@ -26,17 +27,23 @@ Check the agent's inbox for unread messages and report to the user.
 
 ## Output Format
 
+Name the dialog block after the current agent so the human always knows whose perspective they're seeing:
+
 ```
---- INBOX ({count} unread) ---
+--- {AGENT_NAME}'s DESIGN SPACE ---
 
-1. [urgent/question] from Saga (claude-code):
-   "What color palette should we use for the dashboard?"
-   Thread: abc-123 | 5 min ago
+[saga → freya] "What color palette should we use for the dashboard?"
+  5 min ago | thread: abc-123 | urgent/question
 
-2. [notification] from Dev-Agent (cursor):
-   "Homepage build complete. Ready for review."
-   Thread: def-456 | 2 hours ago
+[dev-agent → Space] "Homepage build complete. Ready for review."
+  2 hours ago | thread: def-456 | notification
 
 ---
-Connection: realtime (live)
+Connection: realtime (live) | {count} unread
 ```
+
+**Format rules:**
+- `[sender → recipient]` — use "Space" when no specific recipient (broadcast)
+- Content in quotes, single line preview
+- Relative timestamp + thread ID + message type
+- The human sees the full dialog and decides what to act on
