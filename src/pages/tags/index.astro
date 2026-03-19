@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getVisibleBlogPosts, collectTags } from '../../utils/content-helpers';
+
+const allBlog = await getCollection('blog');
+const blogPosts = getVisibleBlogPosts(allBlog);
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.filter((p) => !p.data.draft);
+
+// Combine tags from all collections
+const allPosts = [...blogPosts, ...projects];
+const tagCounts = collectTags(allPosts);
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Tags" description="Browse all topics and categories across Whiteport's projects and blog.">
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="text-center mb-16">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">Tags</h1>
+        <p class="text-wp-grey max-w-2xl mx-auto">
+          Browse all topics and categories across our projects and blog.
+        </p>
+      </header>
+
+      {sortedTags.length > 0 ? (
+        <div class="flex flex-wrap justify-center gap-3">
+          {sortedTags.map(([tag, count]) => (
+            <a
+              href={`/tags/${encodeURIComponent(tag)}/`}
+              class="inline-flex items-center gap-2 px-4 py-2 bg-wp-section-bg rounded-lg text-sm hover:bg-wp-blue hover:text-white transition-colors no-underline group"
+            >
+              <span class="group-hover:text-white">{tag}</span>
+              <span class="text-xs text-wp-grey group-hover:text-white/70 bg-white group-hover:bg-white/20 rounded-full px-2 py-0.5">{count}</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-center text-wp-grey">No tags found.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

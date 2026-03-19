@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.filter((p) => !p.data.draft);
+---
+
+<BaseLayout title="Projects" description="Selected projects and client work from Whiteport — apps, websites, and e-commerce built with AI-powered design." headerSolid={true}>
+  <section class="pt-36 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="text-center mb-16">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-4">Selected Project Case Studies</h1>
+        <p class="text-wp-grey max-w-2xl mx-auto">
+          Each project combines strategic design thinking with modern technology to deliver real business results.
+        </p>
+      </header>
+
+      {projects.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <a href={`/projects/${project.id}/`} class="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 no-underline border border-gray-100">
+              {project.data.featuredImage?.src ? (
+                <div class="aspect-video overflow-hidden bg-gray-100">
+                  <img
+                    src={project.data.featuredImage.src}
+                    alt={project.data.featuredImage.alt || project.data.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div class="aspect-video bg-wp-blue/5 flex items-center justify-center">
+                  <span class="text-wp-blue/30 text-4xl font-bold">{project.data.title[0]}</span>
+                </div>
+              )}
+              <div class="p-6">
+                <h2 class="text-lg font-semibold mb-2 group-hover:text-wp-button transition-colors">{project.data.title}</h2>
+                <p class="text-sm text-wp-grey line-clamp-2 mb-3">{project.data.description}</p>
+                {project.data.tags && project.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5">
+                    {project.data.tags.slice(0, 3).map((tag) => (
+                      <span class="text-xs px-2 py-0.5 bg-wp-blue/5 text-wp-blue rounded-full">{tag.replace(/-/g, ' ')}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-wp-grey text-center py-8">Portfolio is being assembled. Check back soon.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

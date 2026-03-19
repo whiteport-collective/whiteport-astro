@@ -1,114 +1,203 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialStreamCard from '../../components/social-stream/SocialStreamCard.astro';
+import { getVisibleBlogPosts, collectTags } from '../../utils/content-helpers';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const allPosts = await getCollection('blog');
+const posts = getVisibleBlogPosts(allPosts);
+const tagCounts = collectTags(posts);
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Blog" description="Articles, insights and creative work from Whiteport.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold">Blog</h1>
+      <p class="text-wp-grey mt-2">Articles, insights and creative work from our studio.</p>
+
+      {sortedTags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4" id="stream-filters">
+          <button
+            class="filter-btn active px-3 py-1 text-xs font-medium rounded-full border border-wp-blue bg-wp-blue text-white transition-colors"
+            data-filter="all"
+          >
+            All ({posts.length})
+          </button>
+          {sortedTags.map(([tag, count]) => (
+            <button
+              class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10 transition-colors"
+              data-filter={tag}
+            >
+              {tag} ({count})
+            </button>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- CSS columns masonry — fills top-down from top-left -->
+    <div class="stream-wall" id="stream-wall">
+      {posts.map((post) => (
+        <div
+          class="stream-card"
+          data-categories={post.data.categories?.join(',') || ''}
+          data-tags={post.data.tags?.join(',') || ''}
+        >
+          <SocialStreamCard post={post} />
+        </div>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <p class="text-center text-wp-grey py-12">No posts yet.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .stream-wall {
+    columns: 1;
+    column-gap: 1.5rem;
+  }
+  .stream-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .stream-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (min-width: 640px) {
+    .stream-wall { columns: 2; }
+  }
+  @media (min-width: 1024px) {
+    .stream-wall { columns: 3; }
+  }
+  @media (min-width: 1500px) {
+    .stream-wall { columns: 4; }
+  }
+</style>
+
+<script>
+  const wall = document.getElementById('stream-wall')!;
+  const allCards = Array.from(wall.querySelectorAll<HTMLElement>('.stream-card'));
+
+  // Only reveal a card once its cover image is loaded
+  function revealWhenImageReady(el: HTMLElement) {
+    const img = el.querySelector<HTMLImageElement>('img');
+    if (!img || img.complete) { enqueue(el); return; }
+    img.addEventListener('load', () => enqueue(el), { once: true });
+    img.addEventListener('error', () => enqueue(el), { once: true });
+  }
+
+  // Stagger queue — cards get spaced out 150ms apart
+  let queue: HTMLElement[] = [];
+  let draining = false;
+  function enqueue(el: HTMLElement) {
+    queue.push(el);
+    if (!draining) { draining = true; drainQueue(); }
+  }
+  function drainQueue() {
+    if (queue.length === 0) { draining = false; return; }
+    const el = queue.shift()!;
+    el.classList.add('visible');
+    setTimeout(drainQueue, 150);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealWhenImageReady(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  // Reorder DOM so CSS columns (top-down) produces row-first visual order
+  function reorder(cards: HTMLElement[]) {
+    const w = window.innerWidth;
+    const cols = w < 640 ? 1 : w < 1024 ? 2 : w < 1500 ? 3 : 4;
+    if (cols <= 1) return;
+
+    const perCol = Math.ceil(cards.length / cols);
+    const reordered: HTMLElement[] = new Array(cards.length);
+
+    for (let i = 0; i < cards.length; i++) {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      const newPos = col * perCol + row;
+      if (newPos < cards.length) {
+        reordered[newPos] = cards[i];
+      }
+    }
+
+    const filled = reordered.filter(Boolean);
+    const remaining = cards.filter(c => !filled.includes(c));
+    let ri = 0;
+    for (let i = 0; i < reordered.length; i++) {
+      if (!reordered[i] && ri < remaining.length) {
+        reordered[i] = remaining[ri++];
+      }
+    }
+
+    reordered.filter(Boolean).forEach(card => wall.appendChild(card));
+  }
+
+  function applyFilter(filter: string) {
+    allCards.forEach(card => {
+      card.classList.remove('visible');
+      if (filter === 'all') {
+        card.style.display = '';
+        return;
+      }
+      const cats = card.dataset.categories?.split(',') || [];
+      const tags = card.dataset.tags?.split(',') || [];
+      card.style.display = (cats.includes(filter) || tags.includes(filter)) ? '' : 'none';
+    });
+    const visible = allCards.filter(c => c.style.display !== 'none');
+    reorder(visible);
+    queue = [];
+    draining = false;
+    visible.forEach(card => observer.observe(card));
+  }
+
+  // Initial reorder + observe
+  reorder(allCards);
+  allCards.forEach(card => observer.observe(card));
+
+  // Re-order on resize
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  let lastCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const newCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
+      if (newCols !== lastCols) {
+        lastCols = newCols;
+        const active = document.querySelector('.filter-btn.active') as HTMLElement;
+        applyFilter(active?.dataset.filter || 'all');
+      }
+    }, 150);
+  });
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter!;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+        b.classList.add('border-wp-blue/20', 'text-wp-blue');
+      });
+      btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+      btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+      applyFilter(filter);
+    });
+  });
+</script>

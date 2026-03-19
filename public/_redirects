@@ -1,0 +1,23 @@
+# Whiteport URL redirects
+
+# Stream → Blog (collection merge)
+/stream/* /blog/:splat 301
+
+# WP project pages → Astro projects
+/project/bythjul/ /projects/bythjul/ 301
+/project/eve-adam/ /projects/eve-adam/ 301
+/project/fyndiqsvajpen/ /projects/fyndiqsvajpen/ 301
+/project/goalenvision/ /projects/goal-envision/ 301
+/project/histreamers/ /projects/histreamers/ 301
+/project/indoor-energy-services/ /projects/indoor-energy-services/ 301
+/project/skargardspartner/ /projects/skargardspartner/ 301
+
+# WP blog slug renames (old WP slug → new Astro slug)
+/blog/5-questions-that-really-matters/ /blog/5-questions-before-you-prototype/ 301
+/blog/reimagining-strategy-how-we-transformed-goalenvision-into-a-next-gen-platform/ /blog/reimagining-goalenvision/ 301
+/blog/seo-the-silent-engine-of-sustainable-organically-business-growth/ /blog/seo-the-silent-engine-of-business-growth/ 301
+/blog/the-best-ai-coders-spend-more-time-thinking-than-prompting/ /blog/why-the-best-ai-coders-think-before-they-prompt/ 301
+/blog/the-burn-is-real/ /blog/the-prompt-burn-is-real/ 301
+
+# WP product pages
+/products/wds/ /wds/ 301

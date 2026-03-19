@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://whiteport.com/sitemap-index.xml

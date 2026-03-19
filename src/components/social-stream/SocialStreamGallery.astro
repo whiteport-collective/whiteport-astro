@@ -1,0 +1,348 @@
+---
+/**
+ * SocialStreamGallery — CSS scroll-snap slider with smart video delivery.
+ *
+ * Video strategy: poster-first, preemptive lazy loading.
+ * 1. Videos render with a poster image + play button (zero video bytes loaded)
+ * 2. After page load, a background prefetch queue starts fetching videos
+ *    one by one using low-priority fetch() so they cache in the browser
+ * 3. IntersectionObserver watches videos — if user scrolls to one before
+ *    the queue reaches it, that video jumps to front of queue
+ * 4. Click-to-play swaps poster for actual <video> element
+ * 5. If video is already prefetched, playback starts instantly
+ */
+import { resolveMediaSrc, resolveMediaPoster } from '../../utils/content-helpers';
+
+interface GalleryItem {
+  gdriveId?: string;
+  src?: string;
+  alt?: string;
+  type?: 'image' | 'video';
+  width?: number;
+  height?: number;
+  poster?: string;
+  youtubeId?: string;
+  display?: string[];
+}
+
+interface Props {
+  items: GalleryItem[];
+}
+
+const { items } = Astro.props;
+const resolved = items.map(item => ({
+  ...item,
+  resolvedSrc: resolveMediaSrc(item),
+  resolvedPoster: resolveMediaPoster(item),
+})).filter(item => item.resolvedSrc || item.youtubeId);
+const single = resolved.length === 1;
+---
+
+{resolved.length > 0 && (
+  <div class="gallery-wrapper">
+    <div class:list={['gallery-slider', { 'single': single }]}>
+      {resolved.map((item, i) => (
+        <div class="gallery-slide">
+          {item.youtubeId ? (
+            <!-- YouTube: click-to-play with poster -->
+            <div class="video-poster cursor-pointer group relative" data-youtube-id={item.youtubeId}>
+              {item.resolvedSrc || item.resolvedPoster ? (
+                <img
+                  src={item.resolvedSrc || item.resolvedPoster}
+                  alt={item.alt || 'Video thumbnail'}
+                  class="gallery-img"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              ) : (
+                <div class="gallery-placeholder">Video</div>
+              )}
+              <div class="play-overlay">
+                <div class="play-btn play-btn--youtube group-hover:bg-red-500">
+                  <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ) : item.type === 'video' ? (
+            <!-- Native video: poster-first, click-to-play -->
+            <div
+              class="video-poster cursor-pointer group relative bg-gray-900 rounded-lg overflow-hidden"
+              data-video-src={item.resolvedSrc}
+              data-video-poster={item.resolvedPoster || ''}
+              data-video-width={item.width || ''}
+              data-video-height={item.height || ''}
+            >
+              {/* Show poster image or a placeholder */}
+              {item.resolvedPoster ? (
+                <img
+                  src={item.resolvedPoster}
+                  alt={item.alt || 'Video'}
+                  class="gallery-img"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              ) : item.resolvedSrc ? (
+                <div class="gallery-placeholder" style={item.height && item.width ? `aspect-ratio:${item.width}/${item.height}` : 'aspect-ratio:16/9'}>
+                  <span class="text-white/60 text-sm">{item.alt || 'Video'}</span>
+                </div>
+              ) : (
+                <div class="gallery-placeholder">
+                  <svg class="w-8 h-8 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+                </div>
+              )}
+              {item.resolvedSrc && (
+                <div class="play-overlay">
+                  <div class="play-btn play-btn--video group-hover:bg-wp-blue/80">
+                    <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <div class="prefetch-indicator" aria-hidden="true"></div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <!-- Image -->
+            <img
+              src={item.resolvedSrc}
+              alt={item.alt || ''}
+              class="gallery-img"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              width={item.width}
+              height={item.height}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+
+    {!single && (
+      <div class="flex justify-center gap-1.5 mt-3">
+        {resolved.map((_, i) => (
+          <span class:list={['w-2 h-2 rounded-full', i === 0 ? 'bg-wp-blue' : 'bg-wp-blue/20']} data-dot={i} />
+        ))}
+      </div>
+    )}
+  </div>
+)}
+
+<style>
+  .gallery-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  .gallery-slider::-webkit-scrollbar { display: none; }
+  .gallery-slider.single { overflow: hidden; }
+  .gallery-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    position: relative;
+  }
+  .gallery-img {
+    width: 100%;
+    display: block;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+  .gallery-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.875rem;
+    background: #111;
+    border-radius: 0.5rem;
+  }
+
+  /* Play button overlay */
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .play-btn {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .play-btn--youtube { background: #dc2626; }
+  .play-btn--video { background: rgba(4, 63, 118, 0.7); }
+  .video-poster:hover .play-btn { transform: scale(1.1); }
+
+  /* Prefetch progress indicator — subtle ring around play button */
+  .prefetch-indicator {
+    position: absolute;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .video-poster[data-prefetched="true"] .prefetch-indicator {
+    border-color: rgba(255,255,255,0.4);
+  }
+</style>
+
+<script>
+  /**
+   * SocialStreamGallery — Client-side video delivery system.
+   *
+   * Three features:
+   * 1. YouTube click-to-play (iframe swap)
+   * 2. Native video click-to-play (poster → <video> swap)
+   * 3. Preemptive background prefetch queue
+   */
+
+  // ── 1. YouTube click-to-play ──
+  document.querySelectorAll('[data-youtube-id]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const id = (el as HTMLElement).dataset.youtubeId;
+      if (!id) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'w-full rounded-lg';
+      iframe.style.aspectRatio = '16/9';
+      el.replaceWith(iframe);
+    });
+  });
+
+  // ── 2. Native video click-to-play ──
+  document.querySelectorAll('[data-video-src]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const container = el as HTMLElement;
+      const src = container.dataset.videoSrc;
+      if (!src) return;
+
+      const poster = container.dataset.videoPoster || undefined;
+      const w = container.dataset.videoWidth;
+      const h = container.dataset.videoHeight;
+
+      const video = document.createElement('video');
+      video.src = src;
+      if (poster) video.poster = poster;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.className = 'w-full rounded-lg';
+      if (w && h) video.style.aspectRatio = `${w}/${h}`;
+
+      // Replace poster with video
+      container.replaceWith(video);
+    });
+  });
+
+  // ── 3. Preemptive background prefetch queue ──
+  const videoPosterEls = document.querySelectorAll<HTMLElement>('[data-video-src]');
+  const videoQueue: { el: HTMLElement; src: string; priority: number }[] = [];
+  const prefetched = new Set<string>();
+
+  videoPosterEls.forEach((el, i) => {
+    const src = el.dataset.videoSrc;
+    if (src) videoQueue.push({ el, src, priority: i });
+  });
+
+  // IntersectionObserver: bump priority when video enters viewport
+  if (videoQueue.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const item = videoQueue.find(q => q.el === el);
+        if (item) {
+          item.priority = -1; // Move to front
+          videoQueue.sort((a, b) => a.priority - b.priority);
+        }
+        observer.unobserve(el);
+      });
+    }, { rootMargin: '200px' });
+
+    videoPosterEls.forEach(el => observer.observe(el));
+  }
+
+  // Background prefetch: one video at a time, low priority
+  async function prefetchQueue() {
+    // Wait for page to fully load before starting
+    await new Promise<void>(resolve => {
+      if (document.readyState === 'complete') resolve();
+      else window.addEventListener('load', () => resolve(), { once: true });
+    });
+
+    // Small delay to let critical resources finish
+    await new Promise(r => setTimeout(r, 1500));
+
+    // Sort by priority (viewport-visible ones first)
+    videoQueue.sort((a, b) => a.priority - b.priority);
+
+    for (const item of videoQueue) {
+      if (prefetched.has(item.src)) continue;
+
+      try {
+        // Use fetch to pull the video into browser cache
+        // The 'no-cors' + cache hint ensures it's cached for later <video> use
+        await fetch(item.src, {
+          method: 'GET',
+          // @ts-ignore — priority hint (Chrome 101+)
+          priority: 'low',
+          cache: 'force-cache',
+        });
+
+        prefetched.add(item.src);
+
+        // Mark as prefetched on the element (shows subtle indicator)
+        if (item.el.isConnected) {
+          item.el.dataset.prefetched = 'true';
+        }
+      } catch {
+        // Network error — skip this video, try next
+      }
+
+      // Pause between videos to avoid saturating bandwidth
+      await new Promise(r => setTimeout(r, 500));
+    }
+  }
+
+  // Only prefetch if user hasn't indicated they want to save data
+  if (videoQueue.length > 0 && !navigator.connection?.saveData) {
+    prefetchQueue();
+  }
+
+  // ── 4. Dot indicator sync ──
+  document.querySelectorAll('.gallery-slider:not(.single)').forEach((slider) => {
+    const dots = slider.parentElement?.querySelectorAll('[data-dot]');
+    if (!dots?.length) return;
+
+    slider.addEventListener('scroll', () => {
+      const scrollLeft = slider.scrollLeft;
+      const slideWidth = (slider.firstElementChild as HTMLElement)?.offsetWidth || 1;
+      const active = Math.round(scrollLeft / slideWidth);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-wp-blue', i === active);
+        dot.classList.toggle('bg-wp-blue/20', i !== active);
+      });
+    });
+  });
+
+  // Type augmentation for Navigator.connection
+  declare global {
+    interface Navigator {
+      connection?: { saveData?: boolean };
+    }
+  }
+</script>

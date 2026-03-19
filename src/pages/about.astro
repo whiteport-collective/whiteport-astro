@@ -1,63 +1,149 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { COMPANY, SOCIAL_LINKS, SITE_URL } from '../consts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Whiteport',
+  url: `${SITE_URL}/about/`,
+  mainEntity: {
+    '@type': 'Organization',
+    name: COMPANY.name,
+    url: SITE_URL,
+    foundingDate: '2003',
+    founder: { '@type': 'Person', name: COMPANY.founder },
+    address: { '@type': 'PostalAddress', streetAddress: 'Klubbacken 49', postalCode: '129 39', addressLocality: 'Hägersten', addressCountry: 'SE' },
+    email: COMPANY.email,
+  },
+};
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<BaseLayout title="About" description="Whiteport was founded 2003 by Mårten Angner. We build sites, apps and e-commerce with innovative solutions, smooth interfaces and minimalistic design." jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="bg-wp-blue text-white py-20 sm:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">About Whiteport</h1>
+      <p class="text-lg text-white/75 max-w-3xl mx-auto leading-relaxed">
+        A charming digital agency passionate about saving the world, one digital design project at a time.
+      </p>
+    </div>
+  </section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+  <!-- Story -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose max-w-none">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6">Our story</h2>
+        <p class="text-wp-grey text-lg leading-relaxed mb-6">
+          Whiteport was founded 2003 by Mårten Angner and has been successfully serving clients with sites, apps and e-commerce applications ever since. Whiteport is also an innovative agency exploring the boundaries of the possible by our own digital projects.
+        </p>
+        <p class="text-wp-grey text-lg leading-relaxed mb-6">
+          We focus on innovative solutions, smooth interfaces, neat and minimalistic design and work according to our own unique development approach.
+        </p>
+        <p class="text-wp-grey text-lg leading-relaxed">
+          Our methods unify strategic thinking, UX, visual design and AI technology — bringing structure to complexity with vision and a sharp eye for user experience.
+        </p>
+      </div>
+    </div>
+  </section>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+  <!-- What we believe -->
+  <section class="bg-wp-section-bg py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-16">What we believe</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="text-center px-4">
+          <div class="w-16 h-16 bg-wp-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-8 h-8 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Concept & design combining vision with purpose</h3>
+          <p class="text-wp-grey text-sm leading-relaxed">
+            We bring structure to complexity. With vision and a sharp eye for user experience, we turn ideas into impactful designs that look and feel just right — delivering clarity, elegance, and return on investment.
+          </p>
+        </div>
+        <div class="text-center px-4">
+          <div class="w-16 h-16 bg-wp-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-8 h-8 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">Adding business sense to your digital presence</h3>
+          <p class="text-wp-grey text-sm leading-relaxed">
+            We combine strategic insight and real user research with a product mindset. The result? Less chaos, more clarity — and digital solutions that turn ambition into real, measurable progress.
+          </p>
+        </div>
+        <div class="text-center px-4">
+          <div class="w-16 h-16 bg-wp-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-8 h-8 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">AI amplifies, designers lead</h3>
+          <p class="text-wp-grey text-sm leading-relaxed">
+            AI Agent framework for designers based on BMAD method. Gives every designer access to a free and open source platform for Digital Design, Strategy, Trigger mapping, Scenario sketching and handover to development.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+  <!-- Manifesto -->
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">The Whiteport Manifesto</h2>
+      <div class="bg-white border border-gray-100 rounded-xl p-8 sm:p-12">
+        <p class="text-wp-grey text-lg leading-relaxed mb-6 font-medium italic">
+          "One Business One System!"
+        </p>
+        <p class="text-wp-grey leading-relaxed mb-4">
+          Technology is becoming more and more accessible to companies and organizations, while costs and challenges with the flora of standard services are becoming more and more tangible, both practically and financially. At the same time, it has never been easier to build your own, specially developed business system perfectly adapted to the business.
+        </p>
+        <p class="text-wp-grey leading-relaxed">
+          We carry the vision of a future where companies take back the power over the digital aspects of their business and effortlessly design, develop and optimize their own systems to secure their growth for the future!
+        </p>
+      </div>
+    </div>
+  </section>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+  <!-- Team -->
+  <section class="bg-wp-section-bg py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-12">The team</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+        {COMPANY.team.map((member) => (
+          <div class="bg-white rounded-xl p-8 text-center">
+            <div class="w-20 h-20 bg-wp-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-wp-blue">{member.name.split(' ').map(n => n[0]).join('')}</span>
+            </div>
+            <h3 class="text-lg font-semibold mb-1">{member.name}</h3>
+            <p class="text-sm text-wp-grey mb-4">{member.title}</p>
+            <div class="space-y-1 text-sm">
+              <a href={`mailto:${member.email}`} class="block text-wp-button hover:text-wp-button-hover no-underline">{member.email}</a>
+              <a href={`tel:${member.phone}`} class="block text-wp-grey hover:text-wp-base no-underline">{member.phone}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-wp-blue text-white py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Let's build something together</h2>
+      <p class="text-white/75 mb-8">
+        Ready to transform your digital presence?
+      </p>
+      <a
+        href="/contact/"
+        class="inline-block px-10 py-4 bg-wp-cta text-white font-semibold rounded-lg hover:bg-wp-cta-hover transition-colors no-underline text-lg"
+      >
+        Get in touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

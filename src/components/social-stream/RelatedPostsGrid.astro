@@ -1,0 +1,191 @@
+---
+/**
+ * RelatedPostsGrid — full masonry grid with filter buttons.
+ * Same layout as blog/index.astro but embedded below a post,
+ * pre-filtered to the current post's primary category.
+ */
+import type { CollectionEntry } from 'astro:content';
+import SocialStreamCard from './SocialStreamCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  tagCounts: Map<string, number>;
+  activeCategory: string;
+  currentPostId: string;
+}
+
+const { posts, tagCounts, activeCategory, currentPostId } = Astro.props;
+const filteredPosts = posts.filter(p => p.id !== currentPostId);
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+const gridId = 'related-wall';
+const filterId = 'related-filters';
+---
+
+{filteredPosts.length > 0 && (
+  <section class="bg-wp-section-bg py-16 mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4">Related posts</h2>
+
+        {sortedTags.length > 0 && (
+          <div class="flex flex-wrap gap-2" id={filterId}>
+            <button
+              class:list={['related-filter-btn px-3 py-1 text-xs font-medium rounded-full border transition-colors', !activeCategory ? 'active border-wp-blue bg-wp-blue text-white' : 'border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10']}
+              data-filter="all"
+            >
+              All ({filteredPosts.length})
+            </button>
+            {sortedTags.map(([tag, count]) => (
+              <button
+                class:list={['related-filter-btn px-3 py-1 text-xs font-medium rounded-full border transition-colors', tag === activeCategory ? 'active border-wp-blue bg-wp-blue text-white' : 'border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10']}
+                data-filter={tag}
+              >
+                {tag} ({count})
+              </button>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="related-wall" id={gridId}>
+        {filteredPosts.map((post) => (
+          <div
+            class="related-card"
+            data-categories={post.data.categories?.join(',') || ''}
+            data-tags={post.data.tags?.join(',') || ''}
+          >
+            <SocialStreamCard post={post} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .related-wall {
+    columns: 1;
+    column-gap: 1.5rem;
+  }
+  .related-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .related-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (min-width: 640px) {
+    .related-wall { columns: 2; }
+  }
+  @media (min-width: 1024px) {
+    .related-wall { columns: 3; }
+  }
+  @media (min-width: 1500px) {
+    .related-wall { columns: 4; }
+  }
+</style>
+
+<script define:vars={{ gridId, filterId, activeCategory }}>
+  // Same masonry logic as blog index, scoped to this grid
+  const wall = document.getElementById(gridId);
+  if (wall) {
+    const allCards = Array.from(wall.querySelectorAll('.related-card'));
+
+    function revealWhenImageReady(el) {
+      const img = el.querySelector('img');
+      if (!img || img.complete) { enqueue(el); return; }
+      img.addEventListener('load', () => enqueue(el), { once: true });
+      img.addEventListener('error', () => enqueue(el), { once: true });
+    }
+
+    let queue = [];
+    let draining = false;
+    function enqueue(el) {
+      queue.push(el);
+      if (!draining) { draining = true; drainQueue(); }
+    }
+    function drainQueue() {
+      if (queue.length === 0) { draining = false; return; }
+      const el = queue.shift();
+      el.classList.add('visible');
+      setTimeout(drainQueue, 100);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            revealWhenImageReady(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    function reorder(cards) {
+      const w = window.innerWidth;
+      const cols = w < 640 ? 1 : w < 1024 ? 2 : w < 1500 ? 3 : 4;
+      if (cols <= 1) return;
+      const perCol = Math.ceil(cards.length / cols);
+      const reordered = new Array(cards.length);
+      for (let i = 0; i < cards.length; i++) {
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        const newPos = col * perCol + row;
+        if (newPos < cards.length) reordered[newPos] = cards[i];
+      }
+      const filled = reordered.filter(Boolean);
+      const remaining = cards.filter(c => !filled.includes(c));
+      let ri = 0;
+      for (let i = 0; i < reordered.length; i++) {
+        if (!reordered[i] && ri < remaining.length) reordered[i] = remaining[ri++];
+      }
+      reordered.filter(Boolean).forEach(card => wall.appendChild(card));
+    }
+
+    function applyFilter(filter) {
+      allCards.forEach(card => {
+        card.classList.remove('visible');
+        if (filter === 'all') { card.style.display = ''; return; }
+        const cats = (card.dataset.categories || '').split(',').filter(Boolean);
+        const tags = (card.dataset.tags || '').split(',').filter(Boolean);
+        card.style.display = (cats.includes(filter) || tags.includes(filter)) ? '' : 'none';
+      });
+      const visible = allCards.filter(c => c.style.display !== 'none');
+      reorder(visible);
+      queue = [];
+      draining = false;
+      visible.forEach(card => observer.observe(card));
+    }
+
+    // Apply initial filter if a category is set
+    if (activeCategory) {
+      applyFilter(activeCategory);
+    } else {
+      reorder(allCards);
+      allCards.forEach(card => observer.observe(card));
+    }
+
+    // Filter buttons
+    const filterContainer = document.getElementById(filterId);
+    if (filterContainer) {
+      filterContainer.querySelectorAll('.related-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          filterContainer.querySelectorAll('.related-filter-btn').forEach(b => {
+            b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+            b.classList.add('border-wp-blue/20', 'text-wp-blue');
+          });
+          btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+          btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+          applyFilter(filter);
+        });
+      });
+    }
+  }
+</script>

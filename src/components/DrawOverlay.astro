@@ -1,0 +1,401 @@
+<!--
+  Dev-only drawing overlay — scoped to Agentation-selected elements.
+  Also works standalone: Ctrl+Shift+D for full-page mode.
+  When Agentation selects an element, the canvas scopes to that element.
+  Copy outputs structured JSON with strokes + element context.
+-->
+<div id="draw-overlay-toggle" title="Draw on page (Ctrl+Shift+D)" data-feedback-toolbar>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+    <path d="M2 2l7.586 7.586"/>
+    <circle cx="11" cy="11" r="2"/>
+  </svg>
+</div>
+
+<div id="draw-overlay-panel" class="draw-hidden" data-feedback-toolbar>
+  <div id="draw-toolbar">
+    <span id="draw-scope-label"></span>
+    <input type="color" id="draw-color" value="#ff3333" title="Brush color" />
+    <input type="range" id="draw-size" min="1" max="20" value="3" title="Brush size" />
+    <button id="draw-arrow-btn" title="Arrow mode">&#8599;</button>
+    <button id="draw-rect-btn" title="Rectangle mode">&#9633;</button>
+    <button id="draw-clear" title="Clear canvas">Clear</button>
+    <button id="draw-copy" title="Copy as JSON to clipboard">Copy</button>
+    <button id="draw-save" title="Save as PNG">Save</button>
+    <button id="draw-close" title="Close (Esc)">&times;</button>
+  </div>
+  <div id="draw-scrim"></div>
+  <canvas id="draw-canvas"></canvas>
+</div>
+
+<style>
+  #draw-overlay-toggle {
+    position: fixed;
+    bottom: 16px;
+    right: 60px;
+    z-index: 99998;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1a1a2e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.15s, background 0.15s;
+  }
+  #draw-overlay-toggle:hover {
+    transform: scale(1.1);
+    background: #16213e;
+  }
+
+  #draw-overlay-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+  }
+  #draw-overlay-panel.draw-hidden {
+    display: none;
+  }
+
+  #draw-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+    pointer-events: none;
+  }
+
+  #draw-canvas {
+    position: absolute;
+    cursor: crosshair;
+    pointer-events: auto;
+    border: 2px solid rgba(255,51,51,0.5);
+    border-radius: 4px;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.15);
+  }
+  #draw-overlay-panel.fullpage #draw-canvas {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #draw-overlay-panel.fullpage #draw-scrim {
+    display: none;
+  }
+
+  #draw-toolbar {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a1a2e;
+    padding: 8px 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    pointer-events: auto;
+  }
+  #draw-toolbar button {
+    background: #2a2a4a;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  #draw-toolbar button:hover {
+    background: #3a3a6a;
+  }
+  #draw-toolbar button.active {
+    background: #5a5aaa;
+  }
+  #draw-scope-label {
+    color: #8f8faa;
+    font-size: 12px;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  #draw-color {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #555;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+  }
+  #draw-size {
+    width: 80px;
+    accent-color: #5a5aaa;
+  }
+  #draw-close {
+    font-size: 18px !important;
+    padding: 4px 10px !important;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('draw-overlay-toggle')!;
+  const panel = document.getElementById('draw-overlay-panel')!;
+  const canvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+  const colorInput = document.getElementById('draw-color') as HTMLInputElement;
+  const sizeInput = document.getElementById('draw-size') as HTMLInputElement;
+  const clearBtn = document.getElementById('draw-clear')!;
+  const copyBtn = document.getElementById('draw-copy')!;
+  const saveBtn = document.getElementById('draw-save')!;
+  const closeBtn = document.getElementById('draw-close')!;
+  const arrowBtn = document.getElementById('draw-arrow-btn')!;
+  const rectBtn = document.getElementById('draw-rect-btn')!;
+  const scopeLabel = document.getElementById('draw-scope-label')!;
+
+  let drawing = false;
+  let mode: 'free' | 'arrow' | 'rect' = 'free';
+  let startX = 0, startY = 0;
+  let snapshot: ImageData | null = null;
+
+  // Scope tracking
+  type ScopeInfo = {
+    selector: string;
+    boundingBox: { x: number; y: number; width: number; height: number };
+  } | null;
+  let currentScope: ScopeInfo = null;
+
+  // Stroke recording
+  type Stroke = {
+    type: 'free' | 'arrow' | 'rect';
+    color: string;
+    size: number;
+    points?: number[][];   // for freehand: [[x,y], ...]
+    from?: number[];       // for arrow: [x,y]
+    to?: number[];         // for arrow: [x,y]
+    x?: number;            // for rect
+    y?: number;
+    w?: number;
+    h?: number;
+  };
+  let strokes: Stroke[] = [];
+  let currentStroke: Stroke | null = null;
+
+  function positionCanvas(scope: ScopeInfo) {
+    const dpr = window.devicePixelRatio || 1;
+    if (scope) {
+      const bb = scope.boundingBox;
+      const pad = 8;
+      const x = bb.x - pad;
+      const y = bb.y - pad;
+      const w = bb.width + pad * 2;
+      const h = bb.height + pad * 2;
+      canvas.style.left = x + 'px';
+      canvas.style.top = y + 'px';
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.scale(dpr, dpr);
+      panel.classList.remove('fullpage');
+      scopeLabel.textContent = scope.selector.slice(0, 30);
+    } else {
+      canvas.style.left = '0';
+      canvas.style.top = '0';
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.scale(dpr, dpr);
+      panel.classList.add('fullpage');
+      scopeLabel.textContent = 'full page';
+    }
+  }
+
+  function openPanel(scope?: ScopeInfo) {
+    currentScope = scope || null;
+    strokes = [];
+    panel.classList.remove('draw-hidden');
+    toggle.style.display = 'none';
+    positionCanvas(currentScope);
+  }
+
+  function closePanel() {
+    panel.classList.add('draw-hidden');
+    toggle.style.display = 'flex';
+    currentScope = null;
+  }
+
+  toggle.addEventListener('click', () => openPanel());
+  closeBtn.addEventListener('click', closePanel);
+
+  arrowBtn.addEventListener('click', () => {
+    mode = mode === 'arrow' ? 'free' : 'arrow';
+    arrowBtn.classList.toggle('active', mode === 'arrow');
+    rectBtn.classList.remove('active');
+  });
+
+  rectBtn.addEventListener('click', () => {
+    mode = mode === 'rect' ? 'free' : 'rect';
+    rectBtn.classList.toggle('active', mode === 'rect');
+    arrowBtn.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+      e.preventDefault();
+      panel.classList.contains('draw-hidden') ? openPanel() : closePanel();
+    }
+    if (e.key === 'Escape' && !panel.classList.contains('draw-hidden')) {
+      closePanel();
+    }
+  });
+
+  // Listen for Agentation element selection
+  window.addEventListener('agentation:select', ((e: CustomEvent) => {
+    const { selector, boundingBox } = e.detail;
+    openPanel({ selector, boundingBox });
+  }) as EventListener);
+
+  // Get mouse position relative to canvas element
+  function getPos(e: MouseEvent) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  canvas.addEventListener('mousedown', (e) => {
+    drawing = true;
+    const pos = getPos(e);
+    startX = pos.x;
+    startY = pos.y;
+    if (mode === 'free') {
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+      currentStroke = { type: 'free', color: colorInput.value, size: parseInt(sizeInput.value), points: [[pos.x, pos.y]] };
+    } else {
+      snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      currentStroke = { type: mode, color: colorInput.value, size: parseInt(sizeInput.value) };
+    }
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (!drawing) return;
+    const pos = getPos(e);
+    ctx.strokeStyle = colorInput.value;
+    ctx.lineWidth = parseInt(sizeInput.value);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (mode === 'free') {
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+      if (currentStroke?.points) currentStroke.points.push([pos.x, pos.y]);
+    } else if (snapshot) {
+      ctx.putImageData(snapshot, 0, 0);
+      ctx.beginPath();
+      if (mode === 'rect') {
+        ctx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+      } else if (mode === 'arrow') {
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        const angle = Math.atan2(pos.y - startY, pos.x - startX);
+        const headLen = 14;
+        ctx.moveTo(pos.x, pos.y);
+        ctx.lineTo(pos.x - headLen * Math.cos(angle - 0.4), pos.y - headLen * Math.sin(angle - 0.4));
+        ctx.moveTo(pos.x, pos.y);
+        ctx.lineTo(pos.x - headLen * Math.cos(angle + 0.4), pos.y - headLen * Math.sin(angle + 0.4));
+        ctx.stroke();
+      }
+    }
+  });
+
+  canvas.addEventListener('mouseup', (e) => {
+    if (currentStroke) {
+      const pos = getPos(e);
+      if (currentStroke.type === 'arrow') {
+        currentStroke.from = [startX, startY];
+        currentStroke.to = [pos.x, pos.y];
+      } else if (currentStroke.type === 'rect') {
+        currentStroke.x = Math.min(startX, pos.x);
+        currentStroke.y = Math.min(startY, pos.y);
+        currentStroke.w = Math.abs(pos.x - startX);
+        currentStroke.h = Math.abs(pos.y - startY);
+      }
+      strokes.push(currentStroke);
+      currentStroke = null;
+    }
+    drawing = false;
+    snapshot = null;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    drawing = false;
+    snapshot = null;
+    currentStroke = null;
+  });
+
+  clearBtn.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokes = [];
+  });
+
+  // Build structured JSON output
+  function buildOutput(): string {
+    const canvasRect = canvas.getBoundingClientRect();
+    const output: Record<string, any> = {
+      page: window.location.pathname,
+      viewport: [window.innerWidth, window.innerHeight],
+      scrollY: Math.round(window.scrollY),
+      scope: currentScope
+        ? { selector: currentScope.selector, boundingBox: currentScope.boundingBox }
+        : 'full-page',
+      canvasSize: [Math.round(canvasRect.width), Math.round(canvasRect.height)],
+      strokes: strokes.map(s => {
+        if (s.type === 'free') {
+          // Simplify points — keep every Nth point to reduce size
+          const simplified = s.points!.filter((_, i) => i % 3 === 0 || i === s.points!.length - 1)
+            .map(p => [Math.round(p[0]), Math.round(p[1])]);
+          return { type: 'free', color: s.color, size: s.size, points: simplified };
+        }
+        if (s.type === 'arrow') {
+          return { type: 'arrow', color: s.color, size: s.size, from: s.from!.map(Math.round), to: s.to!.map(Math.round) };
+        }
+        return { type: 'rect', color: s.color, size: s.size, x: Math.round(s.x!), y: Math.round(s.y!), w: Math.round(s.w!), h: Math.round(s.h!) };
+      }),
+    };
+    return JSON.stringify(output, null, 2);
+  }
+
+  copyBtn.addEventListener('click', async () => {
+    const origText = copyBtn.textContent;
+    try {
+      const json = buildOutput();
+      await navigator.clipboard.writeText(json);
+      copyBtn.textContent = 'Copied!';
+    } catch {
+      copyBtn.textContent = 'Error';
+    }
+    setTimeout(() => { copyBtn.textContent = origText; }, 1500);
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = `annotation-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!panel.classList.contains('draw-hidden')) {
+      positionCanvas(currentScope);
+    }
+  });
+</script>
