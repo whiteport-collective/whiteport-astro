@@ -8,13 +8,18 @@ const SftpClient = require('ssh2-sftp-client');
 const fs = require('fs');
 const path = require('path');
 
+require('dotenv').config();
 const CONFIG = {
-  host: 'mu.hostup.se',
-  port: 22,
-  username: 'astrowhi',
-  password: '6wg7lhK8e9eh2Iio8%6A',
+  host: process.env.DEPLOY_HOST || 'mu.hostup.se',
+  port: parseInt(process.env.DEPLOY_PORT || '22'),
+  username: process.env.DEPLOY_ASTRO_USER,
+  password: process.env.DEPLOY_ASTRO_PASS,
   remoteBase: '/home/astrowhi/public_html',
 };
+if (!CONFIG.username || !CONFIG.password) {
+  console.error('Missing DEPLOY_ASTRO_USER / DEPLOY_ASTRO_PASS in .env');
+  process.exit(1);
+}
 
 const DIST_DIR = path.join(__dirname, 'dist');
 

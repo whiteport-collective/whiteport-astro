@@ -10,13 +10,18 @@ const SftpClient = require('ssh2-sftp-client');
 const fs = require('fs');
 const path = require('path');
 
+require('dotenv').config();
 const CONFIG = {
-  host: 'mu.hostup.se',
-  port: 22,
-  username: 'aiwhitep',
-  password: 'oGzvx%6&tOz%NEfeREHL',
-  remoteBase: '/home/aiwhitep/public_html',
+  host: process.env.DEPLOY_HOST || 'mu.hostup.se',
+  port: parseInt(process.env.DEPLOY_PORT || '22'),
+  username: process.env.DEPLOY_USER,
+  password: process.env.DEPLOY_PASS,
+  remoteBase: `/home/${process.env.DEPLOY_USER || 'aiwhitep'}/public_html`,
 };
+if (!CONFIG.username || !CONFIG.password) {
+  console.error('Missing DEPLOY_USER / DEPLOY_PASS in .env');
+  process.exit(1);
+}
 
 const DIST_DIR = path.join(__dirname, 'dist');
 const EXCLUDE = ['media/gdrive']; // downloaded server-side

@@ -6,12 +6,17 @@
 
 const { Client } = require('ssh2');
 
+require('dotenv').config();
 const CONFIG = {
-  host: 'mu.hostup.se',
-  port: 22,
-  username: 'aiwhitep',
-  password: 'oGzvx%6&tOz%NEfeREHL',
+  host: process.env.DEPLOY_HOST || 'mu.hostup.se',
+  port: parseInt(process.env.DEPLOY_PORT || '22'),
+  username: process.env.DEPLOY_USER,
+  password: process.env.DEPLOY_PASS,
 };
+if (!CONFIG.username || !CONFIG.password) {
+  console.error('Missing DEPLOY_USER / DEPLOY_PASS in .env');
+  process.exit(1);
+}
 
 const command = process.argv[2] || 'echo "No command specified"';
 
