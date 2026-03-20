@@ -5,7 +5,7 @@ author: Marten Angner
 categories:
   - wds
 gallery:
-  - gdriveId: 1apxd70WhamJmVfcVs4-9WKCBRgeqJKEi
+  - gdriveId: 10FmaGqsP95stFnXNU47fi333FXf_3NZM
     alt: WDS v0.4.0 Build Specification Release — chalkboard infographic
     type: image
     width: 3712
