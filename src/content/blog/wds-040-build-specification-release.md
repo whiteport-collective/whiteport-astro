@@ -4,6 +4,19 @@ publishDate: 2026-03-19T18:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+gallery:
+  - gdriveId: 1apxd70WhamJmVfcVs4-9WKCBRgeqJKEi
+    alt: WDS v0.4.0 Build Specification Release — chalkboard infographic
+    type: image
+    width: 3712
+    height: 4608
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 ---
 
 We just shipped the biggest WDS update since the agent restructuring. Four features that change how the system works at a fundamental level.
