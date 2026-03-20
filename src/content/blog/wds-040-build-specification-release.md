@@ -1,6 +1,6 @@
 ---
 title: "WDS v0.4.0 — The Build Specification Release"
-publishDate: 2026-03-20T00:00:00.000Z
+publishDate: 2026-03-19T18:00:00.000Z
 author: Marten Angner
 categories:
   - wds
