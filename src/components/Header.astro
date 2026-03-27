@@ -126,7 +126,7 @@ const pathname = Astro.url.pathname;
     if (window.scrollY > 50 || alwaysSolid) {
       header?.classList.add('header-fixed');
       nav?.classList.add('header-fixed');
-    } else {
+    } else if (!alwaysSolid) {
       header?.classList.remove('header-fixed');
       nav?.classList.remove('header-fixed');
     }
