@@ -5,22 +5,45 @@ author: Marten Angner
 categories:
   - strategy
   - ai
-tags:
   - wds
+  - leadership
+tags:
   - design-process
   - ai-agents
   - trigger-mapping
   - design-system
   - agentic-development
+  - design-teams
+  - frameworks
 excerpt: "Everyone's chasing AI tools right now. Every week there's a new shiny thing. But most AI design tools make individuals faster without making teams better. Here's what I learned running an end-to-end AI agent framework in a real design team."
+offers:
+  - title: "Leading a design team into the AI era?"
+    label: "For team leads & founders"
+    description: "I help design teams ship faster without losing craft. Strategy, specs, and AI agents — working together in one process. Book a free 30-min call and I'll show you how."
+    cta: "Book a free consultation →"
+    href: https://cal.com/whiteport
 featuredImage:
-  src: /images/blog/wds-lessons-learned/hero.png
+  src: /images/blog/wds-lessons-learned/hero-portrait.jpg
 gallery:
-  - src: /images/blog/wds-lessons-learned/hero.png
-    alt: "WDS Lessons Learned -The full AI agent framework for design teams"
+  - src: /images/blog/wds-lessons-learned/hero-wide.jpg
+    alt: "Lessons Learned: Running the WDS AI Agent Framework in a Design Team"
     type: image
-    width: 5504
-    height: 3072
+    width: 1200
+    height: 670
+    display:
+      - gallery
+      - share_image
+  - src: /images/blog/wds-lessons-learned/hero-portrait.jpg
+    alt: "Lessons Learned: Running the WDS AI Agent Framework in a Design Team"
+    type: image
+    width: 800
+    height: 1071
+    display:
+      - archive
+      - thumbnail
+      - instagram
+      - facebook
+      - linkedin
 ---
 
 After months of running an AI agent framework in a real design team, these are the lessons that surprised us the most. Not about which model is best or which tool is fastest - but about how the entire role of design changes when agents can build from specifications.
@@ -159,7 +182,7 @@ Phase 8 is **Product Evolution** - the full WDS pipeline in miniature. The same 
 
 Whether you're building something new or improving something old, the principle is the same. The trigger map evolves. New scenarios emerge. The design system grows. Each round makes everything smarter.
 
-### What this means for your team
+## What this means for your team
 
 WDS isn't another tool to chase. It's not another hype. It is a **stable process** that won't go out of style just because the models get better - quite the opposite. Here's what you get:
 
@@ -180,6 +203,14 @@ No more throwing wireframes over the wall. No more "but why did we build it this
 
 [👉 Get started with WDS on GitHub](https://github.com/whiteport-collective/whiteport-design-studio)
 
-### Need help implementing this in your team?
-
-Connect with me and I'll send you a **free handbook** for founders and design team leads - a practical guide to rolling out WDS in your organization. 📬
+<div style="display:flex; align-items:flex-end; gap:32px; padding-bottom:0; margin-top:48px; margin-bottom:-24px; border-bottom:1px solid #e8ecf0;">
+  <div style="flex:1; padding-bottom:32px;">
+    <h2 style="font-size:30px; font-weight:300; line-height:1.3; color:#2e2e2e; margin:0 0 12px 0;">Need help implementing this in your team?</h2>
+    <p style="font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#999; margin:0 0 16px 0;">Mårten Angner · Founder, Whiteport</p>
+    <p style="font-size:18px; font-weight:300; line-height:1.7; color:#2e2e2e; margin:0 0 16px 0;">I help design and development teams get started with AI — and work smarter once they're up and running. Whether you need hands-on workshops, process design, or someone to guide your first agentic project from strategy to production, I've done it and I can help you do it too.</p>
+    <p style="font-size:18px; font-weight:300; line-height:1.7; color:#2e2e2e; margin:0;">Connect with me and I'll send you a <strong>free handbook</strong> for founders and design team leads — a practical guide to rolling out WDS in your organization. 📬</p>
+  </div>
+  <div style="flex:0 0 45%; margin-right:-20px;">
+    <img src="/images/team/marten-angner-cropped-600.png" alt="Mårten Angner" style="width:100%; height:auto; display:block;" />
+  </div>
+</div>

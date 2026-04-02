@@ -59,9 +59,9 @@
 }
 .prose p {
   margin-bottom: 1.5em;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 27px;
+  line-height: 30px;
 }
 .prose > p:first-child,
 .prose > p:nth-child(2) {
@@ -98,9 +98,9 @@
 }
 .prose li {
   margin-bottom: 0.35em;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 27px;
+  line-height: 30px;
 }
 .prose li strong {
   font-weight: 500;
@@ -125,6 +125,58 @@
   margin: 1.5em 0;
   color: var(--color-wp-grey);
   font-style: italic;
+}
+
+/* Content blocks — wraps each h3 section in long-form articles */
+.prose .content-block {
+  background: #fff;
+  border: 1px solid #E8ECF0;
+  border-radius: 12px;
+  padding: 40px 44px;
+  margin-bottom: 48px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.prose .content-block h3 {
+  margin-top: 0;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 32px;
+}
+/* Insight callout — upgraded blockquote inside content blocks */
+.prose .content-block blockquote {
+  background: var(--color-wp-section-bg);
+  border-left: 4px solid var(--color-wp-red);
+  border-radius: 0 8px 8px 0;
+  padding: 24px 28px;
+  margin: 28px 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: #2e2e2e;
+  font-style: italic;
+}
+.prose .content-block blockquote p:last-child,
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+/* Blockquotes outside content blocks also italic + larger */
+.prose blockquote {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.65;
+  font-style: italic;
+}
+@media (max-width: 640px) {
+  .prose .content-block {
+    padding: 28px 24px;
+    margin-bottom: 32px;
+  }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .prose .content-block {
+    padding: 36px 36px;
+    margin-bottom: 40px;
+  }
 }
 .prose img {
   border-radius: 8px;

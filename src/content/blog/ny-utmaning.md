@@ -25,6 +25,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1597
 wpPermalink: "https://whiteport.com/blog/ny-utmaning/"
+tags:
+  - freelance
+  - design
+  - marketing
 ---
 
 🌱 **Letar du efter tillväxt? Då letar jag efter dig.**

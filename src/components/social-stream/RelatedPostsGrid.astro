@@ -1,8 +1,6 @@
 ---
 /**
- * RelatedPostsGrid — full masonry grid with filter buttons.
- * Same layout as blog/index.astro but embedded below a post,
- * pre-filtered to the current post's primary category.
+ * RelatedPostsGrid — 2 rows of most similar posts, with fade + CTA.
  */
 import type { CollectionEntry } from 'astro:content';
 import SocialStreamCard from './SocialStreamCard.astro';
@@ -12,98 +10,114 @@ interface Props {
   tagCounts: Map<string, number>;
   activeCategory: string;
   currentPostId: string;
+  currentTags?: string[];
 }
 
-const { posts, tagCounts, activeCategory, currentPostId } = Astro.props;
-const filteredPosts = posts.filter(p => p.id !== currentPostId);
-const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
-const gridId = 'related-wall';
-const filterId = 'related-filters';
+const { posts, activeCategory, currentPostId, currentTags: currentTagsProp } = Astro.props;
+
+// Score by shared tags, then sort by date (newest first within same score)
+const currentTags = new Set(currentTagsProp || []);
+
+const scored = posts
+  .filter(p => p.id !== currentPostId)
+  .map(p => {
+    const postTags = [...(p.data.categories || []), ...(p.data.tags || [])];
+    const shared = postTags.filter(t => currentTags.has(t)).length;
+    return { post: p, shared };
+  })
+  .filter(s => s.shared > 0) // only posts with matching tags
+  .sort((a, b) => b.shared - a.shared || (b.post.data.publishDate?.getTime() || 0) - (a.post.data.publishDate?.getTime() || 0));
+
+// Show max 8 (2 rows × 4 cols on desktop), fill with recent posts if needed
+// Show max 8 (2 rows × 4 cols on desktop)
+const maxPosts = 9;
+const matchedPosts = scored.map(s => s.post).slice(0, maxPosts);
+const matchedIds = new Set(matchedPosts.map(p => p.id));
+if (matchedPosts.length < maxPosts) {
+  const filler = posts
+    .filter(p => p.id !== currentPostId && !matchedIds.has(p.id))
+    .sort((a, b) => (b.data.publishDate?.getTime() || 0) - (a.data.publishDate?.getTime() || 0))
+    .slice(0, maxPosts - matchedPosts.length);
+  matchedPosts.push(...filler);
+}
+const displayPosts = matchedPosts;
+
+// Collect tags that appear in displayed posts, sorted by frequency
+const tagFreq = new Map<string, number>();
+displayPosts.forEach(p => {
+  [...(p.data.categories || []), ...(p.data.tags || [])]
+    .filter(t => currentTags.has(t))
+    .forEach(t => tagFreq.set(t, (tagFreq.get(t) || 0) + 1));
+});
+const relatedTags = [...tagFreq.entries()].sort((a, b) => b[1] - a[1]).map(([tag]) => tag);
+
+const blogLink = activeCategory ? `/blog/?filter=${encodeURIComponent(activeCategory)}` : '/blog/';
 ---
 
-{filteredPosts.length > 0 && (
-  <section class="bg-wp-section-bg py-16 mt-8">
+{displayPosts.length > 0 && (
+  <section class="related-section bg-wp-section-bg py-16 mt-8" style="padding-bottom:0; position:relative; z-index:0;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <header class="mb-8">
-        <h2 class="text-2xl sm:text-3xl font-bold mb-4">Related posts</h2>
+      <h2 style="font-size:36px; font-weight:300; line-height:1.2; text-align:center; margin-bottom:16px;">Related posts</h2>
+      {currentTags.size > 0 && (
+        <div style="text-align:center; margin-bottom:40px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px;">
+          {[...currentTags].slice(0, 4).map(tag => (
+            <a href={`/blog/?filter=${encodeURIComponent(tag)}`} class="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-wp-blue/10 text-wp-blue no-underline hover:bg-wp-blue hover:text-white transition-colors">{tag}</a>
+          ))}
+        </div>
+      )}
 
-        {sortedTags.length > 0 && (
-          <div class="flex flex-wrap gap-2" id={filterId}>
-            <button
-              class:list={['related-filter-btn px-3 py-1 text-xs font-medium rounded-full border transition-colors', !activeCategory ? 'active border-wp-blue bg-wp-blue text-white' : 'border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10']}
-              data-filter="all"
-            >
-              All ({filteredPosts.length})
-            </button>
-            {sortedTags.map(([tag, count]) => (
-              <button
-                class:list={['related-filter-btn px-3 py-1 text-xs font-medium rounded-full border transition-colors', tag === activeCategory ? 'active border-wp-blue bg-wp-blue text-white' : 'border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10']}
-                data-filter={tag}
-              >
-                {tag} ({count})
-              </button>
-            ))}
-          </div>
-        )}
-      </header>
-
-      <div class="related-wall" id={gridId}>
-        {filteredPosts.map((post) => (
-          <div
-            class="related-card"
-            data-categories={post.data.categories?.join(',') || ''}
-            data-tags={post.data.tags?.join(',') || ''}
-          >
-            <SocialStreamCard post={post} />
-          </div>
-        ))}
+      <div class="related-grid-wrap">
+        <div class="related-grid" id="related-grid">
+          {displayPosts.map((post) => (
+            <div class="related-card">
+              <SocialStreamCard post={post} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
 )}
 
 <style>
-  .related-wall {
-    columns: 1;
-    column-gap: 1.5rem;
+  .related-grid-wrap {
+    position: relative;
   }
+
+  .related-grid {
+    columns: 2;
+    column-gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    .related-grid { columns: 3; }
+  }
+  @media (min-width: 1280px) {
+    .related-grid { columns: 4; }
+  }
+
   .related-card {
     break-inside: avoid;
     margin-bottom: 1rem;
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
   .related-card.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  @media (min-width: 640px) {
-    .related-wall { columns: 2; }
-  }
-  @media (min-width: 1024px) {
-    .related-wall { columns: 3; }
-  }
-  @media (min-width: 1500px) {
-    .related-wall { columns: 4; }
-  }
+
 </style>
 
-<script define:vars={{ gridId, filterId, activeCategory }}>
-  // Same masonry logic as blog index, scoped to this grid
-  const wall = document.getElementById(gridId);
-  if (wall) {
-    const allCards = Array.from(wall.querySelectorAll('.related-card'));
-
-    function revealWhenImageReady(el) {
-      const img = el.querySelector('img');
-      if (!img || img.complete) { enqueue(el); return; }
-      img.addEventListener('load', () => enqueue(el), { once: true });
-      img.addEventListener('error', () => enqueue(el), { once: true });
-    }
+<script is:inline define:vars={{ relatedGridId: 'related-grid' }}>
+  const grid = document.getElementById(relatedGridId);
+  if (grid) {
+    const cards = Array.from(grid.querySelectorAll('.related-card'));
 
     let queue = [];
     let draining = false;
+
     function enqueue(el) {
       queue.push(el);
       if (!draining) { draining = true; drainQueue(); }
@@ -112,80 +126,26 @@ const filterId = 'related-filters';
       if (queue.length === 0) { draining = false; return; }
       const el = queue.shift();
       el.classList.add('visible');
-      setTimeout(drainQueue, 100);
+      setTimeout(drainQueue, 80);
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            revealWhenImageReady(entry.target);
+            const img = entry.target.querySelector('img');
+            if (!img || img.complete) { enqueue(entry.target); }
+            else {
+              img.addEventListener('load', () => enqueue(entry.target), { once: true });
+              img.addEventListener('error', () => enqueue(entry.target), { once: true });
+            }
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
 
-    function reorder(cards) {
-      const w = window.innerWidth;
-      const cols = w < 640 ? 1 : w < 1024 ? 2 : w < 1500 ? 3 : 4;
-      if (cols <= 1) return;
-      const perCol = Math.ceil(cards.length / cols);
-      const reordered = new Array(cards.length);
-      for (let i = 0; i < cards.length; i++) {
-        const row = Math.floor(i / cols);
-        const col = i % cols;
-        const newPos = col * perCol + row;
-        if (newPos < cards.length) reordered[newPos] = cards[i];
-      }
-      const filled = reordered.filter(Boolean);
-      const remaining = cards.filter(c => !filled.includes(c));
-      let ri = 0;
-      for (let i = 0; i < reordered.length; i++) {
-        if (!reordered[i] && ri < remaining.length) reordered[i] = remaining[ri++];
-      }
-      reordered.filter(Boolean).forEach(card => wall.appendChild(card));
-    }
-
-    function applyFilter(filter) {
-      allCards.forEach(card => {
-        card.classList.remove('visible');
-        if (filter === 'all') { card.style.display = ''; return; }
-        const cats = (card.dataset.categories || '').split(',').filter(Boolean);
-        const tags = (card.dataset.tags || '').split(',').filter(Boolean);
-        card.style.display = (cats.includes(filter) || tags.includes(filter)) ? '' : 'none';
-      });
-      const visible = allCards.filter(c => c.style.display !== 'none');
-      reorder(visible);
-      queue = [];
-      draining = false;
-      visible.forEach(card => observer.observe(card));
-    }
-
-    // Apply initial filter if a category is set
-    if (activeCategory) {
-      applyFilter(activeCategory);
-    } else {
-      reorder(allCards);
-      allCards.forEach(card => observer.observe(card));
-    }
-
-    // Filter buttons
-    const filterContainer = document.getElementById(filterId);
-    if (filterContainer) {
-      filterContainer.querySelectorAll('.related-filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const filter = btn.dataset.filter;
-          filterContainer.querySelectorAll('.related-filter-btn').forEach(b => {
-            b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
-            b.classList.add('border-wp-blue/20', 'text-wp-blue');
-          });
-          btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
-          btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
-          applyFilter(filter);
-        });
-      });
-    }
+    cards.forEach(card => observer.observe(card));
   }
 </script>

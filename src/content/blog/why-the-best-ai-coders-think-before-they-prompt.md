@@ -9,6 +9,9 @@ tags:
   - strategic-thinking
   - wds
   - design-process
+  - strategy
+  - vibe-coding
+  - prompt-engineering
 excerpt: "You've burned 3 hours and $50 in AI credits... and you're further from done than when you started. Here's the uncomfortable truth: the problem isn't AI. It's that you skipped strategy."
 gallery:
   - gdriveId: 1IMEKN8bL2lXwV5QM0TKam4ZiExh8Y-j7

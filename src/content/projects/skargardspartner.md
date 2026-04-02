@@ -80,7 +80,7 @@ blocks:
     name: "Sebastian Karlström"
     role: "Founder & CEO"
     company: "Skärgårdspartner"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-testimonial-150x150.jpg"
+    avatar: "https://whiteport.com/wp-content/uploads/2025/04/SebastianKarlstrom-150x150.jpg"
 ---
 
 Reducing admin, increasing engagement — with a smarter app for electricians.

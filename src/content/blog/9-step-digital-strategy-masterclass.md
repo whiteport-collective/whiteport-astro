@@ -10,6 +10,9 @@ tags:
   - wds
   - design-process
   - lean-startup
+  - strategy
+  - frameworks
+  - leadership
 excerpt: "Strategy is one of those words that gets tossed around like confetti. At Whiteport Design Studio, we treat strategy as a tool with a sharp edge."
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-13-9-Step-Strategy-Masterclass-HD.jpg"

@@ -4,6 +4,13 @@ publishDate: 2025-12-16T00:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+tags:
+  - wds
+  - ai-agents
+  - design-process
+  - trigger-mapping
+  - design-system
+  - workshops
 gallery:
   - gdriveId: 1lTr5tNv2d7l9HWw1nfJP6t5BHmlJDk_p
     alt: 2025-12-22--WDS-Sessions-1--Event-Facebook.jpg

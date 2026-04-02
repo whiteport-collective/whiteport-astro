@@ -15,6 +15,10 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+tags:
+  - wds
+  - ai-agents
+  - agentic-development
 socialPosts:
   - platform: instagram
     postText: "Thanks for the book @sambhagwat\nIt was really really helpful in the work with my free and open source AI Agent framework for designers!\nWhiteport Design Studio is now available for anyone who wish to "

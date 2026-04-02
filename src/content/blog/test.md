@@ -4,6 +4,10 @@ publishDate: 2024-12-03T10:27:04.000Z
 author: Vladislav C
 categories:
   - digital-design
+tags:
+  - design
+  - strategy
+  - ux
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2024/10/6.-Tickin.jpg"
     alt: 6.-Tickin.jpg

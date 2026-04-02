@@ -16,6 +16,9 @@ gallery:
 # WordPress migration metadata
 wpId: 1265
 wpPermalink: "https://whiteport.com/blog/welcome-to-whiteport/"
+tags:
+  - design
+  - ux
 ---
 
 🎪Whiteport is a Stockholm based digital agency with a passion for making technology accessible for any company.

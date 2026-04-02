@@ -25,6 +25,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1799
 wpPermalink: "https://whiteport.com/blog/lines-of-thinking-seminar-2/"
+tags:
+  - sketching
+  - design
+  - workshops
 ---
 
 **Awaken your creative Artist at the Lines of Thinking Seminar**

@@ -4,6 +4,11 @@ publishDate: 2026-01-22T12:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+tags:
+  - wds
+  - agentic-development
+  - design-process
+  - workshops
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-29-WDS-Sessions-3-FacebookEvent.jpg"
     alt: 2026-01-29-WDS-Sessions-3-FacebookEvent.jpg

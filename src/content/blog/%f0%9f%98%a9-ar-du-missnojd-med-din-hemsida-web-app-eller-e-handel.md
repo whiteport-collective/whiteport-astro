@@ -18,6 +18,9 @@ gallery:
 # WordPress migration metadata
 wpId: 1846
 wpPermalink: "https://whiteport.com/blog/%f0%9f%98%a9-ar-du-missnojd-med-din-hemsida-web-app-eller-e-handel/"
+tags:
+  - ux
+  - design
 ---
 
 Du är inte ensam.

@@ -11,7 +11,8 @@ const { post } = Astro.props;
 const { title, publishDate, categories, gallery, creativeNote, excerpt } = post.data;
 const description = creativeNote || excerpt;
 const hasMedia = gallery && gallery.length > 0;
-const firstImage = hasMedia ? gallery[0] : null;
+const thumbnailImage = hasMedia ? gallery.find(g => g.display?.includes('thumbnail')) : null;
+const firstImage = thumbnailImage || (hasMedia ? gallery[0] : null);
 const isVideo = firstImage?.type === 'video';
 const isYouTube = !!firstImage?.youtubeId;
 // For video cards, use poster thumbnail (lightweight) instead of the video file
@@ -21,14 +22,14 @@ const thumbSrc = firstImage
 ---
 
 <a href={`/blog/${post.id}/`} class="group block no-underline stream-card">
-  <article class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100">
+  <article class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:scale-[1.03] transition-all duration-300 overflow-hidden border border-gray-100">
     <!-- Thumbnail — natural aspect ratio, no forced dimensions -->
     {thumbSrc ? (
       <div class="overflow-hidden bg-wp-section-bg relative">
         <img
           src={thumbSrc}
           alt={firstImage?.alt || title}
-          class="w-full block group-hover:scale-105 transition-transform duration-300"
+          class="w-full block"
           loading="eager"
           width={firstImage?.width}
           height={firstImage?.height}

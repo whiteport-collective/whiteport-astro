@@ -10,10 +10,10 @@ const tagCounts = collectTags(posts);
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<BaseLayout title="Blog" description="Articles, insights and creative work from Whiteport.">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <header class="mb-8">
-      <h1 class="text-3xl sm:text-4xl font-bold">Blog</h1>
+<BaseLayout title="Blog" description="Articles, insights and creative work from Whiteport." headerSolid>
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-32">
+    <header class="mb-12">
+      <h1 class="text-[48px] leading-[54px] font-light text-[#2e2e2e]">Blog</h1>
       <p class="text-wp-grey mt-2">Articles, insights and creative work from our studio.</p>
 
       {sortedTags.length > 0 && (
@@ -35,12 +35,17 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         </div>
       )}
     </header>
+  </div>
 
-    <!-- CSS columns masonry — fills top-down from top-left -->
-    <div class="stream-wall" id="stream-wall">
+  <!-- Stream grid — CSS columns masonry, loaded in blocks of 8 rows -->
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div id="stream-container"></div>
+
+    <!-- Hidden source: all cards rendered server-side -->
+    <div id="stream-source" style="display:none;">
       {posts.map((post) => (
         <div
-          class="stream-card"
+          class="stream-item"
           data-categories={post.data.categories?.join(',') || ''}
           data-tags={post.data.tags?.join(',') || ''}
         >
@@ -49,52 +54,69 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
       ))}
     </div>
 
+    <div id="load-more-wrap" style="display:none; text-align:center; padding:2rem 0;">
+      <button id="load-more-btn" class="inline-flex items-center gap-2 px-7 py-3 bg-[#043F76] text-white text-sm font-medium rounded-full hover:bg-[#5386B5] transition-colors" style="box-shadow:0 2px 8px rgba(4,63,118,0.2);">
+        Visa fler
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+        </svg>
+      </button>
+    </div>
+
     {posts.length === 0 && (
       <p class="text-center text-wp-grey py-12">No posts yet.</p>
     )}
   </div>
 </BaseLayout>
 
-<style>
-  .stream-wall {
+<style is:global>
+  .stream-block {
     columns: 1;
-    column-gap: 1.5rem;
+    column-gap: 1rem;
+    margin-bottom: 2rem;
   }
-  .stream-card {
+  .stream-item {
     break-inside: avoid;
     margin-bottom: 1rem;
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  .stream-card.visible {
+  .stream-item.visible {
     opacity: 1;
     transform: translateY(0);
   }
   @media (min-width: 640px) {
-    .stream-wall { columns: 2; }
+    .stream-block { columns: 2; }
   }
   @media (min-width: 1024px) {
-    .stream-wall { columns: 3; }
+    .stream-block { columns: 3; }
   }
-  @media (min-width: 1500px) {
-    .stream-wall { columns: 4; }
+  @media (min-width: 1400px) {
+    .stream-block { columns: 4; }
   }
 </style>
 
 <script>
-  const wall = document.getElementById('stream-wall')!;
-  const allCards = Array.from(wall.querySelectorAll<HTMLElement>('.stream-card'));
+  const source = document.getElementById('stream-source')!;
+  const container = document.getElementById('stream-container')!;
+  const loadMoreWrap = document.getElementById('load-more-wrap')!;
+  const loadMoreBtn = document.getElementById('load-more-btn')!;
 
-  // Only reveal a card once its cover image is loaded
-  function revealWhenImageReady(el: HTMLElement) {
-    const img = el.querySelector<HTMLImageElement>('img');
-    if (!img || img.complete) { enqueue(el); return; }
-    img.addEventListener('load', () => enqueue(el), { once: true });
-    img.addEventListener('error', () => enqueue(el), { once: true });
+  const allCards = Array.from(source.querySelectorAll<HTMLElement>('.stream-item'));
+  let visibleCards = [...allCards];
+  let blocksShown = 0;
+
+  function getCols() {
+    const w = window.innerWidth;
+    return w < 640 ? 1 : w < 1024 ? 2 : w < 1400 ? 3 : 4;
   }
 
-  // Stagger queue — cards get spaced out 150ms apart
+  function getBlockSize() {
+    return getCols() * 12;
+  }
+
+  // Stagger reveal
   let queue: HTMLElement[] = [];
   let draining = false;
   function enqueue(el: HTMLElement) {
@@ -105,7 +127,14 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
     if (queue.length === 0) { draining = false; return; }
     const el = queue.shift()!;
     el.classList.add('visible');
-    setTimeout(drainQueue, 150);
+    setTimeout(drainQueue, 80);
+  }
+
+  function revealWhenImageReady(el: HTMLElement) {
+    const img = el.querySelector<HTMLImageElement>('img');
+    if (!img || img.complete) { enqueue(el); return; }
+    img.addEventListener('load', () => enqueue(el), { once: true });
+    img.addEventListener('error', () => enqueue(el), { once: true });
   }
 
   const observer = new IntersectionObserver(
@@ -117,75 +146,80 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.05 }
   );
 
-  // Reorder DOM so CSS columns (top-down) produces row-first visual order
-  function reorder(cards: HTMLElement[]) {
-    const w = window.innerWidth;
-    const cols = w < 640 ? 1 : w < 1024 ? 2 : w < 1500 ? 3 : 4;
-    if (cols <= 1) return;
+  function showNextBlock() {
+    const blockSize = getBlockSize();
+    const start = blocksShown * blockSize;
+    const end = start + blockSize;
+    const cards = visibleCards.slice(start, end);
+    if (cards.length === 0) return;
 
-    const perCol = Math.ceil(cards.length / cols);
-    const reordered: HTMLElement[] = new Array(cards.length);
+    const block = document.createElement('div');
+    block.className = 'stream-block';
+    cards.forEach(card => {
+      card.style.display = '';
+      block.appendChild(card);
+    });
+    container.appendChild(block);
 
-    for (let i = 0; i < cards.length; i++) {
-      const row = Math.floor(i / cols);
-      const col = i % cols;
-      const newPos = col * perCol + row;
-      if (newPos < cards.length) {
-        reordered[newPos] = cards[i];
-      }
-    }
+    cards.forEach(card => observer.observe(card));
+    blocksShown++;
 
-    const filled = reordered.filter(Boolean);
-    const remaining = cards.filter(c => !filled.includes(c));
-    let ri = 0;
-    for (let i = 0; i < reordered.length; i++) {
-      if (!reordered[i] && ri < remaining.length) {
-        reordered[i] = remaining[ri++];
-      }
-    }
+    // Show/hide load more button
+    loadMoreWrap.style.display = end < visibleCards.length ? '' : 'none';
+  }
 
-    reordered.filter(Boolean).forEach(card => wall.appendChild(card));
+  function resetAndShow() {
+    container.innerHTML = '';
+    blocksShown = 0;
+    queue = [];
+    draining = false;
+    showNextBlock();
   }
 
   function applyFilter(filter: string) {
+    // Reset all cards back to source
     allCards.forEach(card => {
       card.classList.remove('visible');
-      if (filter === 'all') {
-        card.style.display = '';
-        return;
-      }
-      const cats = card.dataset.categories?.split(',') || [];
-      const tags = card.dataset.tags?.split(',') || [];
-      card.style.display = (cats.includes(filter) || tags.includes(filter)) ? '' : 'none';
+      source.appendChild(card);
     });
-    const visible = allCards.filter(c => c.style.display !== 'none');
-    reorder(visible);
-    queue = [];
-    draining = false;
-    visible.forEach(card => observer.observe(card));
+
+    if (filter === 'all') {
+      visibleCards = [...allCards];
+    } else {
+      visibleCards = allCards.filter(card => {
+        const cats = card.dataset.categories?.split(',') || [];
+        const tags = card.dataset.tags?.split(',') || [];
+        return cats.includes(filter) || tags.includes(filter);
+      });
+    }
+
+    resetAndShow();
   }
 
-  // Initial reorder + observe
-  reorder(allCards);
-  allCards.forEach(card => observer.observe(card));
+  // Load more button
+  loadMoreBtn.addEventListener('click', showNextBlock);
 
-  // Re-order on resize
-  let resizeTimer: ReturnType<typeof setTimeout>;
-  let lastCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      const newCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
-      if (newCols !== lastCols) {
-        lastCols = newCols;
-        const active = document.querySelector('.filter-btn.active') as HTMLElement;
-        applyFilter(active?.dataset.filter || 'all');
-      }
-    }, 150);
-  });
+  // Apply ?filter= URL param on load
+  const urlFilter = new URLSearchParams(window.location.search).get('filter');
+  if (urlFilter) {
+    const btn = document.querySelector<HTMLElement>(`.filter-btn[data-filter="${urlFilter}"]`);
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+        b.classList.add('border-wp-blue/20', 'text-wp-blue');
+      });
+      btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+      btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+      applyFilter(urlFilter);
+    } else {
+      resetAndShow();
+    }
+  } else {
+    resetAndShow();
+  }
 
   // Filter buttons
   document.querySelectorAll('.filter-btn').forEach(btn => {

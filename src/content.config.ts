@@ -58,6 +58,8 @@ const blog = defineCollection({
       title: z.string(),
       description: z.string().optional(),
       href: z.string(),
+      cta: z.string().optional(),
+      label: z.string().optional(),
     })).optional(),
 
     // Content metadata

@@ -16,6 +16,9 @@ gallery:
 # WordPress migration metadata
 wpId: 1267
 wpPermalink: "https://whiteport.com/blog/our-vision/"
+tags:
+  - design
+  - ux
 ---
 
 Whiteport’s Vision

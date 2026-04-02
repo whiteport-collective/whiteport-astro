@@ -28,6 +28,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2552
 wpPermalink: "https://whiteport.com/blog/vad-bygger-du-i-mellandagarna/"
+tags:
+  - wds
+  - agentic-development
+  - ai
 ---
 
 Det är något speciellt med tiden mellan jul och nyår. Kalendern har tappat greppet om verkligheten, inkorgen är (för en gångs skull) lite mindre bossig, och världen känns som att den går på halvfart. Som om allt är **inbäddat i bomull**.

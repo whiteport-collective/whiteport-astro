@@ -9,6 +9,9 @@ tags:
   - strategic-thinking
   - wds
   - design-process
+  - strategy
+  - ux
+  - frameworks
 excerpt: "I have been witnessing a trend in the world of digital projects. It seems like everyone focuses on fast prototyping as the preferred way of working. The results have been, quite frankly, not that great."
 gallery:
   - gdriveId: 17YYCJZ_xiQVyf_YyjdJ55pd7oQnm__6a

@@ -27,6 +27,11 @@ gallery:
 # WordPress migration metadata
 wpId: 2755
 wpPermalink: "https://whiteport.com/blog/wds-session-3-lets-get-going/"
+tags:
+  - wds
+  - agentic-development
+  - design-process
+  - workshops
 ---
 
 ## What you’ll learn

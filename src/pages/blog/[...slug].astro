@@ -24,7 +24,9 @@ const allBlog = await getCollection('blog');
 const sorted = getVisibleBlogPosts(allBlog);
 const currentIndex = sorted.findIndex((p) => p.id === post.id);
 const prevPost = currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
+const prevPost2 = currentIndex < sorted.length - 2 ? sorted[currentIndex + 2] : null;
 const nextPost = currentIndex > 0 ? sorted[currentIndex - 1] : null;
+const nextPost2 = currentIndex > 1 ? sorted[currentIndex - 2] : null;
 
 // Build share URL
 const shareUrl = new URL(`/blog/${post.id}/`, Astro.site).href;
@@ -115,9 +117,12 @@ const primaryCategory = categories?.[0] || '';
       </div>
     )}
 
-    <!-- Share buttons -->
-    <div class="mt-6 pt-6 border-t border-gray-100">
-      <p class="text-sm font-medium text-wp-grey mb-3">Share this post:</p>
+  </Fragment>
+
+  <!-- Share buttons in sidebar -->
+  <Fragment slot="sidebar-share">
+    <div class="pt-2">
+      <p style="font-size:14px;" class="font-medium text-wp-grey mb-3">Share this post:</p>
       <div class="flex gap-2">
         <a
           href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
@@ -157,38 +162,112 @@ const primaryCategory = categories?.[0] || '';
     </div>
   </Fragment>
 
-  <Fragment slot="below-main">
-    <!-- Post navigation -->
-    {(prevPost || nextPost) && (
-      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div class="border-t border-gray-100 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <!-- Post navigation — inside article column via after-content-nav slot -->
+  <Fragment slot="after-content-nav">
+    {(prevPost || nextPost) && (() => {
+      const navLabel = (p: typeof prevPost) => {
+        if (!p) return '';
+        const shared = [...(p.data.categories || []), ...(p.data.tags || [])]
+          .find(t => allTags.includes(t));
+        return shared ? `More on ${shared}` : 'Read more';
+      };
+      return (
+      <nav class="mt-8">
+        <div class="flex gap-6">
           {prevPost ? (
-            <a href={`/blog/${prevPost.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline">
-              <span class="text-xs text-wp-grey uppercase tracking-wider">&larr; Older</span>
-              <p class="text-sm font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{prevPost.data.title}</p>
+            <a href={`/blog/${prevPost.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline flex-1">
+              <span class="text-sm text-wp-grey">{navLabel(prevPost)}</span>
+              <p class="text-base font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{prevPost.data.title}</p>
             </a>
-          ) : <div />}
+          ) : nextPost2 ? (
+            <a href={`/blog/${nextPost2.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline flex-1">
+              <span class="text-sm text-wp-grey">{navLabel(nextPost2)}</span>
+              <p class="text-base font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{nextPost2.data.title}</p>
+            </a>
+          ) : <div class="flex-1" />}
           {nextPost ? (
-            <a href={`/blog/${nextPost.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline text-right">
-              <span class="text-xs text-wp-grey uppercase tracking-wider">Newer &rarr;</span>
-              <p class="text-sm font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{nextPost.data.title}</p>
+            <a href={`/blog/${nextPost.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline flex-1">
+              <span class="text-sm text-wp-grey">{navLabel(nextPost)}</span>
+              <p class="text-base font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{nextPost.data.title}</p>
             </a>
-          ) : <div />}
+          ) : prevPost2 ? (
+            <a href={`/blog/${prevPost2.id}/`} class="group block p-4 rounded-lg hover:bg-wp-section-bg transition-colors no-underline flex-1">
+              <span class="text-sm text-wp-grey">{navLabel(prevPost2)}</span>
+              <p class="text-base font-medium group-hover:text-wp-blue transition-colors line-clamp-2 mt-1">{prevPost2.data.title}</p>
+            </a>
+          ) : <div class="flex-1" />}
         </div>
       </nav>
-    )}
+      );
+    })()}
+  </Fragment>
 
+  <Fragment slot="below-main">
     <!-- Related posts grid -->
     <RelatedPostsGrid
       posts={relatedPosts}
       tagCounts={tagCounts}
       activeCategory={primaryCategory}
       currentPostId={post.id}
+      currentTags={allTags}
     />
   </Fragment>
 </SocialStreamPostLayout>
 
 <script>
+  // Content blocks: wrap each h3 section in a card (only for articles with 3+ h3s)
+  (function() {
+    const prose = document.querySelector('.prose');
+    if (!prose) return;
+    const h3s = prose.querySelectorAll(':scope > h3');
+    if (h3s.length < 3) return;
+
+    // Collect intro nodes (everything before first h3)
+    const introNodes: Node[] = [];
+    let node = prose.firstChild;
+    while (node && node !== h3s[0]) {
+      introNodes.push(node);
+      node = node.nextSibling;
+    }
+
+    // For each h3, collect it and all siblings until next h3 or any h2 (outro) or end
+    const sections: Node[][] = [];
+    let outroStart: Node | null = null;
+    for (let i = 0; i < h3s.length; i++) {
+      const sectionNodes: Node[] = [h3s[i]];
+      let sibling: Node | null = h3s[i].nextSibling;
+      const nextH3 = h3s[i + 1] || null;
+      while (sibling && sibling !== nextH3) {
+        if ((sibling as Element).nodeName === 'H2') { outroStart = sibling; break; }
+        sectionNodes.push(sibling);
+        sibling = sibling.nextSibling;
+      }
+      sections.push(sectionNodes);
+      if (outroStart) break;
+    }
+
+    // Collect outro nodes (H2 and everything after the last section)
+    const outroNodes: Node[] = [];
+    let outroNode: Node | null = outroStart;
+    while (outroNode) {
+      outroNodes.push(outroNode);
+      outroNode = outroNode.nextSibling;
+    }
+
+    // Rebuild: intro nodes stay unwrapped, sections get wrapped, outro stays unwrapped
+    prose.innerHTML = '';
+    introNodes.forEach(n => prose.appendChild(n));
+
+    sections.forEach(nodes => {
+      const block = document.createElement('div');
+      block.className = 'content-block';
+      nodes.forEach(n => block.appendChild(n));
+      prose.appendChild(block);
+    });
+
+    outroNodes.forEach(n => prose.appendChild(n));
+  })();
+
   document.querySelectorAll('.copy-url-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const url = (btn as HTMLElement).dataset.url;

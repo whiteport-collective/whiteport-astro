@@ -23,6 +23,12 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2470
 wpPermalink: "https://whiteport.com/blog/things-are-happening-fast/"
+tags:
+  - ai
+  - design-teams
+  - wds
+  - design-process
+  - vibe-coding
 ---
 
 Designers, here me out. **we all just have to embrace AI in 2026.** There is no way around it. But, the good news is that we can choose how we do it💫

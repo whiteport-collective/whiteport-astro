@@ -25,6 +25,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1387
 wpPermalink: "https://whiteport.com/blog/nytt-samarbete/"
+tags:
+  - social-media
+  - marketing
+  - productivity
 ---
 
 𝗗𝗲𝘁 𝗯𝗼̈𝗿𝗷𝗮𝗱𝗲 𝗺𝗲𝗱 𝗲𝗻 𝗲𝗻𝗸𝗲𝗹 𝗳𝗿𝗮̊𝗴𝗮: 𝗩𝗮𝗿𝗳𝗼̈𝗿 𝗴𝗼̈𝗿 𝘃𝗶 𝗱𝗲𝘁 𝘀𝗮̊ 𝗸𝗼𝗺𝗽𝗹𝗶𝗰𝗲𝗿𝗮𝘁?

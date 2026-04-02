@@ -15,6 +15,10 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+tags:
+  - social-media
+  - marketing
+  - productivity
 socialPosts:
   - platform: instagram
     postText: "🌀 Känner du igen dig i att jaga efter bilder och videor för dina inlägg? Spara dem här, airdropa där – det kan bli rörigt och även lite tidsödande.\nI Social Stream finns en smidig integration med Goo"

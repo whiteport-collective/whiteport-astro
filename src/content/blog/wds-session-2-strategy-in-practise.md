@@ -4,6 +4,11 @@ publishDate: 2025-12-31T12:00:00.000Z
 author: Camilla Andersson
 categories:
   - wds
+tags:
+  - wds
+  - strategy
+  - design-process
+  - workshops
 gallery:
   - gdriveId: 1yIR-PJsi13BIyyyw5dNrXAIcFnIPfPXu
     alt: 2025-01-15--WDS-Sessions-2--Event-Facebook.jpg

@@ -37,6 +37,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1790
 wpPermalink: "https://whiteport.com/blog/seminar-feedback/"
+tags:
+  - sketching
+  - workshops
+  - design
 ---
 
 Deltagarna älskar våra skisskurser. **Tack för dessa fantastiska omdömen!** 🙏 Det är när deltagarna sätter igång och skissar, vågar uttrycka sin kreativitet som gör dessa seminarier så speciella.

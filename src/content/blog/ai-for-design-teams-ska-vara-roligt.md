@@ -26,6 +26,12 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2757
 wpPermalink: "https://whiteport.com/blog/ai-for-design-teams-ska-vara-roligt/"
+tags:
+  - ai
+  - design-teams
+  - design-process
+  - wds
+  - leadership
 ---
 
 Hej **designbyråer**, **designteam**, **marknadsavdelningar** och **kommunikationsavdelningar** som jobbar digitalt.

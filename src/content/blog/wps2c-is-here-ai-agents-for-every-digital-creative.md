@@ -4,6 +4,11 @@ publishDate: 2025-09-30T00:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+tags:
+  - ai-agents
+  - agentic-development
+  - wds
+  - design-teams
 gallery:
   - gdriveId: 1HSXynR5g1uqMn6bJoQhwQuuSrp0iu3s7
     alt: 2025-09-30-WPS2C-Available-Now.jpg

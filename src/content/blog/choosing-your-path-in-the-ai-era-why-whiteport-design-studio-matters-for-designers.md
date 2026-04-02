@@ -4,6 +4,12 @@ publishDate: 2026-01-14T15:42:45.000Z
 author: Camilla Andersson
 categories:
   - wds
+tags:
+  - wds
+  - ai
+  - design-teams
+  - design-process
+  - ai-agents
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2026/01/00-Getting-started-Course-Thiumbnail-reference.jpg"
     alt: 00-Getting-started-Course-Thiumbnail-reference.jpg

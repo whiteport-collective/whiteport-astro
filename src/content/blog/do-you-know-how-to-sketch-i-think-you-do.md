@@ -18,6 +18,10 @@ gallery:
 # WordPress migration metadata
 wpId: 2094
 wpPermalink: "https://whiteport.com/blog/do-you-know-how-to-sketch-i-think-you-do/"
+tags:
+  - sketching
+  - design
+  - design-process
 ---
 
 Do you know how to sketch? I believe you can!

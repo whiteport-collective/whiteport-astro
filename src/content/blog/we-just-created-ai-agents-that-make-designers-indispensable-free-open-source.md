@@ -4,6 +4,13 @@ publishDate: 2025-09-29T00:00:00.000Z
 author: Marten Angner
 categories:
   - digital-design
+tags:
+  - ai-agents
+  - agentic-development
+  - wds
+  - design-teams
+  - frameworks
+  - design-process
 gallery:
   - gdriveId: 1kZi5OpqLnLTIfXJG_8H1HfTdU0HI8e_d
     alt: IMG_7545.jpg

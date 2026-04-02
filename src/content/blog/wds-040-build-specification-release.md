@@ -4,8 +4,14 @@ publishDate: 2026-03-19T18:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+tags:
+  - wds
+  - ai-agents
+  - agentic-development
+  - design-process
+  - frameworks
 gallery:
-  - gdriveId: 10FmaGqsP95stFnXNU47fi333FXf_3NZM
+  - src: "/images/blog/wds-040/hero.jpg"
     alt: WDS v0.4.0 Build Specification Release — chalkboard infographic
     type: image
     width: 3712

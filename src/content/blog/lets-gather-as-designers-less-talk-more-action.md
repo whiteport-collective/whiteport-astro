@@ -27,6 +27,12 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2343
 wpPermalink: "https://whiteport.com/blog/lets-gather-as-designers-less-talk-more-action/"
+tags:
+  - design-teams
+  - ai
+  - wds
+  - design-process
+  - workshops
 ---
 
 Jag bjöd in en designer till vår första WDS-session om oss designers och AI nu på måndag 22:e december 17-18 online.* (Vill du också komma, anmäl dig här: [https://whiteport.com/blog/wds-jam-1/](https://whiteport.com/blog/wds-jam-1/))*

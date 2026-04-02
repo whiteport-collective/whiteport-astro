@@ -16,6 +16,9 @@ gallery:
 # WordPress migration metadata
 wpId: 1305
 wpPermalink: "https://whiteport.com/blog/need-smarter-solutions/"
+tags:
+  - design
+  - ux
 ---
 
 Do you cut and paste your business processes? 🤔

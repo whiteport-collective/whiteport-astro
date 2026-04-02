@@ -16,6 +16,10 @@ gallery:
 # WordPress migration metadata
 wpId: 1275
 wpPermalink: "https://whiteport.com/blog/want-to-create-an-app/"
+tags:
+  - design
+  - ux
+  - ai
 ---
 
 📰📲Do you dream of creating an app?

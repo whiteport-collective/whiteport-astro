@@ -18,6 +18,10 @@ gallery:
 # WordPress migration metadata
 wpId: 1317
 wpPermalink: "https://whiteport.com/blog/har-du-svart-att-hinna-med-sociala-medier-har-google-drive-kor-wordpress-da-har-vi-en-cool-grej-till-dig/"
+tags:
+  - social-media
+  - marketing
+  - productivity
 ---
 
 Tycker du att det är tidskrävande att hålla igång dina sociala medier? Önskar du att det fanns ett enklare sätt att planera, samarbeta och publicera inlägg – utan att förlora kontrollen över ditt innehåll?

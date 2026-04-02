@@ -16,6 +16,10 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+tags:
+  - social-media
+  - marketing
+  - productivity
 socialPosts:
   - platform: instagram
     postText: "Vad ska vi posta idag? 😵\nDet här är den ständiga frågan för en entreprenör som försöker nå sina kunder på sociala medier.\nHar du tröttnat på att fråga dig:\n📌 Vad ska vi säga idag?📌 Hur ska vi hinna"

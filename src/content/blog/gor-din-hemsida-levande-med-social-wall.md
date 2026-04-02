@@ -12,6 +12,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1471
 wpPermalink: "https://whiteport.com/blog/gor-din-hemsida-levande-med-social-wall/"
+tags:
+  - social-media
+  - marketing
+  - seo
 ---
 
 Att skapa intressant innehåll för sociala medier är en sak, men vad händer sedan med allt? Ofta hamnar det i det sociala flödet och försvinner efter några dagar – trots att det kan ha ett långsiktigt värde för ditt företag.

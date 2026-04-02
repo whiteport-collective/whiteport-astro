@@ -4,6 +4,11 @@ publishDate: 2026-01-03T00:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+tags:
+  - vibe-coding
+  - strategy
+  - wds
+  - design-process
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2026/01/WDS-Session-2-invitation.mp4"
     alt: WDS-Session-2-invitation.mp4

@@ -23,6 +23,12 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2392
 wpPermalink: "https://whiteport.com/blog/wds-sessions-2-digital-strategy/"
+tags:
+  - strategy
+  - wds
+  - vibe-coding
+  - design-process
+  - design-teams
 ---
 
 Right now, designers everywhere are in a fever-like love affair with vibe-coding.

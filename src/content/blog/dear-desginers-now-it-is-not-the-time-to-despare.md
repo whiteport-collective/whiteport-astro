@@ -27,6 +27,11 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2327
 wpPermalink: "https://whiteport.com/blog/dear-desginers-now-it-is-not-the-time-to-despare/"
+tags:
+  - ai
+  - design-teams
+  - wds
+  - design-process
 ---
 
 🤯 Are you a designer? Feeling overwhelmed by all the AI noise? 

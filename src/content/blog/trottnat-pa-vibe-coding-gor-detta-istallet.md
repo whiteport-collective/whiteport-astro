@@ -25,6 +25,11 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2065
 wpPermalink: "https://whiteport.com/blog/trottnat-pa-vibe-coding-gor-detta-istallet/"
+tags:
+  - vibe-coding
+  - ai
+  - agentic-development
+  - strategy
 ---
 
 **Har du också testat och redan tröttnat på Vibe Coding?**

@@ -16,6 +16,10 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+tags:
+  - social-media
+  - marketing
+  - productivity
 socialPosts:
   - platform: instagram
     postText: Att synas på sociala medier är idag en nödvändighet för de flesta företag. Men trots att plattformarna erbjuder en fantastisk möjlighet att nå ut till sin publik, är det många som kämpar med att hålla

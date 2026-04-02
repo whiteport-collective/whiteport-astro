@@ -25,6 +25,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1541
 wpPermalink: "https://whiteport.com/blog/user-case-skargardspartner/"
+tags:
+  - ux
+  - design-process
+  - design
 ---
 
 **Introduction:**

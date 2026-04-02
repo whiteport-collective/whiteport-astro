@@ -47,7 +47,6 @@ export const COMPANY = {
 
 export const NAV_ITEMS = [
   { label: 'Start', href: '/' },
-  { label: 'Agency', href: '/#agency' },
   { label: 'Projects', href: '/projects/' },
   { label: 'WDS', href: '/wds/' },
   { label: 'Services', href: '/services/' },

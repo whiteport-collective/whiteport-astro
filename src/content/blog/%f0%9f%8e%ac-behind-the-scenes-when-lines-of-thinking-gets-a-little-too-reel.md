@@ -21,6 +21,9 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1814
 wpPermalink: "https://whiteport.com/blog/%f0%9f%8e%ac-behind-the-scenes-when-lines-of-thinking-gets-a-little-too-reel/"
+tags:
+  - sketching
+  - workshops
 ---
 
 Turns out, we all have moments where the brain freezes and the bloopers write themselves. 😂✏️

@@ -17,6 +17,12 @@ gallery:
 # WordPress migration metadata
 wpId: 2086
 wpPermalink: "https://whiteport.com/blog/%e2%9c%8f%ef%b8%8f-sju-saker-du-vinner-pa-att-skissa-med-ai/"
+tags:
+  - sketching
+  - ai
+  - design-process
+  - ai-agents
+  - prototyping
 ---
 
 1. Fart – från idé till prototyp på sekunder.

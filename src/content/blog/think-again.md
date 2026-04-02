@@ -9,6 +9,9 @@ tags:
   - wds
   - ai-workflow
   - design-process
+  - strategy
+  - ai
+  - vibe-coding
 excerpt: "With AI you can accomplish a lot of digital product output in very little time. But when doing gets cheap, people are tempted to skip the thinking."
 socialPosts:
   - platform: instagram

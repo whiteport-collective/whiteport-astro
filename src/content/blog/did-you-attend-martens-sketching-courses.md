@@ -12,6 +12,11 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1758
 wpPermalink: "https://whiteport.com/blog/did-you-attend-martens-sketching-courses/"
+tags:
+  - sketching
+  - design
+  - workshops
+  - ai
 ---
 
 Did you attend one of my previous sketching courses? *Share your story and you can win a new sketching kit! ✨*. And the chance to win free admission to my new updated version of sketching course - Lines of thinking, Conceptual sketches meets AI. ✍️

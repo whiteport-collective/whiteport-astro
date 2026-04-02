@@ -26,6 +26,12 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2629
 wpPermalink: "https://whiteport.com/blog/designers-know-how-to-make-product-people-love/"
+tags:
+  - design-teams
+  - wds
+  - design-process
+  - ai-agents
+  - ux
 ---
 
 This is what changes everything.

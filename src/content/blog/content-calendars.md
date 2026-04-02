@@ -25,6 +25,10 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1360
 wpPermalink: "https://whiteport.com/blog/content-calendars/"
+tags:
+  - social-media
+  - marketing
+  - productivity
 ---
 
 🤔 ***Känner jag någon som har en bra mall för content kalender för sociala medier?***

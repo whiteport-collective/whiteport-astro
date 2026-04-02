@@ -15,6 +15,10 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+tags:
+  - social-media
+  - marketing
+  - productivity
 socialPosts:
   - platform: instagram
     postText: "Din dag UTAN Social Stream:\n\nDu funderar på vad du ska posta ✅\nDu klagar på hur mycket tid Social Media tar ✅\nDu stressar fram ett inlägg i sista minuten ✅\nLeta efter &#8220;den där bilden&#8221; i 17"

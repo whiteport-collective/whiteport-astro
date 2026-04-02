@@ -66,14 +66,6 @@ blocks:
       alt: "Eve Adam mobile screen"
       size: large
 
-  # Block 6: Testimonial (placeholder — WP has BytHjul testimonial here by mistake)
-  - type: testimonial
-    heading: "What our client say"
-    quote: "Med passion och fingertoppskänsla tog sig Teamet på Whiteport sig ann uppdraget att re-designa den nya versionen av BytHjul.com. Det som levererades var inte bara snyggt i varje detalj, utan visade sig också vara enkelt för mig och mina utvecklare att implementera designer!"
-    name: "Johan Dahl"
-    role: "CTO & Utvecklingschef"
-    company: "BytHjul"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-testimonial-150x150.jpg"
 ---
 
 A modern, responsive e-commerce design for a Swedish fashion brand.

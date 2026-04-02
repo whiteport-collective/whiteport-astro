@@ -19,6 +19,10 @@ gallery:
 # WordPress migration metadata
 wpId: 2059
 wpPermalink: "https://whiteport.com/blog/dont-get-stuck-in-the-vibe-coding-casino/"
+tags:
+  - vibe-coding
+  - ai
+  - prompt-engineering
 ---
 
 Have you noticed how your vibe coding credits just vanish? You are being set up!

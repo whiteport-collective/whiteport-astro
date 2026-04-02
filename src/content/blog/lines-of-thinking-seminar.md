@@ -21,6 +21,11 @@ gallery:
       - archive
       - gallery
       - linkedin
+tags:
+  - sketching
+  - design
+  - workshops
+  - ai
 socialPosts:
   - platform: instagram
     postText: "This is a sketching course that will teach you how to sketch in minutes. Guaranteed. But, it is also so much more. It unleashes the full communicative and innovative potential by giving you access to "

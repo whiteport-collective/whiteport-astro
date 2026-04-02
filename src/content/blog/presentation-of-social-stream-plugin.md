@@ -8,6 +8,11 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1313
 wpPermalink: "https://whiteport.com/blog/presentation-of-social-stream-plugin/"
+tags:
+  - social-media
+  - marketing
+  - seo
+  - productivity
 ---
 
 På Whiteport har vi tagit oss an denna utmaning och utvecklat **Social Stream**, ett WordPress-plugin som hjälper dig att skapa, organisera och publicera ditt innehåll på sociala medier – samtidigt som det integreras som en landningssida på din egen webbplats.

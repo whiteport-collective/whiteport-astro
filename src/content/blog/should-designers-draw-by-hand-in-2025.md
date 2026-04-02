@@ -18,6 +18,11 @@ gallery:
 # WordPress migration metadata
 wpId: 2232
 wpPermalink: "https://whiteport.com/blog/should-designers-draw-by-hand-in-2025/"
+tags:
+  - sketching
+  - design-process
+  - ai
+  - design
 ---
 
 **In 2025, designers face a paradox. **We have AI tools that can generate entire interfaces from a single sentence — but what they create is often shallow and requires a ton of refinement before it can be used for anything worthwhile. Professional designers crave more control and precision.

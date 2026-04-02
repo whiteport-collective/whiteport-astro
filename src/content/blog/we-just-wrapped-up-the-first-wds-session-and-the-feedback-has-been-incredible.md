@@ -27,6 +27,11 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2395
 wpPermalink: "https://whiteport.com/blog/we-just-wrapped-up-the-first-wds-session-and-the-feedback-has-been-incredible/"
+tags:
+  - wds
+  - ai-agents
+  - design-teams
+  - workshops
 ---
 
 "insightful" doesn't even begin to cover it. In this session I expected another AI UI generator. What I saw instead was a complete paradigm shift in how we build products. 
