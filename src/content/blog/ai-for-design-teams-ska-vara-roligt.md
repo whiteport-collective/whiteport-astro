@@ -1,5 +1,6 @@
 ---
 title: "Årets bästa fest: att implementera AI på designavdelningen 🎈"
+seoTitle: "Årets bästa fest: AI på designavdelningen"
 publishDate: 2026-01-19T00:00:00.000Z
 author: Marten Angner
 gallery:

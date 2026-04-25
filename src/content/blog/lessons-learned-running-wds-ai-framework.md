@@ -1,5 +1,6 @@
 ---
 title: "Lessons Learned: Running the WDS AI Agent Framework in a Design Team"
+seoTitle: "Lessons Learned: WDS AI Framework in a Design Team"
 publishDate: 2026-03-26T00:00:00.000Z
 author: Marten Angner
 categories:

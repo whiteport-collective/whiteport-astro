@@ -62,6 +62,9 @@ const blog = defineCollection({
       label: z.string().optional(),
     })).optional(),
 
+    // SEO override — title tag only, does not affect H1
+    seoTitle: z.string().optional(),
+
     // Content metadata
     creativeNote: z.string().optional(),
     excerpt: z.string().optional(),

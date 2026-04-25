@@ -1,5 +1,6 @@
 ---
 title: "If everyone is so busy making fast prototypes, who has time to make design that really matters?"
+seoTitle: "Who Has Time to Make Design That Really Matters?"
 publishDate: 2025-12-25T12:00:00.000Z
 author: Marten Angner
 categories:

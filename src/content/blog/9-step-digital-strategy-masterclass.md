@@ -1,5 +1,6 @@
 ---
 title: "A 9-step masterclass in digital strategy: the pain, the pathway, the payoff!"
+seoTitle: "9 Steps: Digital Strategy – Pain, Pathway, Payoff"
 publishDate: 2026-01-13T19:32:00.000Z
 author: Marten Angner
 categories:

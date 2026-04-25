@@ -1,5 +1,6 @@
 ---
 title: "WDS Sessions 1: Say hello to the new AI-Agent framework for designers!"
+seoTitle: "WDS Session 1: Hello to the AI-Agent Framework"
 publishDate: 2025-12-16T00:00:00.000Z
 author: Marten Angner
 categories:

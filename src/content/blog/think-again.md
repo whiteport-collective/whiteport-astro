@@ -1,5 +1,6 @@
 ---
 title: "Do you avoid thinking in digital projects? Think again!"
+seoTitle: "Avoid Thinking in Digital Projects? Think Again!"
 publishDate: 2026-01-17T00:00:00.000Z
 author: Marten Angner
 categories:

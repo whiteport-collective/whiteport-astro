@@ -1,5 +1,6 @@
 ---
 title: "Reimagining Strategy: How we transformed GoalEnvision into a next-gen platform"
+seoTitle: "Reimagining GoalEnvision: Next-Gen Platform Strategy"
 publishDate: 2025-05-02T07:48:32.000Z
 author: Camilla Andersson
 categories:

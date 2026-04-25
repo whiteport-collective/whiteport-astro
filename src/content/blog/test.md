@@ -1,5 +1,6 @@
 ---
 title: "What Is &#8220;Digital Design That Makes Business Sense&#8221;?"
+seoTitle: "What Is 'Digital Design That Makes Business Sense'?"
 publishDate: 2024-12-03T10:27:04.000Z
 author: Vladislav C
 categories:

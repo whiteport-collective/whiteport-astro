@@ -1,5 +1,6 @@
 ---
 title: "WDS Session 4: Concept specifications and super prompting."
+seoTitle: "WDS Session 4: Concept Specs and Super Prompting"
 publishDate: 2026-01-29T14:09:47.000Z
 draft: true
 author: Camilla Andersson

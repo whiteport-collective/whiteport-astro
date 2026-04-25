@@ -15,6 +15,7 @@ interface Offer {
 
 interface Props {
   title: string;
+  seoTitle?: string;
   publishDate?: Date;
   author?: string;
   categories?: string[];
@@ -26,7 +27,7 @@ interface Props {
   allTags?: string[];
 }
 
-const { title, publishDate, author, categories = [], locations = [], mentions = [], gallery = [], creativeNote, offers = [], allTags = [] } = Astro.props;
+const { title, seoTitle, publishDate, author, categories = [], locations = [], mentions = [], gallery = [], creativeNote, offers = [], allTags = [] } = Astro.props;
 
 // Hero gallery: only items with 'gallery' in display, or all if none specified
 const heroGallery = gallery.filter(g => g.display?.includes('gallery')) || [];
@@ -75,7 +76,7 @@ const hasOffers = offers.length > 0;
 <html lang="en">
   <head>
     <BaseHead
-      title={`${title} | Blog | ${SITE_TITLE}`}
+      title={seoTitle || `${title} | Blog | ${SITE_TITLE}`}
       description={creativeNote || title}
       image={ogImage}
       type="article"

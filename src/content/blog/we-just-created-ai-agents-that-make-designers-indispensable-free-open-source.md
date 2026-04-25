@@ -1,5 +1,6 @@
 ---
 title: "We just created AI Agents That Make Designers Indispensable – Free &#038; Open Source"
+seoTitle: "AI Agents That Make Designers Indispensable"
 publishDate: 2025-09-29T00:00:00.000Z
 author: Marten Angner
 categories:

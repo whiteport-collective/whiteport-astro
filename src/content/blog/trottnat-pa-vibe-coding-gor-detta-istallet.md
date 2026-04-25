@@ -1,5 +1,6 @@
 ---
 title: "Vibe Coding är ute. Context engineering också. Nu är det agenter som gäller!"
+seoTitle: "Vibe Coding är ute – nu är det agenter som gäller"
 publishDate: 2025-08-29T00:00:00.000Z
 author: Marten Angner
 gallery:

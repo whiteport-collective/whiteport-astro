@@ -1,5 +1,6 @@
 ---
 title: "WDS — The End-to-End AI Agent Framework for Design Teams. Free and Open Source."
+seoTitle: "WDS: End-to-End AI Agent Framework for Design Teams"
 publishDate: 2026-03-25T10:00:00.000Z
 author: Mårten Angner
 categories:

@@ -1,5 +1,6 @@
 ---
 title: "😩 Är din hemsida, web-app eller e-handel lite &#8220;mäh&#8221;?"
+seoTitle: "Är din hemsida eller e-handel lite mäh?"
 publishDate: 2025-06-19T12:00:00.000Z
 author: Anna Jois
 gallery:

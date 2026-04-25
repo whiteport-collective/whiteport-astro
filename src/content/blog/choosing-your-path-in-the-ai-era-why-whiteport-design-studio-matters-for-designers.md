@@ -1,5 +1,6 @@
 ---
 title: "Whiteport Design Studio Course: 00 &#8211; Getting Started"
+seoTitle: "Whiteport Design Studio: Getting Started"
 publishDate: 2026-01-14T15:42:45.000Z
 author: Camilla Andersson
 categories:

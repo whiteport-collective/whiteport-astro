@@ -1,5 +1,6 @@
 ---
 title: "Seminar &#8211; Lines of thinking at The Park Forskaren"
+seoTitle: "Seminar: Lines of Thinking at The Park Forskaren"
 publishDate: 2025-09-27T08:20:25.000Z
 author: Camilla Andersson
 tags:

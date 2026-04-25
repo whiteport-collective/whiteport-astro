@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SocialStreamCard from '../components/social-stream/SocialStreamCard.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { getVisibleBlogPosts } from '../utils/content-helpers';
-import { COMPANY, SOCIAL_LINKS } from '../consts';
+import { COMPANY, SOCIAL_LINKS, SITE_URL, SITE_DESCRIPTION } from '../consts';
 
 const allBlog = await getCollection('blog');
 const latestPosts = getVisibleBlogPosts(allBlog).slice(0, 8);
@@ -49,6 +49,40 @@ const services = [
   { icon: '/images/wp/icon-development.svg', title: 'AI System Development', text: 'Full-stack development with AI agents embedded in the build process — from code generation to testing and deployment, on any technology platform.' },
 ];
 
+// Homepage structured data: WebSite + LocalBusiness
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'Whiteport',
+      url: SITE_URL,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${SITE_URL}/blog/?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'LocalBusiness',
+      name: COMPANY.name,
+      url: SITE_URL,
+      email: COMPANY.email,
+      telephone: COMPANY.founderPhone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Klubbacken 49',
+        addressLocality: 'Hägersten',
+        postalCode: '129 39',
+        addressCountry: 'SE',
+      },
+      founder: { '@type': 'Person', name: COMPANY.founder },
+      foundingDate: '2003',
+      description: SITE_DESCRIPTION,
+    },
+  ],
+};
+
 // Project images mapping
 const projectImages: Record<string, string> = {
   'histreamers': '/images/wp/project-histreamers.jpg',
@@ -61,7 +95,7 @@ const projectImages: Record<string, string> = {
 };
 ---
 
-<BaseLayout title="Whiteport — AI-Driven Digital Design Agency Stockholm" description="Whiteport is a digital design agency in Stockholm. We combine UX, strategy and AI to build digital products that make business sense.">
+<BaseLayout title="Whiteport — AI-Driven Digital Design Agency Stockholm" description="Whiteport is a digital design agency in Stockholm. We combine UX, strategy and AI to build digital products that make business sense." jsonLd={jsonLd}>
   <!-- Hero Banner — WP exact CSS:
        h1 base: font-weight:300, max-width:90%
        h1@750+: font-size:3.6rem, max-width:100%
@@ -143,11 +177,14 @@ const projectImages: Record<string, string> = {
       </div>
 
       <!-- Agency footer link — matches WP .icons-block CTA -->
-      <div class="flex items-center justify-center gap-4 mt-16">
-        <span class="w-10 h-10 rounded-full bg-[#D74560] flex items-center justify-center flex-shrink-0">
-          <img src="/images/wp/icon-calendar.svg" alt="" class="w-5 h-5" />
-        </span>
-        <a href="https://cal.com/whiteport" target="_blank" rel="noopener noreferrer" class="text-sm font-medium uppercase tracking-[0.08em] text-[#124e86] underline">Lets connect and talk further! — Book a free consultation with me!</a>
+      <div class="flex flex-col items-center gap-4 mt-16">
+        <div class="flex items-center gap-4">
+          <span class="w-10 h-10 rounded-full bg-[#D74560] flex items-center justify-center flex-shrink-0">
+            <img src="/images/wp/icon-calendar.svg" alt="" class="w-5 h-5" />
+          </span>
+          <a href="https://cal.com/whiteport" target="_blank" rel="noopener noreferrer" class="text-sm font-medium uppercase tracking-[0.08em] text-[#124e86] underline">Lets connect and talk further! — Book a free consultation with me!</a>
+        </div>
+        <a href="/about/" class="text-sm text-wp-grey hover:text-wp-blue transition-colors no-underline underline">About Whiteport and our story →</a>
       </div>
     </div>
   </section>
@@ -205,9 +242,12 @@ const projectImages: Record<string, string> = {
           </li>
         ))}
       </ul>
-      <div class="text-center mt-12">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
         <a href="https://cal.com/whiteport" target="_blank" rel="noopener noreferrer" class="inline-block px-8 py-3 bg-white text-wp-blue font-medium rounded hover:-translate-y-0.5 hover:shadow-lg transition-all no-underline">
           Let's talk about your project — Book a meeting!
+        </a>
+        <a href="/services/" class="inline-block px-8 py-3 border border-white text-white font-medium rounded hover:-translate-y-0.5 hover:bg-white/10 transition-all no-underline">
+          View all services →
         </a>
       </div>
     </div>
@@ -293,6 +333,9 @@ const projectImages: Record<string, string> = {
           </a>
         </div>
       </div>
+      <p class="text-center text-sm text-wp-grey mt-10">
+        Building AI agents? Explore <a href="/products/agent-space/" class="text-wp-blue underline hover:text-wp-button">Agent Space</a> — our open-source multi-agent infrastructure for shared memory and messaging.
+      </p>
     </div>
   </section>
 

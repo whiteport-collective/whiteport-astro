@@ -1,5 +1,6 @@
 ---
 title: "CX/UX/UI Designers och AI: Låt oss träffas, Prata mindre. Får mer gjort!"
+seoTitle: "Designers och AI: Prata mindre, få mer gjort"
 publishDate: 2025-12-20T00:00:00.000Z
 author: Marten Angner
 categories:

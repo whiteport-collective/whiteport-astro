@@ -1,5 +1,6 @@
 ---
 title: "🎬 Behind the Scenes: When &#8220;Lines of Thinking&#8221; gets a little too reel"
+seoTitle: "Behind the Scenes: Lines of Thinking Gets Reel"
 publishDate: 2025-05-27T12:15:51.000Z
 author: Camilla Andersson
 gallery:

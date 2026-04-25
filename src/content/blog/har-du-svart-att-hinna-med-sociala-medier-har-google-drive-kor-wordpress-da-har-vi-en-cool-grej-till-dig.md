@@ -1,5 +1,6 @@
 ---
 title: "Kämpar med sociala medier? Har google drive? Kör WordPress? Bra!"
+seoTitle: "Kämpar med sociala medier? Google Drive + WordPress"
 publishDate: 2025-02-22T00:00:00.000Z
 author: Marten Angner
 gallery:

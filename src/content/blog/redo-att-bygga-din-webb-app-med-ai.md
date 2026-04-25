@@ -1,5 +1,6 @@
 ---
 title: 🚀 Redo att bygga din webb-app – men osäker på var du ska börja?
+seoTitle: "Redo att bygga din webb-app med AI?"
 publishDate: 2025-06-17T12:00:00.000Z
 author: Anna Jois
 gallery:

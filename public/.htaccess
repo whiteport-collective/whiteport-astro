@@ -11,6 +11,11 @@
 
 # Whiteport URL redirects (LiteSpeed / Apache)
 RewriteEngine On
+
+# WWW → non-WWW redirect
+RewriteCond %{HTTP_HOST} ^www\.whiteport\.com$ [NC]
+RewriteRule ^(.*)$ https://whiteport.com/$1 [R=301,L]
+
 RewriteBase /
 
 # Block cPanel default page (cached 301 from before site was deployed)

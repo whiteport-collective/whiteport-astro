@@ -1,5 +1,6 @@
 ---
 title: "We just wrapped up the first WDS Session and the feedback has been incredible!"
+seoTitle: "WDS Session 1: The Feedback Has Been Incredible"
 publishDate: 2025-12-25T12:00:00.000Z
 author: Camilla Andersson
 categories:
