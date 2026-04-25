@@ -32,7 +32,7 @@ const {
   headerSolid = false,
 } = Astro.props;
 
-const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
+const pageTitle = (title === SITE_TITLE || title.includes(SITE_TITLE)) ? title : `${title} | ${SITE_TITLE}`;
 
 // Default Organization schema for non-article pages
 const defaultJsonLd = jsonLd ?? (type === 'website' ? {

@@ -15,7 +15,7 @@ const tagCounts = collectTags(allPosts);
 const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<BaseLayout title="Tags" description="Browse all topics and categories across Whiteport's projects and blog.">
+<BaseLayout title="Tags" description="Browse all topics and categories across Whiteport's projects and blog." noindex={true}>
   <section class="py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <header class="text-center mb-16">

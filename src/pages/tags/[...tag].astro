@@ -35,7 +35,7 @@ const projects = allProjects
 const totalResults = blogPosts.length + projects.length;
 ---
 
-<BaseLayout title={`Tagged: ${tag}`} description={`All posts and projects tagged with "${tag}".`}>
+<BaseLayout title={`Tagged: ${tag}`} description={`All posts and projects tagged with "${tag}".`} noindex={true}>
   <section class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <header class="mb-12">
