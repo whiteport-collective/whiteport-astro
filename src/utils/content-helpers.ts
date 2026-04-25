@@ -69,13 +69,13 @@ export function resolveMediaSrc(item: GalleryItem): string {
     // WP-hosted files get migrated to local during build
     if (item.src.includes('whiteport.com/wp-content/')) {
       const filename = item.src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-      const ext = item.type === 'video' ? '.mp4' : '.jpg';
+      const ext = item.type === 'video' ? '.mp4' : '.webp';
       return `/media/gdrive/wp-${filename}${ext}`;
     }
     return item.src;
   }
   if (item.gdriveId) {
-    const ext = item.type === 'video' ? '.mp4' : '.jpg';
+    const ext = item.type === 'video' ? '.mp4' : '.webp';
     return `/media/gdrive/${item.gdriveId}${ext}`;
   }
   // YouTube: use maxres thumbnail as display image
@@ -93,11 +93,11 @@ export function resolveMediaPoster(item: GalleryItem): string {
   }
   // Auto-derive poster for videos — the GDrive pipeline downloads .jpg alongside .mp4
   if (item.type === 'video') {
-    if (item.gdriveId) return `/media/gdrive/${item.gdriveId}.jpg`;
+    if (item.gdriveId) return `/media/gdrive/${item.gdriveId}.webp`;
     if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
     if (item.src?.includes('whiteport.com/wp-content/')) {
       const filename = item.src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-      return `/media/gdrive/wp-${filename}.jpg`;
+      return `/media/gdrive/wp-${filename}.webp`;
     }
   }
   return '';
