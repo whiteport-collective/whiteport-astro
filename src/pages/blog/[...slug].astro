@@ -215,59 +215,6 @@ const primaryCategory = categories?.[0] || '';
 </SocialStreamPostLayout>
 
 <script>
-  // Content blocks: wrap each h3 section in a card (only for articles with 3+ h3s)
-  (function() {
-    const prose = document.querySelector('.prose');
-    if (!prose) return;
-    const h3s = prose.querySelectorAll(':scope > h3');
-    if (h3s.length < 3) return;
-
-    // Collect intro nodes (everything before first h3)
-    const introNodes: Node[] = [];
-    let node = prose.firstChild;
-    while (node && node !== h3s[0]) {
-      introNodes.push(node);
-      node = node.nextSibling;
-    }
-
-    // For each h3, collect it and all siblings until next h3 or any h2 (outro) or end
-    const sections: Node[][] = [];
-    let outroStart: Node | null = null;
-    for (let i = 0; i < h3s.length; i++) {
-      const sectionNodes: Node[] = [h3s[i]];
-      let sibling: Node | null = h3s[i].nextSibling;
-      const nextH3 = h3s[i + 1] || null;
-      while (sibling && sibling !== nextH3) {
-        if ((sibling as Element).nodeName === 'H2') { outroStart = sibling; break; }
-        sectionNodes.push(sibling);
-        sibling = sibling.nextSibling;
-      }
-      sections.push(sectionNodes);
-      if (outroStart) break;
-    }
-
-    // Collect outro nodes (H2 and everything after the last section)
-    const outroNodes: Node[] = [];
-    let outroNode: Node | null = outroStart;
-    while (outroNode) {
-      outroNodes.push(outroNode);
-      outroNode = outroNode.nextSibling;
-    }
-
-    // Rebuild: intro nodes stay unwrapped, sections get wrapped, outro stays unwrapped
-    prose.innerHTML = '';
-    introNodes.forEach(n => prose.appendChild(n));
-
-    sections.forEach(nodes => {
-      const block = document.createElement('div');
-      block.className = 'content-block';
-      nodes.forEach(n => block.appendChild(n));
-      prose.appendChild(block);
-    });
-
-    outroNodes.forEach(n => prose.appendChild(n));
-  })();
-
   document.querySelectorAll('.copy-url-btn').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const url = (btn as HTMLElement).dataset.url;

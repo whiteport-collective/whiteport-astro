@@ -58,33 +58,62 @@
   color: #2e2e2e;
 }
 .prose p {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
   font-size: 18px;
   font-weight: 300;
   line-height: 30px;
 }
-.prose > p:first-child,
-.prose > p:nth-child(2) {
+.prose > p:first-child {
   font-size: 22px;
   font-weight: 400;
   line-height: 34px;
   color: #2e2e2e;
 }
+/* Heading size system — visual choice, independent of HTML level.
+   Use .heading-xl / .heading-l / .heading-m / .heading-s directly,
+   or rely on the default mapping where .prose h1→XL, h2→L, h3→M, h4→S. */
+.heading-xl,
+.prose h1 {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 48px;
+  color: #2e2e2e;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+@media (min-width: 1024px) {
+  .heading-xl,
+  .prose h1 {
+    font-size: 56px;
+    line-height: 62px;
+  }
+}
+.heading-l,
 .prose h2 {
   font-size: 36px;
   font-weight: 300;
   line-height: 40px;
   color: #2e2e2e;
-  margin-top: 2.5em;
-  margin-bottom: 0.5em;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
 }
+.heading-m,
 .prose h3 {
   font-size: 30px;
   font-weight: 300;
+  line-height: 36px;
+  color: #2e2e2e;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+.heading-s,
+.prose h4 {
+  font-size: 22px;
+  font-weight: 500;
   line-height: 30px;
   color: #2e2e2e;
-  margin-top: 2em;
-  margin-bottom: 0.75em;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
 }
 .prose hr {
   border: none;
@@ -93,17 +122,45 @@
 }
 .prose ul, .prose ol {
   margin-bottom: 1.5em;
-  padding-left: 0;
-  list-style-position: inside;
+  padding-left: 1.5em;
+  list-style: none;
 }
 .prose li {
+  position: relative;
   margin-bottom: 0.35em;
   font-size: 18px;
   font-weight: 300;
   line-height: 30px;
 }
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.25em;
+  top: 0.7em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--color-wp-blue);
+}
+.prose ol {
+  counter-reset: wp-counter;
+}
+.prose ol > li {
+  counter-increment: wp-counter;
+}
+.prose ol > li::before {
+  content: counter(wp-counter) ".";
+  position: absolute;
+  left: -1.5em;
+  top: 0;
+  color: var(--color-wp-red);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+}
 .prose li strong {
-  font-weight: 500;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 .prose a {
   color: var(--color-wp-blue);
@@ -127,7 +184,10 @@
   font-style: italic;
 }
 
-/* Content blocks — wraps each h3 section in long-form articles */
+/* Fact box — opt-in card styling for callouts, sidebars, or highlighted sections.
+   Not tied to any heading level. Use with <div class="fact-box">...</div> in markdown.
+   .content-block kept as alias for backward compatibility with older articles. */
+.prose .fact-box,
 .prose .content-block {
   background: #fff;
   border: 1px solid #E8ECF0;
@@ -136,11 +196,9 @@
   margin-bottom: 48px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
-.prose .content-block h3 {
+.prose .fact-box > *:first-child,
+.prose .content-block > *:first-child {
   margin-top: 0;
-  font-size: 26px;
-  font-weight: 400;
-  line-height: 32px;
 }
 /* Insight callout — upgraded blockquote inside content blocks */
 .prose .content-block blockquote {
@@ -149,30 +207,56 @@
   border-radius: 0 8px 8px 0;
   padding: 24px 28px;
   margin: 28px 0;
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.65;
-  color: #2e2e2e;
+}
+.prose .content-block blockquote,
+.prose .content-block blockquote p {
+  font-family: "EB Garamond", "Garamond", Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #1a1a1a;
   font-style: italic;
 }
 .prose .content-block blockquote p:last-child,
 .prose blockquote p:last-child {
   margin-bottom: 0;
 }
-/* Blockquotes outside content blocks also italic + larger */
-.prose blockquote {
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.65;
+/* Blockquotes outside content blocks — dramatic editorial pull-quote, classic Garamond italic */
+.prose > blockquote {
+  margin: 1em 0;
+}
+.prose > blockquote,
+.prose > blockquote p {
+  font-family: "EB Garamond", "Garamond", Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.25;
   font-style: italic;
+  color: #555;
+}
+@media (max-width: 1023px) {
+  .prose > blockquote,
+  .prose > blockquote p {
+    font-size: 30px;
+    line-height: 1.3;
+  }
 }
 @media (max-width: 640px) {
+  .prose > blockquote,
+  .prose > blockquote p {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+}
+@media (max-width: 640px) {
+  .prose .fact-box,
   .prose .content-block {
     padding: 28px 24px;
     margin-bottom: 32px;
   }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
+  .prose .fact-box,
   .prose .content-block {
     padding: 36px 36px;
     margin-bottom: 40px;
