@@ -1,6 +1,6 @@
 ---
 title: "MCP Sucks. I Deleted Them All. So Should You."
-publishDate: 2026-04-22T00:00:00.000Z
+publishDate: 2026-04-25T00:00:00.000Z
 author: Marten Angner
 categories:
   - ai

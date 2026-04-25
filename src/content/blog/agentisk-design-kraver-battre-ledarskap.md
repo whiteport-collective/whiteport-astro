@@ -1,6 +1,6 @@
 ---
 title: "Agentisk design kräver inte bättre verktyg. Det kräver nytt ledarskap."
-publishDate: 2026-04-25T00:00:00.000Z
+publishDate: 2026-04-24T00:00:00.000Z
 author: Marten Angner
 categories:
   - ai
@@ -49,7 +49,9 @@ Det är inte den verklighet vi lever i nu. Design och kod skapas av agenter på 
 
 ## Vi behöver fler modiga ledare!
 
-I vintras bjöd Dan Kindeborg på Avanza in mig att träffa sitt designteam — Anna Bengtsdotter, Axel Johnson och Mats Oldin. En hel dag om agentisk design — om hur workflows förändras, om vad designers faktiskt behöver för att AI ska ge verklig effekt. Det var inte ett utvärderingsprojekt. Det var ett seriöst samtal om hur teamet behöver arbeta annorlunda.
+I vintras bjöd [Dan Kindeborg](https://www.linkedin.com/in/dankindeborg/) på Avanza in mig att träffa sitt designteam — [Anna Bengtsdotter](https://www.linkedin.com/in/anna-bengtsdotter/) och [Axel Johnson](https://www.linkedin.com/in/axel-johnson-b2aba3249/), designers med skarp blick för användarupplevelse. En hel dag om agentisk design — om hur workflows förändras, om vad designers faktiskt behöver för att AI ska ge verklig effekt.
+
+Dan hade också bjudit in [Mats Oldin](https://www.linkedin.com/in/mats-oldin-70a6103/), AI-ambassadör på Avanza, som gjort ett grymt jobb med att stimulera AI-adoption i hela företaget. Att ha Mats i rummet gav samtalet ett extra lager: det handlade inte bara om vad designteamet kan göra, utan om hur hela organisationen kan röra sig i rätt riktning. Det var inte ett utvärderingsprojekt. Det var ett seriöst samtal om hur alla behöver arbeta annorlunda.
 
 Den typen av ledarskap — att öppna dörren innan organisationen "är redo", att ställa rätt frågor, att ta sina designers på allvar som yrkespersoner med kapacitet att leverera mer — är exakt vad som krävs. Vi pratar mycket om vad designers behöver lära sig. Vi pratar för lite om vad cheferna behöver göra.
 

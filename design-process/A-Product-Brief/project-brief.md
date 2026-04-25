@@ -86,6 +86,35 @@ gallery:
 - Rewrites frontmatter references to local paths during build
 - Exposes `getGdriveImage()` helper for use in components
 
+### Staging and Public Hosting
+
+The site runs on two separate Hostup cPanel accounts on `mu.hostup.se` (LiteSpeed/cPanel, reseller `websespr`).
+
+**Staging — `astro.whiteport.com`**
+- cPanel account: `astrowhi`
+- Document root: `/home/astrowhi/public_html`
+- DNS: Cloudflare A-record `astro` → `185.113.11.48` (proxied)
+- Deploy: `node deploy-astro.cjs` (SFTP, credentials in `.env`)
+- Purpose: pre-production verification before going public
+
+**Production — `whiteport.com`**
+- cPanel account: TBD (to be created by Web247 on same server)
+- Document root: `/home/<user>/public_html`
+- DNS: Cloudflare A-record `@` → `185.113.11.48` (proxied), update when account is ready
+- Deploy: `node deploy.cjs` (SFTP, set `DEPLOY_USER` / `DEPLOY_PASS` in `.env`)
+- Purpose: live public site
+
+**Email — `hello@whiteport.com`**
+- Currently: Google Workspace (to be cancelled)
+- Target: cPanel email box on production account, `hello@whiteport.com`
+- Migration: export/forward existing mail, set up new MX records pointing to Hostup
+
+**Key decisions:**
+- No Netlify/Cloudflare Pages — Hostup matches existing Web247 client infrastructure
+- Static files only — no server-side runtime on Hostup
+- Media (`media/gdrive/`) deployed separately via `node deploy-media.cjs`
+- SSL: Cloudflare edge (proxy mode) — no cert management on Hostup needed
+
 ### Content Architecture
 
 - **Git-based content** — all content as markdown files in `src/content/`

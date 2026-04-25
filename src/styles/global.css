@@ -211,7 +211,7 @@
 .prose .content-block blockquote,
 .prose .content-block blockquote p {
   font-family: "EB Garamond", "Garamond", Georgia, "Times New Roman", serif;
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 500;
   line-height: 1.4;
   color: #1a1a1a;
@@ -221,31 +221,32 @@
 .prose blockquote p:last-child {
   margin-bottom: 0;
 }
-/* Blockquotes outside content blocks — dramatic editorial pull-quote, classic Garamond italic */
+/* Blockquotes outside content blocks — editorial pull-quote, classic Garamond italic */
 .prose > blockquote {
-  margin: 1em 0;
+  margin: 1em 0 1em 2rem;
+  max-width: 66.67%;
 }
 .prose > blockquote,
 .prose > blockquote p {
   font-family: "EB Garamond", "Garamond", Georgia, "Times New Roman", serif;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.35;
   font-style: italic;
   color: #555;
 }
 @media (max-width: 1023px) {
   .prose > blockquote,
   .prose > blockquote p {
-    font-size: 30px;
-    line-height: 1.3;
+    font-size: 26px;
+    line-height: 1.4;
   }
 }
 @media (max-width: 640px) {
   .prose > blockquote,
   .prose > blockquote p {
-    font-size: 24px;
-    line-height: 1.35;
+    font-size: 22px;
+    line-height: 1.4;
   }
 }
 @media (max-width: 640px) {
