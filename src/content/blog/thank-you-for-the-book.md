@@ -46,6 +46,6 @@ It was really really helpful in the work with my free and open source AI Agent f
 Whiteport Design Studio is now available for anyone who wish to have a solid CX/UX/UI design process with AI super powers.
 
 If you are interested, welcome have a look:
-[https://whiteport.com/products/wds/](https://whiteport.com/products/wds/)
+[https://whiteport.com/wds/](https://whiteport.com/wds/)
 
-https://whiteport.com/products/wds/
+https://whiteport.com/wds/

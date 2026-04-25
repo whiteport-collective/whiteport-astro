@@ -42,6 +42,6 @@ When we** designers are not vibing with Vibe coding** and take a step back, the 
 This is why I founded **WDS, Whiteport Design Studio**, a free and open source AI agent module for the BMad method, that amplifies your existing design process instead of trying to avoid them.
 
 Check out our new WDS webpage to find out exactly what WDS is, and how to learn it. When you are there, make sure to sign up to the **WDS News Letter** to not miss a single update!
-[https://whiteport.com/products/wds/](https://whiteport.com/products/wds/)
+[https://whiteport.com/wds/](https://whiteport.com/wds/)
 
 Happy New Years!

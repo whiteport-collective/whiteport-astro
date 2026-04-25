@@ -52,4 +52,4 @@ Just a system that stays coherent because it’s rebuilt from clarity every time
 This is what happens when code becomes a projection of strategy - not the other way around.
 
 WDS brings strategic design thinking together with AI agent technology – It’s free and open source!
-[https://whiteport.com/products/wds/](https://whiteport.com/products/wds/)
+[https://whiteport.com/wds/](https://whiteport.com/wds/)
