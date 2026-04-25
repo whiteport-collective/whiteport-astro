@@ -24,6 +24,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, copyFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { createSign } from 'crypto';
+import sharp from 'sharp';
 import type { AstroIntegration } from 'astro';
 
 const CACHE_DIR = '.cache/gdrive';
@@ -267,8 +268,7 @@ async function downloadViaApi(gdriveId: string, accessToken: string, outputPath:
     }
 
     const buffer = Buffer.from(await response.arrayBuffer());
-    mkdirSync(dirname(outputPath), { recursive: true });
-    writeFileSync(outputPath, buffer);
+    await writeImage(buffer, outputPath);
     return buffer.length;
   } catch (err) {
     console.warn(`  [gdrive] API error: ${(err as Error).message}`);
@@ -321,12 +321,33 @@ async function downloadPublicFile(url: string, outputPath: string): Promise<numb
     }
 
     const buffer = Buffer.from(await response.arrayBuffer());
-    mkdirSync(dirname(outputPath), { recursive: true });
-    writeFileSync(outputPath, buffer);
+    await writeImage(buffer, outputPath);
     return buffer.length;
   } catch (err) {
     console.warn(`  [gdrive] Error: ${(err as Error).message}`);
     return 0;
+  }
+}
+
+/**
+ * Write image buffer to outputPath. If outputPath ends with .webp, convert via sharp first.
+ * Videos are written as-is.
+ */
+const IMAGE_MAX_WIDTH = 1600;
+
+/**
+ * Write image buffer to outputPath. If outputPath ends with .webp, resize to max
+ * IMAGE_MAX_WIDTH and convert via sharp. Videos are written as-is.
+ */
+async function writeImage(buffer: Buffer, outputPath: string): Promise<void> {
+  mkdirSync(dirname(outputPath), { recursive: true });
+  if (outputPath.endsWith('.webp')) {
+    await sharp(buffer)
+      .resize({ width: IMAGE_MAX_WIDTH, withoutEnlargement: true })
+      .webp({ quality: 85 })
+      .toFile(outputPath);
+  } else {
+    writeFileSync(outputPath, buffer);
   }
 }
 
@@ -436,7 +457,7 @@ async function runPipeline(logger: { info: (msg: string) => void }): Promise<Pip
   const failedItems: ScannedMedia[] = [];
 
   for (const item of mediaItems) {
-    const ext = item.type === 'video' ? '.mp4' : '.jpg';
+    const ext = item.type === 'video' ? '.mp4' : '.webp';
     const cachePath = join(projectRoot, CACHE_DIR, `${item.id}${ext}`);
     const publicPath = join(projectRoot, PUBLIC_DIR, `${item.id}${ext}`);
     const servePath = `/media/gdrive/${item.id}${ext}`;
