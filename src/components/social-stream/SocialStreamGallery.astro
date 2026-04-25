@@ -112,6 +112,7 @@ const single = resolved.length === 1;
               loading={i === 0 ? 'eager' : 'lazy'}
               width={item.width}
               height={item.height}
+              onerror="this.closest('.gallery-slide').remove()"
             />
           )}
         </div>

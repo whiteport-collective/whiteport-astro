@@ -25,7 +25,7 @@ const thumbSrc = firstImage
   <article class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:scale-[1.03] transition-all duration-300 overflow-hidden border border-gray-100">
     <!-- Thumbnail — natural aspect ratio, no forced dimensions -->
     {thumbSrc ? (
-      <div class="overflow-hidden bg-wp-section-bg relative">
+      <div class="overflow-hidden bg-wp-section-bg relative" data-media-wrapper>
         <img
           src={thumbSrc}
           alt={firstImage?.alt || title}
@@ -33,6 +33,7 @@ const thumbSrc = firstImage
           loading="eager"
           width={firstImage?.width}
           height={firstImage?.height}
+          onerror="this.closest('[data-media-wrapper]').remove()"
         />
         {isVideo && (
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none">

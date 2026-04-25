@@ -21,7 +21,23 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      // Vite 6 compat: some plugins register transform: { handler: undefined }
+      // which crashes EnvironmentPluginContainer.transform. Strip those hooks.
+      {
+        name: 'fix-undefined-transform-handlers',
+        enforce: 'pre',
+        configResolved(config) {
+          for (const plugin of config.plugins) {
+            if (plugin.transform !== null && typeof plugin.transform === 'object'
+                && !plugin.transform.handler) {
+              delete plugin.transform;
+            }
+          }
+        },
+      },
+    ],
     ssr: {
       external: ['sharp'],
     },
