@@ -4,7 +4,7 @@ description: "We came up with a new brand name, worked out system concepts and c
 client: "Greendog Innovation"
 tags: ["branding", "ux-design", "visual-design", "web-development", "social-media"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-laptop-screen-1024x624.jpg"
+  src: "/images/wp/project-histreamers.webp"
   alt: "Hi Streamers platform shown on laptop"
 url: "https://histreamers.com"
 blocks:
@@ -17,7 +17,7 @@ blocks:
 
       By integrating artificial intelligence, Hi Streamers automates complex tasks such as camera switching, editing, and content formatting — reducing production time and cost while maintaining professional quality.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-laptop-screen-1024x624.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers platform on laptop"
       size: large
 
@@ -25,7 +25,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-screens-1920x839.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers multi-screen overview"
       size: banner
 
@@ -41,7 +41,7 @@ blocks:
 
       The result was **Hi Streamers** — a friendly, modern brand that balances professional tech with creative ease-of-use. We developed a full concept around the platform, including a streamlined **equipment booking system** and a **web-based video viewer** to showcase content created with the system.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-tab-mob-911x1024.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers tablet and mobile views"
       size: large
 
@@ -49,7 +49,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-mockups-1920x744.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers mockups"
       size: banner
 
@@ -67,7 +67,7 @@ blocks:
       - "Social media content production"
       - "Event & trade fair support"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-rollups-794x1024.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers trade fair rollups"
       size: large
 
@@ -75,7 +75,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-identity-1920x1088.jpg"
+      src: "/images/wp/project-histreamers.webp"
       alt: "Hi Streamers brand identity"
       size: banner
 
@@ -86,7 +86,7 @@ blocks:
     name: "Staffan Westerlius"
     role: "Founder & CEO"
     company: "Greendog Innovation"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/histreamers-testimonial-150x150.jpg"
+    avatar: ""
 ---
 
 Hi Streamers is an innovative platform developed by Greendog Innovation, offering an AI-powered video production system that simplifies the way organizations capture, edit, and publish high-quality content.

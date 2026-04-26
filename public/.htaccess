@@ -12,6 +12,10 @@
 # Whiteport URL redirects (LiteSpeed / Apache)
 RewriteEngine On
 
+# http → https redirect
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 # WWW → non-WWW redirect
 RewriteCond %{HTTP_HOST} ^www\.whiteport\.com$ [NC]
 RewriteRule ^(.*)$ https://whiteport.com/$1 [R=301,L]
@@ -32,6 +36,12 @@ RewriteRule ^project/goalenvision/?$ /projects/goal-envision/ [R=301,L]
 RewriteRule ^project/histreamers/?$ /projects/histreamers/ [R=301,L]
 RewriteRule ^project/indoor-energy-services/?$ /projects/indoor-energy-services/ [R=301,L]
 RewriteRule ^project/skargardspartner/?$ /projects/skargardspartner/ [R=301,L]
+
+# Dead blog URLs (removed or renamed content)
+RewriteRule ^blog/wds-sessions-2-strategy-in-practise-with-wds/?$ /blog/wds-session-2-strategy-in-practise/ [R=301,L]
+RewriteRule ^blog/not-a-design-agent/?$ /blog/ [R=301,L]
+RewriteRule ^blog/one-question-kills-bad-ai-design/?$ /blog/ [R=301,L]
+RewriteRule ^blog/i-tested-claude-figma/?$ /blog/ [R=301,L]
 
 # WP blog slug renames (old WP slug → new Astro slug)
 RewriteRule ^blog/5-questions-that-really-matters/?$ /blog/5-questions-before-you-prototype/ [R=301,L]

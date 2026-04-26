@@ -4,7 +4,7 @@ description: "We designed and built a modern e-commerce experience for this Swed
 client: "Eve Adam"
 tags: ["ux-design", "visual-design", "e-commerce", "frontend-development"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-laptop-screen-2-1024x624.jpg"
+  src: "/images/wp/project-eveadam.webp"
   alt: "Eve Adam e-commerce design"
 blocks:
   # Block 1: Intro (highlighted, reversed) — image | title + intro
@@ -15,7 +15,7 @@ blocks:
     text: |
       Eve Adam needed a digital presence that matched their brand's elegance — a site that could showcase their collections beautifully while making the shopping experience seamless on every device.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-tab-mob-2-979x1024.jpg"
+      src: "/images/wp/project-eveadam.webp"
       alt: "Eve Adam tablet and mobile views"
       size: large
 
@@ -23,7 +23,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-screens-1920x840.jpg"
+      src: "/images/wp/project-eveadam.webp"
       alt: "Eve Adam screen designs"
       size: banner
 
@@ -38,7 +38,7 @@ blocks:
       - "Simplify the checkout process to reduce friction and improve conversion rates"
       - "Maintain the existing backend, focusing purely on frontend improvements"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-laptop-screen-2-1024x624.jpg"
+      src: "/images/wp/project-eveadam.webp"
       alt: "Eve Adam on laptop"
       size: large
 
@@ -46,7 +46,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-sketches-1920x763.jpg"
+      src: "/images/wp/project-eveadam.webp"
       alt: "Eve Adam design sketches"
       size: banner
 
@@ -62,7 +62,7 @@ blocks:
       - "Visual design"
       - "Frontend development"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/eveandadam-mob-screen-2-776x1024.jpg"
+      src: "/images/wp/project-eveadam.webp"
       alt: "Eve Adam mobile screen"
       size: large
 

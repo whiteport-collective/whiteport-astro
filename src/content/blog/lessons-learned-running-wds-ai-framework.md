@@ -16,7 +16,7 @@ tags:
   - agentic-development
   - design-teams
   - frameworks
-excerpt: "Everyone's chasing AI tools right now. Every week there's a new shiny thing. But most AI design tools make individuals faster without making teams better. Here's what I learned running an end-to-end AI agent framework in a real design team."
+excerpt: "Most AI tools make individuals faster without making teams better. Here's what I learned running an AI agent framework in a real design team."
 offers:
   - title: "Leading a design team into the AI era?"
     label: "For team leads & founders"

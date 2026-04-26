@@ -13,7 +13,7 @@ tags:
   - tokens
   - scripts
   - tooling
-excerpt: "MCP servers load every tool you have into your context before you type a single prompt. Mine were costing me 27,000 tokens per session. Here's what that actually costs you — and the three prompts that replaced all my MCPs with clean, callable scripts."
+excerpt: "MCP servers load every tool into your context before you type a single prompt. Mine cost 27,000 tokens per session — here's what I did instead."
 offers:
   - title: "Building with AI and hitting the same walls?"
     label: "For AI builders & engineering leads"

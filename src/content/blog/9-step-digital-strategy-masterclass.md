@@ -379,7 +379,7 @@ And together, we build in accordance with a shared understanding of the world, w
 
 And there is **no better feeling**.
 
-# How Whiteport can help
+## How Whiteport can help
 
 Whiteport is a digital agency based in Stockholm, Sweden. We help teams get clarity in their thinking, sharpen their solutions, and turn early ideas into design that can actually fly.
 

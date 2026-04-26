@@ -4,7 +4,7 @@ description: "We helped Indoor Energy Services greatly simplify their case manag
 client: "Indoor Energy Services"
 tags: ["ux-design", "visual-design", "development", "mobile-app", "low-code"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2024/12/1-pic-1.jpg"
+  src: "/images/wp/project-indoor.webp"
   alt: "Indoor Energy Services mobile app"
 blocks:
   # Block 1: Intro (highlighted) — title + intro | featured image
@@ -16,7 +16,7 @@ blocks:
 
       It is too complex to track all this information manually and they have a need for a special software. Although there are a lot of systems for service technicians at the market, none of them can support their business in the way they need it.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2024/12/1-pic-1.jpg"
+      src: "/images/wp/project-indoor.webp"
       alt: "Indoor Energy Services app overview"
       size: large
 
@@ -24,7 +24,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2024/12/2-pic.png"
+      src: "/images/wp/project-indoor.webp"
       alt: "Indoor Energy Services screen designs"
       size: banner
 
@@ -39,7 +39,7 @@ blocks:
       - "Report time: check in and check out from the workplace and automatically record time"
       - "Work with checklists to ensure quality"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2024/12/Group-1.png"
+      src: "/images/wp/project-indoor.webp"
       alt: "Indoor Energy Services wireframes"
       size: large
 
@@ -54,7 +54,7 @@ blocks:
       - "Conceptual development"
       - "Frontend and backend development"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/indoor-energy-tab-mob-1024x990.jpg"
+      src: "/images/wp/project-indoor.webp"
       alt: "Indoor Energy Services mobile views"
       size: large
 
@@ -69,7 +69,7 @@ blocks:
       - "Enabled receipt scanner"
       - "Created internal web store for the products that technicians need at their work"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2024/12/Group-2.png"
+      src: "/images/wp/project-indoor.webp"
       alt: "Indoor Energy Services results"
       size: large
 ---

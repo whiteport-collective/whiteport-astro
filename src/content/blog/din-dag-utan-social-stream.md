@@ -62,4 +62,4 @@ Med **Social Stream** får du inte bara en content calendar – du får en hel
 
 ---
 
-**Social Stream är inte bara ett verktyg – det är din möjlighet att öka kvalitén och göra dina sociala medier inlägg mer&nbsp;*meningsfulla*.**[](https://somestockholm.se/copying)
+**Social Stream är inte bara ett verktyg – det är din möjlighet att öka kvalitén och göra dina sociala medier inlägg mer&nbsp;*meningsfulla*.**

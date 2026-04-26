@@ -13,7 +13,7 @@ tags:
   - ai
   - designteam
   - produktdesign
-excerpt: "Det finns ett mönster jag ser gång på gång hos designorganisationer som ger sig på AI: verktygen finns, kompetensen finns, viljan finns — ändå tar det inte fart. Det är inte ett teknikproblem. Det är ett ledarskapsproblem."
+excerpt: "Det finns ett mönster hos designorg som ger sig på AI: verktygen och viljan finns — men det tar inte fart. Det är ett ledarskapsproblem."
 featuredImage:
   gdriveId: 1iEpwcGtX9lOSfwCRc8XUFdhl0WutUIxJ
 gallery:

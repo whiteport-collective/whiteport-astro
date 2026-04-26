@@ -13,7 +13,7 @@ tags:
   - ux
   - strategy
   - design-process
-excerpt: "What happens when a strategy platform hits its limits? For GoalEnvision, the answer was a complete reinvention — one that turned static goals into dynamic, team-driven success stories."
+excerpt: "When a strategy platform hits its limits, it's time to reinvent. For GoalEnvision, we turned static goals into dynamic, team-driven success stories."
 gallery:
   - gdriveId: 1dMqZiqtyFmXlf34JtslW_fixzfu5oGdq
     alt: GoalEnvision case study
