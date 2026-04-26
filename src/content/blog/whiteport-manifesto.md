@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1269
 wpPermalink: "https://whiteport.com/blog/whiteport-manifesto/"
+excerpt: "Whiteport's manifesto: One Business, One System. We believe companies should take back power over their digital tools and build systems that fit perfectly."
 ---
 
 👀 Scouting: Are you ready for the post-SAAS era ahead?

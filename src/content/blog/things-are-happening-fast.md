@@ -29,6 +29,7 @@ tags:
   - wds
   - design-process
   - vibe-coding
+excerpt: "Designers must embrace AI in 2026 — but on our own terms. WDS, Whiteport Design Studio, amplifies your existing design process instead of replacing it."
 ---
 
 Designers, here me out. **we all just have to embrace AI in 2026.** There is no way around it. But, the good news is that we can choose how we do it💫

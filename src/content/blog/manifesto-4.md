@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1285
 wpPermalink: "https://whiteport.com/blog/manifesto-4/"
+excerpt: "Every company is unique. Forcing rigid new systems onto your business without respecting its culture is tone-deaf — and Whiteport refuses to do it."
 ---
 
 Do you have a unique business? We are sorry!

@@ -29,6 +29,7 @@ tags:
   - freelance
   - design
   - marketing
+excerpt: "Mårten Angner söker sitt nästa drömuppdrag — ett bolag med ambitioner större än resurserna. Startup, familjeföretag eller etablerat varumärke i förändring."
 ---
 
 🌱 **Letar du efter tillväxt? Då letar jag efter dig.**

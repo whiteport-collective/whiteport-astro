@@ -22,6 +22,7 @@ gallery:
     type: image
     display:
       - thumbnail
+excerpt: "Fet stil, kursiv och varierade typsnitt fångar användarens öga direkt. Med Social Stream är det enkelt att formatera text som verkligen sticker ut."
 ---
 
 *Har du lagt märke till hur vissa inlägg i ditt flöde verkar fånga din uppmärksamhet direkt?* Ofta handlar det om mer än bara bra bilder eller engagerande texter – det handlar också om hur texten är formaterad. **Fet stil**, *kursiv* och **andra typsnitt kan göra stor skillnad när det gäller att fånga användarnas uppmärksamhet och få dem att stanna upp och läsa ditt innehåll.** Men hur gör man egentligen?

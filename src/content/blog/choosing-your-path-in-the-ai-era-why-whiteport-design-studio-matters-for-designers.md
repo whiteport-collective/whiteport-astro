@@ -35,6 +35,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2706
 wpPermalink: "https://whiteport.com/blog/choosing-your-path-in-the-ai-era-why-whiteport-design-studio-matters-for-designers/"
+excerpt: "Whiteport Design Studio Module 00: how designers get started using AI agents to stay indispensable and thrive in the age of artificial intelligence."
 ---
 
 **The course begins with Module 00 – *Getting Started*. In just a few lessons (~30 minutes), you’ll learn how to set up your environment, install an IDE, and get comfortable with GitHub. This module ensures you’re ready to dive into Module 01 – *Why WDS Matters*, where you’ll explore the paradigm shift that makes specifications central, not peripheral, to design. Together, these first modules set the foundation for creating your four deliverables and thriving in the AI era.**

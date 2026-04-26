@@ -33,6 +33,7 @@ tags:
   - ai-agents
   - design-teams
   - workshops
+excerpt: "WDS Session 1 delivered a paradigm shift: specs fed directly into the IDE, BMAD-trained agents, and a production-ready workflow available today."
 ---
 
 "insightful" doesn't even begin to cover it. In this session I expected another AI UI generator. What I saw instead was a complete paradigm shift in how we build products. 

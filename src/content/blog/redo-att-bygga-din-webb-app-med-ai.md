@@ -24,6 +24,7 @@ tags:
   - vibe-coding
   - ux
   - design-process
+excerpt: "Nu kan du programmera appar med AI — men hur börjar du? Whiteport erbjuder stöd i rätt nivå, från din första idé hela vägen till en färdig lösning."
 ---
 
 Som du säkert hört kan du numera programmera appar med Ai! Men, hur kommer jag igång?

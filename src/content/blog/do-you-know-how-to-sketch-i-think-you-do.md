@@ -22,6 +22,7 @@ tags:
   - sketching
   - design
   - design-process
+excerpt: "You already know how to sketch — it's about communication, not art. Simple shapes externalize your thinking in ways both people and AI understand."
 ---
 
 Do you know how to sketch? I believe you can!

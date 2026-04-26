@@ -34,6 +34,7 @@ tags:
   - wds
   - design-process
   - workshops
+excerpt: "CX/UX/UI designers and AI: less talk, more action. Whiteport created WDS Sessions to give designers a practical space to test and grow together."
 ---
 
 Jag bjöd in en designer till vår första WDS-session om oss designers och AI nu på måndag 22:e december 17-18 online.* (Vill du också komma, anmäl dig här: [https://whiteport.com/blog/wds-jam-1/](https://whiteport.com/blog/wds-jam-1/))*

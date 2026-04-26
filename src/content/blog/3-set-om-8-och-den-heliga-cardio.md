@@ -30,6 +30,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2325
 wpPermalink: "https://whiteport.com/blog/3-set-om-8-och-den-heliga-cardio/"
+excerpt: "Tre set om åtta, lång vila och scrollande mellan seten. Mycket i träningsvärlden är gamla hjulspår — inte ny kunskap. Dags att ifrågasätta."
 ---
 
 Scenen känns igen. på Gymmet i Januari. Massor av folk med **sprillans nya**, matchande spandex-outfits trängs i kön för att köpa gymkort. Med sig har de sina **svarta samveten** och ett benhårt beslut att den här gången ska det bli **andra bullar**.

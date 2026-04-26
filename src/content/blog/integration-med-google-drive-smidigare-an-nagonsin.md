@@ -30,6 +30,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1484
 wpPermalink: "https://whiteport.com/blog/integration-med-google-drive-smidigare-an-nagonsin/"
+excerpt: "Trött på att jaga bilder och filer för sociala medier? Social Streams Google Drive-integration samlar allt på ett ställe för smidig hantering."
 ---
 
 *Om du jobbar med Social Medier vet du&nbsp; kanske hur frustrerande det kan vara att hantera bilder, designs och videos för sociala medier.* När filer är spridda över olika enheter och mappar - spara bilden här, airdrop där, vem har tagit denna bilden? Har du sparat den på driven? Känns kanske igen.. men det behöver inte vara så.

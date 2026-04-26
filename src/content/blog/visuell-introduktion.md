@@ -27,6 +27,7 @@ tags:
   - social-media
   - marketing
   - productivity
+excerpt: "Med Social Stream som content-kalender ser du arkiverade inlägg, planerar framåt och har full kontroll — video, bild, text och hashtags på ett ställe."
 ---
 
 𝗔𝘁𝘁 𝘀𝘆𝗻𝗮𝘀 𝗼𝗰𝗵 𝗵𝗼̈𝗿𝗮𝘀 𝗽𝗮̊ 𝘀𝗼𝗰𝗶𝗮𝗹𝗮 𝗺𝗲𝗱𝗶𝗲𝗿 – 𝗹𝗼𝘃𝗲 𝗶𝘁 𝗼𝗿 𝗵𝗮𝘁𝗲 𝗶𝘁 – 𝗺𝗲𝗻 𝗲𝗻 𝘀𝗮𝗸 𝗮̈𝗿 𝘀𝗮̈𝗸𝗲𝗿: 𝗱𝗲𝘁 𝗮̈𝗿 𝗲𝗻 𝗿𝗲𝗹𝗮𝘁𝗶𝘃𝘁 𝗹𝗶𝘁𝗲𝗻 𝗶𝗻𝘃𝗲𝘀𝘁𝗲𝗿𝗶𝗻𝗴 𝘀𝗼𝗺 𝗶 𝘂𝘁𝗯𝘆𝘁𝗲 𝗴𝗲𝗿 𝗱𝗶𝗴 𝗮𝗸𝘁𝗶𝘃 𝗻𝗮̈𝗿𝘃𝗮𝗿𝗼 𝗶 𝗱𝗶𝗻𝗮 𝗳𝗼̈𝗹𝗷𝗮𝗿𝗲𝘀 𝗳𝗹𝗼̈𝗱𝗲𝗻.

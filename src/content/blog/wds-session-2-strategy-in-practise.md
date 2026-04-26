@@ -39,6 +39,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2775
 wpPermalink: "https://whiteport.com/blog/wds-session-2-strategy-in-practise/"
+excerpt: "WDS Session 2 puts digital strategy into practice. Join Mårten Angner online January 15th and learn how to build things worth building with AI."
 ---
 
 ## Event Details

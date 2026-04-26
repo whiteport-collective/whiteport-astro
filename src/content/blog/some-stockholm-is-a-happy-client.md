@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1307
 wpPermalink: "https://whiteport.com/blog/some-stockholm-is-a-happy-client/"
+excerpt: "SoMe Agency Stockholm automated their invoicing and client handling with Whiteport's system — no more jumping between tools, just streamlined results."
 ---
 
 Thank you&nbsp;[@some.agency.sthlm](https://www.instagram.com/some.agency.sthlm/)&nbsp;for your trust in us!

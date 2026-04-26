@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1291
 wpPermalink: "https://whiteport.com/blog/a-happy-client-5/"
+excerpt: "Tickin is a happy Whiteport client. Our time reporting system makes it easy to track working hours so you can focus on what actually matters."
 ---
 
 New ideas improving life! We are so proud of our time reporting system which makes it easier to keep track of working hours! 🤩

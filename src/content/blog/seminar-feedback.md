@@ -41,6 +41,7 @@ tags:
   - sketching
   - workshops
   - design
+excerpt: "Deltagarna älskar Lines of Thinking. Läs omdömena och se vad som händer när du vågar skissa och uttrycka din kreativitet — nästa grupp är din."
 ---
 
 Deltagarna älskar våra skisskurser. **Tack för dessa fantastiska omdömen!** 🙏 Det är när deltagarna sätter igång och skissar, vågar uttrycka sin kreativitet som gör dessa seminarier så speciella.

@@ -32,6 +32,7 @@ tags:
   - design-teams
   - wds
   - design-process
+excerpt: "Feeling overwhelmed by AI noise? Mårten Angner introduces Whiteport Design Studio — a framework that makes designers indispensable, not replaceable."
 ---
 
 🤯 Are you a designer? Feeling overwhelmed by all the AI noise? 

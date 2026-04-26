@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1281
 wpPermalink: "https://whiteport.com/blog/manifesto-3/"
+excerpt: "A proper business system must support your full customer lifecycle — from getting attention to closing sales and building long-term relationships."
 ---
 
 Support the business and nothing but the business! ☝

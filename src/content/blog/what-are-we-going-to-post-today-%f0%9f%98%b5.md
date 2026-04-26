@@ -30,6 +30,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1364
 wpPermalink: "https://whiteport.com/blog/what-are-we-going-to-post-today-%f0%9f%98%b5/"
+excerpt: "Vad ska vi posta idag? Den eviga frågan för entreprenörer. Vi tröttnade och byggde Social Stream — ett verktyg som planerar hela din närvaro i förväg."
 ---
 
 Det här är den ständiga frågan för en entreprenör som försöker nå sina kunder på sociala medier.

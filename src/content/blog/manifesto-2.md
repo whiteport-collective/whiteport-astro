@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1277
 wpPermalink: "https://whiteport.com/blog/manifesto-2/"
+excerpt: "Standard business systems are designed for everyone — which means they're really designed for no one. Whiteport believes your system should be truly yours."
 ---
 
 From where we are standing, very seldom, a standard industry business system ends up being a sound investment.

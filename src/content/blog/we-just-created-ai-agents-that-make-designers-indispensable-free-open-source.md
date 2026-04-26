@@ -28,6 +28,7 @@ gallery:
 # WordPress migration metadata
 wpId: 2212
 wpPermalink: "https://whiteport.com/blog/we-just-created-ai-agents-that-make-designers-indispensable-free-open-source/"
+excerpt: "WPS2C is here: AI agents that move designers into the development environment, delivering complete product documentation as build-ready code artifacts."
 ---
 
 The design market is changing fast. Assignments are fewer. AI is moving in. And many of us quietly wonder: *Who needs a designer?*

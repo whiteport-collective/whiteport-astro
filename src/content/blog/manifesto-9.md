@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1309
 wpPermalink: "https://whiteport.com/blog/manifesto-9/"
+excerpt: "Getting started is easier than you think — Whiteport identifies your vision and finds the smallest change that makes the biggest difference first."
 ---
 
 🔥Getting down to business is really easier than you think

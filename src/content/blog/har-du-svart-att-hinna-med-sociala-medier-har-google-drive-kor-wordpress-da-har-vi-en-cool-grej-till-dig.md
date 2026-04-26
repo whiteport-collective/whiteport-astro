@@ -23,6 +23,7 @@ tags:
   - social-media
   - marketing
   - productivity
+excerpt: "Tycker du att sociala medier tar för mycket tid? Social Stream kopplar ihop Google Drive med WordPress så du kan planera, samarbeta och publicera smartare."
 ---
 
 Tycker du att det är tidskrävande att hålla igång dina sociala medier? Önskar du att det fanns ett enklare sätt att planera, samarbeta och publicera inlägg – utan att förlora kontrollen över ditt innehåll?

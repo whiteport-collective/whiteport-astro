@@ -29,6 +29,7 @@ tags:
   - social-media
   - marketing
   - productivity
+excerpt: "Det började med frågan: varför gör vi det så komplicerat? Social Stream och vårt samarbete föddes ur frustrationen med sociala mediers eviga loop."
 ---
 
 𝗗𝗲𝘁 𝗯𝗼̈𝗿𝗷𝗮𝗱𝗲 𝗺𝗲𝗱 𝗲𝗻 𝗲𝗻𝗸𝗲𝗹 𝗳𝗿𝗮̊𝗴𝗮: 𝗩𝗮𝗿𝗳𝗼̈𝗿 𝗴𝗼̈𝗿 𝘃𝗶 𝗱𝗲𝘁 𝘀𝗮̊ 𝗸𝗼𝗺𝗽𝗹𝗶𝗰𝗲𝗿𝗮𝘁?

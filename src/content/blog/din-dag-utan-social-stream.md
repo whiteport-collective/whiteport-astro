@@ -29,6 +29,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1495
 wpPermalink: "https://whiteport.com/blog/din-dag-utan-social-stream/"
+excerpt: "En dag utan Social Stream: stressig, ostrukturerad och reaktiv. En dag med det: fokuserad, kreativ och proaktiv. Skillnaden är faktiskt stor."
 ---
 
 Att skapa en effektiv social media-strategi handlar inte bara om att&nbsp;*posta regelbundet*&nbsp;– det handlar om att skapa&nbsp;*värde, engagemang och långsiktig synlighet*.

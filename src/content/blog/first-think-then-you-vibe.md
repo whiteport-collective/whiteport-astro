@@ -32,6 +32,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2541
 wpPermalink: "https://whiteport.com/blog/first-think-then-you-vibe/"
+excerpt: "AI builds fast — but what if you're building the wrong thing faster? Think before you vibe: strategy and design thinking matter more than ever with AI."
 ---
 
 AI makes it ridiculously fast to build things.  But, what if, now with AI, you just built the 𝑤𝑟𝑜𝑛𝑔 thing… faster? 🤔

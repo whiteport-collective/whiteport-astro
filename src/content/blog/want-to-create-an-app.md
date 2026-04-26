@@ -20,6 +20,7 @@ tags:
   - design
   - ux
   - ai
+excerpt: "Got an app idea? Whiteport sketches it out at a whiteboard, then coordinates designers and developers to turn your vision into a real product."
 ---
 
 📰📲Do you dream of creating an app?

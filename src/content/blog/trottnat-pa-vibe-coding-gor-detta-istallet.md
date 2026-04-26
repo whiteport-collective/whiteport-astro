@@ -31,6 +31,7 @@ tags:
   - ai
   - agentic-development
   - strategy
+excerpt: "Tröttnat på vibe coding? Mårten gick från magisk känsla till evighetsloopar — och hittade att välstrukturerade skisser är det bästa AI-underlaget."
 ---
 
 **Har du också testat och redan tröttnat på Vibe Coding?**

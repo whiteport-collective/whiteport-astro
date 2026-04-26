@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1271
 wpPermalink: "https://whiteport.com/blog/manifesto-1/"
+excerpt: "How many systems do you juggle daily? Whiteport's manifesto starts here: break out of the SAAS spiral and build one system for your whole business."
 ---
 
 Just how tired are you of cutting and pasting info between systems to run your business?

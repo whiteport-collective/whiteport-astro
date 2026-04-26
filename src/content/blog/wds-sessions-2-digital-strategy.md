@@ -29,6 +29,7 @@ tags:
   - vibe-coding
   - design-process
   - design-teams
+excerpt: "Speed without strategy produces expensive mistakes. WDS Sessions 2 brings design strategy back — because a bad idea is still a bad idea, even with AI."
 ---
 
 Right now, designers everywhere are in a fever-like love affair with vibe-coding.

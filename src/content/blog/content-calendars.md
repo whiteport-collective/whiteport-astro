@@ -29,6 +29,7 @@ tags:
   - social-media
   - marketing
   - productivity
+excerpt: "Letar du efter en bra mall för content-kalender till sociala medier? Social Stream gör det lättare att planera och publicera som ett team."
 ---
 
 🤔 ***Känner jag någon som har en bra mall för content kalender för sociala medier?***

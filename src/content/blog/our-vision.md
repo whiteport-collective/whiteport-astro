@@ -19,6 +19,7 @@ wpPermalink: "https://whiteport.com/blog/our-vision/"
 tags:
   - design
   - ux
+excerpt: "Whiteport's vision: a world where every organisation builds nurturing relationships with customers, employees, and partners through brilliantly designed technology."
 ---
 
 Whiteport’s Vision

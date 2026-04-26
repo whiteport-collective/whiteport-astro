@@ -32,6 +32,7 @@ tags:
   - wds
   - agentic-development
   - ai
+excerpt: "Mellandagarna är en frizon för utforskning. Mårten bygger AI-agenter för designers — inte för att ersätta kreativiteten, utan för att ampliera den."
 ---
 
 Det är något speciellt med tiden mellan jul och nyår. Kalendern har tappat greppet om verkligheten, inkorgen är (för en gångs skull) lite mindre bossig, och världen känns som att den går på halvfart. Som om allt är **inbäddat i bomull**.

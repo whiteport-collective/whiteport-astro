@@ -32,6 +32,7 @@ tags:
   - design-process
   - ai-agents
   - ux
+excerpt: "Designers know how to make products people love. In WDS Session 1 we showed how design thinking is exactly what AI needs to build the right thing."
 ---
 
 This is what changes everything.

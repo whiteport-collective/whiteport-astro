@@ -32,6 +32,7 @@ tags:
   - agentic-development
   - design-process
   - workshops
+excerpt: "WDS Session 3 is for designers who want to build the right thing before building it fast. Turn vague goals into executable strategy with AI."
 ---
 
 ## What you’ll learn

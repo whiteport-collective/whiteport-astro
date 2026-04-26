@@ -45,6 +45,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2217
 wpPermalink: "https://whiteport.com/blog/wps2c-is-here-ai-agents-for-every-digital-creative/"
+excerpt: "WPS2C launches AI agents for every digital creative — designers can now deliver complete product documentation as build-ready artifacts inside the IDE."
 ---
 
 **Many digital creatives feel the uncertainty in the market today. Opportunities seem fewer, competition is tougher, and many designers quietly wonder if AI will simply take their jobs away.**

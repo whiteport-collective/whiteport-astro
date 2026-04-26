@@ -36,6 +36,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 1784
 wpPermalink: "https://whiteport.com/blog/lines-of-thinking-seminar/"
+excerpt: "Lines of Thinking teaches you to sketch in minutes — then goes further, combining conceptual thinking and AI to amplify your design process."
 ---
 
 **This is a sketching course that will teach you how to sketch in minutes. Guaranteed. But, it is also so much more. It unleashes the full communicative and innovative potential by giving you access to the most effective communication tools in the world.**

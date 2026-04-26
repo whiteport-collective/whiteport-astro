@@ -23,6 +23,7 @@ tags:
   - design-process
   - ai
   - design
+excerpt: "Sketching in 2025 is a superpower. Hand-drawn intent is the clearest input for AI — turning rough concepts into running code faster than any prompt."
 ---
 
 **In 2025, designers face a paradox. **We have AI tools that can generate entire interfaces from a single sentence — but what they create is often shallow and requires a ton of refinement before it can be used for anything worthwhile. Professional designers crave more control and precision.

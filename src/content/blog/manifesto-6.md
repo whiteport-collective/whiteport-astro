@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1293
 wpPermalink: "https://whiteport.com/blog/manifesto-6/"
+excerpt: "Innovation is a learnable skill. Using open source as a base, Whiteport helps companies master their own digital destiny without ongoing licence fees."
 ---
 
 Innovation is a skill and every company can master it ☝️

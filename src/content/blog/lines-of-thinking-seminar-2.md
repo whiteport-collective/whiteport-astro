@@ -29,6 +29,7 @@ tags:
   - sketching
   - design
   - workshops
+excerpt: "Awaken your creative artist at Lines of Thinking — a 3-hour sketching seminar at The Park Forskaren on 4 June 2025, also available online."
 ---
 
 **Awaken your creative Artist at the Lines of Thinking Seminar**

@@ -78,6 +78,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2198
 wpPermalink: "https://whiteport.com/blog/seminar-lines-of-thinking-at-the-park-forskaren/"
+excerpt: "Lines of Thinking at The Park Forskaren — a hands-on sketching seminar where visual thinking transforms how you communicate and generate ideas."
 ---
 
 **Thank you to everyone who joined me at The Park (and online) — Creatives, Digital Designers and Tech Entrepreneurs who came curious, sketched fearlessly, and left with tools to get accurate AI results, speed up their workflows and a clearer visual direction.** I loved watching you rediscover the joy in creating and turn hand-drawn lines into a real competitive AI edge.

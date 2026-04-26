@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1301
 wpPermalink: "https://whiteport.com/blog/manifesto-8/"
+excerpt: "Open source e-commerce can transform your entire business — beyond sales. Automate invoices and integrate custom workflows with flexible, scalable tech."
 ---
 
 Transform Your Business with Open Source Magic!✨

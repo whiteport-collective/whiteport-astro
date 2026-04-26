@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1287
 wpPermalink: "https://whiteport.com/blog/a-happy-client-4/"
+excerpt: "Byt Hjul is now a happy Whiteport client. We help any business go online — from wheel-changing services to digital experiences that work."
 ---
 
 What we like in our job , that we can help anyone with any idea if you want to go online with your business! New tires for your vehicle? Yes please 🤩

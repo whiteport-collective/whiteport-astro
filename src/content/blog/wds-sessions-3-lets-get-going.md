@@ -39,6 +39,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2510
 wpPermalink: "https://whiteport.com/blog/wds-sessions-3-lets-get-going/"
+excerpt: "WDS Session 3 goes from white panic to first commit. Join Mårten online January 29th to install WDS and start building with AI-driven design agents."
 ---
 
 📅&nbsp;**Date:**&nbsp;Thursday, January 29th

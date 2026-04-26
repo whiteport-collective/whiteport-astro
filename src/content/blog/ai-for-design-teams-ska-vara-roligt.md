@@ -33,6 +33,7 @@ tags:
   - design-process
   - wds
   - leadership
+excerpt: "Att implementera AI på designavdelningen ska vara kul, inte ett projekt med 14 styrgrupper. Whiteport visar hur designteam går från ord till handling."
 ---
 
 Hej **designbyråer**, **designteam**, **marknadsavdelningar** och **kommunikationsavdelningar** som jobbar digitalt.

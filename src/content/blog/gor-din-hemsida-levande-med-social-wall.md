@@ -22,6 +22,7 @@ gallery:
     type: image
     display:
       - thumbnail
+excerpt: "Social Wall låter dig visa sociala inlägg direkt på hemsidan — innehållet försvinner inte i flödet utan får en permanent, sökbar plats på din site."
 ---
 
 Att skapa intressant innehåll för sociala medier är en sak, men vad händer sedan med allt? Ofta hamnar det i det sociala flödet och försvinner efter några dagar – trots att det kan ha ett långsiktigt värde för ditt företag.

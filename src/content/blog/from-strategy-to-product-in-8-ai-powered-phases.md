@@ -22,6 +22,7 @@ gallery:
       - share_image
       - thumbnail
 draft: false
+excerpt: "WDS connects every step from business strategy to living product through AI agents — no more copying context between tools or re-briefing agents."
 ---
 
 Most AI design tools solve one step. Generate a wireframe. Write some copy. Make an icon.

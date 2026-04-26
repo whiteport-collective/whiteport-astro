@@ -23,6 +23,7 @@ gallery:
       - facebook
       - linkedin
       - thumbnail
+excerpt: "WDS 0.4.0 ships build specifications: complete database schemas, state machines, and API surfaces that a coding agent can build from without questions."
 ---
 
 We just shipped the biggest WDS update since the agent restructuring. Four features that change how the system works at a fundamental level.

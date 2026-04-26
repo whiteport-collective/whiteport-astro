@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1297
 wpPermalink: "https://whiteport.com/blog/manifesto-7/"
+excerpt: "Whiteport's goal: make every client fully self-sufficient in their development journey. We're evangelists for taking back control of your digital tools."
 ---
 
 We in Whiteport see ourselves as evangelists for companies to take their power and initiative back. We are not done with our work before our clients are fully self-sufficient in their development journey.

@@ -41,6 +41,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2238
 wpPermalink: "https://whiteport.com/blog/wds-jam-1/"
+excerpt: "WDS Jam 1 is an online event exploring the role of designers in the age of AI — join us December 22 for a practical hands-on session."
 ---
 
 ## Event Details

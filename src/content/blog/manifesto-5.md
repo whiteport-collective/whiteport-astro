@@ -16,6 +16,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1289
 wpPermalink: "https://whiteport.com/blog/manifesto-5/"
+excerpt: "Companies that own their platforms have a superpower: they can adapt instantly when the market shifts. Whiteport helps you get there step by step."
 ---
 
 Finding the courage to develop your own platforms 💪

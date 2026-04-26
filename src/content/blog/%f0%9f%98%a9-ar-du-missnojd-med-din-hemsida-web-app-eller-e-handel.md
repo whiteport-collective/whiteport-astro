@@ -22,6 +22,7 @@ wpPermalink: "https://whiteport.com/blog/%f0%9f%98%a9-ar-du-missnojd-med-din-hem
 tags:
   - ux
   - design
+excerpt: "Du är inte ensam om att ursäkta sin hemsida. De flesta vill bättre — Whiteport hjälper dig ta nästa steg med UX och digital design."
 ---
 
 Du är inte ensam.

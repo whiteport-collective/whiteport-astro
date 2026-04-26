@@ -31,6 +31,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 988
 wpPermalink: "https://whiteport.com/blog/test/"
+excerpt: "What is digital design that makes business sense? Design that drives conversions, improves engagement, and aligns with your goals — not just aesthetics."
 ---
 
 ## What Is "Digital Design That Makes Business Sense"?

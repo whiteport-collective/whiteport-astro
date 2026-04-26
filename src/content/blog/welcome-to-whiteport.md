@@ -19,6 +19,7 @@ wpPermalink: "https://whiteport.com/blog/welcome-to-whiteport/"
 tags:
   - design
   - ux
+excerpt: "Whiteport is a Stockholm-based digital agency specialising in UX design and custom open source business systems. Curious how we can help your business?"
 ---
 
 🎪Whiteport is a Stockholm based digital agency with a passion for making technology accessible for any company.

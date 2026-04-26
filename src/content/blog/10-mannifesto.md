@@ -30,6 +30,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1330
 wpPermalink: "https://whiteport.com/blog/10-mannifesto/"
+excerpt: "Tio principer som vägleder allt vi gör på Whiteport — från systemdesign till långsiktiga kundrelationer och en digital framtid du äger själv."
 ---
 
 

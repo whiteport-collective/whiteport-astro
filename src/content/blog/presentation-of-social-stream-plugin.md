@@ -19,6 +19,7 @@ gallery:
     type: image
     display:
       - thumbnail
+excerpt: "Social Stream samlar ditt sociala innehåll på hemsidan, gör det sökbart på Google och effektiviserar publiceringen — ett verktyg som täcker hela flödet."
 ---
 
 På Whiteport har vi tagit oss an denna utmaning och utvecklat **Social Stream**, ett WordPress-plugin som hjälper dig att skapa, organisera och publicera ditt innehåll på sociala medier – samtidigt som det integreras som en landningssida på din egen webbplats.

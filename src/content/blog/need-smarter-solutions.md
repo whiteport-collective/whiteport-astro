@@ -19,6 +19,7 @@ wpPermalink: "https://whiteport.com/blog/need-smarter-solutions/"
 tags:
   - design
   - ux
+excerpt: "Stop copy-pasting between systems. Whiteport builds integrated platforms under the motto 'one business, one system' — starting with what matters most."
 ---
 
 Do you cut and paste your business processes? 🤔

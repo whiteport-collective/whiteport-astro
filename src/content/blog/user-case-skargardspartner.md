@@ -29,6 +29,7 @@ tags:
   - ux
   - design-process
   - design
+excerpt: "Skärgårdspartner's electricians needed tools that worked in the field. Whiteport built a human-centered service management system that actually delivered."
 ---
 
 **Introduction:**

@@ -43,6 +43,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2319
 wpPermalink: "https://whiteport.com/blog/gymzombies/"
+excerpt: "Gymmet håller på att bli ett väntrum. Skärmar, hörlurar och doomscrollande mitt i träningen — för vad? Lämna mobilen i skåpet och ge allt du har."
 ---
 
 När jag kliver in på gymmet känns det ibland som att jag råkat gå in i ett väntrum.

@@ -29,6 +29,7 @@ socialPosts:
 # WordPress migration metadata
 wpId: 2558
 wpPermalink: "https://whiteport.com/blog/thank-you-for-the-book/"
+excerpt: "A book that genuinely shaped the WDS. Whiteport Design Studio — the free, open source AI agent framework for designers — is now available for everyone."
 ---
 
 Thanks for the book @sambhagwat

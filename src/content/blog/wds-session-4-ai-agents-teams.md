@@ -33,6 +33,7 @@ gallery:
 # WordPress migration metadata
 wpId: 2870
 wpPermalink: "https://whiteport.com/?post_type=stream_post&p=2870"
+excerpt: "WDS Session 4 explores AI agents and design teams. Join Mårten Angner on February 11 and discover how to work with AI as a true design partner."
 ---
 
 📅&nbsp;**Date:**&nbsp;Wednesday, 11th February

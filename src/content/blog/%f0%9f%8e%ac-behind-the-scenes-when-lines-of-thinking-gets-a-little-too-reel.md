@@ -25,6 +25,7 @@ wpPermalink: "https://whiteport.com/blog/%f0%9f%8e%ac-behind-the-scenes-when-lin
 tags:
   - sketching
   - workshops
+excerpt: "Outtakes from the Lines of Thinking filming — bloopers, brain freezes, and unscripted magic captured by SoMe Agency during a memorable day."
 ---
 
 Turns out, we all have moments where the brain freezes and the bloopers write themselves. 😂✏️

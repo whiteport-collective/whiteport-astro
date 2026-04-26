@@ -11,6 +11,7 @@ gallery:
 # WordPress migration metadata
 wpId: 1372
 wpPermalink: "https://whiteport.com/blog/frilansfinans-valjer-whiteport/"
+excerpt: "Frilansfinans väljer Whiteport som sin digitala partner. Vi är stolta över förtroendet och ser fram emot ett givande och långsiktigt samarbete."
 ---
 
 
