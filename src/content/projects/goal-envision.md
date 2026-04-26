@@ -4,7 +4,7 @@ description: "We orchestrated the complete redesign of this Stockholm SaaS start
 client: "GoalEnvision"
 tags: ["product-management", "ux-design", "visual-design", "development", "saas"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2025/04/GoalEnvision-main-1024x747.jpg"
+  src: "/images/wp/project-goalenvision.webp"
   alt: "GoalEnvision platform overview"
 url: "https://goalenvision.com"
 blocks:
@@ -16,7 +16,7 @@ blocks:
     text: |
       When the first version of the GoalEnvision platform reached its limits, the company invited Whiteport to take the lead in reimagining both the product and its user experience. Over the course of two and a half years, Whiteport guided the project from concept to launch.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/GoalEnvision-main-1024x747.jpg"
+      src: "/images/wp/project-goalenvision.webp"
       alt: "GoalEnvision main interface"
       size: large
 
@@ -24,7 +24,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/goal-screens-case-img-1920x840.jpg"
+      src: "/images/wp/project-goalenvision.webp"
       alt: "GoalEnvision screen designs"
       size: banner
 
@@ -44,7 +44,7 @@ blocks:
       - "People — Measuring employee engagement, skills, and organizational culture"
       - "Finance — Monitoring financial health and resource allocation"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/goal-tab-mob-screens-1024x990.jpg"
+      src: "/images/wp/project-goalenvision.webp"
       alt: "GoalEnvision tablet and mobile views"
       size: large
 
@@ -52,7 +52,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/goal-mockups-1920x763.jpg"
+      src: "/images/wp/project-goalenvision.webp"
       alt: "GoalEnvision device mockups"
       size: banner
 
@@ -69,7 +69,7 @@ blocks:
       - "Interface & visual design"
       - "Technical architecture & development"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/goal-case-img4-1024x823.png"
+      src: "/images/wp/project-goalenvision.webp"
       alt: "GoalEnvision custom illustrations"
       size: large
 
@@ -80,7 +80,7 @@ blocks:
     name: "Charlotte Sehlse"
     role: "Founder"
     company: "GoalEnvision"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/goal-testimonial-img-150x150.jpg"
+    avatar: ""
 ---
 
 Creating a new generation of strategy software through measurable, team-based goals.

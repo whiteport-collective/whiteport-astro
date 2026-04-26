@@ -4,7 +4,7 @@ description: "Award-winning e-commerce redesign — 'E-commerce of the year' by 
 client: "BytHjul"
 tags: ["ux-design", "visual-design", "e-commerce", "frontend-development"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-laptop-screen-3-1024x624.jpg"
+  src: "/images/wp/project-bythjul.webp"
   alt: "BytHjul e-commerce redesign"
 url: "https://bythjul.se"
 blocks:
@@ -15,7 +15,7 @@ blocks:
     text: |
       While their site was a critical sales channel, it had become outdated — especially for mobile users. The challenge? To completely modernize the look, feel, and usability of the site while preserving the existing backend infrastructure.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-laptop-screen-3-1024x624.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul on laptop"
       size: large
 
@@ -23,7 +23,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-screen-1920x840.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul screen designs"
       size: banner
 
@@ -40,7 +40,7 @@ blocks:
       - "Simplify the checkout process to reduce friction and improve conversion rates"
       - "Maintain the existing backend, focusing purely on frontend improvements and low-code solutions"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-tab-mob-1-959x1024.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul tablet and mobile views"
       size: large
 
@@ -48,7 +48,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-mockups-1920x763.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul device mockups"
       size: banner
 
@@ -66,7 +66,7 @@ blocks:
       - "Visual design"
       - "Frontend development"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-mob-screen2-776x1024.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul mobile screen"
       size: large
 
@@ -74,7 +74,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-screens-1-1920x960.jpg"
+      src: "/images/wp/project-bythjul.webp"
       alt: "BytHjul additional screens"
       size: banner
 
@@ -85,7 +85,7 @@ blocks:
     name: "Johan Dahl"
     role: "CTO & Utvecklingschef"
     company: "BytHjul"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/bythjul-testimonial-150x150.jpg"
+    avatar: ""
 ---
 
 Can tires be fashionable? Whiteport got awarded "E-commerce of the year" for our redesign of Sweden's sexiest online tire shop!

@@ -1,5 +1,6 @@
 ---
 title: Dear designers, Now it is not the time to despair
+seoTitle: "Dear designers: it's not the time to despair"
 publishDate: 2025-12-19T12:00:00.000Z
 author: Marten Angner
 categories:

@@ -13,7 +13,7 @@ tags:
   - wds
   - designprocess
   - ai-adoption
-excerpt: "Verktygen finns. Kompetensen finns. Viljan finns. Ändå tar det inte fart. Det är inte ett teknikproblem — det är ett ledarskapsproblem. En kultur av detaljstyrning och ängsliga godkännandeloopar blockerar AI-potentialen i designteam. Här är vad som behöver förändras."
+excerpt: "Verktygen finns. Kompetensen finns. Ändå tar det inte fart. Detaljstyrning och ängsliga godkännandeloopar blockerar AI-potentialen i designteam."
 offers:
   - title: "Känner du igen dig?"
     label: "För design- och produktledare"

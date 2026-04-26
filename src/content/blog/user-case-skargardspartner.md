@@ -1,5 +1,6 @@
 ---
 title: How we built an App that works for electricians
+seoTitle: "How we built an app for electricians"
 publishDate: 2025-04-15T00:00:00.000Z
 author: Camilla Andersson
 gallery:

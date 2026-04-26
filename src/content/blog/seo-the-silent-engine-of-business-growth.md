@@ -1,5 +1,6 @@
 ---
 title: "SEO: The silent engine of sustainable business growth"
+seoTitle: "SEO: The silent engine of business growth"
 publishDate: 2026-02-15T17:00:49.000Z
 author: Camilla Andersson
 categories:
@@ -9,7 +10,7 @@ tags:
   - digital-marketing
   - ai-search
   - visibility
-excerpt: "Visibility is currency. You've invested time and resources into your website. It's polished, professional and primed to convert visitors into customers. But here's the crucial question: Are people actually finding it?"
+excerpt: "Visibility is currency. Your site is polished and primed to convert — but are people actually finding it? SEO is the engine that drives organic growth."
 gallery:
   - src: "https://whiteport.com/wp-content/uploads/2026/02/SoMe-Instagram-4x5-10.jpg"
     alt: SoMe-Instagram-4x5-10.jpg

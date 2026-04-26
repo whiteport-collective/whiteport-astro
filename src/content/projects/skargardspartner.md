@@ -4,7 +4,7 @@ description: "We built a website with integrated business system, resource manag
 client: "Skärgårdspartner"
 tags: ["ux-design", "visual-design", "development", "mobile-app", "wordpress"]
 featuredImage:
-  src: "https://whiteport.com/wp-content/uploads/2025/04/case-skargardspartner_2-1-1.jpg"
+  src: "/images/wp/project-skargardspartner.webp"
   alt: "Skärgårdspartner app overview"
 blocks:
   # Block 1: Intro (highlighted) — title + intro | featured image
@@ -14,7 +14,7 @@ blocks:
     text: |
       Skärgårdspartner is a Stockholm-based service company that delivers electrical installation and maintenance services across the archipelago. The vision of this project was to more effectively combine local knowledge with technical expertise to offer a more reliable and personal service to homeowners and businesses. The Goal was to reduce administration for the owner and at the same time create a more active and engaged team, where each electrician takes more ownership of the customer relationship and the job at hand.
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/case-skargardspartner_2-1-1.jpg"
+      src: "/images/wp/project-skargardspartner.webp"
       alt: "Skärgårdspartner on laptop"
       size: large
 
@@ -22,7 +22,7 @@ blocks:
   - type: poster
     full: true
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/poster-img-1920x840.jpg"
+      src: "/images/wp/project-skargardspartner.webp"
       alt: "Skärgårdspartner screen designs"
       size: banner
 
@@ -42,7 +42,7 @@ blocks:
       - "Instant mobile payments through Swish"
       - "Improved communication between electrician and client"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/tab-mob-screens-958x1024.jpg"
+      src: "/images/wp/project-skargardspartner.webp"
       alt: "Skärgårdspartner tablet and mobile"
       size: large
 
@@ -50,7 +50,7 @@ blocks:
   - type: poster
     full: false
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/case-skargardspartner-img3.jpg"
+      src: "/images/wp/project-skargardspartner.webp"
       alt: "Skärgårdspartner mockups"
       size: banner
 
@@ -69,7 +69,7 @@ blocks:
       - "Frontend and backend development"
       - "Trade fair materials & rollups"
     image:
-      src: "https://whiteport.com/wp-content/uploads/2025/04/rollup-mockup-1.jpg"
+      src: "/images/wp/project-skargardspartner.webp"
       alt: "Skärgårdspartner rollup mockups"
       size: large
 
@@ -80,7 +80,7 @@ blocks:
     name: "Sebastian Karlström"
     role: "Founder & CEO"
     company: "Skärgårdspartner"
-    avatar: "https://whiteport.com/wp-content/uploads/2025/04/SebastianKarlstrom-150x150.jpg"
+    avatar: ""
 ---
 
 Reducing admin, increasing engagement — with a smarter app for electricians.

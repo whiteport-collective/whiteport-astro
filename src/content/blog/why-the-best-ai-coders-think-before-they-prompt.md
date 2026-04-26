@@ -1,5 +1,6 @@
 ---
 title: "Why the best AI coders think before they prompt"
+seoTitle: "Why the best AI coders think before prompting"
 publishDate: 2026-01-23T21:30:08.000Z
 author: Marten Angner
 categories:
@@ -12,7 +13,7 @@ tags:
   - strategy
   - vibe-coding
   - prompt-engineering
-excerpt: "You've burned 3 hours and $50 in AI credits... and you're further from done than when you started. Here's the uncomfortable truth: the problem isn't AI. It's that you skipped strategy."
+excerpt: "You've burned 3 hours and $50 in AI credits and you're further from done. The uncomfortable truth: the problem isn't AI — you skipped strategy."
 gallery:
   - gdriveId: 1IMEKN8bL2lXwV5QM0TKam4ZiExh8Y-j7
     alt: WDS Session 2 - What is strategy

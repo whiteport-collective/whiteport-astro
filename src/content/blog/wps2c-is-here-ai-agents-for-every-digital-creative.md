@@ -1,5 +1,6 @@
 ---
 title: "WPS2C is Here! — AI Agents for Every Digital Creative!"
+seoTitle: "WPS2C: AI Agents for Every Digital Creative"
 publishDate: 2025-09-30T00:00:00.000Z
 author: Marten Angner
 categories:
