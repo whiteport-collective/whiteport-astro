@@ -13,6 +13,12 @@ tags:
   - marketing
   - seo
   - productivity
+gallery:
+  - src: "/images/wp/solution-social-plugin.webp"
+    alt: "Social Stream för WordPress — publicera och äg ditt innehåll"
+    type: image
+    display:
+      - thumbnail
 ---
 
 På Whiteport har vi tagit oss an denna utmaning och utvecklat **Social Stream**, ett WordPress-plugin som hjälper dig att skapa, organisera och publicera ditt innehåll på sociala medier – samtidigt som det integreras som en landningssida på din egen webbplats.

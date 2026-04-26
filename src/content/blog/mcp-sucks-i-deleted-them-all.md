@@ -21,9 +21,9 @@ offers:
     cta: "Book a free consultation →"
     href: https://cal.com/whiteport
 featuredImage:
-  src: /images/blog/mcp-sucks/hero-portrait.png
+  src: /images/blog/mcp-sucks/hero-portrait.webp
 gallery:
-  - src: /images/blog/mcp-sucks/hero-portrait.png
+  - src: /images/blog/mcp-sucks/hero-portrait.webp
     alt: "MCP Sucks graffiti on a concrete skatepark wall, stencil figure in shock, with the tag 'I deleted all of mine — and so should you'"
     type: image
     width: 1080

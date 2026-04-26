@@ -30,7 +30,7 @@ const trustedLogos = [
   { name: 'Mr Shoebox', url: '/images/wp/logo-trusted-14.svg' },
   { name: 'Photowall', url: '/images/wp/logo-trusted-15.svg' },
   { name: 'Reco', url: '/images/wp/logo-trusted-16.svg' },
-  { name: 'AJ Produkter', url: '/images/wp/logo-trusted-aj.png' },
+  { name: 'AJ Produkter', url: '/images/wp/logo-trusted-aj.webp' },
   { name: 'Treated', url: '/images/wp/logo-trusted-17.svg' },
   { name: 'Regeringskansliet', url: '/images/wp/logo-trusted-18.svg' },
   { name: 'Paylevo', url: '/images/wp/logo-trusted-19.svg' },
@@ -85,13 +85,13 @@ const jsonLd = {
 
 // Project images mapping
 const projectImages: Record<string, string> = {
-  'histreamers': '/images/wp/project-histreamers.jpg',
-  'goal-envision': '/images/wp/project-goalenvision.jpg',
-  'skargardspartner': '/images/wp/project-skargardspartner.png',
-  'bythjul': '/images/wp/project-bythjul.jpg',
-  'indoor-energy-services': '/images/wp/project-indoor.jpg',
-  'eve-adam': '/images/wp/project-eveadam.jpg',
-  'fyndiqsvajpen': '/images/wp/project-fyndiqsvajpen.jpg',
+  'histreamers': '/images/wp/project-histreamers.webp',
+  'goal-envision': '/images/wp/project-goalenvision.webp',
+  'skargardspartner': '/images/wp/project-skargardspartner.webp',
+  'bythjul': '/images/wp/project-bythjul.webp',
+  'indoor-energy-services': '/images/wp/project-indoor.webp',
+  'eve-adam': '/images/wp/project-eveadam.webp',
+  'fyndiqsvajpen': '/images/wp/project-fyndiqsvajpen.webp',
 };
 ---
 
@@ -106,10 +106,10 @@ const projectImages: Record<string, string> = {
        hero: min-h:765px, pt:80px, pb:110px
        arrow: 50x50, bg:#043F76
        header: padding:30px 0, z-100, fixed -->
-  <section class="hero-section relative text-white flex flex-col items-center justify-center min-h-[90vh] pt-[100px] pb-[100px] overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/images/wp/hero-bg.jpg');">
+  <section class="hero-section relative text-white flex flex-col items-center justify-center min-h-[90vh] pt-[100px] pb-[100px] overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('/images/wp/hero-bg.webp');">
     <div class="absolute inset-0 bg-wp-blue/65"></div>
     <div class="hero-content relative max-w-[855px] mx-auto px-[15px] text-center flex flex-col items-center gap-[16px]">
-      <img src="/images/wp/emblem.png" alt="" class="hero-emblem w-[50px] h-[50px] mb-[14px]" width="50" height="50" />
+      <img src="/images/wp/emblem.webp" alt="" class="hero-emblem w-[50px] h-[50px] mb-[14px]" width="50" height="50" />
       <h1 class="max-w-[90%] font-light text-white leading-[1.2] hero-title">
         Digital design powered by Ai that makes business sense.
       </h1>
@@ -293,7 +293,7 @@ const projectImages: Record<string, string> = {
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="flex flex-col items-center text-center">
-          <img src="/images/wp/solution-social-plugin.png" alt="Social Stream Plugin" class="w-full h-auto mb-4 rounded" />
+          <img src="/images/wp/solution-social-plugin.webp" alt="Social Stream Plugin" class="w-full h-auto mb-4 rounded" />
           <h3 class="text-lg font-medium mb-2">Social Stream Plugin</h3>
           <p class="text-sm text-wp-grey leading-relaxed mb-4">Content operations platform that makes your social media workflow smarter and more efficient.</p>
           <a href="https://whiteport.com/social-stream/" class="mt-auto inline-block px-6 py-2 bg-wp-blue text-white text-sm font-medium rounded hover:-translate-y-0.5 hover:shadow-lg transition-all no-underline">
@@ -340,7 +340,7 @@ const projectImages: Record<string, string> = {
   </section>
 
   <!-- Team / Contact — matches WP .team-block with dark overlay -->
-  <section id="team" class="relative py-20 sm:py-28 text-white bg-cover bg-center bg-no-repeat" style="background-image: url('/images/wp/team-bg.jpg');">
+  <section id="team" class="relative py-20 sm:py-28 text-white bg-cover bg-center bg-no-repeat" style="background-image: url('/images/wp/team-bg.webp');">
     <div class="absolute inset-0" style="background: linear-gradient(0deg, rgba(0,64,123,0.74), rgba(0,64,123,0.74)), linear-gradient(180deg, rgba(0,0,0,0.75) 9.56%, transparent 86.5%);"></div>
     <div class="relative z-10 page-width-short">
       <h2 class="text-2xl sm:text-3xl lg:text-4xl font-light text-center text-white mb-16">Contact us</h2>
@@ -372,7 +372,7 @@ const projectImages: Record<string, string> = {
           {COMPANY.team.map((member) => (
             <div class="text-center">
               <img
-                src={member.name === 'Mårten Angner' ? '/images/wp/team-marten.jpg' : '/images/wp/team-anna.jpg'}
+                src={member.name === 'Mårten Angner' ? '/images/wp/team-marten.webp' : '/images/wp/team-anna.webp'}
                 alt={member.name}
                 class="w-48 h-48 rounded-full object-cover mx-auto mb-4"
                 loading="lazy"

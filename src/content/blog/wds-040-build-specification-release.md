@@ -11,7 +11,7 @@ tags:
   - design-process
   - frameworks
 gallery:
-  - src: "/images/blog/wds-040/hero.jpg"
+  - src: "/images/blog/wds-040/hero.webp"
     alt: WDS v0.4.0 Build Specification Release — chalkboard infographic
     type: image
     width: 3712

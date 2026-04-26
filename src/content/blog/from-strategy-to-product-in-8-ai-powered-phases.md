@@ -13,11 +13,9 @@ tags:
   - frameworks
   - design-teams
 gallery:
-  - src: ""
-    alt: "From Strategy to Product in 8 AI-Powered Phases"
+  - src: "/images/wp/stream-wds-session3.webp"
+    alt: "WDS Session 3 — AI-Powered Design Framework"
     type: image
-    width: 1920
-    height: 1080
     display:
       - archive
       - gallery

@@ -24,9 +24,9 @@ offers:
     cta: "Book a free consultation →"
     href: https://cal.com/whiteport
 featuredImage:
-  src: /images/blog/wds-lessons-learned/hero-portrait.jpg
+  src: /images/blog/wds-lessons-learned/hero-portrait.webp
 gallery:
-  - src: /images/blog/wds-lessons-learned/hero-wide.jpg
+  - src: /images/blog/wds-lessons-learned/hero-wide.webp
     alt: "Lessons Learned: Running the WDS AI Agent Framework in a Design Team"
     type: image
     width: 1200
@@ -34,7 +34,7 @@ gallery:
     display:
       - gallery
       - share_image
-  - src: /images/blog/wds-lessons-learned/hero-portrait.jpg
+  - src: /images/blog/wds-lessons-learned/hero-portrait.webp
     alt: "Lessons Learned: Running the WDS AI Agent Framework in a Design Team"
     type: image
     width: 800
@@ -212,6 +212,6 @@ No more throwing wireframes over the wall. No more "but why did we build it this
     <p style="font-size:18px; font-weight:300; line-height:1.7; color:#2e2e2e; margin:0;">Connect with me and I'll send you a <strong>free handbook</strong> for founders and design team leads — a practical guide to rolling out WDS in your organization. 📬</p>
   </div>
   <div style="flex:0 0 45%; margin-right:-20px;">
-    <img src="/images/team/marten-angner-cropped-600.png" alt="Mårten Angner" style="width:100%; height:auto; display:block;" />
+    <img src="/images/team/marten-angner-cropped-600.webp" alt="Mårten Angner" style="width:100%; height:auto; display:block;" />
   </div>
 </div>

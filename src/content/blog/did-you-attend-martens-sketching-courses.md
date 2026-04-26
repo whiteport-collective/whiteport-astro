@@ -17,6 +17,12 @@ tags:
   - design
   - workshops
   - ai
+gallery:
+  - src: "/images/team/marten-angner.webp"
+    alt: "Mårten Angner — sketching course instructor"
+    type: image
+    display:
+      - thumbnail
 ---
 
 Did you attend one of my previous sketching courses? *Share your story and you can win a new sketching kit! ✨*. And the chance to win free admission to my new updated version of sketching course - Lines of thinking, Conceptual sketches meets AI. ✍️

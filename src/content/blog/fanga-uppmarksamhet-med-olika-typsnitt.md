@@ -16,6 +16,12 @@ tags:
   - social-media
   - marketing
   - design
+gallery:
+  - src: "/images/wp/stream-seo.webp"
+    alt: "Fånga uppmärksamhet med rätt innehåll och typografi"
+    type: image
+    display:
+      - thumbnail
 ---
 
 *Har du lagt märke till hur vissa inlägg i ditt flöde verkar fånga din uppmärksamhet direkt?* Ofta handlar det om mer än bara bra bilder eller engagerande texter – det handlar också om hur texten är formaterad. **Fet stil**, *kursiv* och **andra typsnitt kan göra stor skillnad när det gäller att fånga användarnas uppmärksamhet och få dem att stanna upp och läsa ditt innehåll.** Men hur gör man egentligen?

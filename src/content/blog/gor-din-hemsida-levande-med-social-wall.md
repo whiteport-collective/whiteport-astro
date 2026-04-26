@@ -16,6 +16,12 @@ tags:
   - social-media
   - marketing
   - seo
+gallery:
+  - src: "/images/wp/solution-social-plugin.webp"
+    alt: "Social Wall — integrera dina sociala inlägg på hemsidan"
+    type: image
+    display:
+      - thumbnail
 ---
 
 Att skapa intressant innehåll för sociala medier är en sak, men vad händer sedan med allt? Ofta hamnar det i det sociala flödet och försvinner efter några dagar – trots att det kan ha ett långsiktigt värde för ditt företag.

@@ -14,6 +14,12 @@ tags:
   - ai
   - vibe-coding
 excerpt: "With AI you can accomplish a lot of digital product output in very little time. But when doing gets cheap, people are tempted to skip the thinking."
+gallery:
+  - src: "/images/wp/stream-burn.webp"
+    alt: "The prompt burn is real — think before you code"
+    type: image
+    display:
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "Att programmera saker och få fram något som ser färdigt ut har blivit billigt. ⚡\n \nDu kan skissa UI, generera kod och få något som ser färdigt ut på en eftermiddag.\n \nOch därför hoppar många över det "

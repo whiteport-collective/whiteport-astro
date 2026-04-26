@@ -21,9 +21,9 @@ offers:
     cta: "Boka ett kostnadsfritt samtal →"
     href: mailto:marten@whiteport.com
 featuredImage:
-  src: /images/blog/agentisk-design-ledarskap/hero.jpg
+  src: /images/blog/agentisk-design-ledarskap/hero.webp
 gallery:
-  - src: /images/blog/agentisk-design-ledarskap/hero.jpg
+  - src: /images/blog/agentisk-design-ledarskap/hero.webp
     alt: "Dan Kindeborg och kollegor på Avanza AI-byggdag — en hel dag om agentisk design"
     type: image
     width: 1196
