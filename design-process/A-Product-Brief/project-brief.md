@@ -47,14 +47,91 @@ Rebuild whiteport.com as a 100% static Astro site. Migrate the Social Stream Wor
 
 ---
 
+## Platform Requirements
+
+### Google Drive Media Pipeline
+
+Media files (images and video, ~50/50 split) live in Google Drive as the source of truth. The Astro build pipeline downloads and processes media at build time using a Google Drive service account.
+
+**Workflow (mirrors current WP Social Stream):**
+1. Organize media in Google Drive folders (unchanged from current workflow)
+2. AI agent writes markdown frontmatter referencing GD file IDs
+3. Build pipeline downloads referenced files via GD API (service account auth)
+4. Images are optimized (resize, WebP/AVIF via Astro Image)
+5. Video posters are generated; short clips bundled, long videos linked via GD embed
+6. Processed media outputs to static build — no runtime GD dependency
+
+**Frontmatter pattern:**
+```yaml
+gallery:
+  - gdriveId: "1ABC123..."
+    alt: "Description"
+    type: image
+  - gdriveId: "1DEF456..."
+    alt: "Video title"
+    type: video
+    poster: "1GHI789..."
+```
+
+**Key decisions:**
+- GD files do NOT need to be publicly shared (service account has read access)
+- Images: downloaded + optimized at build time, served from static CDN
+- Video: short clips (<50MB) bundled in build; longer videos use GD embed/streaming URL
+- Build cache prevents re-downloading unchanged files (keyed on GD file ID + modified date)
+- CI/CD environment needs `GOOGLE_SERVICE_ACCOUNT_KEY` secret
+
+**Astro integration:** Custom `astro-gdrive` integration that:
+- Scans content collections for `gdriveId` references
+- Downloads and caches media in `.cache/gdrive/`
+- Rewrites frontmatter references to local paths during build
+- Exposes `getGdriveImage()` helper for use in components
+
+### Staging and Public Hosting
+
+The site runs on two separate Hostup cPanel accounts on `mu.hostup.se` (LiteSpeed/cPanel, reseller `websespr`).
+
+**Staging — `astro.whiteport.com`**
+- cPanel account: `astrowhi`
+- Document root: `/home/astrowhi/public_html`
+- DNS: Cloudflare A-record `astro` → `185.113.11.48` (proxied)
+- Deploy: `node deploy-astro.cjs` (SFTP, credentials in `.env`)
+- Purpose: pre-production verification before going public
+
+**Production — `whiteport.com`**
+- cPanel account: TBD (to be created by Web247 on same server)
+- Document root: `/home/<user>/public_html`
+- DNS: Cloudflare A-record `@` → `185.113.11.48` (proxied), update when account is ready
+- Deploy: `node deploy.cjs` (SFTP, set `DEPLOY_USER` / `DEPLOY_PASS` in `.env`)
+- Purpose: live public site
+
+**Email — `hello@whiteport.com`**
+- Currently: Google Workspace (to be cancelled)
+- Target: cPanel email box on production account, `hello@whiteport.com`
+- Migration: export/forward existing mail, set up new MX records pointing to Hostup
+
+**Key decisions:**
+- No Netlify/Cloudflare Pages — Hostup matches existing Web247 client infrastructure
+- Static files only — no server-side runtime on Hostup
+- Media (`media/gdrive/`) deployed separately via `node deploy-media.cjs`
+- SSL: Cloudflare edge (proxy mode) — no cert management on Hostup needed
+
+### Content Architecture
+
+- **Git-based content** — all content as markdown files in `src/content/`
+- **Agent-as-CMS** — AI agents author content, commit to Git, GitHub Actions builds
+- **Content collections** — Stream posts, blog posts, pages, gallery items
+
+---
+
 ## Constraints
 
-- **100% static output** — no server, no database
+- **100% static output** — no server, no database (except GD build-time fetch)
 - **Free hosting tier** — Netlify/Cloudflare Pages
 - **Git-based content** — all content as markdown files
 - **Astro + Tailwind CSS v4** — tech stack locked in
 - **Brownfield** — existing content and brand assets to migrate
 - **i18n-ready** — English first, architecture supports Swedish from day one
+- **Google Drive as media source** — service account auth, build-time processing
 
 ---
 
@@ -74,25 +151,26 @@ Rebuild whiteport.com as a 100% static Astro site. Migrate the Social Stream Wor
 | 8 | Base layout + navigation | Responsive nav, footer with stream strip | Shared layout, mobile hamburger, footer component |
 | 9 | About page | Professional, shows methodology and team | MDX page, responsive |
 | 10 | Services page | Clear service offerings, path to booking | MDX page, structured content |
+| 11 | Google Drive media pipeline | Gallery renders images/video from GD source | Build-time GD fetch, image optimization, video embed, cache by file ID |
 
 ### Should Have
 
 | # | Item | Design AC | Dev AC |
 |---|------|-----------|--------|
-| 11 | Locked/preview content | Unlock UX flow, password prompt | Client-side unlock via query param, no server |
-| 12 | Swedish language support | Language switcher, translated UI | i18n routing, content collections per locale |
-| 13 | Stream slider component | Carousel of featured posts | Embla/Splide, responsive, touch-friendly |
-| 14 | SEO optimization | Open Graph, structured data, meta tags | Astro SEO component, sitemap, robots.txt |
-| 15 | RSS/Atom feeds | — | Feed generation for blog + stream |
+| 12 | Locked/preview content | Unlock UX flow, password prompt | Client-side unlock via query param, no server |
+| 13 | Swedish language support | Language switcher, translated UI | i18n routing, content collections per locale |
+| 14 | Stream slider component | Carousel of featured posts | Embla/Splide, responsive, touch-friendly |
+| 15 | SEO optimization | Open Graph, structured data, meta tags | Astro SEO component, sitemap, robots.txt |
+| 16 | RSS/Atom feeds | — | Feed generation for blog + stream |
 
 ### Could Have (Defer)
 
 | # | Item | Design AC | Dev AC |
 |---|------|-----------|--------|
-| 16 | Calendar view for stream | Monthly view of posts | FullCalendar or custom, static data |
-| 17 | Search functionality | Search UI, results page | Client-side search (Pagefind/Fuse.js) |
-| 18 | Dark mode | Toggle, respects system preference | CSS variables, Tailwind dark mode |
-| 19 | Analytics dashboard | — | Privacy-friendly analytics (Plausible/Umami) |
+| 17 | Calendar view for stream | Monthly view of posts | FullCalendar or custom, static data |
+| 18 | Search functionality | Search UI, results page | Client-side search (Pagefind/Fuse.js) |
+| 19 | Dark mode | Toggle, respects system preference | CSS variables, Tailwind dark mode |
+| 20 | Analytics dashboard | — | Privacy-friendly analytics (Plausible/Umami) |
 
 ---
 

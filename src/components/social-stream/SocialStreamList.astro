@@ -1,0 +1,52 @@
+---
+/**
+ * StreamList — renders a compact list of stream posts (e.g. sidebar, related).
+ */
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from '../FormattedDate.astro';
+import { resolveMediaSrc } from '../../utils/content-helpers';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  limit?: number;
+}
+
+const { posts, limit = 5 } = Astro.props;
+const displayPosts = posts.slice(0, limit);
+---
+
+<ul class="space-y-3 list-none m-0 p-0">
+  {displayPosts.map((post) => (
+    <li>
+      <a href={`/blog/${post.id}/`} class="group flex gap-3 no-underline">
+        <!-- Thumbnail -->
+        <div class="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden bg-wp-section-bg">
+          {post.data.gallery?.[0] && resolveMediaSrc(post.data.gallery[0]) ? (
+            <img
+              src={resolveMediaSrc(post.data.gallery[0])}
+              alt=""
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : (
+            <div class="w-full h-full flex items-center justify-center text-wp-grey/30 text-xs">
+              &bull;
+            </div>
+          )}
+        </div>
+
+        <!-- Info -->
+        <div class="min-w-0">
+          <p class="text-sm font-medium text-wp-base group-hover:text-wp-blue transition-colors line-clamp-2 mb-0">
+            {post.data.title}
+          </p>
+          {post.data.publishDate && (
+            <p class="text-xs text-wp-grey mt-0.5 mb-0">
+              <FormattedDate date={post.data.publishDate} />
+            </p>
+          )}
+        </div>
+      </a>
+    </li>
+  ))}
+</ul>

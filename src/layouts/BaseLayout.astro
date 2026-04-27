@@ -1,0 +1,71 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import AgentationOverlay from '../components/AgentationOverlay';
+
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, COMPANY } from '../consts';
+
+const isDev = import.meta.env.DEV;
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishDate?: Date;
+  updatedDate?: Date;
+  noindex?: boolean;
+  jsonLd?: Record<string, any>;
+  headerSolid?: boolean;
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image,
+  type = 'website',
+  publishDate,
+  updatedDate,
+  noindex = false,
+  jsonLd,
+  headerSolid = false,
+} = Astro.props;
+
+const pageTitle = (title === SITE_TITLE || title.includes(SITE_TITLE)) ? title : `${title} | ${SITE_TITLE}`;
+
+// Default Organization schema for non-article pages
+const defaultJsonLd = jsonLd ?? (type === 'website' ? {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: COMPANY.name,
+  url: SITE_URL,
+  founder: { '@type': 'Person', name: COMPANY.founder },
+  address: { '@type': 'PostalAddress', addressLocality: 'Stockholm', addressCountry: 'SE' },
+} : undefined);
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={pageTitle}
+      description={description}
+      image={image}
+      type={type}
+      publishDate={publishDate}
+      updatedDate={updatedDate}
+      noindex={noindex}
+    />
+    {defaultJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(defaultJsonLd)} />
+    )}
+  </head>
+  <body>
+    <Header solid={headerSolid} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    {isDev && <AgentationOverlay client:only="react" />}
+  </body>
+</html>

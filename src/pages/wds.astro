@@ -1,0 +1,358 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_URL, COMPANY } from '../consts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Whiteport Design Studio (WDS)',
+  description: 'AI Agent framework for designers. Free and open source design workflow built on the BMad Method.',
+  url: `${SITE_URL}/wds/`,
+  applicationCategory: 'DesignApplication',
+  operatingSystem: 'Cross-platform',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Person', name: COMPANY.founder },
+  publisher: { '@type': 'Organization', name: COMPANY.name, url: SITE_URL },
+};
+---
+
+<BaseLayout title="Whiteport Design Studio — Free AI Design Framework" description="A free and open source design workflow for designers. AI agents guide you through strategy, UX and design to make impactful deliveries." jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="bg-wp-blue text-white py-20 sm:py-28">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">Whiteport Design Studio</h1>
+      <p class="text-xl sm:text-2xl text-white/90 mb-4 font-medium">
+        A free and open source design workflow for designers who want to build what matters!
+      </p>
+      <p class="text-lg text-white/70 max-w-3xl mx-auto mb-10 leading-relaxed">
+        WDS gives you expert AI agents who guide you through strategy and design process to make impactful deliveries for development with AI or a physical team. WDS places the design in the center of the process and your design thinking becomes the prompts that build the product.
+      </p>
+      <a
+        href="https://github.com/whiteport-collective/whiteport-design-studio"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block px-10 py-4 bg-wp-cta text-white font-semibold rounded-lg hover:bg-wp-cta-hover transition-colors no-underline text-lg"
+      >
+        Get WDS now. Free at GitHub!
+      </a>
+    </div>
+  </section>
+
+  <!-- Value props -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">
+        WDS brings strategic design thinking together with AI agent technology
+      </h2>
+      <p class="text-wp-grey text-center max-w-3xl mx-auto mb-16">It's free and open source!</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="bg-white border border-gray-100 rounded-xl p-8">
+          <div class="w-12 h-12 bg-wp-blue/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Designers are needed more than ever</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Designers guide decisions and set course in AI-driven product development. Your expertise in dialogues with users and stakeholders is invaluable — especially when you let AI amplify your impact.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-8">
+          <div class="w-12 h-12 bg-wp-blue/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">Brilliant design is not a coincidence</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Great design happens when strategy, user needs, and business goals align. It's a thoughtful, collaborative process. WDS agents amplify designer skills and experience — not drown the process.
+          </p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-8">
+          <div class="w-12 h-12 bg-wp-blue/10 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-wp-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-3">The design specification is the new code</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            AI generates code but struggles to change it. Your design documentation becomes the source of truth — replacing months of prompting with strategic specifications that guide development.
+          </p>
+        </div>
+      </div>
+      <p class="text-sm text-wp-grey text-center mt-10 italic">
+        WDS is built on 25+ years of CX/UX/UI design experience by Mårten Angner. Part of the BMad Method for AI agent-driven development.
+      </p>
+    </div>
+  </section>
+
+  <!-- About WDS -->
+  <section class="bg-wp-section-bg py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">A method that unites</h2>
+      <p class="text-wp-grey text-lg leading-relaxed mb-8">
+        WDS is an AI Agent framework that creates a unified language for entrepreneurs, developers, and designers to collaborate in the AI era. Built from 25 years of UX experience, WDS assists you in strategic design leadership for any digital product from idea to polished product.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Your design replaces prompting</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            You map user psychology and business goals. You envision the user interaction and create conceptual specifications that guide development. You transform vision into strategic design thinking. AI amplifies your expertise. With WDS, you're the strategic center that holds it all together.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Powered by BMad Method</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            WDS is a module for designers within the BMad Method. Instead of mindless prompting, the BMad method is most effective when run in an IDE like Cursor, VS Code, Windsurf, or similar tools.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">One chat leads to the next</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            The method preserves AI capabilities by dividing creative conversations into dialogues that result in high-level documents. These documents become the perfect prompts for the next step — preserving the AI's context window.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Built for collaboration</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Everything is saved and published using GitHub — the same technology developers use. By delivering design in the perfect form for development, designers can deliver far more value than ever before.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Agents -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">Meet the AI Agents</h2>
+      <p class="text-wp-grey text-center max-w-3xl mx-auto mb-16">
+        WDS gives you two expert AI agents — named after the Norse Gods — who become your thinking partners through strategy and design. They handle structure and best practices while you focus on creative leadership.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div class="text-center">
+          <div class="w-20 h-20 bg-wp-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-3xl">&#x1F4DA;</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-1">Saga</h3>
+          <p class="text-sm text-wp-blue font-medium mb-3">The Analyst</p>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Guides you through discovery and strategy. Together, you'll create the Product Brief and Trigger Map — connecting business goals to user psychology and driving forces.
+          </p>
+          <p class="text-xs text-wp-grey/60 mt-3">Phases 1–2: Product Brief, Trigger Mapping</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 bg-wp-cta/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-3xl">&#x2728;</span>
+          </div>
+          <h3 class="text-lg font-semibold mb-1">Freya</h3>
+          <p class="text-sm text-wp-cta font-medium mb-3">The UX Designer</p>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Transforms strategy into tangible experiences. Guides you through scenario mapping, conceptual specifications, visual design, and development handoff.
+          </p>
+          <p class="text-xs text-wp-grey/60 mt-3">Phases 3–8: Scenarios, Design, Build, Evolve</p>
+        </div>
+      </div>
+      <p class="text-sm text-wp-grey text-center mt-10">
+        Each agent maintains focus on their domain. Saga owns strategy. Freya owns design, build, and evolution.
+        One conversation leads to the next — preserving AI context through strategic documents.
+      </p>
+    </div>
+  </section>
+
+  <!-- Conceptual Specifications -->
+  <section class="bg-wp-section-bg py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">Conceptual Specifications: For designers that mean business!</h2>
+      <p class="text-wp-grey text-lg leading-relaxed mb-12">
+        In the world of AI, specifications matter because AI can only generate consistent code when your design is clearly defined!
+      </p>
+      <div class="space-y-8">
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Experimentation is essential</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Napkin sketches, whiteboard drawings, Figma prototypes, code snippets, inspiration boards — all of it. This is where creativity happens. The playful creative process reaches a point when experimentation leads to something great, something we want to build and bring to the world.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Your designs are the perfect prompt</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            When you gather all your experiments in one place, defining them as user scenarios with step-by-step interaction and clear explanations — not just what you designed, but why you designed it that way — you give AI all it needs to make the final product reality.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">The specification becomes the new code</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            In the world of AI development, the specifications become the product. The code is just output — generated and regenerated from your design work. Your specifications are the source of truth that gets maintained and refined over time.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-8">
+          <h3 class="text-lg font-semibold mb-3">Design once, iterate forever</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Want to change something? Update the specifications. AI regenerates the code — clean, consistent, and aligned with your design intent. No spaghetti code. No lost reasoning. No painful refactoring. Your design work IS the product.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deliverables -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">WDS Strategy & Design Deliverables</h2>
+      <p class="text-wp-grey text-center max-w-3xl mx-auto mb-16">
+        With the help of the WDS agents you will be able to deliver both strategy and design and utilize your design skills to get a seat at the table.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Win Client Buy-In</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Present your vision in business language that stakeholders understand. Get everyone aligned on goals, budget, and commitment.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Project Clarity & Direction</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Get crystal clear on what you're building, who it's for, and why it matters. Create a strategic foundation for every design decision.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Map Business Goals & User Needs</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Connect what the business wants to what users need. Identify emotional triggers and pain points that drive behavior.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Platform Requirements</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Define the technical foundation, data structure, and system architecture. Make smart decisions about what to build.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Design the Experience</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Turn ideas and sketches into complete specifications with interactive prototypes. Capture not just what, but why.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Create Your Design System</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Extract reusable components, patterns, and design tokens. Create consistency across your entire product.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">Hand Off to Development</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">Package organized PRD documents with epics and stories. No more guesswork during implementation.</p>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-sm font-semibold mb-2">New Capabilities</h3>
+          <p class="text-xs text-wp-grey leading-relaxed">We are adding new sections and improvements constantly. Share your insights and take part in building something great.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-wp-blue text-white py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-16">
+      <div>
+        <svg class="w-10 h-10 text-white/30 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+        </svg>
+        <blockquote class="text-lg sm:text-xl text-white/90 leading-relaxed mb-6 italic">
+          "I just want to say thanks. This Design Loop system and everything you made WDS is exceptionally wonderful. It is finally helping me to complete the design of my app that I've been struggling with."
+        </blockquote>
+        <cite class="text-white/60 not-italic">— Mr-z3r0, WDS Community</cite>
+      </div>
+      <div>
+        <svg class="w-10 h-10 text-white/30 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+        </svg>
+        <blockquote class="text-lg sm:text-xl text-white/90 leading-relaxed mb-6 italic">
+          "Whiteport Design Studio adds a strategic design dimension that strengthens BMad: a practical way to translate intent into interfaces and product direction. It fits the spirit of the agent framework, with expert-driven workflows where AI is a partner, not an autopilot."
+        </blockquote>
+        <cite class="text-white/60 not-italic">— BMadCode, Founder of the BMad Method</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- Learn WDS -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4">Learn WDS</h2>
+      <p class="text-wp-grey text-center max-w-3xl mx-auto mb-16">
+        Free course and webinar series to get you started — from understanding the methodology to running your first project with AI agents.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="bg-white border border-gray-100 rounded-xl overflow-hidden">
+          <div class="aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/CQ5Aai_r-uo"
+              title="WDS Course Introduction — From Designer to Linchpin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full"
+            ></iframe>
+          </div>
+          <div class="p-8">
+            <h3 class="text-lg font-semibold mb-3">Free 18-Module Course</h3>
+            <p class="text-sm text-wp-grey leading-relaxed mb-3">
+              "From Designer to Linchpin" — master the complete WDS methodology in ~10 hours. Covers strategy, trigger mapping, conceptual specifications, design systems, and AI-powered development handoff.
+            </p>
+            <p class="text-xs text-wp-grey/60">Foundation → Strategy (Saga) → Design (Freya) → Build & Deliver → Evolve</p>
+          </div>
+        </div>
+        <div class="bg-white border border-gray-100 rounded-xl overflow-hidden">
+          <div class="aspect-video w-full">
+            <iframe
+              src="https://www.youtube.com/embed/TdujvNYI-3g"
+              title="WDS Sessions — Live Webinar Series"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full"
+            ></iframe>
+          </div>
+          <div class="p-8">
+            <h3 class="text-lg font-semibold mb-3">WDS Sessions — Live Webinars</h3>
+            <p class="text-sm text-wp-grey leading-relaxed mb-4">
+              Recorded webinar series covering digital strategy, design process, AI agent teams, and conceptual specifications. Watch at your own pace.
+            </p>
+            <ul class="text-sm text-wp-grey space-y-2">
+              <li><a href="/blog/wds-sessions-2-digital-strategy/" class="text-wp-blue hover:underline">Session 2: Speed isn't a strategy</a></li>
+              <li><a href="/blog/wds-sessions-3-lets-get-going/" class="text-wp-blue hover:underline">Session 3: Let's get going</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get started -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-16">Get started with WDS</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="text-center px-4">
+          <div class="w-12 h-12 bg-wp-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-bold">1</div>
+          <h3 class="text-lg font-semibold mb-3">Build on your existing design skills</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            You don't need to learn everything from scratch. Your UX/UI skills and design thinking are the foundation — WDS provides the structure and methodology to amplify them.
+          </p>
+        </div>
+        <div class="text-center px-4">
+          <div class="w-12 h-12 bg-wp-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-bold">2</div>
+          <h3 class="text-lg font-semibold mb-3">Follow a complete end-to-end process</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            From stakeholder alignment to final handoff — one complete workflow. WDS guides you through each phase: strategy, design, and delivery. No gaps, no guesswork.
+          </p>
+        </div>
+        <div class="text-center px-4">
+          <div class="w-12 h-12 bg-wp-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-bold">3</div>
+          <h3 class="text-lg font-semibold mb-3">Your design becomes the blueprint</h3>
+          <p class="text-sm text-wp-grey leading-relaxed">
+            Your design documentation becomes the new code. No more lost intent or miscommunication. AI and humans alike will love your detailed deliveries.
+          </p>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a
+          href="https://github.com/whiteport-collective/whiteport-design-studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block px-10 py-4 bg-wp-cta text-white font-semibold rounded-lg hover:bg-wp-cta-hover transition-colors no-underline text-lg"
+        >
+          Free on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

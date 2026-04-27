@@ -1,0 +1,245 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialStreamCard from '../../components/social-stream/SocialStreamCard.astro';
+import { collectTags } from '../../utils/content-helpers';
+
+const allPosts = await getCollection('blog');
+
+// Separate drafts and published
+const drafts = allPosts
+  .filter((p) => p.data.draft)
+  .sort((a, b) => {
+    const da = a.data.publishDate?.getTime() ?? 0;
+    const db = b.data.publishDate?.getTime() ?? 0;
+    return db - da;
+  });
+
+const published = allPosts
+  .filter((p) => !p.data.draft && !p.data.hideFromStream)
+  .sort((a, b) => {
+    const da = a.data.publishDate?.getTime() ?? 0;
+    const db = b.data.publishDate?.getTime() ?? 0;
+    return db - da;
+  });
+
+const all = [...drafts, ...published];
+const tagCounts = collectTags(all);
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="Blog Preview" description="Preview all posts including drafts.">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <header class="mb-8">
+      <div class="flex items-center gap-3">
+        <h1 class="text-3xl sm:text-4xl font-bold">Blog Preview</h1>
+        <span class="px-3 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+          {drafts.length} draft{drafts.length !== 1 ? 's' : ''}
+        </span>
+      </div>
+      <p class="text-wp-grey mt-2">All posts including drafts. Drafts shown first with orange badge.</p>
+
+      {sortedTags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4" id="stream-filters">
+          <button
+            class="filter-btn active px-3 py-1 text-xs font-medium rounded-full border border-wp-blue bg-wp-blue text-white transition-colors"
+            data-filter="all"
+          >
+            All ({all.length})
+          </button>
+          <button
+            class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-amber-400 text-amber-700 hover:bg-amber-50 transition-colors"
+            data-filter="__draft"
+          >
+            Drafts ({drafts.length})
+          </button>
+          {sortedTags.map(([tag, count]) => (
+            <button
+              class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10 transition-colors"
+              data-filter={tag}
+            >
+              {tag} ({count})
+            </button>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="stream-wall" id="stream-wall">
+      {all.map((post) => (
+        <div
+          class:list={["stream-card relative", post.data.draft && "draft-card"]}
+          data-categories={post.data.categories?.join(',') || ''}
+          data-tags={post.data.tags?.join(',') || ''}
+          data-draft={post.data.draft ? 'true' : 'false'}
+        >
+          {post.data.draft && (
+            <span class="absolute top-2 right-2 z-10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded bg-amber-400 text-amber-900 shadow-sm">
+              Draft
+            </span>
+          )}
+          <SocialStreamCard post={post} />
+        </div>
+      ))}
+    </div>
+
+    {all.length === 0 && (
+      <p class="text-center text-wp-grey py-12">No posts yet.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .stream-wall {
+    columns: 1;
+    column-gap: 1.5rem;
+  }
+  .stream-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .stream-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .draft-card {
+    outline: 2px dashed #f59e0b;
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .stream-wall { columns: 2; }
+  }
+  @media (min-width: 1024px) {
+    .stream-wall { columns: 3; }
+  }
+  @media (min-width: 1500px) {
+    .stream-wall { columns: 4; }
+  }
+</style>
+
+<script>
+  const wall = document.getElementById('stream-wall')!;
+  const allCards = Array.from(wall.querySelectorAll<HTMLElement>('.stream-card'));
+
+  function revealWhenImageReady(el: HTMLElement) {
+    const img = el.querySelector<HTMLImageElement>('img');
+    if (!img || img.complete) { enqueue(el); return; }
+    img.addEventListener('load', () => enqueue(el), { once: true });
+    img.addEventListener('error', () => enqueue(el), { once: true });
+  }
+
+  let queue: HTMLElement[] = [];
+  let draining = false;
+  function enqueue(el: HTMLElement) {
+    queue.push(el);
+    if (!draining) { draining = true; drainQueue(); }
+  }
+  function drainQueue() {
+    if (queue.length === 0) { draining = false; return; }
+    const el = queue.shift()!;
+    el.classList.add('visible');
+    setTimeout(drainQueue, 150);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealWhenImageReady(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  function reorder(cards: HTMLElement[]) {
+    const w = window.innerWidth;
+    const cols = w < 640 ? 1 : w < 1024 ? 2 : w < 1500 ? 3 : 4;
+    if (cols <= 1) return;
+
+    const perCol = Math.ceil(cards.length / cols);
+    const reordered: HTMLElement[] = new Array(cards.length);
+
+    for (let i = 0; i < cards.length; i++) {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      const newPos = col * perCol + row;
+      if (newPos < cards.length) {
+        reordered[newPos] = cards[i];
+      }
+    }
+
+    const filled = reordered.filter(Boolean);
+    const remaining = cards.filter(c => !filled.includes(c));
+    let ri = 0;
+    for (let i = 0; i < reordered.length; i++) {
+      if (!reordered[i] && ri < remaining.length) {
+        reordered[i] = remaining[ri++];
+      }
+    }
+
+    reordered.filter(Boolean).forEach(card => wall.appendChild(card));
+  }
+
+  function applyFilter(filter: string) {
+    allCards.forEach(card => {
+      card.classList.remove('visible');
+      if (filter === 'all') {
+        card.style.display = '';
+        return;
+      }
+      if (filter === '__draft') {
+        card.style.display = card.dataset.draft === 'true' ? '' : 'none';
+        return;
+      }
+      const cats = card.dataset.categories?.split(',') || [];
+      const tags = card.dataset.tags?.split(',') || [];
+      card.style.display = (cats.includes(filter) || tags.includes(filter)) ? '' : 'none';
+    });
+    const visible = allCards.filter(c => c.style.display !== 'none');
+    reorder(visible);
+    queue = [];
+    draining = false;
+    visible.forEach(card => observer.observe(card));
+  }
+
+  reorder(allCards);
+  allCards.forEach(card => observer.observe(card));
+
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  let lastCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const newCols = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : window.innerWidth < 1500 ? 3 : 4;
+      if (newCols !== lastCols) {
+        lastCols = newCols;
+        const active = document.querySelector('.filter-btn.active') as HTMLElement;
+        applyFilter(active?.dataset.filter || 'all');
+      }
+    }, 150);
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter!;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue', 'bg-amber-400', 'text-amber-900');
+        b.classList.add('border-wp-blue/20', 'text-wp-blue');
+      });
+      btn.classList.add('active');
+      if (filter === '__draft') {
+        btn.classList.add('bg-amber-400', 'text-amber-900');
+      } else {
+        btn.classList.add('bg-wp-blue', 'text-white', 'border-wp-blue');
+      }
+      btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+      applyFilter(filter);
+    });
+  });
+</script>

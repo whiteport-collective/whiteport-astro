@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialStreamCard from '../../components/social-stream/SocialStreamCard.astro';
+import { getVisibleBlogPosts, collectTags } from '../../utils/content-helpers';
+
+export async function getStaticPaths() {
+  const allBlog = await getCollection('blog');
+  const blogPosts = getVisibleBlogPosts(allBlog);
+
+  const allProjects = await getCollection('projects');
+  const projects = allProjects.filter((p) => !p.data.draft);
+
+  const allPosts = [...blogPosts, ...projects];
+  const tagCounts = collectTags(allPosts);
+
+  return [...tagCounts.keys()].map((tag) => ({
+    params: { tag },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+
+const allBlog = await getCollection('blog');
+const blogPosts = getVisibleBlogPosts(allBlog).filter(
+  (post) => post.data.tags?.includes(tag) || post.data.categories?.includes(tag)
+);
+
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter((p) => !p.data.draft)
+  .filter((p) => p.data.tags?.includes(tag));
+
+const totalResults = blogPosts.length + projects.length;
+---
+
+<BaseLayout title={`Tagged: ${tag}`} description={`All posts and projects tagged with "${tag}".`} noindex={true}>
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-12">
+        <a href="/tags/" class="text-sm text-wp-button hover:text-wp-button-hover no-underline mb-4 inline-block">&larr; All tags</a>
+        <h1 class="text-3xl sm:text-4xl font-bold">
+          <span class="text-wp-grey font-normal">Tagged:</span> {tag}
+        </h1>
+        <p class="text-wp-grey mt-2">
+          {totalResults} {totalResults === 1 ? 'result' : 'results'}
+        </p>
+      </header>
+
+      {/* Blog posts */}
+      {blogPosts.length > 0 && (
+        <div class="mb-16">
+          {projects.length > 0 && <h2 class="text-xl font-semibold mb-6">Blog</h2>}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {blogPosts.map((post) => (
+              <SocialStreamCard post={post} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Projects */}
+      {projects.length > 0 && (
+        <div class="mb-16">
+          <h2 class="text-xl font-semibold mb-6">Projects</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <a href={`/projects/${project.id}/`} class="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow no-underline border border-gray-100">
+                {project.data.featuredImage?.src && (
+                  <div class="aspect-video overflow-hidden bg-gray-100">
+                    <img
+                      src={project.data.featuredImage.src}
+                      alt={project.data.featuredImage.alt || project.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="p-6">
+                  <h3 class="text-lg font-semibold mb-2 group-hover:text-wp-button transition-colors">{project.data.title}</h3>
+                  <p class="text-sm text-wp-grey line-clamp-2">{project.data.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {totalResults === 0 && (
+        <p class="text-center text-wp-grey py-12">No content found for this tag.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

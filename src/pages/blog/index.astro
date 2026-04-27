@@ -1,114 +1,241 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialStreamCard from '../../components/social-stream/SocialStreamCard.astro';
+import { getVisibleBlogPosts, collectTags } from '../../utils/content-helpers';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const allPosts = await getCollection('blog');
+const posts = getVisibleBlogPosts(allPosts);
+const tagCounts = collectTags(posts);
+const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Blog — Digital Design Insights & UX Articles" description="Articles, insights and creative work from Whiteport." headerSolid>
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-32">
+    <header class="mb-12">
+      <h1 class="text-[48px] leading-[54px] font-light text-[#2e2e2e]">Blog</h1>
+      <p class="text-wp-grey mt-2">Articles, insights and creative work from our studio.</p>
+
+      {sortedTags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4" id="stream-filters">
+          <button
+            class="filter-btn active px-3 py-1 text-xs font-medium rounded-full border border-wp-blue bg-wp-blue text-white transition-colors"
+            data-filter="all"
+          >
+            All ({posts.length})
+          </button>
+          {sortedTags.map(([tag, count]) => (
+            <button
+              class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10 transition-colors"
+              data-filter={tag}
+            >
+              {tag} ({count})
+            </button>
+          ))}
+        </div>
+      )}
+    </header>
+  </div>
+
+  <!-- Stream grid — CSS columns masonry, loaded in blocks of 8 rows -->
+  <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div id="stream-container"></div>
+
+    <!-- Hidden source: all cards rendered server-side -->
+    <div id="stream-source" style="display:none;">
+      {posts.map((post) => (
+        <div
+          class="stream-item"
+          data-categories={post.data.categories?.join(',') || ''}
+          data-tags={post.data.tags?.join(',') || ''}
+        >
+          <SocialStreamCard post={post} />
+        </div>
+      ))}
+    </div>
+
+    <div id="load-more-wrap" style="display:none; text-align:center; padding:2rem 0;">
+      <button id="load-more-btn" class="inline-flex items-center gap-2 px-7 py-3 bg-[#043F76] text-white text-sm font-medium rounded-full hover:bg-[#5386B5] transition-colors" style="box-shadow:0 2px 8px rgba(4,63,118,0.2);">
+        Visa fler
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+        </svg>
+      </button>
+    </div>
+
+    {posts.length === 0 && (
+      <p class="text-center text-wp-grey py-12">No posts yet.</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .stream-block {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  .stream-col {
+    flex: 1;
+    min-width: 0;
+  }
+  .stream-item {
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .stream-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const source = document.getElementById('stream-source')!;
+  const container = document.getElementById('stream-container')!;
+  const loadMoreWrap = document.getElementById('load-more-wrap')!;
+  const loadMoreBtn = document.getElementById('load-more-btn')!;
+
+  const allCards = Array.from(source.querySelectorAll<HTMLElement>('.stream-item'));
+  let visibleCards = [...allCards];
+  let blocksShown = 0;
+
+  function getCols() {
+    const w = window.innerWidth;
+    return w < 640 ? 1 : w < 1024 ? 2 : w < 1400 ? 3 : 4;
+  }
+
+  function getBlockSize() {
+    return getCols() * 12;
+  }
+
+  // Stagger reveal
+  let queue: HTMLElement[] = [];
+  let draining = false;
+  function enqueue(el: HTMLElement) {
+    queue.push(el);
+    if (!draining) { draining = true; drainQueue(); }
+  }
+  function drainQueue() {
+    if (queue.length === 0) { draining = false; return; }
+    const el = queue.shift()!;
+    el.classList.add('visible');
+    setTimeout(drainQueue, 80);
+  }
+
+  function revealWhenImageReady(el: HTMLElement) {
+    const img = el.querySelector<HTMLImageElement>('img');
+    if (!img || img.complete) { enqueue(el); return; }
+    img.addEventListener('load', () => enqueue(el), { once: true });
+    img.addEventListener('error', () => enqueue(el), { once: true });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealWhenImageReady(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+
+  function showNextBlock() {
+    const cols = getCols();
+    const blockSize = getBlockSize();
+    const start = blocksShown * blockSize;
+    const end = start + blockSize;
+    const cards = visibleCards.slice(start, end);
+    if (cards.length === 0) return;
+
+    const block = document.createElement('div');
+    block.className = 'stream-block';
+
+    const colDivs: HTMLElement[] = [];
+    for (let c = 0; c < cols; c++) {
+      const col = document.createElement('div');
+      col.className = 'stream-col';
+      block.appendChild(col);
+      colDivs.push(col);
+    }
+
+    cards.forEach((card, i) => {
+      card.style.display = '';
+      colDivs[i % cols].appendChild(card);
+    });
+
+    container.appendChild(block);
+    cards.forEach(card => observer.observe(card));
+    blocksShown++;
+
+    loadMoreWrap.style.display = end < visibleCards.length ? '' : 'none';
+  }
+
+  function resetAndShow() {
+    container.innerHTML = '';
+    blocksShown = 0;
+    queue = [];
+    draining = false;
+    showNextBlock();
+  }
+
+  function applyFilter(filter: string) {
+    // Reset all cards back to source
+    allCards.forEach(card => {
+      card.classList.remove('visible');
+      source.appendChild(card);
+    });
+
+    if (filter === 'all') {
+      visibleCards = [...allCards];
+    } else {
+      visibleCards = allCards.filter(card => {
+        const cats = card.dataset.categories?.split(',') || [];
+        const tags = card.dataset.tags?.split(',') || [];
+        return cats.includes(filter) || tags.includes(filter);
+      });
+    }
+
+    resetAndShow();
+  }
+
+  // Load more button
+  loadMoreBtn.addEventListener('click', showNextBlock);
+
+  // Apply ?filter= URL param on load
+  const urlFilter = new URLSearchParams(window.location.search).get('filter');
+  if (urlFilter) {
+    const btn = document.querySelector<HTMLElement>(`.filter-btn[data-filter="${urlFilter}"]`);
+    if (btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+        b.classList.add('border-wp-blue/20', 'text-wp-blue');
+      });
+      btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+      btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+      applyFilter(urlFilter);
+    } else {
+      resetAndShow();
+    }
+  } else {
+    resetAndShow();
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = (btn as HTMLElement).dataset.filter!;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+        b.classList.add('border-wp-blue/20', 'text-wp-blue');
+      });
+      btn.classList.add('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
+      btn.classList.remove('border-wp-blue/20', 'text-wp-blue');
+      applyFilter(filter);
+    });
+  });
+</script>

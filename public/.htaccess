@@ -1,0 +1,50 @@
+# Security headers
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:; media-src 'self' https:; frame-src 'self' https:; frame-ancestors 'none'; object-src 'none'; base-uri 'self'"
+</IfModule>
+
+# Whiteport URL redirects (LiteSpeed / Apache)
+RewriteEngine On
+
+# WWW → non-WWW redirect
+RewriteCond %{HTTP_HOST} ^www\.whiteport\.com$ [NC]
+RewriteRule ^(.*)$ https://whiteport.com/$1 [R=301,L]
+
+RewriteBase /
+
+# Block cPanel default page (cached 301 from before site was deployed)
+RewriteRule ^cgi-sys/ / [R=302,L]
+
+# Stream → Blog (collection merge)
+RewriteRule ^stream/(.*)$ /blog/$1 [R=301,L]
+
+# WP project pages → Astro projects
+RewriteRule ^project/bythjul/?$ /projects/bythjul/ [R=301,L]
+RewriteRule ^project/eve-adam/?$ /projects/eve-adam/ [R=301,L]
+RewriteRule ^project/fyndiqsvajpen/?$ /projects/fyndiqsvajpen/ [R=301,L]
+RewriteRule ^project/goalenvision/?$ /projects/goal-envision/ [R=301,L]
+RewriteRule ^project/histreamers/?$ /projects/histreamers/ [R=301,L]
+RewriteRule ^project/indoor-energy-services/?$ /projects/indoor-energy-services/ [R=301,L]
+RewriteRule ^project/skargardspartner/?$ /projects/skargardspartner/ [R=301,L]
+
+# WP blog slug renames (old WP slug → new Astro slug)
+RewriteRule ^blog/5-questions-that-really-matters/?$ /blog/5-questions-before-you-prototype/ [R=301,L]
+RewriteRule ^blog/reimagining-strategy-how-we-transformed-goalenvision-into-a-next-gen-platform/?$ /blog/reimagining-goalenvision/ [R=301,L]
+RewriteRule ^blog/seo-the-silent-engine-of-sustainable-organically-business-growth/?$ /blog/seo-the-silent-engine-of-business-growth/ [R=301,L]
+RewriteRule ^blog/the-best-ai-coders-spend-more-time-thinking-than-prompting/?$ /blog/why-the-best-ai-coders-think-before-they-prompt/ [R=301,L]
+RewriteRule ^blog/the-burn-is-real/?$ /blog/the-prompt-burn-is-real/ [R=301,L]
+
+# WP product pages
+RewriteRule ^products/wds/?$ /wds/ [R=301,L]
+
+# Directory index
+DirectoryIndex index.html
+
+# Error page
+ErrorDocument 404 /404.html

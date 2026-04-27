@@ -17,8 +17,24 @@ pnpm-debug.log*
 .env
 .env.production
 
+# service account keys (sensitive!)
+service-account-key.json
+*-service-account*.json
+
 # macOS-specific files
 .DS_Store
 
 # jetbrains setting folder
 .idea/
+
+# astro-gdrive build cache (downloaded originals)
+.cache/
+
+# astro-gdrive media output (populated at build time, not in repo)
+public/media/gdrive/
+# One-off admin screenshots
+hostup-*.png
+hostup-*.cjs
+
+# Design Space inbox (temp)
+design-space-inbox.md

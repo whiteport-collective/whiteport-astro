@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.filter((p) => !p.data.draft);
+
+const projectImages: Record<string, string> = {
+  'histreamers': '/images/wp/project-histreamers.webp',
+  'goal-envision': '/images/wp/project-goalenvision.webp',
+  'skargardspartner': '/images/wp/project-skargardspartner.webp',
+  'bythjul': '/images/wp/project-bythjul.webp',
+  'indoor-energy-services': '/images/wp/project-indoor.webp',
+  'eve-adam': '/images/wp/project-eveadam.webp',
+  'fyndiqsvajpen': '/images/wp/project-fyndiqsvajpen.webp',
+};
+---
+
+<BaseLayout title="Projects — Digital Design & UX Case Studies" description="Selected projects and client work from Whiteport — apps, websites, and e-commerce built with AI-powered design." headerSolid={true}>
+  <section class="pt-36 pb-16">
+    <div class="page-width-short">
+      <h1 class="text-2xl sm:text-3xl font-light text-center text-wp-grey mb-16">Selected Project Case Studies</h1>
+
+      {projects.length > 0 ? (
+        <div class="flex flex-wrap gap-x-[30px] gap-y-[38px]">
+          {projects.map((project) => {
+            const imgSrc = projectImages[project.id] || project.data.featuredImage?.src;
+            return (
+            <a href={`/projects/${project.id}/`} class="group block w-full sm:w-[calc(50%-15px)] lg:w-[calc(33.333%-20px)] bg-white overflow-hidden no-underline">
+              {imgSrc ? (
+                <div class="h-[200px] overflow-hidden">
+                  <img
+                    src={imgSrc}
+                    alt={project.data.featuredImage?.alt || project.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div class="h-[200px] bg-wp-blue/5 flex items-center justify-center">
+                  <span class="text-wp-blue/30 text-4xl font-bold">{project.data.title[0]}</span>
+                </div>
+              )}
+              <div class="py-4">
+                <h2 class="text-lg font-medium mb-1 group-hover:text-wp-button transition-colors">{project.data.title}</h2>
+                <p class="text-sm text-wp-grey line-clamp-2">{project.data.description}</p>
+              </div>
+            </a>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-wp-grey text-center py-8">Portfolio is being assembled. Check back soon.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>
