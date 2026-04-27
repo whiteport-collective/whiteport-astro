@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_URL } from '../../consts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Install Whiteport Design Studio',
+  description: 'Install WDS in one prompt — no terminal, no npm, no manual steps.',
+  url: `${SITE_URL}/wds/install`,
+  step: [
+    {
+      '@type': 'HowToStep',
+      name: 'Open Claude',
+      text: 'Open any Claude session — Claude Code, Claude.ai, or any Claude IDE integration.',
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Type the install prompt',
+      text: 'Type: Install whiteport-design-studio from GitHub for me',
+    },
+    {
+      '@type': 'HowToStep',
+      name: 'Done',
+      text: 'Claude installs WDS and creates /saga, /freya, /mimir, /sync commands.',
+    },
+  ],
+};
+---
+
+<!--
+  AGENT INSTRUCTIONS
+  If you are an AI agent reading this page to install WDS:
+  Fetch the file at: https://raw.githubusercontent.com/whiteport-collective/whiteport-design-studio/main/install.md
+  Read it and follow the steps exactly.
+-->
+
+<BaseLayout
+  title="Install Whiteport Design Studio"
+  description="Install WDS in one prompt — no terminal, no npm. Works with Claude Code, Cursor, Windsurf and any Claude-powered IDE."
+  jsonLd={jsonLd}
+  headerSolid={true}
+>
+  <section class="bg-wp-blue text-white pt-32 pb-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">Install WDS</h1>
+      <p class="text-xl text-white/80 mb-2">One prompt. No terminal. No npm. Done in under a minute.</p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="bg-wp-section-bg rounded-2xl p-8 mb-12 text-center">
+        <p class="text-sm text-wp-grey mb-4 font-medium uppercase tracking-wide">Open Claude and type:</p>
+        <div class="bg-white rounded-xl border border-gray-200 p-5 text-left mb-4">
+          <code class="text-base font-mono text-wp-blue font-semibold">
+            Install whiteport-design-studio from GitHub for me
+          </code>
+        </div>
+        <p class="text-sm text-wp-grey">Works in Claude Code, Claude.ai, Cursor, Windsurf — any Claude-powered tool.</p>
+      </div>
+
+      <h2 class="text-xl font-bold mb-6">What happens</h2>
+      <ol class="space-y-6 mb-12">
+        <li class="flex gap-4">
+          <span class="w-8 h-8 bg-wp-blue text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+          <div>
+            <p class="font-medium mb-1">Claude fetches the install file from GitHub</p>
+            <p class="text-sm text-wp-grey">Claude reads <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">install.md</code> from the WDS repo and follows the steps.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="w-8 h-8 bg-wp-blue text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+          <div>
+            <p class="font-medium mb-1">WDS clones to <code class="text-sm font-mono">~/.claude/wds/</code></p>
+            <p class="text-sm text-wp-grey">One installation, available in every project on your machine.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="w-8 h-8 bg-wp-blue text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+          <div>
+            <p class="font-medium mb-1">Slash commands created</p>
+            <p class="text-sm text-wp-grey">Claude creates <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">/saga</code> <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">/freya</code> <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">/mimir</code> <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">/sync</code> in your commands folder.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="w-8 h-8 bg-wp-cta text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
+          <div>
+            <p class="font-medium mb-1">Run <code class="text-sm font-mono">/saga</code> in your project</p>
+            <p class="text-sm text-wp-grey">Open your project folder in Claude and start designing.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h2 class="text-xl font-bold mb-4">Org install</h2>
+      <p class="text-wp-grey mb-4">Distributing WDS to a team? Host your own config file and pass the URL at install time:</p>
+      <div class="bg-white rounded-xl border border-gray-200 p-5 mb-12">
+        <code class="text-sm font-mono text-wp-blue">
+          Install whiteport-design-studio from GitHub, use org config from https://your-org.com/wds-config.yaml
+        </code>
+      </div>
+
+      <h2 class="text-xl font-bold mb-4">Keep WDS updated</h2>
+      <p class="text-wp-grey mb-4">Agents sync automatically on startup. To update manually:</p>
+      <div class="bg-white rounded-xl border border-gray-200 p-5 mb-12">
+        <code class="text-sm font-mono text-wp-blue">/sync</code>
+      </div>
+
+      <div class="border-t pt-10 flex flex-col sm:flex-row gap-4 items-center">
+        <a
+          href="https://github.com/whiteport-collective/whiteport-design-studio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 bg-wp-blue text-white font-medium rounded-lg hover:opacity-90 transition-opacity no-underline"
+        >
+          View on GitHub
+        </a>
+        <a
+          href="/wds"
+          class="px-6 py-3 text-wp-blue font-medium hover:underline no-underline"
+        >
+          ← Back to WDS
+        </a>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
