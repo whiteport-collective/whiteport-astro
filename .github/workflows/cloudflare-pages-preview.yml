@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Reinstall sharp for Linux
+        run: npm install --os=linux --cpu=x64 sharp
+
       - name: Restore Astro content cache
         uses: actions/cache@v4
         with:
