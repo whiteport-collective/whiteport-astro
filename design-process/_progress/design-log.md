@@ -28,6 +28,8 @@
 - [x] Google Drive media pipeline — 98/98 items, service account, staleness check
 - [x] Blog post enhancements — 2-column layout, sidebar offers, published-also with platform images, related posts masonry, YouTube video support
 
+- [x] WO-002 — Publishing Platform: deploy pipeline (GitHub Actions → Hostup)
+
 ### In Progress
 - [ ] Deploy to astro.whiteport.com — SSH shell access pending (Hostup ticket #126273)
 

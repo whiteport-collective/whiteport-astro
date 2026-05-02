@@ -1,0 +1,140 @@
+name: Deploy to Hostup
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy production site
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      HOSTUP_REMOTE_PATH: ${{ secrets.HOSTUP_REMOTE_PATH }}
+      HOSTUP_SSH_HOST: ${{ secrets.HOSTUP_SSH_HOST }}
+      HOSTUP_SSH_USER: ${{ secrets.HOSTUP_SSH_USER }}
+      HOSTUP_SSH_KEY: ${{ secrets.HOSTUP_SSH_KEY }}
+      HOSTUP_SFTP_HOST: ${{ secrets.HOSTUP_SFTP_HOST }}
+      HOSTUP_SFTP_USER: ${{ secrets.HOSTUP_SFTP_USER }}
+      HOSTUP_SFTP_PASSWORD: ${{ secrets.HOSTUP_SFTP_PASSWORD }}
+      SITE_URL: https://whiteport.com
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Restore Astro content cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-content-${{ runner.os }}-${{ hashFiles('src/content/**/*', 'astro.config.mjs', 'package-lock.json') }}
+          restore-keys: |
+            astro-content-${{ runner.os }}-
+
+      - name: Build site
+        run: npm run build
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+          GDRIVE_STRICT: ${{ vars.GDRIVE_STRICT || 'false' }}
+
+      - name: Verify build output
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -d dist || { echo "::error::Build did not produce a dist/ directory"; exit 1; }
+          test -f dist/index.html || { echo "::error::Build did not produce dist/index.html"; exit 1; }
+          test -d dist/blog || { echo "::error::Build did not produce dist/blog/"; exit 1; }
+
+          dist_size_kb="$(du -sk dist | cut -f1)"
+          echo "dist/ size: ${dist_size_kb} KB"
+          if [ "${dist_size_kb}" -lt 1024 ]; then
+            echo "::error::dist/ is smaller than 1 MB; refusing to deploy suspiciously small output"
+            exit 1
+          fi
+
+      - name: Validate deploy secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -z "${HOSTUP_REMOTE_PATH}" ]; then
+            echo "::error::HOSTUP_REMOTE_PATH is required for all deploy methods"
+            exit 1
+          fi
+
+          if [ -n "${HOSTUP_SSH_KEY}" ]; then
+            test -n "${HOSTUP_SSH_HOST}" || { echo "::error::HOSTUP_SSH_HOST is required when HOSTUP_SSH_KEY is set"; exit 1; }
+            test -n "${HOSTUP_SSH_USER}" || { echo "::error::HOSTUP_SSH_USER is required when HOSTUP_SSH_KEY is set"; exit 1; }
+            echo "DEPLOY_METHOD=ssh-key" >> "${GITHUB_ENV}"
+            exit 0
+          fi
+
+          if [ -n "${HOSTUP_SFTP_PASSWORD}" ]; then
+            test -n "${HOSTUP_SFTP_HOST}" || { echo "::error::HOSTUP_SFTP_HOST is required when HOSTUP_SFTP_PASSWORD is set"; exit 1; }
+            test -n "${HOSTUP_SFTP_USER}" || { echo "::error::HOSTUP_SFTP_USER is required when HOSTUP_SFTP_PASSWORD is set"; exit 1; }
+            echo "DEPLOY_METHOD=sftp-password" >> "${GITHUB_ENV}"
+            exit 0
+          fi
+
+          echo "::error::No Hostup deploy credentials found. Set either SSH key secrets or SFTP password secrets."
+          exit 1
+
+      - name: Deploy via SSH key
+        if: env.DEPLOY_METHOD == 'ssh-key'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${HOSTUP_SSH_KEY}" > ~/.ssh/hostup_deploy_key
+          chmod 600 ~/.ssh/hostup_deploy_key
+          ssh-keyscan -H "${HOSTUP_SSH_HOST}" >> ~/.ssh/known_hosts
+
+          rsync -az --delete-after --info=stats2,progress2 \
+            -e "ssh -i ~/.ssh/hostup_deploy_key -o IdentitiesOnly=yes" \
+            dist/ "${HOSTUP_SSH_USER}@${HOSTUP_SSH_HOST}:${HOSTUP_REMOTE_PATH%/}/"
+
+      - name: Deploy via SFTP password
+        if: env.DEPLOY_METHOD == 'sftp-password'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends lftp
+
+          lftp \
+            -u "${HOSTUP_SFTP_USER},${HOSTUP_SFTP_PASSWORD}" \
+            "sftp://${HOSTUP_SFTP_HOST}" \
+            -e "set sftp:auto-confirm yes; mirror --reverse --delete --verbose dist/ ${HOSTUP_REMOTE_PATH%/}/; quit"
+
+      - name: Deployment summary
+        shell: bash
+        run: |
+          {
+            echo "### Production deploy"
+            echo ""
+            echo "- Method: ${DEPLOY_METHOD}"
+            echo "- Target: ${HOSTUP_REMOTE_PATH}"
+            echo "- Commit: ${GITHUB_SHA}"
+            echo "- Completed: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          } >> "${GITHUB_STEP_SUMMARY}"

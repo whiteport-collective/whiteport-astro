@@ -53,6 +53,16 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Deployment
+
+Production deploys run from GitHub Actions when commits are pushed to `master`.
+The workflow builds the Astro site, verifies the `dist/` output, and uploads it
+to Hostup using either SSH key auth or SFTP password auth, depending on which
+GitHub Secrets are configured.
+
+See [docs/deploy.md](docs/deploy.md) for required secrets, manual reruns, and
+rollback steps.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

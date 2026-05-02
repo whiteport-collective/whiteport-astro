@@ -38,3 +38,6 @@ hostup-*.cjs
 
 # Design Space inbox (temp)
 design-space-inbox.md
+
+# deploy scratch files
+.deploy-temp/
