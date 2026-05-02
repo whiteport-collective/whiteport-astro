@@ -58,6 +58,13 @@ jobs:
           SITE_URL: ${{ steps.branch.outputs.preview_base }}
           GDRIVE_STRICT: 'false'
 
+      - name: Strip files over 25 MiB (Cloudflare Pages limit)
+        run: |
+          echo "Files >25 MiB to be removed before deploy:"
+          find dist -type f -size +25M -printf '  %p (%s bytes)\n' || true
+          find dist -type f -size +25M -delete
+          echo "Done."
+
       - name: Deploy to Cloudflare Pages
         run: npx wrangler@3 pages deploy dist --project-name=whiteport-astro --branch="${{ steps.branch.outputs.branch }}"
         env:
