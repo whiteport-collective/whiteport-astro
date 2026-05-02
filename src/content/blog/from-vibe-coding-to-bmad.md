@@ -1,6 +1,6 @@
 ---
-title: "Everyone Does UX Backwards. Here's the Right Order."
-seoTitle: "Everyone Does UX Backwards — WDS and the Right Order"
+title: "WDS Is Now the Official UX Module for BMad. Here Is How We Got Here."
+seoTitle: "WDS — Official UX Module for the BMad Method"
 publishDate: 2026-04-26T00:00:00.000Z
 author: Marten Angner
 categories:
@@ -12,9 +12,9 @@ tags:
   - wds
   - agentic-design
   - ux-design
-  - trigger-map
-  - design-process
-excerpt: "A few days ago I recorded a podcast with Brian Madisson about WDS, agentic design, and what the right design process actually looks like. The thesis we kept coming back to: almost everyone does UX backwards."
+  - designer-journey
+  - open-source
+excerpt: "Last week I recorded a podcast with Brian Madisson — creator of the BMad method, 45,500 stars on GitHub. We announced that WDS is now the first official community module for BMad. This is the eight-month story behind it."
 featuredImage:
   src: /images/blog/mcp-sucks/bmad-recording.webp
 gallery:
@@ -37,80 +37,52 @@ offers:
     href: https://github.com/whiteport-collective/whiteport-design-studio
 ---
 
-A few days ago I sat down with Brian Madisson to record a podcast. We talked about WDS — my design module for the BMad method — about agentic development, and about the opportunities and challenges coming for everyone building with AI in the next few months.
+Last week I sat down with Brian Madisson to record a podcast. Brian is the creator of the BMad method — the AI-driven development framework with 45,500 stars on GitHub and one of the most engaged communities around agentic development I have come across.
 
-Somewhere in the middle, Brian asked me how I got here. The honest answer involves August 2025, a complete career reinvention, and a YouTube video that changed how I think about what I do.
+During that conversation we announced something that still feels a little surreal to say out loud.
 
-I had spent over twenty years as a UX designer. I understood products. I understood people. The technical side was always someone else's job. Then AI came along and suddenly the barrier to the technical side wasn't skill anymore — it was thinking. And thinking about products is exactly what I'd spent two decades doing.
+🎉 *WDS — Whiteport Design Studio — is now the first official community module for the BMad method. The official UX approach for agentic development.*
 
-So I went in. Started in August 2025, full time, learning an entirely new craft from scratch. I knew git existed the way most people know that engines exist — roughly, theoretically, not from under the hood. I started with vibe coding like everyone does. Describe what you want, the AI writes code, keep going.
+### Eight months ago I started to learn development with AI
 
-😤 *Prompting to code is not development. It is a faster way to get into trouble.*
+I had spent 26 years as a UX designer. I understood products and people. The technical side was always someone else's job.
 
-Every new feature broke something old. Context disappeared between sessions. I needed a method — not just a tool. Then I found the BMad method through a video on YouTube. I watched it, downloaded it, ran it the same day, and became a believer before the first session was over.
+Then AI came along and everything changed. The barrier to building was not skill anymore — it was thinking. And thinking about products is exactly what I had spent two decades doing. So I went all in.
 
-Many months later, WDS was accepted as the first official community module for BMad — and the official UX approach for the method. But the reason it works is not because of the AI. It is because of the order.
+😅 *I had a 2 day love story with vibe coding, like everyone does. Then I stopped and started to look for something more useful.*
 
-### Everyone does UX backwards
+It feels fast at first. Then it falls apart. Every new feature breaks something old. Context disappears between sessions. I needed something that could support my professional workflow, not just a toy.
 
-Here is what the typical process looks like. Someone has an idea. They open Figma. They start placing components, building something that looks like an app. They show it to stakeholders. Stakeholders have opinions. Design changes. Then it goes to developers who have questions nobody thought about. Back to design. Back to stakeholders. Six weeks later, everyone is exhausted and nobody is sure they are building the right thing.
+Then, I stumbled on the BMad method through a YouTube video with Brian Madisson. Installed it, and my agentic journey has not been the same. I became a believer before the session was over. The chaos I had been building in turned into something I could actually navigate.
 
-The strategic questions that should have been answered on day one are still unanswered. Who is this actually for? What problem does it solve? Why would someone choose this over doing nothing?
+BMad was brilliant for developers — and could see how my structured way to go from strategy and UX into a built interface could add value to the method. I decided to make a module that could bring my twenty-six years experience of design thinking into the agentic world.
 
-Those questions are floating around while developers are writing code.
+So I built it.
 
-> Clarity first. Psychology second. Interaction third. Visual design fourth. Code fifth.
+### For every designer watching from the sidelines
 
-That is WDS. That is the whole method in one sentence. It sounds obvious — but almost nobody does it in that order.
+The barrier was never skill. It was always thinking. And thinking deeply about products — the people, the psychology, the right order of decisions — is the thing AI amplifies, not replaces.
 
-### Phase 1 — Clarity: the Product Brief
+I realized that design needs to live in code in the world of AI we live in today, this is going to be a threshold for any designer, but my story proves that it is possible.
 
-You do not open a design tool until you can answer three questions. What is this product? Who is it really for — psychologically, not just demographically. And what does the business need it to do?
+And, with WDS you will stand on the shoulders of not only me but also Brian and thousands of active participants in the BMad community. You got this!
 
-That is the Product Brief. The AI agent becomes your thinking partner. You are not writing the brief alone — you are in a conversation. The agent asks questions you have not thought to ask yourself. It pushes back when your answer is too vague. *"What do you mean by 'easy to use'? Easy for who? In what situation?"*
+> *"The approach in WDS is true to the spirit of the method. The depth of the analysis is really adding an important dimension to the BMad Method. I recommend everyone give it a go."*
+> — Brian Madisson, creator of BMad
 
-It is like having a senior strategist in the room who never lets you get away with fuzzy thinking.
+The designers who make this leap in the next two years are going to be in a completely different league.
 
-One output of the Product Brief process that people do not expect: a platform requirements document. Technical requirements. Which means the moment you have clarity on what the product is, you can hand something to developers. The tech team does not have to wait for design to finish. They start in parallel. Strategy, design, and development run at the same time — not in sequence.
-
-### Phase 2 — Psychology: the Trigger Map
-
-Most UX processes have you create user personas. A name, a photo, a job title, some demographics.
-
-> That is not psychology. That is a costume.
-
-Psychology is two things. What people are moving *toward* — their desires, the future state they want to be in. And what they are moving *away from* — their fears, the pain they are currently in that makes them willing to change.
-
-The Trigger Map puts the business goals on the left. The product in the centre. The users on the right — and for each user, their desires and their fears. Every feature, every screen, every piece of copy has to connect a business goal on the left to a human driving force on the right. If it does not do both, it does not belong.
-
-The AI agent interviews you about each persona. It asks you to go deeper. It scores each driving force — how frequently does this come up, how intensely do they feel it, how well can the product actually address it. You end up with a ranked list. Not gut feel. Not a poster on the wall. Scored, prioritised psychology you can make design decisions from.
-
-### Phase 3 — Interaction: Scenarios
-
-One user. One moment. One goal. What is the shortest path between where they are and where they want to be?
-
-I call the principle behind this *selective ignorance*. You choose, deliberately, not to design for everything. Most products fail not because they do too little — but because they try to do too much. Every extra option is friction for the person who just wants the one thing they came for.
-
-For each scenario you define one user from your Trigger Map — so you already know their psychology. One situation — what just happened in their life that brings them to this product right now. One goal — what they need to accomplish. Then you explore it step by step. What do they see first? What is the first thing they need to understand? What is the first action?
-
-Describe the scenario and the agent produces a wireframe. Not a polished design — a thinking tool, something to react to. Then you specify. You add components. You connect to your design system. Because you have been explicit about the scenario from the beginning, every component earns its place. Selective ignorance keeps you from adding things that feel nice but serve nobody.
-
-### Phase 4 — Forward, not backward
-
-Now you take the specified design and you build the page. And this is where the direction matters. You are going *forward*. You know exactly what the design means because you did the thinking first.
-
-The backend has been running in parallel since Phase 1. By the time the UI is ready, the backend is ready. You wire them together, test on real users, and what you learn goes back into the psychology layer — refining the driving forces, updating the scenarios, sharpening the next iteration.
-
-> Forwards from purpose. Not backwards from pixels.
-
-### The shift
-
-The designers who figure this out in the next two years are going to be in a completely different league. Because they will be doing in a week what used to take a quarter — and doing it with the strategic depth that used to require a whole agency.
-
-Stop starting with the interface. The interface is the last thing you design, not the first. It is the output of a thinking process: brief, triggers, scenarios. If you start there, you are guessing.
-
-Start with clarity. Let the design emerge from that. Let the AI help you *think* — not just help you produce.
-
-WDS is free, open source, and runs inside your existing AI tools. [The GitHub repo](https://github.com/whiteport-collective/whiteport-design-studio) has the installer. [The Discord](https://discord.gg/gk8jAdXWmj) has the community. And [Brian's channel](https://youtube.com/@BMadCode) has the full conversation if you want to see it in action.
+WDS is free, open source, and runs inside your existing AI tools. [The GitHub repo](https://github.com/whiteport-collective/whiteport-design-studio) has the installer. [The Discord](https://discord.gg/gk8jAdXWmj) has the community. And [Brian's channel](https://youtube.com/@BMadCode) has the full conversation.
 
 Start with Saga. Tell her what you are building. See what happens.
+
+Here is the presentation I shared in the podcast. Click the right half to go forward, left half to go back. Enjoy!
+
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; margin: 2rem 0; box-shadow: 0 4px 32px rgba(0,0,0,0.4);">
+  <iframe
+    src="/presentations/bmad-interview-2026-04-18/"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+    title="BMad × WDS — The Podcast Presentation"
+    loading="lazy"
+  ></iframe>
+</div>
