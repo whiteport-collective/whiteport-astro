@@ -41,7 +41,7 @@ Last week I sat down with Brian Madisson to record a podcast. Brian is the creat
 
 During that conversation we announced something that still feels a little surreal to say out loud.
 
-🎉 *WDS — Whiteport Design Studio — is now the first official community module for the BMad method. The official UX approach for agentic development.*
+> 🎉 WDS — Whiteport Design Studio — is now the first official community module for the BMad method. The official UX approach for agentic development.
 
 ### Eight months ago I started to learn development with AI
 
@@ -49,7 +49,7 @@ I had spent 26 years as a UX designer. I understood products and people. The tec
 
 Then AI came along and everything changed. The barrier to building was not skill anymore — it was thinking. And thinking about products is exactly what I had spent two decades doing. So I went all in.
 
-😅 *I had a 2 day love story with vibe coding, like everyone does. Then I stopped and started to look for something more useful.*
+> 😅 I had a 2 day love story with vibe coding, like everyone does. Then I stopped and started to look for something more useful.
 
 It feels fast at first. Then it falls apart. Every new feature breaks something old. Context disappears between sessions. I needed something that could support my professional workflow, not just a toy.
 
@@ -78,11 +78,10 @@ Start with Saga. Tell her what you are building. See what happens.
 
 Here is the presentation I shared in the podcast. Click the right half to go forward, left half to go back. Enjoy!
 
-<div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; margin: 2rem 0; box-shadow: 0 4px 32px rgba(0,0,0,0.4);">
+<div style="width: 100%; border-radius: 12px; overflow: hidden; margin: 2rem 0; box-shadow: 0 4px 32px rgba(0,0,0,0.4);">
   <iframe
     src="/presentations/bmad-interview-2026-04-18/"
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+    style="display: block; width: 100%; height: 560px; border: none;"
     title="BMad × WDS — The Podcast Presentation"
-    loading="lazy"
   ></iframe>
 </div>
