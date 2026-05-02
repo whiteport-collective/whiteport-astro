@@ -251,8 +251,10 @@ export function chunkText(text: string, maxChars = MAX_CHARS_PER_CHUNK): string[
 
 // ── Alignment ──
 
+// Word characters include letters, digits, and apostrophes (straight + curly)
+// so contractions like "don't" / "it's" stay intact for sync highlighting.
 function isWordCharacter(char: string): boolean {
-  return /[\p{L}\p{N}]/u.test(char);
+  return /[\p{L}\p{N}'’]/u.test(char);
 }
 
 function roundTime(seconds: number): number {
@@ -525,10 +527,13 @@ export async function runElevenLabsPipeline(options: PipelineOptions = {}): Prom
     `ElevenLabs audio pipeline: ${generated} generated, ${cached} cached, ${skipped} skipped, ${failed.length} failed.`
   );
 
-  if (failed.length > 0 && process.env.ELEVENLABS_STRICT !== 'false') {
+  // Default: lenient — transient API failures (429, 5xx, network blips) should
+  // not break a production deploy when other articles generated fine. Opt into
+  // strict failure with ELEVENLABS_STRICT=true if a build pipeline needs it.
+  if (failed.length > 0 && process.env.ELEVENLABS_STRICT === 'true') {
     throw new Error(
       `astro-elevenlabs: ${failed.length} article(s) failed audio generation. ` +
-      `Set ELEVENLABS_STRICT=false to build anyway.`
+      `Unset ELEVENLABS_STRICT or set it to false to build anyway.`
     );
   }
 
