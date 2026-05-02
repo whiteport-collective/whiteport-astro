@@ -27,6 +27,7 @@
 - [x] RSS feed — stream + blog combined
 - [x] Google Drive media pipeline — 98/98 items, service account, staleness check
 - [x] Blog post enhancements — 2-column layout, sidebar offers, published-also with platform images, related posts masonry, YouTube video support
+- [x] WO-001 M1 — Audio + alignment generation pipeline
 
 ### In Progress
 - [ ] Deploy to astro.whiteport.com — SSH shell access pending (Hostup ticket #126273)

@@ -32,6 +32,9 @@ service-account-key.json
 
 # astro-gdrive media output (populated at build time, not in repo)
 public/media/gdrive/
+
+# astro-elevenlabs audio output (populated at build time, not in repo)
+public/audio/
 # One-off admin screenshots
 hostup-*.png
 hostup-*.cjs
