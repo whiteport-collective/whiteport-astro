@@ -127,6 +127,24 @@ test('generates MP3 and word alignment JSON, then cache-hits on the same hash', 
   }
 });
 
+test('keeps contractions intact via apostrophe-aware word boundaries', async () => {
+  const { aggregateWords } = await loadIntegrationModule();
+  const text = "It's a don't moment";
+  const characters = [...text];
+  const starts = characters.map((_, i) => i * 0.05);
+  const ends = characters.map((_, i) => i * 0.05 + 0.04);
+  const words = aggregateWords({
+    characters,
+    character_start_times_seconds: starts,
+    character_end_times_seconds: ends,
+  });
+  assert.deepEqual(
+    words.map((w) => w.text),
+    ["It's", 'a', "don't", 'moment'],
+    'contractions must stay as one word so M3-M6 sync highlighting works correctly',
+  );
+});
+
 test('honors MAX_AUDIO_PER_BUILD guard for uncached articles', async () => {
   const { runElevenLabsPipeline } = await loadIntegrationModule();
   const root = await makeProject({
