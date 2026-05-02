@@ -1,6 +1,6 @@
 ---
-title: "WDS Is Now the Official UX Module for BMad. Here Is How We Got Here."
-seoTitle: "WDS — Official UX Module for the BMad Method"
+title: "Podcast Recorded: WDS — Now the Official UX Module for BMad"
+seoTitle: "WDS — Now the Official UX Module for the BMad Method"
 publishDate: 2026-04-26T00:00:00.000Z
 author: Marten Angner
 categories:
