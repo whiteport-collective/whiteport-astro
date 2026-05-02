@@ -36,6 +36,13 @@ gallery:
       - instagram
       - facebook
       - linkedin
+  - src: /images/blog/mcp-sucks/bmad-recording.webp
+    alt: "Mårten at his desk recording the WDS conversation with BMad — monitor showing the live call, iPad running the presentation"
+    type: image
+    width: 1080
+    height: 1440
+    display:
+      - gallery
 ---
 
 I deleted every MCP server I had installed. Not because I gave up on AI tools. Because I found out what they were costing me — and nobody had told me.
@@ -101,6 +108,10 @@ Now when something changes — better API, different endpoint, upgraded tool —
 ### After
 
 Faster boot. Leaner context. Tools that work every time without a restart. My token cost at startup went from 27,000 to zero. The three prompts took less than an hour. The savings run every session.
+
+### The bigger picture
+
+I talked through this with BMad — the architect behind BMad-OS, one of the most structured approaches to AI-driven development I've seen. We went deep on how integrations, skills, and agents should be wired together so the system actually scales. If you want to see the thinking behind it, [the full presentation is here](/presentations/bmad-interview-2026-04-18/).
 
 ### Your turn
 
