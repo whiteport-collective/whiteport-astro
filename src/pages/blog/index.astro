@@ -17,21 +17,29 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
       <p class="text-wp-grey mt-2">Articles, insights and creative work from our studio.</p>
 
       {sortedTags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mt-4" id="stream-filters">
+        <div class="flex flex-wrap gap-2 mt-4 items-center" id="stream-filters">
           <button
             class="filter-btn active px-3 py-1 text-xs font-medium rounded-full border border-wp-blue bg-wp-blue text-white transition-colors"
             data-filter="all"
           >
             All ({posts.length})
           </button>
-          {sortedTags.map(([tag, count]) => (
+          {sortedTags.map(([tag, count], i) => (
             <button
-              class="filter-btn px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10 transition-colors"
+              class={`filter-btn px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue hover:bg-wp-blue/10 transition-colors${i >= 8 ? ' tag-extra hidden' : ''}`}
               data-filter={tag}
             >
               {tag} ({count})
             </button>
           ))}
+          {sortedTags.length > 8 && (
+            <button
+              id="tags-expand"
+              class="px-3 py-1 text-xs font-medium rounded-full border border-wp-blue/20 text-wp-blue/50 hover:text-wp-blue hover:bg-wp-blue/10 transition-colors"
+            >
+              +{sortedTags.length - 8} more
+            </button>
+          )}
         </div>
       )}
     </header>
@@ -206,11 +214,29 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
   // Load more button
   loadMoreBtn.addEventListener('click', showNextBlock);
 
+  // Tags expand/collapse
+  const tagsExpand = document.getElementById('tags-expand');
+  const extraTags = document.querySelectorAll<HTMLElement>('.tag-extra');
+  let tagsExpanded = false;
+  if (tagsExpand) {
+    tagsExpand.addEventListener('click', () => {
+      tagsExpanded = !tagsExpanded;
+      extraTags.forEach(t => t.classList.toggle('hidden', !tagsExpanded));
+      tagsExpand.textContent = tagsExpanded ? '− less' : `+${extraTags.length} more`;
+    });
+  }
+
   // Apply ?filter= URL param on load
   const urlFilter = new URLSearchParams(window.location.search).get('filter');
   if (urlFilter) {
     const btn = document.querySelector<HTMLElement>(`.filter-btn[data-filter="${urlFilter}"]`);
     if (btn) {
+      // If matched button is hidden, auto-expand tags
+      if (btn.classList.contains('tag-extra') && tagsExpand) {
+        tagsExpanded = true;
+        extraTags.forEach(t => t.classList.remove('hidden'));
+        tagsExpand.textContent = '− less';
+      }
       document.querySelectorAll('.filter-btn').forEach(b => {
         b.classList.remove('active', 'bg-wp-blue', 'text-white', 'border-wp-blue');
         b.classList.add('border-wp-blue/20', 'text-wp-blue');
