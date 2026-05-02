@@ -1,0 +1,611 @@
+{
+  "version": "2.11",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Frame",
+      "clip": true,
+      "width": 800,
+      "height": 600,
+      "fill": "#FFFFFF",
+      "layout": "none"
+    },
+    {
+      "type": "frame",
+      "id": "GjhW4",
+      "x": 0,
+      "y": 0,
+      "name": "Slide 06 - Trigger Map",
+      "clip": true,
+      "width": 1920,
+      "height": 1080,
+      "fill": "#06060b",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "NIvcT",
+          "x": 410,
+          "y": 200,
+          "name": "pill",
+          "fill": "#0f1535",
+          "cornerRadius": 100,
+          "padding": [
+            6,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "jtsxI",
+              "fill": "#4e8eff",
+              "content": "02   TRIGGER MAP",
+              "fontFamily": "Inter",
+              "fontSize": 11,
+              "fontWeight": "500",
+              "letterSpacing": 2
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "llZIH",
+          "x": 410,
+          "y": 250,
+          "fill": "#e8e8f0",
+          "textGrowth": "fixed-width",
+          "width": 699,
+          "content": "A system needs to be used — and used in the intended way — for business value to occur.",
+          "lineHeight": 1.2,
+          "fontFamily": "Inter",
+          "fontSize": 30,
+          "fontWeight": "700",
+          "letterSpacing": -0.5
+        },
+        {
+          "type": "text",
+          "id": "rQDbQ",
+          "x": 410,
+          "y": 345,
+          "fill": "#3b7dff",
+          "content": "BUSINESS GOALS",
+          "textAlign": "center",
+          "fontFamily": "Inter",
+          "fontSize": 9,
+          "fontWeight": "600",
+          "letterSpacing": 2.5
+        },
+        {
+          "type": "text",
+          "id": "550V5",
+          "x": 701,
+          "y": 345,
+          "fill": "#ff8c42",
+          "content": "PRODUCT",
+          "textAlign": "center",
+          "fontFamily": "Inter",
+          "fontSize": 9,
+          "fontWeight": "600",
+          "letterSpacing": 2.5
+        },
+        {
+          "type": "text",
+          "id": "ffTjm",
+          "x": 969,
+          "y": 345,
+          "fill": "#00e88f",
+          "content": "TARGET GROUPS",
+          "textAlign": "center",
+          "fontFamily": "Inter",
+          "fontSize": 9,
+          "fontWeight": "600",
+          "letterSpacing": 2.5
+        },
+        {
+          "type": "text",
+          "id": "BctAZ",
+          "x": 1237,
+          "y": 345,
+          "fill": "#ff6b9d",
+          "content": "DRIVING FORCES",
+          "textAlign": "center",
+          "fontFamily": "Inter",
+          "fontSize": 9,
+          "fontWeight": "600",
+          "letterSpacing": 2.5
+        },
+        {
+          "type": "frame",
+          "id": "WlR58",
+          "x": 410,
+          "y": 365,
+          "name": "g1",
+          "width": 251,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "AnENb",
+              "fill": "#e8e8f0",
+              "content": "Goal 1",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "IgZvZ",
+              "fill": "#6b7280",
+              "content": "Vision & market position",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "L6wLp",
+          "x": 661,
+          "y": 395,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "oTQE6",
+          "x": 701,
+          "y": 365,
+          "name": "prod",
+          "width": 228,
+          "height": 240,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "W8PxG",
+              "x": 16,
+              "y": 80,
+              "fill": "#e8e8f0",
+              "content": "Your Product",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "xZM8J",
+              "x": 16,
+              "y": 102,
+              "fill": "#6b7280",
+              "content": "The system that sits between business goals and the people who create the value through usage",
+              "lineHeight": 1.5,
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bPlFt",
+          "x": 929,
+          "y": 395,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "Du3NQ",
+          "x": 969,
+          "y": 365,
+          "name": "u1",
+          "width": 228,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Bo2nG",
+              "fill": "#e8e8f0",
+              "content": "Primary user",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "BaD4f",
+              "fill": "#6b7280",
+              "content": "Highest strategic value",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "BlqxZ",
+          "x": 1197,
+          "y": 395,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "l8XOs",
+          "x": 1237,
+          "y": 365,
+          "name": "f1",
+          "width": 274,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "hNnXU",
+              "fill": "#e8e8f0",
+              "content": "Primary drivers",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "p4tQ2",
+              "fill": "#00e88f",
+              "content": "✓ What they want",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "9Cvfe",
+              "fill": "#00e88f",
+              "content": "✓ What they want",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "yYECs",
+              "fill": "#ff6b9d",
+              "content": "✗ What they fear",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "gEUTJ",
+              "fill": "#ff6b9d",
+              "content": "✗ What they fear",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rG4Lk",
+          "x": 410,
+          "y": 450,
+          "name": "g2",
+          "width": 251,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "JhddT",
+              "fill": "#e8e8f0",
+              "content": "Goal 2",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "xLRtw",
+              "fill": "#6b7280",
+              "content": "Growth & revenue targets",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "SZO0M",
+          "x": 661,
+          "y": 480,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "U4lHZ",
+          "x": 929,
+          "y": 480,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "q2iZJ",
+          "x": 969,
+          "y": 450,
+          "name": "u2",
+          "width": 228,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "iZ94W",
+              "fill": "#e8e8f0",
+              "content": "Secondary user",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "HIBps",
+              "fill": "#6b7280",
+              "content": "Reached through primary",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "qy3y5",
+          "x": 1197,
+          "y": 480,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "MhWRf",
+          "x": 1237,
+          "y": 450,
+          "name": "f2",
+          "width": 274,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "NZfdb",
+              "fill": "#e8e8f0",
+              "content": "Secondary drivers",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "aD0nh",
+              "fill": "#00e88f",
+              "content": "✓ What they want",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "XsuaA",
+              "fill": "#ff6b9d",
+              "content": "✗ What they fear",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ozjA6",
+          "x": 410,
+          "y": 535,
+          "name": "g3",
+          "width": 251,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "4LuW7",
+              "fill": "#e8e8f0",
+              "content": "Goal 3",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "Mznbe",
+              "fill": "#6b7280",
+              "content": "Adoption & retention",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "sJZYR",
+          "x": 661,
+          "y": 565,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "8xFX5",
+          "x": 929,
+          "y": 565,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "6hF6e",
+          "x": 969,
+          "y": 535,
+          "name": "u3",
+          "width": 228,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Shxj6",
+              "fill": "#e8e8f0",
+              "content": "Tertiary user",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "JfHB3",
+              "fill": "#6b7280",
+              "content": "Low effort, organic",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 11
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hhVVm",
+          "x": 1197,
+          "y": 565,
+          "width": 40,
+          "height": 2,
+          "fill": "#1a2540"
+        },
+        {
+          "type": "frame",
+          "id": "bOuAV",
+          "x": 1237,
+          "y": 535,
+          "name": "f3",
+          "width": 274,
+          "fill": "#0d1220",
+          "cornerRadius": 10,
+          "layout": "vertical",
+          "padding": [
+            14,
+            16
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "qht1H",
+              "fill": "#e8e8f0",
+              "content": "Tertiary drivers",
+              "textAlign": "center",
+              "fontFamily": "Inter",
+              "fontSize": 12,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "wHqhj",
+              "fill": "#00e88f",
+              "content": "✓ What they want",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "OGnm5",
+              "fill": "#ff6b9d",
+              "content": "✗ What they fear",
+              "fontFamily": "Inter",
+              "fontSize": 10,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
