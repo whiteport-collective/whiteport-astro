@@ -1,0 +1,68 @@
+<section class="slide slide--warm" data-label="Lock-In">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <div class="slide-head__row">
+          <span class="label label--warm">THE LOCK-IN ARGUMENT</span>
+        </div>
+        <h2 class="title title--lg" style="max-width:1700px;">The model makers<br><span class="grad-text--warm">don't want you to do this.</span></h2>
+      </div>
+
+      <!-- vault vs. open SVG -->
+      <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:stretch;">
+        <div data-anim style="--d:1" class="card" style="background:rgba(20,12,12,0.5); border-color:rgba(255,107,157,0.2); padding:40px 36px; display:flex; flex-direction:column; gap:20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.25em; color:var(--accent-rose);">THEIR MODEL</div>
+          <!-- locked vendors SVG -->
+          <div style="display:flex; gap:20px; margin:12px 0;">
+            <div style="flex:1; background:#0a0608; border:1px solid rgba(255,107,157,0.25); border-radius:10px; padding:16px 14px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="7" y="12" width="12" height="9" rx="1.5" stroke="#ff6b9d" stroke-width="1.5"/><path d="M 9 12 v -3 a 4 4 0 0 1 8 0 v 3" stroke="#ff6b9d" stroke-width="1.5"/></svg>
+              <div style="font-size:13px; color:var(--text-primary); font-weight:500;">OpenAI</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-rose); letter-spacing:1.5px;">MEMORY</div>
+            </div>
+            <div style="flex:1; background:#0a0608; border:1px solid rgba(255,107,157,0.25); border-radius:10px; padding:16px 14px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="7" y="12" width="12" height="9" rx="1.5" stroke="#ff6b9d" stroke-width="1.5"/><path d="M 9 12 v -3 a 4 4 0 0 1 8 0 v 3" stroke="#ff6b9d" stroke-width="1.5"/></svg>
+              <div style="font-size:13px; color:var(--text-primary); font-weight:500;">Anthropic</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-rose); letter-spacing:1.5px;">PROJECTS</div>
+            </div>
+            <div style="flex:1; background:#0a0608; border:1px solid rgba(255,107,157,0.25); border-radius:10px; padding:16px 14px; display:flex; flex-direction:column; align-items:center; gap:8px;">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="7" y="12" width="12" height="9" rx="1.5" stroke="#ff6b9d" stroke-width="1.5"/><path d="M 9 12 v -3 a 4 4 0 0 1 8 0 v 3" stroke="#ff6b9d" stroke-width="1.5"/></svg>
+              <div style="font-size:13px; color:var(--text-primary); font-weight:500;">Google</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-rose); letter-spacing:1.5px;">GEMS</div>
+            </div>
+          </div>
+          <h3 style="font-size:26px; line-height:1.2; color:var(--text-primary); margin:8px 0 0 0; font-weight:700;">Your data in their infrastructure</h3>
+          <p style="font-size:18px; line-height:1.55; color:var(--text-secondary); margin:0;">You can't take it with you. You can't share it across vendors. Not an oversight — the business model.</p>
+          <p style="font-size:18px; line-height:1.55; color:var(--text-secondary); margin:0;">Every insight you generate makes you more dependent.</p>
+        </div>
+
+        <div data-anim style="--d:2" class="card" style="background:linear-gradient(180deg, rgba(30,20,14,0.6), rgba(20,12,14,0.5)); border-color:rgba(255,140,66,0.3); padding:40px 36px; display:flex; flex-direction:column; gap:20px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.25em; color:var(--accent-orange);">WDS-E · YOUR MODEL</div>
+          <!-- open architecture SVG -->
+          <div style="display:flex; align-items:center; gap:20px; margin:12px 0; justify-content:center;">
+            <svg viewBox="0 0 440 110" style="width:100%; max-width:440px;">
+              <defs>
+                <linearGradient id="gOpen" x1="0" x2="1"><stop stop-color="#ff8c42"/><stop offset="1" stop-color="#ff6b9d"/></linearGradient>
+              </defs>
+              <!-- memory base -->
+              <rect x="10" y="62" width="420" height="38" rx="19" fill="#0a0608" stroke="url(#gOpen)" stroke-width="1.5"/>
+              <text x="220" y="86" text-anchor="middle" fill="#e8e8f0" font-family="Inter" font-size="14" font-weight="700">Your memory · your database · eu-north-1</text>
+              <!-- models swappable -->
+              <g font-family="Inter" font-size="12" font-weight="500">
+                <g transform="translate(40,12)"><rect width="84" height="34" rx="6" fill="#140a08" stroke="#ff8c42" stroke-width="1" opacity="0.8"/><text x="42" y="22" text-anchor="middle" fill="#ff8c42">Claude</text></g>
+                <g transform="translate(140,12)"><rect width="84" height="34" rx="6" fill="#140a08" stroke="#ff8c42" stroke-width="1" opacity="0.8"/><text x="42" y="22" text-anchor="middle" fill="#ff8c42">GPT-5</text></g>
+                <g transform="translate(240,12)"><rect width="84" height="34" rx="6" fill="#140a08" stroke="#ff8c42" stroke-width="1" opacity="0.8"/><text x="42" y="22" text-anchor="middle" fill="#ff8c42">Gemini</text></g>
+                <g transform="translate(340,12)"><rect width="60" height="34" rx="6" fill="#140a08" stroke="#ff8c42" stroke-width="1" opacity="0.6" stroke-dasharray="3 3"/><text x="30" y="22" text-anchor="middle" fill="#ff8c42" opacity="0.7">next</text></g>
+              </g>
+            </svg>
+          </div>
+          <h3 style="font-size:26px; line-height:1.2; color:var(--text-primary); margin:8px 0 0 0; font-weight:700;">Your database. Your infrastructure. Your memory.</h3>
+          <p style="font-size:18px; line-height:1.55; color:var(--text-secondary); margin:0;">Any model can read it — today Claude, tomorrow GPT-5, next year whatever wins.</p>
+          <p style="font-size:18px; line-height:1.55; color:var(--text-secondary); margin:0;">The insights are yours because the data is yours.</p>
+        </div>
+      </div>
+
+      <p data-anim style="--d:3; margin-top:48px; font-size:26px; color:var(--text-primary); font-weight:600; max-width:1700px; line-height:1.3;">
+        <span class="grad-text--warm">This problem will never be solved</span> by the people who benefit from it not being solved.
+      </p>
+    </div>
+  </section>

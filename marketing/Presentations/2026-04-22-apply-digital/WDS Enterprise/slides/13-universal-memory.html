@@ -1,0 +1,87 @@
+<section class="slide" data-label="Universal Memory">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <div class="slide-head__row">
+          <span class="label">UNIVERSAL MEMORY &middot; 01</span>
+        </div>
+        <h2 class="title" style="max-width:1800px;">Your memory outlasts <span class="grad-text">every LLM generation.</span></h2>
+      </div>
+
+      <!-- LLM swap diagram -->
+      <div style="flex:1; display:flex; align-items:center; justify-content:center;" data-anim style="--d:1">
+        <svg viewBox="0 0 1600 440" style="width:100%; max-height:420px;">
+          <defs>
+            <linearGradient id="gMem" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4e8eff"/><stop offset="1" stop-color="#9b6dff"/></linearGradient>
+            <filter id="memGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Top label -->
+          <text x="800" y="24" text-anchor="middle" fill="#9a9abe" font-family="JetBrains Mono" font-size="15" letter-spacing="5" font-weight="600">MODEL LAYER &#183; SWAPPABLE</text>
+
+          <!-- Model boxes -->
+          <g transform="translate(0,50)" font-family="Inter" font-weight="700">
+            <g transform="translate(220,0)">
+              <rect width="220" height="96" rx="16" fill="#12121e" stroke="#4e8eff" stroke-width="2.5"/>
+              <text x="110" y="46" text-anchor="middle" fill="#f4f4f8" font-size="26">Claude</text>
+              <text x="110" y="74" text-anchor="middle" fill="#4e8eff" font-family="JetBrains Mono" font-size="12" letter-spacing="4" font-weight="600">TODAY</text>
+            </g>
+            <g transform="translate(500,0)">
+              <rect width="220" height="96" rx="16" fill="#12121e" stroke="#9b6dff" stroke-width="2.5"/>
+              <text x="110" y="46" text-anchor="middle" fill="#f4f4f8" font-size="26">GPT-5</text>
+              <text x="110" y="74" text-anchor="middle" fill="#9b6dff" font-family="JetBrains Mono" font-size="12" letter-spacing="4" font-weight="600">TOMORROW</text>
+            </g>
+            <g transform="translate(780,0)">
+              <rect width="220" height="96" rx="16" fill="#12121e" stroke="#00e88f" stroke-width="2.5"/>
+              <text x="110" y="46" text-anchor="middle" fill="#f4f4f8" font-size="26">Gemini-3</text>
+              <text x="110" y="74" text-anchor="middle" fill="#00e88f" font-family="JetBrains Mono" font-size="12" letter-spacing="4" font-weight="600">LATER</text>
+            </g>
+            <g transform="translate(1060,0)">
+              <rect width="320" height="96" rx="16" fill="#12121e" stroke="#ff6b9d" stroke-width="2.5" stroke-dasharray="6 6"/>
+              <text x="160" y="46" text-anchor="middle" fill="#f4f4f8" font-size="26">Whatever wins</text>
+              <text x="160" y="74" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="12" letter-spacing="4" font-weight="600">NEXT YEAR</text>
+            </g>
+          </g>
+
+          <!-- Connecting lines: model layer → memory base -->
+          <g stroke="url(#gMem)" stroke-width="2" opacity="0.5">
+            <line x1="330" y1="146" x2="700" y2="282" data-draw style="--len:380; --d:2"/>
+            <line x1="610" y1="146" x2="760" y2="282" data-draw style="--len:170; --d:2"/>
+            <line x1="890" y1="146" x2="840" y2="282" data-draw style="--len:170; --d:2"/>
+            <line x1="1220" y1="146" x2="900" y2="282" data-draw style="--len:340; --d:2"/>
+          </g>
+
+          <!-- Memory base -->
+          <g transform="translate(800,320)" filter="url(#memGlow)" data-anim style="--d:3">
+            <rect x="-520" y="-48" width="1040" height="96" rx="48" fill="#0b0b14" stroke="url(#gMem)" stroke-width="3"/>
+            <text y="-2" text-anchor="middle" fill="#f4f4f8" font-family="Inter" font-size="30" font-weight="800">Agent Space Memory</text>
+            <text y="26" text-anchor="middle" fill="#b8b8cc" font-family="JetBrains Mono" font-size="14" letter-spacing="5" font-weight="500">EU-NORTH-1 &#183; YOUR DB &#183; PORTABLE</text>
+          </g>
+
+          <!-- Bottom label -->
+          <text x="800" y="420" text-anchor="middle" fill="#f4f4f8" font-family="JetBrains Mono" font-size="15" letter-spacing="5" font-weight="700">MEMORY LAYER &#183; PERMANENT</text>
+        </svg>
+      </div>
+
+      <div class="points" data-anim style="--d:5">
+        <div>
+          <div class="point__num">01</div>
+          <h4 class="point__lead">Every other tool starts from zero</h4>
+          <p class="point__body">ChatGPT, Claude, Copilot — each session forgets the last. Your team re-briefs the AI every time.</p>
+        </div>
+        <div>
+          <div class="point__num">02</div>
+          <h4 class="point__lead">Agent Space remembers everything</h4>
+          <p class="point__body">Every decision, every client, every project — searchable semantically, available to every agent.</p>
+        </div>
+        <div>
+          <div class="point__num">03</div>
+          <h4 class="point__lead">You own it</h4>
+          <p class="point__body">When the next model is 30% better, you swap. The memory stays in your infrastructure. You are not a tenant.</p>
+        </div>
+      </div>
+    </div>
+  </section>

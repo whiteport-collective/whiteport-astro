@@ -1,0 +1,81 @@
+<section class="slide" data-label="Policies Document">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <div class="slide-head__row">
+          <span class="label">SETUP &middot; 02</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-muted); letter-spacing:0.18em;">POLICIES DOCUMENT</span>
+        </div>
+        <h2 class="title" style="max-width:1600px;">13 policies. One conversation.<br><span class="grad-text">The complete specification for your system.</span></h2>
+      </div>
+
+      <div style="flex:1; display:grid; grid-template-columns: 1fr 1.2fr; gap:48px; align-items:stretch;">
+        <!-- 13 policies → 1 doc SVG -->
+        <div data-anim style="--d:1" style="display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 560 560" style="width:100%; max-height:560px;">
+            <defs>
+              <linearGradient id="gDoc" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4e8eff"/><stop offset="1" stop-color="#9b6dff"/></linearGradient>
+              <filter id="gDocGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <!-- 13 larger squares arranged 5+5+3 -->
+            <g>
+              <g font-family="JetBrains Mono" font-size="12" font-weight="600" letter-spacing="1.2">
+                <g transform="translate(20,20)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="32" text-anchor="middle" fill="#d8d8ee">DATA</text><text x="50" y="52" text-anchor="middle" fill="#9a9abe">CLASS</text></g>
+                <g transform="translate(132,20)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="32" text-anchor="middle" fill="#d8d8ee">AUTH</text><text x="50" y="52" text-anchor="middle" fill="#9a9abe">MODEL</text></g>
+                <g transform="translate(244,20)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="32" text-anchor="middle" fill="#d8d8ee">COMP-</text><text x="50" y="52" text-anchor="middle" fill="#9a9abe">LIANCE</text></g>
+                <g transform="translate(356,20)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">AUDIT</text></g>
+                <g transform="translate(468,20)"><rect width="72" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="36" y="32" text-anchor="middle" fill="#d8d8ee">RETEN-</text><text x="36" y="52" text-anchor="middle" fill="#9a9abe">TION</text></g>
+
+                <g transform="translate(20,108)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">ACCESS</text></g>
+                <g transform="translate(132,108)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">ROLES</text></g>
+                <g transform="translate(244,108)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">SECRETS</text></g>
+                <g transform="translate(356,108)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">TOOL</text></g>
+                <g transform="translate(468,108)"><rect width="72" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="36" y="42" text-anchor="middle" fill="#d8d8ee">MODEL</text></g>
+
+                <g transform="translate(132,196)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">REGION</text></g>
+                <g transform="translate(244,196)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">CLIENT</text></g>
+                <g transform="translate(356,196)"><rect width="100" height="72" rx="8" fill="#14142a" stroke="#3a3a5a" stroke-width="1.25"/><text x="50" y="42" text-anchor="middle" fill="#d8d8ee">REVIEW</text></g>
+              </g>
+              <!-- converging lines -->
+              <g stroke="#9b6dff" stroke-width="1.5" opacity="0.55">
+                <line x1="280" y1="300" x2="280" y2="360" data-draw style="--len:60; --d:2"/>
+              </g>
+              <!-- Idun node -->
+              <g transform="translate(280,384)" data-anim style="--d:3" filter="url(#gDocGlow)">
+                <circle r="42" fill="#0b0b14" stroke="url(#gDoc)" stroke-width="2.25"/>
+                <text y="6" text-anchor="middle" fill="#f4f4f8" font-family="Inter" font-size="17" font-weight="600">Idun</text>
+              </g>
+              <line x1="280" y1="426" x2="280" y2="460" stroke="#9b6dff" stroke-width="1.5" opacity="0.7" data-draw style="--len:34; --d:4"/>
+              <!-- Final document -->
+              <g transform="translate(190,470)" data-anim style="--d:5" filter="url(#gDocGlow)">
+                <rect width="180" height="86" rx="12" fill="url(#gDoc)" opacity="0.95"/>
+                <text x="90" y="40" text-anchor="middle" fill="#0b0b14" font-family="Inter" font-size="18" font-weight="700">Policies Doc</text>
+                <text x="90" y="64" text-anchor="middle" fill="#0b0b14" font-family="JetBrains Mono" font-size="11" letter-spacing="2" font-weight="600">YOUR SPEC</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stack" style="gap:28px; justify-content:center;">
+          <div class="card" data-anim style="--d:2">
+            <div class="card__num">01 · INPUT</div>
+            <h3 class="card__title">13 policies. One conversation.</h3>
+            <p class="card__body">Idun walks through data classification, authority model, compliance framework, audit requirements — all of it.</p>
+          </div>
+          <div class="card card--elev" data-anim style="--d:3">
+            <div class="card__num">02 · OUTPUT</div>
+            <h3 class="card__title">A document uniquely yours</h3>
+            <p class="card__body">Not a generic AI policy. A document that reflects the exact shape of your organization.</p>
+          </div>
+          <div class="card" data-anim style="--d:4">
+            <div class="card__num">03 · THE TWIST</div>
+            <h3 class="card__title">It's the build spec, not documentation</h3>
+            <p class="card__body">Every agent, every skill, every access boundary is generated from it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

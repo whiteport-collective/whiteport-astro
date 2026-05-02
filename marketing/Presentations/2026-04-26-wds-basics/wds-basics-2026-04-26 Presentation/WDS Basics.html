@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>WDS Basics — How to Design with Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Fallback @import in case the <link> hasn't resolved by paint */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+</style>
+<script>
+/* Force font loading before first paint so headlines never render in serif fallback */
+(function(){
+  if (!document.fonts || !document.fonts.load) return;
+  const weights = [300, 400, 500, 600, 700, 800, 900];
+  const promises = [];
+  weights.forEach(w => {
+    promises.push(document.fonts.load(`${w} 100px "Inter"`));
+    promises.push(document.fonts.load(`${w} 16px "Inter"`));
+  });
+  promises.push(document.fonts.load('400 14px "JetBrains Mono"'));
+  promises.push(document.fonts.load('500 14px "JetBrains Mono"'));
+  promises.push(document.fonts.load('600 14px "JetBrains Mono"'));
+  document.documentElement.classList.add('fonts-loading');
+  Promise.all(promises).then(() => {
+    document.documentElement.classList.remove('fonts-loading');
+    document.documentElement.classList.add('fonts-loaded');
+  }).catch(() => {
+    document.documentElement.classList.remove('fonts-loading');
+  });
+})();
+</script>
+<script src="deck-stage.js"></script>
+<style>
+  :root{
+    --bg-deep:        #03030a;
+    --bg-card:        #15152a;
+    --bg-card-hover:  #1f1f3a;
+    --border:         #2c2c46;
+    --border-soft:    #22223a;
+    --text-primary:   #ffffff;
+    --text-secondary: #c0c0d8;
+    --text-muted:     #8888a8;
+    --text-faint:     #55556a;
+    --accent-blue:    #6ea5ff;
+    --accent-purple:  #b088ff;
+    --accent-green:   #2bffa3;
+    --accent-orange:  #ffa45c;
+    --accent-rose:    #ff85b3;
+    --gradient:       linear-gradient(135deg, #4e8eff, #9b6dff);
+    --gradient-warm:  linear-gradient(135deg, #ff8c42, #ff6b9d);
+  }
+
+  html, body{ margin:0; padding:0; background:#000; }
+  body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  deck-stage{ background:#000; }
+
+  /* ---------- Slide frame ---------- */
+  .slide{
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    width:100%; height:100%;
+    padding: 110px 120px 90px 120px;
+    box-sizing:border-box;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .slide::before{
+    content:""; position:absolute; top:0; left:0; right:0;
+    height:3px;
+    background: var(--gradient);
+    opacity:.85;
+  }
+
+  /* top chrome — single small crumb on the RIGHT, counter handled by deck-stage */
+  .crumb{
+    position:absolute;
+    top:46px; right:120px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-muted);
+    text-align:right;
+  }
+  .crumb b{ color: var(--accent-blue); font-weight:500; margin-right:14px;}
+  .crumb.warm b{ color: var(--accent-orange);}
+
+  /* ---------- Headlines ---------- */
+  /* Two-line headline pattern: line 1 in --text-primary, line 2 colored by context. */
+  .h-display{
+    font-family:'Inter';
+    font-weight:800;
+    font-size: 100px;
+    letter-spacing:-0.035em;
+    line-height:1.0;
+    margin:0;
+  }
+  .h-display .l2{ display:block; }
+  .h-section{
+    font-family:'Inter';
+    font-weight:700;
+    font-size: 64px;
+    letter-spacing:-0.025em;
+    line-height:1.06;
+    margin:0;
+  }
+  .h-section .l2{ display:block; }
+  .h-section .l2.blue{ color: var(--accent-blue); }
+  .h-section .l2.orange{ color: var(--accent-orange); }
+  .h-section .l2.purple{ color: var(--accent-purple); }
+  .h-section .l2.green{ color: var(--accent-green); }
+  .h-section .l2.gradient{
+    background: var(--gradient);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .h-section .l2.gradient-warm{
+    background: var(--gradient-warm);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .lede{
+    font-size: 26px;
+    line-height:1.55;
+    color: var(--text-secondary);
+    font-weight:400;
+    margin: 24px 0 0 0;
+    max-width: 1300px;
+    letter-spacing:-0.005em;
+  }
+
+  /* small pills/labels */
+  .pill{
+    display:inline-flex; align-items:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+    padding:6px 12px; border-radius:999px;
+    border:1px solid rgba(78,142,255,0.4);
+    background: rgba(78,142,255,0.10);
+    color: var(--accent-blue);
+  }
+  .pill.warm{ border-color: rgba(255,140,66,0.4); background: rgba(255,140,66,0.10); color: var(--accent-orange);}
+  .pill.purple{ border-color: rgba(155,109,255,0.4); background: rgba(155,109,255,0.10); color: var(--accent-purple);}
+  .pill.green{ border-color: rgba(0,232,143,0.35); background: rgba(0,232,143,0.08); color: var(--accent-green);}
+  .pill.muted{ border-color: var(--border); background: transparent; color: var(--text-muted);}
+
+  /* card */
+  .card{
+    border-radius:14px;
+    padding:28px 32px;
+    border:1px solid var(--border);
+    background: var(--bg-card);
+  }
+
+  /* ----- Slide 1: title ----- */
+  .s-title{ justify-content:flex-end; padding-bottom:130px; }
+  .s-title .glow{
+    position:absolute; pointer-events:none;
+    width:1200px; height:1200px;
+    right:-340px; top:-340px;
+    background: radial-gradient(closest-side, rgba(78,142,255,0.22), rgba(155,109,255,0.06) 50%, transparent 75%);
+    filter: blur(20px);
+  }
+  .s-title .glow2{
+    position:absolute; pointer-events:none;
+    width:900px; height:900px;
+    left:-220px; bottom:-280px;
+    background: radial-gradient(closest-side, rgba(155,109,255,0.18), transparent 70%);
+    filter: blur(20px);
+  }
+  .s-title .label-row{
+    position:relative; z-index:2;
+    display:flex; align-items:center; gap:16px;
+    margin-bottom:36px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-muted);
+  }
+  .s-title .label-row .dot{
+    width:10px; height:10px; border-radius:999px; background: var(--accent-blue);
+    box-shadow: 0 0 14px rgba(78,142,255,0.7);
+  }
+  .s-title .subtitle{
+    font-size:30px; color:var(--text-secondary); font-weight:400;
+    margin-top:32px; max-width:1100px; line-height:1.4; letter-spacing:-0.005em;
+  }
+  .s-title .meta{
+    display:flex; gap:28px; align-items:center; margin-top:80px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px; letter-spacing:1.5px; text-transform:uppercase;
+    color: var(--text-muted);
+  }
+  .s-title .meta b{ color:var(--text-primary); font-weight:500;}
+
+  /* ----- Slide 2: wall ----- */
+  .quotes{
+    display:grid; grid-template-columns:1fr 1fr; gap:28px;
+    align-content:start;
+    margin-top: 56px;
+  }
+  .quotes .card{
+    display:grid; grid-template-columns: 64px 1fr; gap:24px; align-items:flex-start;
+    padding:30px 32px;
+  }
+  .quotes .icon-frame{
+    width:56px; height:56px; border-radius:12px;
+    background: rgba(78,142,255,0.10);
+    border:1px solid rgba(78,142,255,0.28);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--accent-blue);
+  }
+  .quotes .card.q2 .icon-frame{ background: rgba(155,109,255,0.10); border-color: rgba(155,109,255,0.30); color: var(--accent-purple);}
+  .quotes .card.q3 .icon-frame{ background: rgba(255,140,66,0.10); border-color: rgba(255,140,66,0.30); color: var(--accent-orange);}
+  .quotes .card.q4 .icon-frame{ background: rgba(255,107,157,0.10); border-color: rgba(255,107,157,0.30); color: var(--accent-rose);}
+  .quotes .q{
+    font-size:23px; font-weight:600; color:var(--text-primary);
+    line-height:1.35; letter-spacing:-0.01em; margin:0 0 12px 0;
+  }
+  .quotes .a{ font-size:17px; color:var(--text-secondary); line-height:1.55; margin:0;}
+  .punch{
+    margin-top:auto;
+    padding-top:42px;
+    font-size:30px; font-weight:600;
+    color:var(--text-primary); letter-spacing:-0.015em; line-height:1.3;
+  }
+  .punch em{ font-style:normal; color: var(--accent-orange);}
+
+  /* ----- Slide 3: what wds is ----- */
+  .threads{
+    flex:1; display:grid; grid-template-columns: 1fr 1fr; gap:0;
+    align-items:center; margin-top:32px;
+    position:relative;
+  }
+  .threads::before{
+    content:""; position:absolute; left:50%; top:18%; bottom:18%;
+    width:1px; background: linear-gradient(180deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  }
+  .thread{ padding: 0 56px;}
+  .thread .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-muted); margin-bottom:18px;
+  }
+  .thread .head{
+    font-size:42px; font-weight:700; letter-spacing:-0.02em; line-height:1.1;
+  }
+  .thread.right .head{
+    background: var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .thread .sub{
+    margin-top:14px; font-size:18px; color:var(--text-secondary); line-height:1.55;
+  }
+  .pillars{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    margin-top:48px;
+  }
+  .pillar{
+    padding:28px 28px 26px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background: var(--bg-card);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .pillar .ico{
+    width:44px; height:44px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(78,142,255,0.10); color: var(--accent-blue);
+    border:1px solid rgba(78,142,255,0.28);
+  }
+  .pillar:nth-child(2) .ico{ background: rgba(155,109,255,0.10); color: var(--accent-purple); border-color: rgba(155,109,255,0.30);}
+  .pillar:nth-child(3) .ico{ background: rgba(0,232,143,0.10); color: var(--accent-green); border-color: rgba(0,232,143,0.30);}
+  .pillar h5{
+    font-family:'Inter';
+    font-size:22px; font-weight:600;
+    margin:0; letter-spacing:-0.01em;
+  }
+  .pillar p{ font-size:17px; line-height:1.55; color:var(--text-secondary); margin:0;}
+
+  /* ----- Slide 4: principles ----- */
+  .principles{
+    flex:1; display:grid; grid-template-columns:1fr 1fr; gap:36px;
+    align-items:stretch; margin-top:36px;
+  }
+  .principles .card{ padding:42px; display:flex; flex-direction:column; gap:18px; position:relative; overflow:hidden;}
+  .principles .num{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    font-size:12px; letter-spacing:3px;
+  }
+  .principles h3{
+    font-size:34px; font-weight:700; letter-spacing:-0.02em; margin:0; line-height:1.15;
+  }
+  .principles p{ font-size:19px; line-height:1.6; color:var(--text-secondary); margin:0;}
+  .illus{
+    margin-top: 16px;
+    background: var(--bg-deep);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 24px;
+    flex:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ----- Slide 5: setup ----- */
+  .req-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
+    margin-top:36px;
+  }
+  .req-card{
+    padding:28px;
+    border-radius:14px; border:1px solid var(--border); background: var(--bg-card);
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .req-card .ico{
+    width:48px; height:48px; border-radius:10px;
+    background: rgba(78,142,255,0.10); border:1px solid rgba(78,142,255,0.28);
+    color: var(--accent-blue); display:flex; align-items:center; justify-content:center;
+  }
+  .req-card h4{
+    font-size:24px; font-weight:600; letter-spacing:-0.01em; margin:0;
+  }
+  .req-card p{ font-size:17px; color:var(--text-secondary); line-height:1.5; margin:0;}
+  .terminal{
+    margin-top:28px;
+    background: #08080f;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:28px 32px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:18px; line-height:2;
+    color: var(--text-primary);
+    position:relative;
+  }
+  .terminal .dots{
+    position:absolute; top:14px; right:18px; display:flex; gap:6px;
+  }
+  .terminal .dots span{
+    width:10px; height:10px; border-radius:999px; background: var(--border);
+  }
+  .terminal .prompt{ color: var(--accent-green); margin-right:12px;}
+  .terminal .cmt{ color: var(--text-muted);}
+  .terminal .cmd{ color: var(--text-primary);}
+  .terminal .arg{ color: var(--accent-blue);}
+
+  /* ----- Slide 6: pipeline ----- */
+  .pipeline{
+    flex:1; display:flex; align-items:center; justify-content:center; margin-top:24px;
+  }
+  .pipe-row{
+    display:grid; grid-template-columns: repeat(7, 1fr); gap:0;
+    width:100%; align-items:stretch;
+    position:relative;
+  }
+  .pipe-row::before{
+    content:"";
+    position:absolute;
+    left:7%; right:7%; top:50%; height:1px;
+    background: linear-gradient(90deg, rgba(78,142,255,0.4), rgba(155,109,255,0.4) 80%, rgba(0,232,143,0.5));
+    z-index:0;
+  }
+  .node{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    position:relative; z-index:1;
+    padding: 20px 8px;
+  }
+  .node .box{
+    border:1px solid var(--border);
+    background: var(--bg-card);
+    border-radius:12px;
+    padding:18px 12px;
+    width:100%; box-sizing:border-box;
+    text-align:center;
+    font-size:17px; font-weight:600;
+    color: var(--text-primary);
+    line-height:1.25;
+    min-height:96px;
+    display:flex; flex-direction:column; gap:8px;
+    align-items:center; justify-content:center;
+  }
+  .node.last .box{ border-color: rgba(0,232,143,0.4); background: rgba(0,232,143,0.06);}
+  .node .box .ico{
+    color: var(--accent-blue);
+  }
+  .node:nth-child(n+3) .box .ico{ color: var(--accent-purple);}
+  .node.last .box .ico{ color: var(--accent-green);}
+  .node .pill{ font-size:10px; padding:4px 10px;}
+  .pipe-foot{
+    margin-top:48px;
+    display:grid; grid-template-columns: 1fr 1fr; gap:60px;
+  }
+  .pipe-foot p{ font-size:20px; line-height:1.6; color: var(--text-secondary); margin:0;}
+  .pipe-foot p b{ color: var(--text-primary); font-weight:600;}
+
+  /* ----- PHASE SLIDES (7-12) ----- */
+  .phase{ display:flex; flex-direction:column; height:100%; gap:0;}
+  /* phase header: pills row floats above headline so headline aligns with non-phase slides */
+  .phase .pills-row{
+    position:absolute;
+    top:74px; left:120px;
+    display:flex; gap:10px; align-items:center;
+    margin-bottom:0;
+  }
+  .phase .pill-tag{
+    display:inline-flex; align-items:center;
+    padding:7px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background: var(--bg-card);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:2.5px; text-transform:uppercase;
+    font-weight:600;
+    color: var(--accent-blue);
+  }
+  .phase .pill-tag.muted{
+    color: var(--text-muted);
+    font-weight:500;
+  }
+  .phase.purple .pill-tag:not(.muted){ color: var(--accent-purple);}
+  .phase.green  .pill-tag:not(.muted){ color: var(--accent-green);}
+  .phase.orange .pill-tag:not(.muted){ color: var(--accent-orange);}
+  .phase .lede{ margin-top:20px; max-width:1500px;}
+  .phase .illustration{
+    flex:1;
+    margin: 36px 0 28px 0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .phase .why-what-how{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
+  }
+  .wwh{
+    border-radius:12px;
+    border:1px solid var(--border);
+    background: var(--bg-card);
+    padding: 22px 24px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .wwh .lbl{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--accent-blue);
+  }
+  .phase.purple .wwh .lbl{ color: var(--accent-purple);}
+  .phase.green  .wwh .lbl{ color: var(--accent-green);}
+  .phase.orange .wwh .lbl{ color: var(--accent-orange);}
+  .wwh .text{ font-size:16px; line-height:1.55; color: var(--text-primary); margin:0;}
+
+  /* ----- Slide 13: payoff (dark, system-aligned) ----- */
+  .payoff{
+    padding: 150px 120px 90px;
+    position:relative;
+  }
+  .payoff::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(900px 600px at 20% 15%, rgba(110,165,255,0.10), transparent 60%),
+      radial-gradient(900px 600px at 80% 85%, rgba(176,136,255,0.10), transparent 60%);
+  }
+  .payoff > *{ position:relative; z-index:1;}
+  .payoff h1{
+    font-size:78px; font-weight:800; letter-spacing:-0.03em;
+    line-height:1.05; margin:0; max-width:1500px;
+    color: var(--text-primary);
+  }
+  .payoff h1 .l2{
+    display:block;
+    margin-top:8px;
+    background: var(--gradient);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    width:fit-content;
+    padding:0;
+    border-radius:0;
+  }
+  .equation{
+    margin-top:48px;
+    display:flex; flex-wrap:wrap; gap:14px; align-items:center;
+  }
+  .eq-box{
+    background: rgba(110,165,255,0.06);
+    border:1px solid rgba(110,165,255,0.30);
+    border-radius:12px;
+    padding:16px 22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:16px; letter-spacing:1.5px; text-transform:uppercase;
+    color: var(--text-primary);
+    display:flex; align-items:center; gap:10px;
+  }
+  .eq-op{ font-size:30px; font-weight:600; color: var(--text-secondary);}
+  .eq-result{
+    background: linear-gradient(135deg, rgba(110,165,255,0.18), rgba(176,136,255,0.18));
+    border:1px solid rgba(176,136,255,0.55);
+    color: var(--text-primary);
+    font-weight:700;
+  }
+  .body-row{
+    margin-top:56px;
+    display:grid; grid-template-columns:1fr 1fr; gap:60px;
+  }
+  .body-row p{ font-size:21px; line-height:1.6; color: var(--text-secondary); margin:0;}
+  .body-row p b{ color: var(--text-primary); font-weight:700;}
+
+  /* ----- Slide 14 ----- */
+  .paths{
+    flex:1; display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:32px;
+  }
+  .paths .card{ padding:36px 40px; display:flex; flex-direction:column; gap:18px;}
+  .paths .card h3{ font-size:30px; font-weight:700; letter-spacing:-0.015em; margin:0 0 6px 0;}
+  .paths .card p{ font-size:18px; color: var(--text-secondary); line-height:1.55; margin:0;}
+  .path-flow{
+    margin-top:auto;
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+  }
+  .path-flow .step{
+    padding:10px 14px; border-radius:6px;
+    border:1px solid var(--border); background: var(--bg-deep);
+    color: var(--text-secondary);
+  }
+  .path-flow .step.active{ color: var(--accent-green); border-color: rgba(0,232,143,0.4);}
+  .paths .card.right .path-flow .step.active{ color: var(--accent-orange); border-color: rgba(255,140,66,0.4);}
+  .quote-line{
+    margin-top:28px;
+    font-size:28px; font-weight:600; letter-spacing:-0.015em;
+    color: var(--text-primary);
+    border-left:2px solid var(--accent-purple);
+    padding-left:22px; line-height:1.3;
+  }
+
+  /* ----- Slide 15 ----- */
+  .upgrade{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; flex:1; align-content:center;}
+  .upgrade .card{ padding:32px 30px; display:flex; flex-direction:column; gap:16px;}
+  .upgrade .card .ico{
+    width:48px; height:48px; border-radius:10px;
+    background: rgba(78,142,255,0.10); border:1px solid rgba(78,142,255,0.28);
+    color: var(--accent-blue); display:flex; align-items:center; justify-content:center;
+  }
+  .upgrade .card:nth-child(2) .ico{ background: rgba(155,109,255,0.10); border-color: rgba(155,109,255,0.30); color: var(--accent-purple);}
+  .upgrade .card:nth-child(3) .ico{ background: rgba(0,232,143,0.10); border-color: rgba(0,232,143,0.30); color: var(--accent-green);}
+  .upgrade .card h3{ font-size:24px; font-weight:600; letter-spacing:-0.01em; margin:0; line-height:1.25;}
+  .upgrade .card p{ font-size:17px; line-height:1.55; color: var(--text-secondary); margin:0;}
+  .compare{
+    margin-top:auto;
+    display:grid; grid-template-rows:auto auto; gap:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:2px; text-transform:uppercase;
+  }
+  .compare .from{ color: var(--text-muted);}
+  .compare .to b{ color: var(--text-primary); font-weight:600;}
+  .upgrade .card .to b{ color: var(--accent-blue);}
+  .upgrade .card:nth-child(2) .to b{ color: var(--accent-purple);}
+  .upgrade .card:nth-child(3) .to b{ color: var(--accent-green);}
+
+  /* ----- Slide 16 ----- */
+  .timeline{
+    margin-top:40px;
+    display:grid; grid-template-columns: 1fr 2fr 1fr; align-items:center; gap:24px;
+  }
+  .timeline .end{
+    text-align:center; padding:32px 24px;
+    border:1px solid var(--border); border-radius:14px; background: var(--bg-card);
+  }
+  .timeline .end .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-muted); margin-bottom:10px;
+  }
+  .timeline .end .v{ font-size:22px; font-weight:600; color:var(--text-primary); line-height:1.3;}
+  .timeline .end.right .v{
+    background: var(--gradient);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .timeline .middle{
+    height:2px; background: var(--gradient); position:relative; border-radius:2px;
+  }
+  .timeline .middle .pulse{
+    position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+    background: var(--bg-deep);
+    padding:0 22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--accent-purple);
+  }
+  .three-col{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px;
+  }
+  .three-col .col{
+    padding: 24px 26px;
+    border:1px solid var(--border); border-radius:12px; background: var(--bg-card);
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .three-col .col .ico{
+    width:40px; height:40px; border-radius:10px;
+    background: rgba(78,142,255,0.10); color: var(--accent-blue);
+    border:1px solid rgba(78,142,255,0.28);
+    display:flex; align-items:center; justify-content:center; margin-bottom:6px;
+  }
+  .three-col .col:nth-child(2) .ico{ background: rgba(155,109,255,0.10); color: var(--accent-purple); border-color: rgba(155,109,255,0.30);}
+  .three-col .col:nth-child(3) .ico{ background: rgba(0,232,143,0.10); color: var(--accent-green); border-color: rgba(0,232,143,0.30);}
+  .three-col .col h5{ font-size:20px; font-weight:600; margin:0; letter-spacing:-0.01em;}
+  .three-col .col p{ font-size:16px; line-height:1.55; color:var(--text-secondary); margin:0;}
+  .pull-quote{
+    margin-top:32px;
+    padding: 24px 28px;
+    border-left: 2px solid var(--accent-orange);
+    font-size:21px; line-height:1.5; color:var(--text-primary);
+    font-weight:500; letter-spacing:-0.005em;
+    background: rgba(255,140,66,0.05);
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ----- Slide 17 ----- */
+  .steps{
+    flex:1; display:flex; flex-direction:column; justify-content:center; gap:0; margin-top:24px;
+  }
+  .step{
+    display:grid; grid-template-columns: 100px 56px 1fr;
+    align-items:center;
+    padding:22px 0;
+    border-bottom:1px solid var(--border-soft);
+    gap:28px;
+  }
+  .step:last-child{ border-bottom:none;}
+  .step .n{
+    font-family:'Inter';
+    font-size:60px; font-weight:800; letter-spacing:-0.03em;
+    background: var(--gradient-warm);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    line-height:1;
+  }
+  .step .ico{
+    width:44px; height:44px; border-radius:10px;
+    background: rgba(255,140,66,0.10); border:1px solid rgba(255,140,66,0.30);
+    color: var(--accent-orange);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step .t{
+    font-size:26px; font-weight:500; letter-spacing:-0.01em;
+    color: var(--text-primary); line-height:1.35;
+  }
+  .step .t b{ font-weight:700; color: var(--text-primary);}
+  .footnote{
+    margin-top:20px;
+    font-size:17px; color:var(--text-secondary); line-height:1.55;
+    font-style:italic;
+  }
+
+  /* ----- Slide 18 ----- */
+  .promise{
+    padding: 110px 140px 90px;
+    display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+    position:relative;
+  }
+  /* subtle radial accent so the closing slide reads as a moment without breaking the system */
+  .promise::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(900px 600px at 30% 20%, rgba(110,165,255,0.10), transparent 60%),
+      radial-gradient(900px 600px at 75% 85%, rgba(176,136,255,0.10), transparent 60%);
+  }
+  .promise > *{ position:relative; z-index:1;}
+  .promise h1{
+    font-size:80px; font-weight:800; letter-spacing:-0.035em;
+    line-height:1.06; margin:0; max-width:1550px;
+    color: var(--text-primary);
+  }
+  .promise h1 .accent{
+    background: var(--gradient);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .promise .below{
+    margin-top:56px;
+    font-size:21px; line-height:1.7;
+    max-width:1100px;
+    color: var(--text-secondary);
+  }
+  .promise .deck-mark{
+    margin-bottom:36px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-secondary);
+    display:flex; align-items:center; gap:12px;
+  }
+  .promise .deck-mark .dot{ width:8px; height:8px; border-radius:999px; background: var(--accent-blue); box-shadow:0 0 14px rgba(110,165,255,0.6);}
+
+  /* ---------- Reusable illustration styles ---------- */
+  .illu-card{
+    width:100%; max-width: 1400px;
+    background: linear-gradient(180deg, #0c0c18 0%, #08080f 100%);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding: 36px 44px;
+    box-sizing:border-box;
+    position:relative;
+  }
+  .illu-card .corner-tag{
+    position:absolute; top:14px; right:18px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<script type="application/json" id="speaker-notes">
+[
+  "Hi everyone. I'm Mårten, founder of Whiteport. Over the next sixty minutes I want to share how we work with AI agents using the Whiteport Design Studio — WDS. This isn't a pitch, it's a working method. By the end you'll have everything you need to install it tonight and run your first WDS project tomorrow morning. Let's get into it.",
+
+  "Show of hands — how many of you have hit at least one of these walls? Yeah. All four of these are real quotes from designers and developers I've worked with this year. The pattern is the same: AI did exactly what it was told. The problem is we told it the wrong thing, or we told it something ambiguous. AI doesn't fix ambiguity — it amplifies it. Whatever fuzziness existed in the brief gets compounded across every output. WDS exists to remove that ambiguity before any code is written.",
+
+  "So what is WDS? It's a professional UX methodology. The thinking inside it isn't new — it's twenty-five years of how Whiteport has done strategy and design for clients. What's new is that we've rebuilt it for the agentic age. Three things matter: conceptual understanding — what is this product really? Business reasoning — why are we building it and for whom? And user driving forces — the actual motivations that bring someone to your product. Not personas. Driving forces. We'll come back to that.",
+
+  "Two principles separate WDS from solo prompting. First — design through dialog. You and the agent walk through the user experience together. Page by page, decision by decision. The design isn't generated in a single prompt — it emerges from the conversation. Second — specifications before code. The agent's job is to write specifications. Specifications become the build input. Code is the last step. Ambiguity gets resolved in writing — before anyone touches the codebase. Hold onto these two. Everything else is just how we operationalize them.",
+
+  "Setup is light. You need three things. Git and GitHub — because design decisions deserve version control just like code does. An IDE — VS Code, Cursor, or Windsurf, whatever your team already uses. And any agent — I recommend Claude Code. Sonnet for most work, Opus when you need strategy. Two install commands and you're running. We'll do this live in a moment.",
+
+  "This is the WDS pipeline. Seven stages. Each one is a specification. Each specification is the input to the next step. Saga handles strategy — the brief and the trigger map. Freya handles UX and design — scenarios, page specs, storyboards, design system. Mimir handles build. You don't run every phase for every project. A small feature starts at page specs. A full product starts at the brief. The sequence is the logic: strategy before design, design before build.",
+
+  "The product brief. This is the foundation everything builds on. It's the first document in a WDS project — problem, user, goals, constraints, design principles — written down before any design or development starts. Why do we do this? Because teams spend weeks executing and discover at the demo that everyone held a different mental model. Nobody put it in writing. The brief forces it. Saga interviews you, drafts it, you push back, you sign off. And once platform requirements are defined, infrastructure work can start in parallel — you don't wait for the full UX pipeline.",
+
+  "The trigger map. Who acts. Why they act. What they fear. This is where we connect business goals to user psychology. Four layers — business goals, product, target groups, driving forces. Three to four target groups, ranked by impact. Positive drivers — what they want. Negative drivers — what they fear. Negative drivers trigger action faster than positive ones. Always. The trigger map becomes the filter every design decision is tested against.",
+
+  "Scenarios. The experience, before it's designed. Six to ten narrative walkthroughs of the most important user flows. Each one reads like a story — someone arriving, deciding, succeeding, getting stuck. Why scenarios? Because users don't get lost when a feature is missing. They get lost when the flow assumes context they don't have, or puts the critical decision at the wrong moment. Freya picks the priority flows from the trigger map and writes them as stories. You read them and say 'this assumes something the user can't know.' That note costs minutes here. It costs days in code.",
+
+  "Page specifications. The contract for every screen. One spec per page — actual content, headlines, body copy, labels, error messages, hierarchy, interactions, error states. Why specs? Because 'a clean onboarding screen' means five different things to five people. Everyone builds from what they remember being decided in a meeting. The spec is complete enough to build from without asking questions. Approved specs go directly to Mimir — and Mimir builds.",
+
+  "Storyboarding. Make the interaction visible before it's built. Comic book strips. One per logical view. An object pulled from its context, the interaction playing out panel by panel — tap, response, state change, next step. A spec describes what is on a page. It cannot show what happens when someone touches it, or where the sequence breaks down. Those errors are invisible in writing. The storyboard makes them visible.",
+
+  "Design system. The shared vocabulary of the product. Tokens — color, spacing, typography. Components — buttons, inputs, cards, modals. Patterns — forms, navigation, empty states, error handling. Without this, design quality fragments. Every new screen is a fresh decision. The product stops feeling designed and starts feeling assembled. Freya identifies every component the storyboards require and generates them. When the design system exists, Mimir composes — it doesn't improvise.",
+
+  "This is the moment the audience usually leans forward. Linger here. Mimir gets four things: a page spec with content, the design system, platform requirements. Mimir builds the page. The output is predictable. The review is fast. Iteration is surgical — you fix what doesn't match the spec, not what doesn't match a vague idea in someone's head. Three phases of specification. One phase of build. Work shifts from 'explain what you want' to 'review what was built.' That's the methodology in one sentence.",
+
+  "Code and spec must stay in sync. Always. The spec is the source of truth. Two paths: minor change — make it in code, then update the spec to match. Fast, surgical, reversible. Significant change — update the spec first, then execute. The spec defines the intention before the agent touches anything. If code and spec disagree, one of them is wrong. Pick one and align the other. Don't let drift accumulate.",
+
+  "WDS works solo. WDS-E extends it to a team. Three upgrades. Persistent memory — Agent Space stores every decision, sessions connect, new team members onboard from the same shared record. Shared skills — same agents, same skills, same protocols across the org. One update reaches every practitioner. That's organizational capability — not personal capability. Structured handoffs — work orders let Freya hand off to Mimir, Mimir surface blockers to Saga. Coordination happens in writing — stored, traceable, reviewable.",
+
+  "This is what becomes possible. Three to five people. Shared methodology, shared memory, delegated execution. They take a business problem, run discovery, design the product, build it, test it on users. You see the result — not every artifact along the way. Shared methodology — same WDS phases, same agents. Shared memory — a decision made Monday is available Thursday. Delegated execution — you don't review the brief, the trigger map, the scenarios, and the spec one by one. You review the system. A small autonomous team owns a product end to end, inside a larger organization, without the coordination overhead.",
+
+
+  "Here's what we're really doing. When a designer can run strategy, design the product, and ship the code — that is when the promise of AI is materialized. WDS removes the translation. The same person who interviewed the stakeholder writes the brief. The brief becomes the trigger map. The trigger map becomes the scenarios. The scenarios become the specification. The specification becomes the code. The designer didn't become a developer. The scope of what one person can own — and deliver — just expanded. Thank you. Let's open it up for questions."
+]
+</script>
+
+<!-- ============ Reusable SVG icon symbols ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Generic icons -->
+    <symbol id="i-spec" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M6 3h9l3 3v15H6z M9 9h6 M9 13h6 M9 17h4"/></symbol>
+    <symbol id="i-mismatch" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 7h7v7H3z M14 10h7v7h-7z M10 10l4 4 M14 10l-4 4"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 12a8 8 0 0 1 14-5 M20 12a8 8 0 0 1-14 5 M16 4l2 3-3 1 M8 20l-2-3 3-1"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-1 5 3 3 0 0 0 2 4 3 3 0 0 0 5 1 3 3 0 0 0 5-1 3 3 0 0 0 2-4 3 3 0 0 0-1-5V7a3 3 0 0 0-3-3 3 3 0 0 0-3 1 3 3 0 0 0-3-1z M12 5v14"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 20V4 M4 20h16 M8 17V11 M12 17V7 M16 17v-4 M20 17V9"/></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 19c0-3 3-5 6-5s6 2 6 5 M14 19c.5-2 2.5-3.5 5-3.5s2.5.5 2.5 3.5"/></symbol>
+    <symbol id="i-dialog" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 5h12v9H6l-3 3z M9 11h13v6h-3l-2 3v-3h-8z"/></symbol>
+    <symbol id="i-doc-chain" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 4h7l3 3v13H5z M9 9h6 M9 13h6 M9 17h4 M19 8v12 M19 8l-2 1 M19 8l2 1"/></symbol>
+    <symbol id="i-git" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M6 8v8 M8 6c5 0 8 2 8 6"/></symbol>
+    <symbol id="i-ide" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8 10l-2 2 2 2 M14 10l2 2-2 2 M10 14l3-4"/></symbol>
+    <symbol id="i-agent" viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="14.5" cy="11.5" r="1.2" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M12 6V3 M9 17v3 M15 17v3"/></symbol>
+    <symbol id="i-saga" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z M9 9h7 M9 13h7 M9 17h5"/></symbol>
+    <symbol id="i-freya" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 9h18 M7 13h4 M7 16h7"/></symbol>
+    <symbol id="i-mimir" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 5l-6 7 6 7 M15 5l6 7-6 7"/></symbol>
+    <symbol id="i-trigger" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M13 3l-7 11h5l-1 7 7-11h-5z"/></symbol>
+    <symbol id="i-story" viewBox="0 0 24 24"><rect x="3" y="6" width="6" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="11" y="6" width="6" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="19" y="6" width="2" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-storyboard" viewBox="0 0 24 24"><rect x="2" y="6" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="10" y="6" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="6" y="14" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-system" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.5" cy="16.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-build" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 21h18 M5 21V11l7-5 7 5v10 M9 21v-6h6v6"/></symbol>
+    <symbol id="i-memory" viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M8 10v4 M12 10v4 M16 10v4 M4 9h16 M4 15h16"/></symbol>
+    <symbol id="i-skill" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 2l3 6 6 1-4.5 4 1 6L12 16l-5.5 3 1-6L3 9l6-1z"/></symbol>
+    <symbol id="i-handoff" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 12h13 M11 7l5 5-5 5 M21 4v16"/></symbol>
+    <symbol id="i-install" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12 M7 10l5 5 5-5 M4 21h16"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-saga-run" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M10 8l6 4-6 4z"/></symbol>
+    <symbol id="i-read" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 5l9 3v13l-9-3z M21 5l-9 3v13l9-3z"/></symbol>
+    <symbol id="i-handoff-pen" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M14 4l6 6-10 10H4v-6z M13 5l6 6"/></symbol>
+    <!-- arrows -->
+    <symbol id="i-arr-r" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16 M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-arr-lr" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 12h18 M7 7l-4 5 4 5 M17 7l4 5-4 5"/></symbol>
+  </defs>
+</svg>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ============ 1. Title ============ -->
+  <section data-label="01 Title" class="slide s-title">
+    <div class="glow"></div>
+    <div class="glow2"></div>
+    <div class="crumb"><b>WDS</b> Practitioner Briefing · v4 · 2026</div>
+
+    <div style="position:relative; z-index:2;">
+      <div class="label-row">
+        <span class="dot"></span>
+        <span>Whiteport Design Studio</span>
+      </div>
+      <h1 class="h-display">
+        Professional Agentic<br/>
+        <span class="l2" style="background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;">UX- &amp; Design Framework</span>
+      </h1>
+      <p class="subtitle">Whiteport Designs Studio, WDS for BMad method</p>
+      <div class="meta">
+        <span><b>Mårten Angner</b></span><span>·</span>
+        <span>Whiteport</span><span>·</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. The Wall ============ -->
+  <section data-label="02 You've Already Hit This Wall" class="slide">
+    <div class="crumb"><b>The Problem · 01</b> Why a method matters</div>
+    <h2 class="h-section">
+      You've already hit
+      <span class="l2 orange">the vibe coding wall.</span>
+    </h2>
+    <div class="quotes">
+      <div class="card q1">
+        <div class="icon-frame"><svg width="30" height="30"><use href="#i-mismatch"/></svg></div>
+        <div>
+          <p class="q">"I described it. The agent built the wrong thing."</p>
+          <p class="a">Technically correct. Completely wrong. Started over.</p>
+        </div>
+      </div>
+      <div class="card q2">
+        <div class="icon-frame"><svg width="30" height="30"><use href="#i-spec"/></svg></div>
+        <div>
+          <p class="q">"The design looked great. The code didn't match."</p>
+          <p class="a">Figma and implementation diverged. Neither was wrong — they just weren't talking.</p>
+        </div>
+      </div>
+      <div class="card q3">
+        <div class="icon-frame"><svg width="30" height="30"><use href="#i-target"/></svg></div>
+        <div>
+          <p class="q">"Three weeks in, the user didn't need it."</p>
+          <p class="a">Built what was asked. Nobody validated the ask.</p>
+        </div>
+      </div>
+      <div class="card q4">
+        <div class="icon-frame"><svg width="30" height="30"><use href="#i-loop"/></svg></div>
+        <div>
+          <p class="q">"It looked horrible. The more I prompted, the worse it got."</p>
+          <p class="a">One fix broke two things. Started over from a blank file.</p>
+        </div>
+      </div>
+    </div>
+    <p class="punch">AI doesn't fix ambiguity. It <em>amplifies</em> it.</p>
+  </section>
+
+  <!-- ============ 3. What WDS Is ============ -->
+  <section data-label="03 What WDS Is" class="slide">
+    <div class="crumb"><b>The Problem · 02</b> A method, not a tool</div>
+    <h2 class="h-section">
+      A professional UX methodology —
+      <span class="l2 blue">proven over 25 years, rebuilt for the agentic age.</span>
+    </h2>
+
+    <div class="threads">
+      <div class="thread">
+        <div class="label">Origin</div>
+        <div class="head">25 years of professional UX practice.</div>
+      </div>
+      <div class="thread right">
+        <div class="label">Today</div>
+        <div class="head">Rebuilt for the agentic age.</div>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="ico"><svg width="24" height="24"><use href="#i-brain"/></svg></div>
+        <h5>Conceptual understanding</h5>
+        <p>What is this product, really? Before you can build it, you have to know what it is.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico"><svg width="24" height="24"><use href="#i-chart"/></svg></div>
+        <h5>Business reasoning</h5>
+        <p>Why are we building it, and for whom? Every decision is tested against this.</p>
+      </div>
+      <div class="pillar">
+        <div class="ico"><svg width="24" height="24"><use href="#i-people"/></svg></div>
+        <h5>User driving forces</h5>
+        <p>The actual motivations that bring someone here. Not personas — drivers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. How WDS Works ============ -->
+  <section data-label="04 How WDS Works" class="slide">
+    <div class="crumb"><b>The Problem · 03</b> Two operating principles</div>
+    <h2 class="h-section">
+      Two principles that separate WDS
+      <span class="l2 purple">from solo prompting.</span>
+    </h2>
+
+    <div class="principles">
+      <div class="card">
+        <span class="num">PRINCIPLE 01</span>
+        <h3>Specifications before code.</h3>
+        <p>Agents build specifications. Specifications become the build input. Code is the last step. Ambiguity is resolved in writing — before anyone touches the codebase.</p>
+        <div class="illus">
+          <svg viewBox="0 0 480 200" width="100%" style="max-width:480px;">
+            <g font-family="JetBrains Mono" font-size="11" letter-spacing="2">
+              <g transform="translate(10,60)">
+                <rect width="90" height="80" rx="6" fill="#0c0c18" stroke="#2c2c46"/>
+                <line x1="14" y1="20" x2="76" y2="20" stroke="#6ea5ff" stroke-width="2"/>
+                <line x1="14" y1="32" x2="60" y2="32" stroke="#55556a"/>
+                <line x1="14" y1="44" x2="68" y2="44" stroke="#55556a"/>
+                <line x1="14" y1="56" x2="50" y2="56" stroke="#55556a"/>
+                <text x="45" y="100" text-anchor="middle" fill="#6ea5ff">BRIEF</text>
+              </g>
+              <path d="M105 100 H123" stroke="#8888a8" stroke-width="1.5"/>
+              <polygon points="121,96 130,100 121,104" fill="#8888a8"/>
+              <g transform="translate(135,60)">
+                <rect width="90" height="80" rx="6" fill="#0c0c18" stroke="#2c2c46"/>
+                <line x1="14" y1="20" x2="76" y2="20" stroke="#6ea5ff" stroke-width="2"/>
+                <line x1="14" y1="32" x2="60" y2="32" stroke="#55556a"/>
+                <line x1="14" y1="44" x2="68" y2="44" stroke="#55556a"/>
+                <line x1="14" y1="56" x2="50" y2="56" stroke="#55556a"/>
+                <text x="45" y="100" text-anchor="middle" fill="#6ea5ff">SPEC</text>
+              </g>
+              <path d="M230 100 H248" stroke="#8888a8" stroke-width="1.5"/>
+              <polygon points="246,96 255,100 246,104" fill="#8888a8"/>
+              <g transform="translate(260,60)">
+                <rect width="100" height="80" rx="6" fill="#0c0c18" stroke="#2c2c46"/>
+                <rect x="10" y="14" width="22" height="22" fill="rgba(176,136,255,0.18)" stroke="#b088ff" stroke-opacity=".6"/>
+                <rect x="38" y="14" width="22" height="22" fill="rgba(176,136,255,0.18)" stroke="#b088ff" stroke-opacity=".6"/>
+                <rect x="66" y="14" width="22" height="22" fill="rgba(176,136,255,0.18)" stroke="#b088ff" stroke-opacity=".6"/>
+                <rect x="24" y="42" width="22" height="22" fill="rgba(176,136,255,0.18)" stroke="#b088ff" stroke-opacity=".6"/>
+                <rect x="52" y="42" width="22" height="22" fill="rgba(176,136,255,0.18)" stroke="#b088ff" stroke-opacity=".6"/>
+                <text x="50" y="100" text-anchor="middle" fill="#b088ff">STORYBOARD</text>
+              </g>
+              <path d="M365 100 H383" stroke="#8888a8" stroke-width="1.5"/>
+              <polygon points="381,96 390,100 381,104" fill="#8888a8"/>
+              <g transform="translate(395,60)">
+                <rect width="80" height="80" rx="6" fill="rgba(43,255,163,0.08)" stroke="#2bffa3" stroke-opacity=".5"/>
+                <text x="40" y="36" text-anchor="middle" fill="#2bffa3" font-size="14">&lt;/&gt;</text>
+                <line x1="14" y1="50" x2="66" y2="50" stroke="#2bffa3" stroke-opacity=".6"/>
+                <line x1="14" y1="60" x2="50" y2="60" stroke="#2bffa3" stroke-opacity=".4"/>
+                <text x="40" y="100" text-anchor="middle" fill="#2bffa3">CODE</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="card">
+        <span class="num">PRINCIPLE 02</span>
+        <h3>UX Scenarios.</h3>
+        <p>You and the agent follow the user through the experience together. Page by page, decision by decision. The design emerges from the conversation — not from a single session.</p>
+        <div class="illus">
+          <!-- Dialog illustration -->
+          <svg viewBox="0 0 480 200" width="100%" style="max-width:480px;">
+            <defs>
+              <linearGradient id="dlg" x1="0" x2="1"><stop offset="0" stop-color="#6ea5ff"/><stop offset="1" stop-color="#b088ff"/></linearGradient>
+            </defs>
+            <!-- you -->
+            <rect x="20" y="30" width="120" height="50" rx="10" fill="rgba(110,165,255,0.14)" stroke="#6ea5ff" stroke-opacity="0.65"/>
+            <text x="80" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#6ea5ff" letter-spacing="2">YOU</text>
+            <!-- agent -->
+            <rect x="340" y="30" width="120" height="50" rx="10" fill="rgba(176,136,255,0.14)" stroke="#b088ff" stroke-opacity="0.65"/>
+            <text x="400" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#b088ff" letter-spacing="2">AGENT</text>
+            <!-- top arrow YOU → AGENT -->
+            <path d="M150 45 H324" stroke="url(#dlg)" stroke-width="2" fill="none"/>
+            <polygon points="324,38 338,45 324,52" fill="#b088ff"/>
+            <!-- bottom arrow AGENT → YOU -->
+            <path d="M330 65 H156" stroke="url(#dlg)" stroke-width="2" fill="none"/>
+            <polygon points="156,58 142,65 156,72" fill="#6ea5ff"/>
+            <!-- user flow output -->
+            <rect x="60" y="120" width="360" height="56" rx="10" fill="#0c0c18" stroke="#2c2c46"/>
+            <circle cx="100" cy="148" r="6" fill="#6ea5ff"/>
+            <line x1="120" y1="148" x2="180" y2="148" stroke="#2c2c46" stroke-width="2"/>
+            <circle cx="200" cy="148" r="6" fill="#b088ff"/>
+            <line x1="220" y1="148" x2="280" y2="148" stroke="#2c2c46" stroke-width="2"/>
+            <circle cx="300" cy="148" r="6" fill="#6ea5ff"/>
+            <line x1="320" y1="148" x2="360" y2="148" stroke="#2c2c46" stroke-width="2"/>
+            <circle cx="380" cy="148" r="6" fill="#2bffa3"/>
+            <text x="240" y="170" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#8888a8" letter-spacing="2.5">USER FLOW</text>
+            <!-- connector from dialog down -->
+            <path d="M240 80 V120" stroke="#2c2c46" stroke-dasharray="3 4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. Setup ============ -->
+  <section data-label="05 Getting Started" class="slide">
+    <div class="crumb"><b>Setup · 01</b> Three requirements + two commands</div>
+    <h2 class="h-section">
+      Getting started.
+      <span class="l2 blue">Light setup, sharp tools.</span>
+    </h2>
+
+    <div class="req-grid">
+      <div class="req-card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-git"/></svg></div>
+        <h4>Git + GitHub</h4>
+        <p>Version control for design decisions, not just code.</p>
+      </div>
+      <div class="req-card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-ide"/></svg></div>
+        <h4>An IDE</h4>
+        <p>VS Code, Cursor, or Windsurf. Pick the one your team already uses.</p>
+      </div>
+      <div class="req-card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-agent"/></svg></div>
+        <h4>Any agent</h4>
+        <p>Claude Code recommended. Sonnet 4 for most work, Opus 4 for strategy.</p>
+      </div>
+    </div>
+
+    <div class="terminal">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div><span class="cmt"># Install BMad — the agent infrastructure WDS builds on</span></div>
+      <div><span class="prompt">$</span><span class="cmd">npx </span><span class="arg">bmad-method</span><span class="cmd"> install</span></div>
+      <div style="height:8px;"></div>
+      <div><span class="cmt"># Add WDS — Saga (strategy), Freya (UX/design), Mimir (build)</span></div>
+      <div><span class="prompt">$</span><span class="cmd">npx </span><span class="arg">whiteport-design-studio</span><span class="cmd"> install</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 6. Pipeline ============ -->
+  <section data-label="06 The Pipeline" class="slide">
+    <div class="crumb"><b>The WDS Process · 01</b> Seven stages, three agents</div>
+    <h2 class="h-section">
+      The pipeline.
+      <span class="l2 blue">Each stage is a specification.</span>
+    </h2>
+
+    <div class="pipeline">
+      <div class="pipe-row">
+        <div class="node">
+          <span class="pill">SAGA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-spec"/></svg></span>Product Brief</div>
+        </div>
+        <div class="node">
+          <span class="pill">SAGA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-trigger"/></svg></span>Trigger Map</div>
+        </div>
+        <div class="node">
+          <span class="pill purple">FREYA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-story"/></svg></span>Scenarios</div>
+        </div>
+        <div class="node">
+          <span class="pill purple">FREYA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-spec"/></svg></span>Page Specs</div>
+        </div>
+        <div class="node">
+          <span class="pill purple">FREYA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-storyboard"/></svg></span>Storyboard</div>
+        </div>
+        <div class="node">
+          <span class="pill purple">FREYA</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-system"/></svg></span>Design System</div>
+        </div>
+        <div class="node last">
+          <span class="pill green">MIMIR</span>
+          <div class="box"><span class="ico"><svg width="22" height="22"><use href="#i-build"/></svg></span>Build</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-foot">
+      <p><b>Start where the work starts.</b> A small feature begins at Page Specs. A full product begins at the Brief.</p>
+      <p><b>The sequence is the logic.</b> Strategy before design. Design before build. Specifications before code.</p>
+    </div>
+  </section>
+
+
+  <!-- ============ 7. Product Brief ============ -->
+  <section data-label="07 Product Brief" class="slide">
+    <div class="crumb"><b>Phase 1 of 7</b> Product Brief · Saga</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Saga</span>
+        <span class="pill-tag muted">Phase 01 · Product Brief</span>
+      </div>
+      <h2 class="h-section">
+        The product brief.
+        <span class="l2 blue">The foundation everything builds on.</span>
+      </h2>
+      <p class="lede">The first document in a WDS project — problem, user, goals, constraints, design principles — in writing, before any design or development starts. Saga interviews you and drafts it. You review and sign off.</p>
+
+      <div class="illustration">
+        <!-- brief illustration: a single doc forming the base for stacked downstream docs -->
+        <svg viewBox="0 0 1000 300" width="100%" style="max-width:1100px;">
+          <!-- center: brief doc -->
+          <g transform="translate(380,30)">
+            <rect width="240" height="240" rx="14" fill="#0c0c18" stroke="#4e8eff" stroke-opacity="0.6"/>
+            <rect x="0" y="0" width="240" height="46" rx="14" fill="rgba(78,142,255,0.10)"/>
+            <text x="120" y="29" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#4e8eff" letter-spacing="3">PRODUCT BRIEF</text>
+            <g font-family="Inter" font-size="14" fill="#8888a8">
+              <text x="22" y="76">Problem</text>
+              <line x1="22" y1="86" x2="218" y2="86" stroke="#1e1e32"/>
+              <text x="22" y="110">User</text>
+              <line x1="22" y1="120" x2="218" y2="120" stroke="#1e1e32"/>
+              <text x="22" y="144">Goals</text>
+              <line x1="22" y1="154" x2="218" y2="154" stroke="#1e1e32"/>
+              <text x="22" y="178">Constraints</text>
+              <line x1="22" y1="188" x2="218" y2="188" stroke="#1e1e32"/>
+              <text x="22" y="212">Design principles</text>
+              <line x1="22" y1="222" x2="218" y2="222" stroke="#1e1e32"/>
+            </g>
+          </g>
+          <!-- left: Saga -->
+          <g transform="translate(60,90)">
+            <circle cx="60" cy="60" r="56" fill="rgba(78,142,255,0.08)" stroke="#4e8eff" stroke-opacity="0.4"/>
+            <text x="60" y="58" text-anchor="middle" font-family="Inter" font-weight="700" font-size="22" fill="#4e8eff">SAGA</text>
+            <text x="60" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2">STRATEGY</text>
+          </g>
+          <path d="M180 150 H378" stroke="#4e8eff" stroke-opacity="0.6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <path d="M373 145 l6 5 -6 5" stroke="#4e8eff" stroke-opacity="0.7" stroke-width="1.5" fill="none"/>
+          <text x="278" y="142" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2">INTERVIEWS &amp; DRAFTS</text>
+          <!-- right: stacked downstream -->
+          <g transform="translate(700,80)">
+            <rect x="20" y="0" width="160" height="44" rx="6" fill="#0c0c18" stroke="#1e1e32"/>
+            <text x="100" y="28" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#9b6dff" letter-spacing="2">TRIGGER MAP</text>
+            <rect x="10" y="60" width="160" height="44" rx="6" fill="#0c0c18" stroke="#1e1e32"/>
+            <text x="90" y="88" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#9b6dff" letter-spacing="2">SCENARIOS</text>
+            <rect x="0" y="120" width="160" height="44" rx="6" fill="#0c0c18" stroke="#1e1e32"/>
+            <text x="80" y="148" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#9b6dff" letter-spacing="2">PAGE SPECS</text>
+          </g>
+          <path d="M620 150 H700" stroke="#9b6dff" stroke-opacity="0.6" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <path d="M695 145 l6 5 -6 5" stroke="#9b6dff" stroke-opacity="0.7" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">Teams spend weeks in execution and discover at demo that everyone held a different mental model. Nobody put it in writing.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">Problem, user, goals, constraints, design principles. One document — everyone reads it and holds the same picture.</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Saga interviews you and drafts the brief. You review, push back, sign off. Platform requirements unlock infrastructure work in parallel.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. Trigger Map ============ -->
+  <section data-label="08 Trigger Map" class="slide">
+    <div class="crumb"><b>Phase 2 of 7</b> Trigger Map · Saga</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Saga</span>
+        <span class="pill-tag muted">Phase 02 · Trigger Map</span>
+      </div>
+      <h2 class="h-section">
+        The trigger map.
+        <span class="l2 blue">The Why, What, Who &amp; Because of what!</span>
+      </h2>
+      <p class="lede">Connects business goals to user psychology. Four layers — Business Goals → Product → Target Groups → Driving Forces. The map becomes the filter every design decision is tested against.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 1180 280" width="100%" style="max-width:1200px;">
+          <!-- 4 layers -->
+          <g font-family="JetBrains Mono" font-size="11" letter-spacing="2">
+            <!-- L1 -->
+            <rect x="0" y="20" width="260" height="62" rx="10" fill="rgba(78,142,255,0.08)" stroke="#4e8eff" stroke-opacity="0.5"/>
+            <text x="130" y="46" text-anchor="middle" fill="#4e8eff">BUSINESS GOALS</text>
+            <text x="130" y="66" text-anchor="middle" fill="#8888a8" font-size="10" letter-spacing="0.5">Growth · Retention · Revenue</text>
+            <path d="M260 51 H300" stroke="#1e1e32"/>
+            <!-- L2 -->
+            <rect x="300" y="20" width="260" height="62" rx="10" fill="rgba(155,109,255,0.08)" stroke="#9b6dff" stroke-opacity="0.5"/>
+            <text x="430" y="46" text-anchor="middle" fill="#9b6dff">PRODUCT</text>
+            <text x="430" y="66" text-anchor="middle" fill="#8888a8" font-size="10" letter-spacing="0.5">Features · Surfaces · Flows</text>
+            <path d="M560 51 H600" stroke="#1e1e32"/>
+            <!-- L3 -->
+            <rect x="600" y="20" width="260" height="62" rx="10" fill="rgba(255,140,66,0.08)" stroke="#ff8c42" stroke-opacity="0.5"/>
+            <text x="730" y="46" text-anchor="middle" fill="#ff8c42">TARGET GROUPS</text>
+            <text x="730" y="66" text-anchor="middle" fill="#8888a8" font-size="10" letter-spacing="0.5">3–4 ranked by impact</text>
+            <path d="M860 51 H900" stroke="#1e1e32"/>
+            <!-- L4 -->
+            <rect x="900" y="20" width="260" height="62" rx="10" fill="rgba(255,107,157,0.08)" stroke="#ff6b9d" stroke-opacity="0.5"/>
+            <text x="1030" y="46" text-anchor="middle" fill="#ff6b9d">DRIVING FORCES</text>
+            <text x="1030" y="66" text-anchor="middle" fill="#8888a8" font-size="10" letter-spacing="0.5">Positive · Negative</text>
+          </g>
+          <!-- driving forces detail -->
+          <g transform="translate(260, 130)" font-family="Inter" font-size="13" fill="#e8e8f0">
+            <rect width="300" height="120" rx="10" fill="#0c0c18" stroke="#1e1e32"/>
+            <text x="20" y="28" font-family="JetBrains Mono" font-size="10" fill="#00e88f" letter-spacing="2.5">POSITIVE DRIVERS</text>
+            <text x="20" y="50" fill="#e8e8f0">+ Wants to feel competent</text>
+            <text x="20" y="70" fill="#e8e8f0">+ Wants control over their time</text>
+            <text x="20" y="90" fill="#e8e8f0">+ Wants peer recognition</text>
+            <text x="20" y="108" fill="#555570" font-size="11">→ slow burn motivation</text>
+          </g>
+          <g transform="translate(620, 130)" font-family="Inter" font-size="13" fill="#e8e8f0">
+            <rect width="300" height="120" rx="10" fill="#0c0c18" stroke="#ff6b9d" stroke-opacity="0.4"/>
+            <text x="20" y="28" font-family="JetBrains Mono" font-size="10" fill="#ff6b9d" letter-spacing="2.5">NEGATIVE DRIVERS</text>
+            <text x="20" y="50" fill="#e8e8f0">− Fears looking incompetent</text>
+            <text x="20" y="70" fill="#e8e8f0">− Fears wasted effort</text>
+            <text x="20" y="90" fill="#e8e8f0">− Fears falling behind peers</text>
+            <text x="20" y="108" fill="#ff6b9d" font-size="11">→ trigger action faster</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">Teams design from metrics and build for outcomes instead of people. Nobody ever mapped the actual motivation.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">3–4 target groups ranked by impact. Positive drivers (what they want) and negative drivers (what they fear). Negative drivers trigger action faster.</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Saga facilitates a structured conversation. Output: visual map, persona files, feature impact analysis — each feature scored against driving forces.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. Scenarios ============ -->
+  <section data-label="09 Scenarios" class="slide purple">
+    <div class="crumb"><b>Phase 3 of 7</b> Scenarios · Freya</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Freya</span>
+        <span class="pill-tag muted">Phase 03 · Scenarios</span>
+      </div>
+      <h2 class="h-section">
+        UX-Scenarios.
+        <span class="l2 purple">Workshop format, Design principle &amp; Presentation</span>
+      </h2>
+      <p class="lede">Narrative walkthroughs of the most important user flows. Each follows a user through decisions, transitions, and moments that define the experience. Each is a specification written as a story.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 1100 240" width="100%" style="max-width:1100px;">
+          <!-- 3 scenario cards -->
+          <g font-family="Inter">
+            <g transform="translate(20,20)">
+              <rect width="340" height="200" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-family="JetBrains Mono" font-size="10" fill="#9b6dff" letter-spacing="2.5">SCENARIO 01 · ONBOARDING</text>
+              <text x="20" y="62" font-size="14" fill="#e8e8f0">Maya arrives from a referral link.</text>
+              <text x="20" y="82" font-size="13" fill="#8888a8">She doesn't know what the product</text>
+              <text x="20" y="100" font-size="13" fill="#8888a8">does. The hero needs to answer</text>
+              <text x="20" y="118" font-size="13" fill="#8888a8">that in five seconds.</text>
+              <text x="20" y="148" font-size="13" fill="#e8e8f0">She skips signup, browses the</text>
+              <text x="20" y="166" font-size="13" fill="#e8e8f0">demo workspace, then reaches</text>
+              <text x="20" y="184" font-size="13" fill="#e8e8f0">the upgrade gate…</text>
+            </g>
+            <g transform="translate(380,20)" opacity=".7">
+              <rect width="340" height="200" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-family="JetBrains Mono" font-size="10" fill="#9b6dff" letter-spacing="2.5">SCENARIO 02 · FIRST INVITE</text>
+              <text x="20" y="62" font-size="14" fill="#e8e8f0">Maya wants to add a teammate…</text>
+              <line x1="20" y1="82" x2="320" y2="82" stroke="#1e1e32"/>
+              <line x1="20" y1="102" x2="280" y2="102" stroke="#1e1e32"/>
+              <line x1="20" y1="122" x2="300" y2="122" stroke="#1e1e32"/>
+              <line x1="20" y1="142" x2="240" y2="142" stroke="#1e1e32"/>
+              <line x1="20" y1="162" x2="290" y2="162" stroke="#1e1e32"/>
+            </g>
+            <g transform="translate(740,20)" opacity=".4">
+              <rect width="340" height="200" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-family="JetBrains Mono" font-size="10" fill="#9b6dff" letter-spacing="2.5">SCENARIO 03 · UPGRADE</text>
+              <line x1="20" y1="62" x2="320" y2="62" stroke="#1e1e32"/>
+              <line x1="20" y1="82" x2="290" y2="82" stroke="#1e1e32"/>
+              <line x1="20" y1="102" x2="310" y2="102" stroke="#1e1e32"/>
+              <line x1="20" y1="122" x2="280" y2="122" stroke="#1e1e32"/>
+              <line x1="20" y1="142" x2="300" y2="142" stroke="#1e1e32"/>
+              <line x1="20" y1="162" x2="240" y2="162" stroke="#1e1e32"/>
+              <line x1="20" y1="182" x2="280" y2="182" stroke="#1e1e32"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">Users get lost not because a feature is missing — but because the flow assumes context they don't have, or puts the critical decision at the wrong moment.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">6–10 narrative walkthroughs of the highest-priority flows. Each reads like someone using the product.</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Freya selects the most important flows from the trigger map and writes them as stories. You review: "this flow assumes something the user can't know."</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. Page Specs ============ -->
+  <section data-label="10 Page Specifications" class="slide purple">
+    <div class="crumb"><b>Phase 4 of 7</b> Page Specifications · Freya</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Freya</span>
+        <span class="pill-tag muted">Phase 04 · Page Specs</span>
+      </div>
+      <h2 class="h-section">
+        Page specifications.
+        <span class="l2 purple">The contract for every screen &amp; logical view.</span>
+      </h2>
+      <p class="lede">One specification per page — actual content (headlines, body copy, labels, error messages), hierarchy, interactions, error states, navigation triggers. Each spec is a build contract. Approved specs go directly to Mimir.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 1100 240" width="100%" style="max-width:1100px;">
+          <!-- spec doc, very detailed -->
+          <g transform="translate(40,10)">
+            <rect width="540" height="220" rx="12" fill="#0c0c18" stroke="#9b6dff" stroke-opacity=".5"/>
+            <rect width="540" height="40" rx="12" fill="rgba(155,109,255,0.10)"/>
+            <text x="22" y="26" font-family="JetBrains Mono" font-size="12" fill="#9b6dff" letter-spacing="3">PAGE SPEC · /onboarding/welcome</text>
+            <g font-family="Inter" font-size="13" fill="#e8e8f0">
+              <text x="22" y="68" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2.5">HEADLINE</text>
+              <text x="22" y="86">Build your first project in 60 seconds.</text>
+              <text x="22" y="112" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2.5">BODY</text>
+              <text x="22" y="130">No credit card required. Start with a template.</text>
+              <text x="22" y="156" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2.5">PRIMARY CTA</text>
+              <text x="22" y="174">"Choose a template" → /templates</text>
+              <text x="22" y="200" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2.5">ERROR · NETWORK</text>
+              <text x="288" y="200" fill="#ff6b9d">"We can't reach the server. Retry?"</text>
+            </g>
+          </g>
+          <!-- arrow -->
+          <path d="M610 120 H660" stroke="#9b6dff" stroke-opacity=".7" stroke-width="1.5"/>
+          <path d="M655 115 l6 5 -6 5" stroke="#9b6dff" stroke-opacity=".8" stroke-width="1.5" fill="none"/>
+          <text x="635" y="108" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#555570" letter-spacing="2">BUILD</text>
+          <!-- mimir output -->
+          <g transform="translate(680,10)">
+            <rect width="380" height="220" rx="12" fill="rgba(0,232,143,0.04)" stroke="#00e88f" stroke-opacity=".4"/>
+            <rect width="380" height="40" rx="12" fill="rgba(0,232,143,0.10)"/>
+            <text x="22" y="26" font-family="JetBrains Mono" font-size="12" fill="#00e88f" letter-spacing="3">RENDERED · MIMIR</text>
+            <rect x="40" y="80" width="300" height="20" rx="4" fill="#1a1a2e"/>
+            <rect x="40" y="108" width="240" height="12" rx="3" fill="#1a1a2e"/>
+            <rect x="40" y="125" width="200" height="12" rx="3" fill="#1a1a2e"/>
+            <rect x="40" y="160" width="160" height="36" rx="8" fill="#9b6dff"/>
+            <text x="120" y="183" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#fff">Choose a template</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">"A clean onboarding screen" means five different things to five people. Everyone builds from what they remember being decided in a meeting.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">Page name, purpose, content, hierarchy, interactions, error states, navigation triggers. Complete enough to build from without asking questions.</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Freya reads the scenarios and writes a spec per page. You review. One note per issue — not a redesign.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11. Storyboarding ============ -->
+  <section data-label="11 Storyboarding" class="slide purple">
+    <div class="crumb"><b>Phase 5 of 7</b> Storyboarding · Freya</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Freya</span>
+        <span class="pill-tag muted">Phase 05 · Storyboarding</span>
+      </div>
+      <h2 class="h-section">
+        Storyboarding.
+        <span class="l2 purple">Intense interaction on a logical view.</span>
+      </h2>
+      <p class="lede">Comic book strips for each logical view. An object is pulled from its context and the step-by-step interaction plays out in sequential panels — tap, response, state change, next step.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 1200 220" width="100%" style="max-width:1200px;">
+          <!-- 5 panels -->
+          <g font-family="JetBrains Mono">
+            <g transform="translate(0,20)">
+              <rect width="220" height="170" rx="10" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="14" y="22" font-size="10" fill="#555570" letter-spacing="2">01 · IDLE</text>
+              <rect x="60" y="50" width="100" height="60" rx="8" fill="#1a1a2e"/>
+              <circle cx="110" cy="80" r="14" fill="#9b6dff" opacity=".6"/>
+            </g>
+            <g transform="translate(245,20)">
+              <rect width="220" height="170" rx="10" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="14" y="22" font-size="10" fill="#555570" letter-spacing="2">02 · TAP</text>
+              <rect x="60" y="50" width="100" height="60" rx="8" fill="#1a1a2e"/>
+              <circle cx="110" cy="80" r="22" fill="none" stroke="#9b6dff" stroke-width="2" opacity=".5"/>
+              <circle cx="110" cy="80" r="14" fill="#9b6dff"/>
+            </g>
+            <g transform="translate(490,20)">
+              <rect width="220" height="170" rx="10" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="14" y="22" font-size="10" fill="#555570" letter-spacing="2">03 · LOADING</text>
+              <rect x="60" y="50" width="100" height="60" rx="8" fill="#1a1a2e"/>
+              <circle cx="110" cy="80" r="14" fill="none" stroke="#9b6dff" stroke-width="3" stroke-dasharray="20 60"/>
+            </g>
+            <g transform="translate(735,20)">
+              <rect width="220" height="170" rx="10" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="14" y="22" font-size="10" fill="#555570" letter-spacing="2">04 · CONFIRM</text>
+              <rect x="40" y="50" width="140" height="60" rx="8" fill="#1a1a2e"/>
+              <text x="110" y="84" text-anchor="middle" fill="#00e88f" font-family="Inter" font-size="14">✓ Done</text>
+            </g>
+            <g transform="translate(980,20)">
+              <rect width="220" height="170" rx="10" fill="#0c0c18" stroke="#ff6b9d" stroke-opacity=".4"/>
+              <text x="14" y="22" font-size="10" fill="#ff6b9d" letter-spacing="2">04b · ERROR</text>
+              <rect x="40" y="50" width="140" height="60" rx="8" fill="#1a1a2e"/>
+              <text x="110" y="84" text-anchor="middle" fill="#ff6b9d" font-family="Inter" font-size="13">Retry</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">A spec describes what is on a page. It can't show what happens when someone touches it, or where the sequence breaks down. Those errors are invisible in writing.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">Sequential strips, one per logical view. Objects extracted from their context, interaction shown panel by panel.</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Freya produces interaction strips from the specs. You review each sequence: what step is missing, what happens on error. One note per break.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 12. Design System ============ -->
+  <section data-label="12 Design System" class="slide purple">
+    <div class="crumb"><b>Phase 6 of 7</b> Design System · Freya</div>
+    <div class="phase">
+      <div class="pills-row">
+        <span class="pill-tag">Freya</span>
+        <span class="pill-tag muted">Phase 06 · Design System</span>
+      </div>
+      <h2 class="h-section">
+        Design system.
+        <span class="l2 purple">Where design becomes code.</span>
+      </h2>
+      <p class="lede">Tokens, components, and patterns built for this product. Built alongside storyboarding — used by every agent on every page. When it exists, Mimir composes. It doesn't improvise.</p>
+
+      <div class="illustration">
+        <svg viewBox="0 0 1200 220" width="100%" style="max-width:1200px;">
+          <!-- 3 columns: tokens, components, patterns -->
+          <g font-family="JetBrains Mono">
+            <g transform="translate(20,20)">
+              <rect width="370" height="180" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-size="11" fill="#9b6dff" letter-spacing="3">TOKENS</text>
+              <!-- color swatches -->
+              <rect x="20" y="50" width="40" height="40" rx="6" fill="#4e8eff"/>
+              <rect x="68" y="50" width="40" height="40" rx="6" fill="#9b6dff"/>
+              <rect x="116" y="50" width="40" height="40" rx="6" fill="#00e88f"/>
+              <rect x="164" y="50" width="40" height="40" rx="6" fill="#ff8c42"/>
+              <rect x="212" y="50" width="40" height="40" rx="6" fill="#ff6b9d"/>
+              <rect x="260" y="50" width="40" height="40" rx="6" fill="#e8e8f0"/>
+              <rect x="308" y="50" width="40" height="40" rx="6" fill="#12121e" stroke="#1e1e32"/>
+              <text x="20" y="120" font-family="Inter" font-size="13" fill="#e8e8f0">Aa</text>
+              <text x="50" y="120" font-family="Inter" font-size="18" font-weight="700" fill="#e8e8f0">Aa</text>
+              <text x="90" y="120" font-family="Inter" font-size="24" font-weight="800" fill="#e8e8f0">Aa</text>
+              <text x="20" y="150" font-size="10" fill="#555570">SPACE: 4 · 8 · 12 · 16 · 24 · 32 · 48</text>
+              <text x="20" y="168" font-size="10" fill="#555570">RADIUS: 6 · 10 · 14 · 999</text>
+            </g>
+            <g transform="translate(415,20)">
+              <rect width="370" height="180" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-size="11" fill="#9b6dff" letter-spacing="3">COMPONENTS</text>
+              <!-- buttons -->
+              <rect x="20" y="50" width="120" height="34" rx="8" fill="#9b6dff"/>
+              <text x="80" y="71" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#fff">Primary</text>
+              <rect x="150" y="50" width="120" height="34" rx="8" fill="none" stroke="#9b6dff"/>
+              <text x="210" y="71" text-anchor="middle" font-family="Inter" font-size="13" font-weight="600" fill="#9b6dff">Ghost</text>
+              <!-- input -->
+              <rect x="20" y="100" width="250" height="34" rx="8" fill="#1a1a2e" stroke="#1e1e32"/>
+              <text x="32" y="121" font-family="Inter" font-size="13" fill="#555570">Email</text>
+              <!-- card -->
+              <rect x="280" y="50" width="70" height="84" rx="8" fill="#12121e" stroke="#1e1e32"/>
+              <rect x="290" y="60" width="50" height="20" rx="4" fill="#1a1a2e"/>
+              <rect x="290" y="86" width="50" height="6" rx="2" fill="#1a1a2e"/>
+              <rect x="290" y="98" width="40" height="6" rx="2" fill="#1a1a2e"/>
+              <text x="20" y="160" font-size="10" fill="#555570">BUTTON · INPUT · CARD · MODAL · NAV</text>
+            </g>
+            <g transform="translate(810,20)">
+              <rect width="370" height="180" rx="12" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="20" y="32" font-size="11" fill="#9b6dff" letter-spacing="3">PATTERNS</text>
+              <!-- form pattern -->
+              <rect x="20" y="50" width="160" height="120" rx="8" fill="#12121e" stroke="#1e1e32"/>
+              <rect x="32" y="62" width="50" height="8" rx="2" fill="#9b6dff"/>
+              <rect x="32" y="80" width="136" height="20" rx="4" fill="#1a1a2e"/>
+              <rect x="32" y="106" width="50" height="8" rx="2" fill="#9b6dff"/>
+              <rect x="32" y="124" width="136" height="20" rx="4" fill="#1a1a2e"/>
+              <rect x="32" y="150" width="80" height="14" rx="4" fill="#9b6dff"/>
+              <!-- empty state -->
+              <rect x="200" y="50" width="150" height="120" rx="8" fill="#12121e" stroke="#1e1e32"/>
+              <circle cx="275" cy="95" r="20" fill="none" stroke="#33334a" stroke-width="2" stroke-dasharray="3 3"/>
+              <rect x="225" y="128" width="100" height="6" rx="2" fill="#33334a"/>
+              <rect x="240" y="142" width="70" height="6" rx="2" fill="#33334a"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="why-what-how">
+        <div class="wwh"><span class="lbl">Why</span><p class="text">Without shared vocabulary, design quality fragments. Every new screen is a fresh decision. The product stops feeling designed and starts feeling assembled.</p></div>
+        <div class="wwh"><span class="lbl">What</span><p class="text">Tokens (color, spacing, typography), components (buttons, inputs, cards, modals), patterns (forms, navigation, empty states, error handling).</p></div>
+        <div class="wwh"><span class="lbl">How</span><p class="text">Freya identifies every component the storyboards require and generates them. You add what's missing, adjust what's wrong.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 13. Payoff ============ -->
+  <section data-label="13 Spec to Working Product" class="slide payoff">
+    <div class="crumb"><b>Building · 01</b> The payoff</div>
+    <h1>
+      Spec + Content + Design System + Platform
+      <span class="l2">= The agents build autonomously!</span>
+    </h1>
+
+    <div class="equation">
+      <div class="eq-box"><svg width="20" height="20"><use href="#i-spec"/></svg>Page Spec + Content</div>
+      <span class="eq-op">+</span>
+      <div class="eq-box"><svg width="20" height="20"><use href="#i-system"/></svg>Design System</div>
+      <span class="eq-op">+</span>
+      <div class="eq-box"><svg width="20" height="20"><use href="#i-build"/></svg>Platform</div>
+      <span class="eq-op">→</span>
+      <div class="eq-box eq-result"><svg width="20" height="20"><use href="#i-mimir"/></svg>Working Page</div>
+    </div>
+
+    <div class="body-row">
+      <p><b>The output is predictable.</b> The review is fast. Iteration is surgical — you fix what doesn't match the spec, not what doesn't match a vague idea.</p>
+      <p><b>Three phases of specification. One phase of build.</b> Work shifts from "explain what you want" to "review what was built."</p>
+    </div>
+  </section>
+
+  <!-- ============ 14. When the Design Changes ============ -->
+  <section data-label="14 When the Design Changes" class="slide">
+    <div class="crumb"><b>Building · 02</b> Spec ↔ Code, always in sync</div>
+    <h2 class="h-section">
+      When the design changes.
+      <span class="l2 orange">The spec is the source of truth.</span>
+    </h2>
+
+    <div class="paths">
+      <div class="card">
+        <span class="pill green">MINOR CHANGE</span>
+        <h3>Make it in code, then update the spec.</h3>
+        <p>Fast, surgical, reversible. Keep moving — but don't let the spec drift.</p>
+        <div style="margin-top:8px;">
+          <svg viewBox="0 0 480 80" width="100%" style="max-width:520px;">
+            <g font-family="JetBrains Mono" font-size="13" letter-spacing="2">
+              <rect x="20" y="20" width="120" height="40" rx="8" fill="rgba(0,232,143,0.06)" stroke="#00e88f" stroke-opacity=".4"/>
+              <text x="80" y="45" text-anchor="middle" fill="#00e88f">CODE</text>
+              <path d="M150 40 H210" stroke="#00e88f" stroke-opacity=".7" stroke-width="1.5"/>
+              <path d="M205 35 l6 5 -6 5" stroke="#00e88f" stroke-opacity=".8" stroke-width="1.5" fill="none"/>
+              <text x="180" y="32" text-anchor="middle" font-size="10" fill="#555570">SYNC</text>
+              <rect x="220" y="20" width="120" height="40" rx="8" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="280" y="45" text-anchor="middle" fill="#8888a8">SPEC</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="card right">
+        <span class="pill warm">SIGNIFICANT CHANGE</span>
+        <h3>Update the spec first, then execute.</h3>
+        <p>The spec defines the intention before the agent touches anything. Slower up front, faster overall.</p>
+        <div style="margin-top:8px;">
+          <svg viewBox="0 0 480 80" width="100%" style="max-width:520px;">
+            <g font-family="JetBrains Mono" font-size="13" letter-spacing="2">
+              <rect x="20" y="20" width="120" height="40" rx="8" fill="rgba(255,140,66,0.06)" stroke="#ff8c42" stroke-opacity=".4"/>
+              <text x="80" y="45" text-anchor="middle" fill="#ff8c42">SPEC</text>
+              <path d="M150 40 H210" stroke="#ff8c42" stroke-opacity=".7" stroke-width="1.5"/>
+              <path d="M205 35 l6 5 -6 5" stroke="#ff8c42" stroke-opacity=".8" stroke-width="1.5" fill="none"/>
+              <text x="180" y="32" text-anchor="middle" font-size="10" fill="#555570">EXECUTE</text>
+              <rect x="220" y="20" width="120" height="40" rx="8" fill="#0c0c18" stroke="#1e1e32"/>
+              <text x="280" y="45" text-anchor="middle" fill="#8888a8">CODE</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="quote-line">If code and spec disagree, one of them is wrong.</p>
+  </section>
+
+  <!-- ============ 15. Solo to Enterprise ============ -->
+  <section data-label="15 Solo to Enterprise" class="slide">
+    <div class="crumb"><b>WDS at Scale · 01</b> From practitioner to team</div>
+    <h2 class="h-section">
+      From solo power
+      <span class="l2 blue">to enterprise capability.</span>
+    </h2>
+
+    <div class="upgrade">
+      <div class="card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-memory"/></svg></div>
+        <span class="pill">UPGRADE 01</span>
+        <h3>Persistent memory.</h3>
+        <p>Agent Space stores every decision. Sessions connect. New team members onboard from the same shared record.</p>
+        <div class="compare">
+          <span class="from">SOLO · session memory</span>
+          <span class="to">TEAM · <b>shared memory</b></span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-skill"/></svg></div>
+        <span class="pill purple">UPGRADE 02</span>
+        <h3>Shared skills.</h3>
+        <p>Same agents, same skills, same protocols across the org. One update reaches every practitioner — organizational capability, not personal.</p>
+        <div class="compare">
+          <span class="from">SOLO · personal capability</span>
+          <span class="to">TEAM · <b>org capability</b></span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico"><svg width="24" height="24"><use href="#i-handoff"/></svg></div>
+        <span class="pill green">UPGRADE 03</span>
+        <h3>Structured handoffs.</h3>
+        <p>Work orders let Freya hand off to Mimir, Mimir surface blockers to Saga. Coordination happens in writing — stored and traceable.</p>
+        <div class="compare">
+          <span class="from">SOLO · ad-hoc prompts</span>
+          <span class="to">TEAM · <b>work orders</b></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 16. Business Problem to Live System ============ -->
+  <section data-label="16 Business Problem to Live System" class="slide">
+    <div class="crumb"><b>WDS at Scale · 02</b> A small team, end to end</div>
+    <h2 class="h-section">
+      From business problem to live system.
+      <span class="l2 gradient">Small group. No intermediate gates.</span>
+    </h2>
+
+    <div class="timeline">
+      <div class="end">
+        <div class="label">Input</div>
+        <div class="v">Business Problem</div>
+      </div>
+      <div class="middle"><span class="pulse">WDS Process</span></div>
+      <div class="end right">
+        <div class="label">Output</div>
+        <div class="v">Live System on Real Users</div>
+      </div>
+    </div>
+
+    <div class="three-col">
+      <div class="col">
+        <div class="ico"><svg width="22" height="22"><use href="#i-system"/></svg></div>
+        <h5>Shared methodology</h5>
+        <p>Everyone runs the same WDS phases, the same agents, the same skills.</p>
+      </div>
+      <div class="col">
+        <div class="ico"><svg width="22" height="22"><use href="#i-memory"/></svg></div>
+        <h5>Shared memory</h5>
+        <p>A decision made Monday is available Thursday — to the new team member, to the next agent picking up a work order.</p>
+      </div>
+      <div class="col">
+        <div class="ico"><svg width="22" height="22"><use href="#i-handoff"/></svg></div>
+        <h5>Delegated execution</h5>
+        <p>You don't review the brief, the trigger map, the scenarios, and the spec one by one. You review the system.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      A small autonomous team owns a product from initial problem to live tested system — inside a larger organization, without the coordination overhead.
+    </div>
+  </section>
+
+
+  <!-- ============ 17. The Promise ============ -->
+  <section data-label="17 The Promise of AI" class="slide promise">
+    <div class="crumb"><b>Closing</b> The promise, materialized</div>
+    <div class="deck-mark"><span class="dot"></span><span>WDS · END</span></div>
+    <h1>
+      When a designer can run strategy, design the product, and ship the code —<br/>
+      <span class="accent">that is when the promise of AI is materialized.</span>
+    </h1>
+
+    <p class="below">
+      WDS removes the translation. The same person who interviewed the stakeholder writes the brief. The brief becomes the trigger map. The trigger map becomes the scenarios. The scenarios become the specification. The specification becomes the code.
+      <br/><br/>
+      The designer didn't become a developer. The scope of what one person can own — and deliver — just expanded.
+    </p>
+  </section>
+
+</deck-stage>
+
+</body>
+</html>

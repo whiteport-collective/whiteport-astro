@@ -1,0 +1,52 @@
+<section class="slide" data-label="Secure Layer">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <div class="slide-head__row">
+          <span class="label">TOOLS &middot; 03</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-muted); letter-spacing:0.18em;">SECURE LAYER</span>
+        </div>
+        <h2 class="title" style="max-width:1700px;">GDPR compliance by architecture —<br><span class="grad-text">the review starts green.</span></h2>
+      </div>
+
+      <div style="flex:1; display:grid; grid-template-columns:1fr 1.1fr; gap:56px; align-items:center;">
+        <!-- shield layers SVG -->
+        <div data-anim style="--d:1" style="display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 460 460" style="width:100%; max-width:460px;">
+            <defs>
+              <linearGradient id="gShield" x1="0" x2="1"><stop stop-color="#4e8eff"/><stop offset="1" stop-color="#9b6dff"/></linearGradient>
+            </defs>
+            <!-- outer shield -->
+            <path d="M 230 40 L 400 110 V 220 C 400 310 330 390 230 420 C 130 390 60 310 60 220 V 110 Z" fill="none" stroke="url(#gShield)" stroke-width="2" opacity="0.7"/>
+            <text x="230" y="96" text-anchor="middle" fill="#4e8eff" font-family="JetBrains Mono" font-size="12" letter-spacing="3">ORG</text>
+            <!-- middle -->
+            <path d="M 230 128 L 340 172 V 232 C 340 290 295 340 230 362 C 165 340 120 290 120 232 V 172 Z" fill="none" stroke="url(#gShield)" stroke-width="2" opacity="0.85"/>
+            <text x="230" y="180" text-anchor="middle" fill="#9b6dff" font-family="JetBrains Mono" font-size="12" letter-spacing="3">PROJECT</text>
+            <!-- inner -->
+            <path d="M 230 200 L 300 228 V 260 C 300 294 270 320 230 334 C 190 320 160 294 160 260 V 228 Z" fill="rgba(155,109,255,0.12)" stroke="url(#gShield)" stroke-width="2"/>
+            <text x="230" y="248" text-anchor="middle" fill="#e8e8f0" font-family="JetBrains Mono" font-size="12" letter-spacing="3">USER</text>
+            <circle cx="230" cy="272" r="6" fill="#00e88f"/>
+            <text x="230" y="300" text-anchor="middle" fill="#00e88f" font-family="JetBrains Mono" font-size="10" letter-spacing="2">ROW-LEVEL</text>
+          </svg>
+        </div>
+
+        <div class="stack" style="gap:22px;">
+          <div class="card" data-anim style="--d:2">
+            <div class="card__num">01 · THREE LEVELS</div>
+            <h3 class="card__title">Org, Project, User</h3>
+            <p class="card__body">Agents and tools at org. Client data at project. Memory at user — row-level.</p>
+          </div>
+          <div class="card card--elev" data-anim style="--d:3">
+            <div class="card__num">02 · DATA LOCALITY</div>
+            <h3 class="card__title">Stays in eu-north-1</h3>
+            <p class="card__body">You own the database. Anthropic processes — doesn't retain. Sessions ephemeral.</p>
+          </div>
+          <div class="card" data-anim style="--d:4">
+            <div class="card__num">03 · FINSERV READY</div>
+            <h3 class="card__title">Isolated at project level</h3>
+            <p class="card__body">No bleed-through to other engagements. Passes the compliance review.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
