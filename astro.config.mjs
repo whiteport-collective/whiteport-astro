@@ -43,5 +43,12 @@ export default defineConfig({
     ssr: {
       external: ['sharp'],
     },
+    build: {
+      rollupOptions: {
+        // agentation is a local dev-only annotation overlay, gated behind {isDev && ...}
+        // in BaseLayout. Mark external so Rollup skips bundling when CI lacks the local package.
+        external: ['agentation'],
+      },
+    },
   },
 });
