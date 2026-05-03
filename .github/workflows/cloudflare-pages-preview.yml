@@ -45,17 +45,13 @@ jobs:
         run: |
           BRANCH="${GITHUB_REF#refs/heads/}"
           SLUG="${BRANCH#draft/}"
-          CF_ALIAS="$(echo "$BRANCH" | tr '/' '-')"
-          PREVIEW_BASE="https://${CF_ALIAS}.whiteport-astro.pages.dev"
           echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
-          echo "preview_base=$PREVIEW_BASE" >> "$GITHUB_OUTPUT"
-          echo "preview_url=${PREVIEW_BASE}/blog/${SLUG}/" >> "$GITHUB_OUTPUT"
 
       - name: Build site
         run: npm run build
         env:
-          SITE_URL: ${{ steps.branch.outputs.preview_base }}
+          SITE_URL: https://whiteport-astro.pages.dev
           GDRIVE_STRICT: 'false'
 
       - name: Strip files over 25 MiB (Cloudflare Pages limit)
@@ -66,7 +62,15 @@ jobs:
           echo "Done."
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler@3 pages deploy dist --project-name=whiteport-astro --branch="${{ steps.branch.outputs.branch }}"
+        id: deploy
+        shell: bash
+        run: |
+          output=$(npx wrangler@3 pages deploy dist \
+            --project-name=whiteport-astro \
+            --branch="${{ steps.branch.outputs.branch }}" 2>&1)
+          echo "$output"
+          alias_url=$(echo "$output" | grep "Deployment alias URL:" | sed 's/.*Deployment alias URL: //')
+          echo "alias_url=$alias_url" >> "$GITHUB_OUTPUT"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -74,11 +78,12 @@ jobs:
       - name: Summary
         shell: bash
         run: |
+          PREVIEW_URL="${{ steps.deploy.outputs.alias_url }}/blog/${{ steps.branch.outputs.slug }}/"
           {
             echo "### Preview deployed"
             echo ""
             echo "- Branch: ${{ steps.branch.outputs.branch }}"
-            echo "- Preview: ${{ steps.branch.outputs.preview_url }}"
+            echo "- Preview: ${PREVIEW_URL}"
             echo ""
             echo "URL active in ~60s."
           } >> "$GITHUB_STEP_SUMMARY"
