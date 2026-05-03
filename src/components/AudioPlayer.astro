@@ -1,0 +1,75 @@
+---
+import '../styles/audio-player.css';
+
+interface Props {
+  title: string;
+  slug: string;
+  mp3Url: string;
+  alignmentUrl: string;
+  spotifyUrl?: string;
+  appleUrl?: string;
+}
+
+const { title, slug, mp3Url, alignmentUrl, spotifyUrl, appleUrl } = Astro.props;
+const playerId = `audio-player-${slug}`;
+const audioId = `audio-${slug}`;
+const waveformId = `waveform-${slug}`;
+---
+
+<section id={playerId} class="audio-player not-prose" data-audio-player data-slug={slug} aria-label={`Listen to ${title}`}>
+  <button class="audio-player__play" type="button" data-audio-play aria-label={`Play ${title}`} aria-pressed="false">
+    <span data-audio-play-icon aria-hidden="true">Play</span>
+  </button>
+
+  <div
+    id={waveformId}
+    class="audio-player__waveform"
+    data-audio-waveform
+    tabindex="0"
+    role="slider"
+    aria-label="Audio timeline"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="0"
+  ></div>
+
+  <button class="audio-player__mute" type="button" data-audio-mute aria-label="Mute audio" aria-pressed="false">
+    <span aria-hidden="true">Mute</span>
+  </button>
+
+  <label class="audio-player__volume">
+    <span class="sr-only">Volume</span>
+    <input type="range" data-audio-volume min="0" max="1" step="0.01" value="1" aria-label="Volume" />
+  </label>
+
+  <div class="audio-player__menu-wrap">
+    <button
+      class="audio-player__menu-button"
+      type="button"
+      data-audio-menu-button
+      aria-label="Open audio menu"
+      aria-expanded="false"
+      aria-haspopup="menu"
+    >
+      <span aria-hidden="true">More</span>
+    </button>
+    <div class="audio-player__menu" data-audio-menu role="menu" hidden>
+      {spotifyUrl && <a href={spotifyUrl} target="_blank" rel="noopener noreferrer" role="menuitem">Spotify</a>}
+      {appleUrl && <a href={appleUrl} target="_blank" rel="noopener noreferrer" role="menuitem">Apple Podcasts</a>}
+      <a href={mp3Url} download role="menuitem">Download MP3</a>
+    </div>
+  </div>
+
+  <audio
+    id={audioId}
+    src={mp3Url}
+    preload="metadata"
+    data-audio-element
+    data-alignment-url={alignmentUrl}
+    aria-label={`Audio version of ${title}`}
+  ></audio>
+</section>
+
+<script>
+  import '../scripts/audio-player.client';
+</script>

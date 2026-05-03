@@ -469,3 +469,19 @@ header.header-fixed {
   white-space: nowrap;
   border: 0;
 }
+
+.word {
+  display: inline;
+}
+
+/* Global focus-visible — applies to all pages, not just audio-player pages */
+:focus-visible {
+  outline: 2px solid var(--color-wp-red);
+  outline-offset: 2px;
+}
+
+.word--active {
+  background: color-mix(in srgb, var(--color-wp-red) 18%, transparent);
+  border-radius: 0.18em;
+  box-shadow: 0 0 0 0.08em color-mix(in srgb, var(--color-wp-red) 18%, transparent);
+}
