@@ -2,16 +2,11 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import AgentationOverlay from '../components/AgentationOverlay';
 
 import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, COMPANY } from '../consts';
 
 const isDev = import.meta.env.DEV;
-
-// Dynamic import: Vite dead-code-eliminates this in production builds (isDev = false)
-// AgentationOverlay depends on the local `agentation` package which only exists in dev
-const AgentationOverlay = isDev
-  ? (await import('../components/AgentationOverlay')).default
-  : null;
 
 interface Props {
   title?: string;
@@ -71,6 +66,6 @@ const defaultJsonLd = jsonLd ?? (type === 'website' ? {
       <slot />
     </main>
     <Footer />
-    {isDev && AgentationOverlay && <AgentationOverlay client:only="react" />}
+    {isDev && <AgentationOverlay client:only="react" />}
   </body>
 </html>
