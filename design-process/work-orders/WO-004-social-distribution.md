@@ -92,6 +92,10 @@ socialPosts:
   - platform: instagram-org
     postText: "200k tokens. Och ändå räcker det inte alltid. 👇"
     hashtags: [AI, Claude, whiteport]
+    image:
+      crops:
+        square: /media/gdrive/<hero-id>-1x1.jpg   # 1:1 feed (Photoshop MCP auto-crop)
+        portrait: /media/gdrive/<hero-id>-9x16.jpg # 9:16 stories (Photoshop MCP auto-crop)
   - platform: facebook-personal
     postText: |
       Nytt blogginlägg: När min Claude slår i taket...
@@ -104,6 +108,8 @@ socialPosts:
 
 **Beslut: LLM-pass genererar första utkast per plattform från artikeltexten. Mårten kan godkänna eller redigera via frontmatter innan `/post` körs.**
 
+**LLM-gateway:** `tool-anthropic` / `contact-ai` — peka på capability-namn, hardkoda aldrig endpoint. Standard: Gemini 2.5 Flash via Vertex.
+
 Anpassningsregler:
 
 | Plattform | Längd | Ton | Hashtags | Länk |
@@ -112,10 +118,32 @@ Anpassningsregler:
 | LinkedIn org | 80–150 ord | Bolagsperspektiv, thought leadership | 3–5 | Preview-URL |
 | Facebook personal | 50–100 ord | Casual, personlig | 2–3 | Preview-URL |
 | Facebook org | 50–100 ord | Varumärkesröst | 2–3 | Preview-URL |
-| Instagram org | 1 kraftfull mening + emojis | Visuellt-drivet | 5–10 | Länk i bio |
-| Instagram personal | 1–2 meningar | Personlig | 3–5 | Länk i bio |
+| Instagram org | 1 kraftfull mening + emojis | Visuellt-drivet | 5–10 | Länk i bio → `whiteport.com/blog` |
+| Instagram personal | 1–2 meningar | Personlig | 3–5 | Länk i bio → `whiteport.com/blog` |
 
 LLM-passet körs av `create-article` eller `/post`-kommandot. Genererar `postText` + `hashtags` per plattform och skriver till frontmatter. Mårten granskar och kör `/post` när det är klart.
+
+---
+
+## Bildhantering (Instagram)
+
+**Källa:** GDrive hero-bild är primärkälla — samma bild som artikelns hero, redan nedladdad av `astro-gdrive.ts`.
+
+**Auto-crop via Photoshop MCP:** `/post`-körningen kör Photoshop MCP för att auto-cropa:
+- `1:1` → `image.crops.square` (Instagram feed)
+- `9:16` → `image.crops.portrait` (Instagram stories — framtida)
+
+Paths skrivs till frontmatter under `socialPosts[].image.crops` per Instagram-plattform. Ivonne läser `crops.square` och bifogar filen i Chrome-sessionen.
+
+**Frontmatter-tillägg i `socialPostSchema`:**
+```ts
+image: z.object({
+  crops: z.object({
+    square: z.string().optional(),   // 1:1 feed
+    portrait: z.string().optional(), // 9:16 stories
+  }).optional(),
+}).optional(),
+```
 
 ---
 
@@ -202,8 +230,8 @@ Sekundär: Agent Space-rapport från Ivonne till Mårten (via `agent-messages` e
 
 ---
 
-## Öppna frågor
+## Lösta frågor
 
-1. **LLM för copy-generering** — `tool-anthropic` / `contact-ai` gateway eller direkt Gemini? Ivonne avgör per plattformsregeln.
-2. **Instagram länk i bio** — uppdateras automatiskt till senaste artikelns preview-URL, eller statisk till whiteport.com/blog?
-3. **Bilder per plattform** — IG kräver bild. Tar vi hero-bilden från GDrive? Behöver vi per-plattform crop?
+1. **LLM för copy-generering** — ✅ `tool-anthropic` / `contact-ai`. Peka på capability-namn, hardkoda ej endpoint. Standard: Gemini 2.5 Flash via Vertex.
+2. **Instagram länk i bio** — ✅ Statisk till `whiteport.com/blog`. Inte per-artikel.
+3. **Bilder per plattform** — ✅ GDrive hero är primärkälla. Photoshop MCP auto-crop: 1:1 (feed) + 9:16 (stories). Se sektion Bildhantering.
