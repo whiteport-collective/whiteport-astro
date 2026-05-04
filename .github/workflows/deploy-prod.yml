@@ -73,7 +73,7 @@ jobs:
           HOSTUP_HOST: ${{ secrets.HOSTUP_SFTP_HOST || 'mu.hostup.se' }}
           HOSTUP_USER: ${{ secrets.HOSTUP_PROD_USER || 'whiteport' }}
           HOSTUP_REMOTE_BASE: /home/whiteport/public_html
-          HOSTUP_SSH_KEY: ${{ secrets.HOSTUP_SSH_KEY }}
+          HOSTUP_SSH_KEY: ${{ secrets.HOSTUP_PROD_SSH_KEY }}
           HOSTUP_PASSWORD: ${{ secrets.HOSTUP_PROD_PASSWORD }}
 
       - name: Verify production HTTP 200
