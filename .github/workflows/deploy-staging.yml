@@ -1,18 +1,17 @@
-name: Deploy to Hostup
+name: Deploy staging to Hostup
 
 on:
   push:
     branches:
-      - main
-      - master
+      - preview
 
 concurrency:
-  group: hostup-production
-  cancel-in-progress: false
+  group: hostup-staging
+  cancel-in-progress: true
 
 jobs:
   deploy:
-    name: Build and deploy production
+    name: Build and deploy astro.whiteport.com
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -40,11 +39,13 @@ jobs:
           restore-keys: |
             astro-content-${{ runner.os }}-
 
-      - name: Build site
+      - name: Build staging site
         run: npm run build
         env:
-          SITE_URL: https://whiteport.com
+          SITE_URL: https://astro.whiteport.com
           GDRIVE_STRICT: 'false'
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
 
       - name: Verify build output
         shell: bash
@@ -61,21 +62,22 @@ jobs:
           find dist -type f -size +25M -delete
           echo "Done."
 
-      - name: Deploy dist to Hostup
+      - name: Deploy dist to Hostup staging
         run: node scripts/deploy-astro.cjs
         env:
-          HOSTUP_HOST: mu.hostup.se
-          HOSTUP_USER: astrowhi
+          HOSTUP_HOST: ${{ secrets.HOSTUP_SFTP_HOST || 'mu.hostup.se' }}
+          HOSTUP_USER: ${{ secrets.HOSTUP_SFTP_USER || 'astrowhi' }}
           HOSTUP_REMOTE_BASE: /home/astrowhi/public_html
           HOSTUP_SSH_KEY: ${{ secrets.HOSTUP_SSH_KEY }}
+          HOSTUP_PASSWORD: ${{ secrets.HOSTUP_SFTP_PASSWORD }}
 
-      - name: Verify production HTTP 200
+      - name: Verify staging HTTP 200
         shell: bash
         run: |
-          for attempt in {1..6}; do
-            status="$(curl -L -s -o /dev/null -w '%{http_code}' https://whiteport.com/)"
+          for attempt in {1..12}; do
+            status="$(curl -L -s -o /dev/null -w '%{http_code}' https://astro.whiteport.com/)"
             if [ "$status" = "200" ]; then
-              echo "whiteport.com returned HTTP 200"
+              echo "astro.whiteport.com returned HTTP 200"
               exit 0
             fi
             echo "Attempt ${attempt}: got HTTP ${status}; retrying..."
@@ -83,13 +85,25 @@ jobs:
           done
           exit 1
 
+      - name: Notify Agent Space
+        if: always()
+        run: node scripts/notify-agent-message.cjs
+        env:
+          AGENT_MESSAGE_TITLE: "Preview live: ${{ github.event.head_commit.message }}"
+          AGENT_MESSAGE_CONTENT: |
+            Preview deploy finished with status: ${{ job.status }}
+            URL: https://astro.whiteport.com/
+            Commit: ${{ github.sha }}
+          AGENT_MESSAGE_TO: MartenAngner
+          AGENT_MESSAGE_PRIORITY: normal
+
       - name: Summary
         shell: bash
         run: |
           {
-            echo "### Hostup production deploy complete"
+            echo "### Hostup staging deploy complete"
             echo ""
-            echo "- URL: https://whiteport.com/"
+            echo "- URL: https://astro.whiteport.com/"
             echo "- Remote: /home/astrowhi/public_html/"
             echo "- Commit: $GITHUB_SHA"
           } >> "$GITHUB_STEP_SUMMARY"
