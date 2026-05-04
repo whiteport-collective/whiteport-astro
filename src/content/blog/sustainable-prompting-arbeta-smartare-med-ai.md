@@ -14,12 +14,12 @@ tags:
   - cost-efficiency
   - ai-strategy
 excerpt: "Token-priserna stiger. Den som lär sig arbeta metodiskt med AI nu bygger ett försprång som är svårt att ta igen."
-featuredImage:
-  src: null
 gallery: []
 ---
 
 Du har troligtvis redan märkt det.
+
+Prenumerationsgränsen du slog i en gång i veckan för sex månader sedan — nu når du den varje dag. Samma arbetsflöde, samma verktyg. Men fler tokens.
 
 AI-verktygen som kändes gratis för ett år sedan kostar nu mer. Priserna kryper uppåt. Och ändå kastar många företag mer pengar på fler prompts, fler verktyg, fler abonnemang — i hopp om att produktiviteten ska följa med.
 
