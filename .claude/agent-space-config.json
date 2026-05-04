@@ -1,0 +1,13 @@
+{
+  "_comment": "Agent Space (Design Space) connection config for Mobile-Ivonne. Anon key is public-by-design, RLS-protected. Safe to commit.",
+  "base_url": "https://uztngidbpduyodrabokm.supabase.co/functions/v1",
+  "project_ref": "uztngidbpduyodrabokm",
+  "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6dG5naWRicGR1eW9kcmFib2ttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1MTc3ODksImV4cCI6MjA4ODA5Mzc4OX0.FNnTd5p9Qj3WeD0DxQORmNf2jgaVSZ6FU1EGy0W7MRo",
+  "publishable_key": "sb_publishable_l-suuCcdPbalqpo96p1X_g_umvjTIyM",
+  "agent_id": "ivonne",
+  "endpoints": {
+    "agent_messages": "/agent-messages",
+    "search_design_space": "/search-design-space",
+    "capture_design_space": "/capture-design-space"
+  }
+}
