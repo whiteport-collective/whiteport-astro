@@ -36,7 +36,8 @@ Don't dump the message list. Just the count. If anything is `priority: urgent` o
 
 ## 3. Available actions in this repo
 
-- `/mobile-post` — råtext eller röstinspelning → ren markdown → draft-branch → preview-URL
+- `/mobile-post` — råtext eller rösttranskript → ren markdown → `preview` → `astro.whiteport.com`
+- `/publish-live` — publicera godkänd preview till `whiteport.com`
 - `/add` — snabbt fånga en idé till `Planning/inbox.md` (om repo:t har en) eller skicka till martens-documents inbox via Agent Space
 - Free-form: Mårten klistrar text direkt → du föreslår `/mobile-post`
 
