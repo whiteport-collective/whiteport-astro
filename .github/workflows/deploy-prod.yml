@@ -97,6 +97,7 @@ jobs:
         run: |
           git config user.name "whiteport-deploy-bot"
           git config user.email "deploy-bot@whiteport.com"
+          git reset --hard
           git fetch origin master preview
           git checkout preview
           git rebase origin/master
