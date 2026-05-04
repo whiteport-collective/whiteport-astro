@@ -1,0 +1,134 @@
+name: Deploy production to Hostup
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: hostup-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and deploy whiteport.com
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Reinstall sharp for Linux
+        run: npm install --os=linux --cpu=x64 sharp
+
+      - name: Restore Astro content cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.astro
+          key: astro-content-${{ runner.os }}-${{ hashFiles('src/content/**/*', 'astro.config.mjs', 'package-lock.json') }}
+          restore-keys: |
+            astro-content-${{ runner.os }}-
+
+      - name: Build production site
+        run: npm run build
+        env:
+          SITE_URL: https://whiteport.com
+          GDRIVE_STRICT: 'false'
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ secrets.ELEVENLABS_VOICE_ID }}
+
+      - name: Verify build output
+        shell: bash
+        run: |
+          test -d dist
+          test -f dist/index.html
+          test -s dist/index.html
+
+      - name: Strip files over 25 MiB
+        shell: bash
+        run: |
+          echo "Files >25 MiB to be removed before deploy:"
+          find dist -type f -size +25M -printf '  %p (%s bytes)\n' || true
+          find dist -type f -size +25M -delete
+          echo "Done."
+
+      - name: Deploy dist to Hostup production
+        run: node scripts/deploy-astro.cjs
+        env:
+          HOSTUP_HOST: ${{ secrets.HOSTUP_SFTP_HOST || 'mu.hostup.se' }}
+          HOSTUP_USER: ${{ secrets.HOSTUP_PROD_USER || 'whiteport' }}
+          HOSTUP_REMOTE_BASE: /home/whiteport/public_html
+          HOSTUP_SSH_KEY: ${{ secrets.HOSTUP_SSH_KEY }}
+          HOSTUP_PASSWORD: ${{ secrets.HOSTUP_PROD_PASSWORD }}
+
+      - name: Verify production HTTP 200
+        shell: bash
+        run: |
+          for attempt in {1..12}; do
+            status="$(curl -L -s -o /dev/null -w '%{http_code}' https://whiteport.com/)"
+            if [ "$status" = "200" ]; then
+              echo "whiteport.com returned HTTP 200"
+              exit 0
+            fi
+            echo "Attempt ${attempt}: got HTTP ${status}; retrying..."
+            sleep 10
+          done
+          exit 1
+
+      - name: Rebase preview onto master
+        id: rebase_preview
+        shell: bash
+        continue-on-error: true
+        run: |
+          git config user.name "whiteport-deploy-bot"
+          git config user.email "deploy-bot@whiteport.com"
+          git fetch origin master preview
+          git checkout preview
+          git rebase origin/master
+          git push --force-with-lease origin preview
+
+      - name: Notify Agent Space
+        if: always()
+        run: node scripts/notify-agent-message.cjs
+        env:
+          AGENT_MESSAGE_TITLE: "Live: ${{ github.event.head_commit.message }}"
+          AGENT_MESSAGE_CONTENT: |
+            Production deploy finished with status: ${{ job.status }}
+            URL: https://whiteport.com/
+            Commit: ${{ github.sha }}
+            Preview rebase status: ${{ steps.rebase_preview.outcome }}
+          AGENT_MESSAGE_TO: MartenAngner
+          AGENT_MESSAGE_PRIORITY: normal
+
+      - name: Fail if preview rebase failed
+        if: steps.rebase_preview.outcome == 'failure'
+        run: |
+          echo "Preview rebase failed after production deploy. Marten has been notified."
+          exit 1
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo "### Hostup production deploy complete"
+            echo ""
+            echo "- URL: https://whiteport.com/"
+            echo "- Remote: /home/whiteport/public_html/"
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Preview rebase: ${{ steps.rebase_preview.outcome }}"
+          } >> "$GITHUB_STEP_SUMMARY"
