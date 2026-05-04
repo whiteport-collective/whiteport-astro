@@ -1,0 +1,121 @@
+.audio-player {
+  display: grid;
+  grid-template-columns: auto minmax(160px, 1fr) auto auto minmax(80px, 120px) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px;
+  margin: 0 0 28px;
+  border: 1px solid #e3e9ef;
+  border-radius: 8px;
+  background: #f8fafc;
+  position: sticky;
+  top: 5rem;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(4, 63, 118, 0.08);
+}
+
+.audio-player button,
+.audio-player a {
+  font: inherit;
+}
+
+.audio-player__play,
+.audio-player__mute,
+.audio-player__menu-button,
+.audio-player__speed {
+  min-width: 44px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid #d5dee8;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-wp-blue);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+
+.audio-player__speed {
+  min-width: 52px;
+  font-weight: 600;
+}
+
+.audio-player__play[aria-pressed="true"] {
+  color: #fff;
+  background: var(--color-wp-blue);
+  border-color: var(--color-wp-blue);
+}
+
+.audio-player__waveform {
+  min-width: 0;
+  cursor: pointer;
+}
+
+.audio-player__waveform:focus-visible,
+.audio-player button:focus-visible,
+.audio-player a:focus-visible,
+.audio-player input:focus-visible {
+  outline: 2px solid var(--color-wp-red);
+  outline-offset: 2px;
+}
+
+.audio-player__volume {
+  display: flex;
+  align-items: center;
+}
+
+.audio-player__volume input {
+  width: 100%;
+}
+
+.audio-player__menu-wrap {
+  position: relative;
+}
+
+.audio-player__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 5;
+  min-width: 160px;
+  padding: 6px;
+  border: 1px solid #d5dee8;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(4, 63, 118, 0.14);
+}
+
+.audio-player__menu a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #2e2e2e;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.audio-player__menu a:hover {
+  background: #f0f5fa;
+  color: var(--color-wp-blue);
+}
+
+@media (max-width: 640px) {
+  .audio-player {
+    grid-template-columns: auto auto auto 1fr auto;
+    gap: 8px;
+    z-index: 5;
+  }
+
+  .audio-player__waveform {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .audio-player__volume {
+    display: none;
+  }
+
+  .audio-player__menu-wrap {
+    grid-column: 5;
+  }
+}

@@ -6,6 +6,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import astroGdrive from './src/integrations/astro-gdrive';
 import astroElevenLabs from './src/integrations/astro-elevenlabs';
+import rehypeWrapWords from './src/utils/word-wrap';
 
 import react from '@astrojs/react';
 
@@ -21,6 +22,12 @@ export default defineConfig({
     }),
     react(),
   ],
+  markdown: {
+    remarkRehype: {
+      allowDangerousHtml: true,
+    },
+    rehypePlugins: [rehypeWrapWords],
+  },
 
   vite: {
     plugins: [

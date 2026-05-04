@@ -1,8 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { existsSync } from 'node:fs';
 import SocialStreamPostLayout from '../../layouts/SocialStreamPost.astro';
 import RelatedPostsGrid from '../../components/social-stream/RelatedPostsGrid.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
 import { getVisibleBlogPosts, collectTags, resolveMediaSrc } from '../../utils/content-helpers';
+import { audioSlugFromId, contentHash, markdownToPlainText } from '../../integrations/astro-elevenlabs';
 import { SERVICES } from '../../consts';
 
 export async function getStaticPaths() {
@@ -17,7 +20,7 @@ export async function getStaticPaths() {
 
 const post = Astro.props;
 const { Content } = await render(post);
-const { title, seoTitle, publishDate, author, categories, locations, mentions, gallery, creativeNote, excerpt, socialPosts, tags, offers: manualOffers } = post.data;
+const { title, seoTitle, publishDate, author, categories, locations, mentions, gallery, podcast, creativeNote, excerpt, socialPosts, tags, offers: manualOffers } = post.data;
 
 // Compute previous/next posts
 const allBlog = await getCollection('blog');
@@ -30,6 +33,15 @@ const nextPost2 = currentIndex > 1 ? sorted[currentIndex - 2] : null;
 
 // Build share URL
 const shareUrl = new URL(`/blog/${post.id}/`, Astro.site).href;
+
+// Render the audio player only when the build has generated both assets.
+const audioText = markdownToPlainText(post.body ?? '');
+const audioSlug = audioSlugFromId(post.id);
+const audioHash = contentHash(audioText);
+const audioBase = `${audioSlug}-read-${audioHash}`;
+const audioMp3Url = `/audio/${audioBase}.mp3`;
+const audioAlignmentUrl = `/audio/${audioBase}.json`;
+const hasAudio = existsSync(`public${audioMp3Url}`) && existsSync(`public${audioAlignmentUrl}`);
 
 // Match gallery images to social platforms via display[] field
 const platformImages = new Map<string, string>();
@@ -69,6 +81,16 @@ const primaryCategory = categories?.[0] || '';
   offers={computedOffers}
   allTags={allTags}
 >
+  {hasAudio && (
+    <AudioPlayer
+      title={title}
+      slug={audioBase}
+      mp3Url={audioMp3Url}
+      alignmentUrl={audioAlignmentUrl}
+      spotifyUrl={podcast?.spotify_url}
+      appleUrl={podcast?.apple_url}
+    />
+  )}
   <Content />
 
   <!-- Social platform links with device images -->

@@ -167,25 +167,31 @@ export function markdownToPlainText(markdown: string): string {
   return lines.join('\n\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-function contentHash(text: string): string {
+export function contentHash(text: string): string {
   return createHash('sha256').update(text).digest('hex').slice(0, 12);
 }
 
-function safeSlug(sourcePath: string, contentDir: string): string {
-  const relPath = relative(contentDir, sourcePath).replace(/\\/g, '/').replace(/\.(md|mdx)$/i, '');
-  let decoded = relPath;
+export function audioSlugFromId(id: string): string {
+  let decoded = id;
   try {
-    decoded = decodeURIComponent(relPath);
+    decoded = decodeURIComponent(id);
   } catch {
     // Keep the original path if it is not valid URI-encoded text.
   }
 
   return decoded
+    .replace(/\\/g, '/')
+    .replace(/\.(md|mdx)$/i, '')
     .toLowerCase()
     .replace(/[^a-z0-9/]+/g, '-')
     .replace(/\//g, '-')
     .replace(/^-+|-+$/g, '')
     .replace(/-{2,}/g, '-') || 'article';
+}
+
+function safeSlug(sourcePath: string, contentDir: string): string {
+  const relPath = relative(contentDir, sourcePath).replace(/\\/g, '/').replace(/\.(md|mdx)$/i, '');
+  return audioSlugFromId(relPath);
 }
 
 function scanFiles(dir: string): string[] {
@@ -254,7 +260,7 @@ export function chunkText(text: string, maxChars = MAX_CHARS_PER_CHUNK): string[
 // Word characters include letters, digits, and apostrophes (straight + curly)
 // so contractions like "don't" / "it's" stay intact for sync highlighting.
 function isWordCharacter(char: string): boolean {
-  return /[\p{L}\p{N}'’]/u.test(char);
+  return /[\p{L}\p{N}'\u2019]/u.test(char);
 }
 
 function roundTime(seconds: number): number {

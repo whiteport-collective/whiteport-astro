@@ -38,9 +38,9 @@ gallery:
       - linkedin
 ---
 
-I deleted every MCP server I had installed. Not because I gave up on AI tools. Because I found out what they were costing me — and nobody had told me.
+**I deleted every MCP server I had installed. Not because I gave up on AI tools. Because I found out what they were costing me — and nobody had told me.**
 
-You've been here. You ask your agent to do something and it says: *"This MCP is not loaded. Let me install it."* You wait. You restart Claude. It doesn't work. You restart again, edit a JSON file, fix a missing comma, restart once more. Twenty minutes later you've done nothing except fight your own setup.
+**You've been here. You ask your agent to do something and it says: *"This MCP is not loaded. Let me install it."* You wait. You restart Claude. It doesn't work. You restart again, edit a JSON file, fix a missing comma, restart once more. Twenty minutes later you've done nothing except fight your own setup.**
 
 😤 *That's annoying. But it's not the real problem.*
 

@@ -49,6 +49,10 @@ const blog = defineCollection({
       src: z.string().optional(),
     }).optional(),
     gallery: z.array(galleryItemSchema).default([]),
+    podcast: z.object({
+      spotify_url: z.string().url().optional(),
+      apple_url: z.string().url().optional(),
+    }).optional(),
 
     // Social media posts
     socialPosts: z.array(socialPostSchema).default([]),

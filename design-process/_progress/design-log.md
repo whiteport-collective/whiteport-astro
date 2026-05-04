@@ -28,15 +28,19 @@
 - [x] Google Drive media pipeline — 98/98 items, service account, staleness check
 - [x] Blog post enhancements — 2-column layout, sidebar offers, published-also with platform images, related posts masonry, YouTube video support
 - [x] WO-001 M1 — Audio + alignment generation pipeline
+- [x] WO-001 M2 — Article word wrapping for audio sync
+- [x] WO-001 M3 — Audio player shell with waveform/menu
+- [x] WO-001 M4 — Highlight current word during audio playback
+- [x] R1 Go Live — whiteport.com deployed to Hostup via SFTP
 
 ### In Progress
-- [ ] Deploy to astro.whiteport.com — SSH shell access pending (Hostup ticket #126273)
+- [ ] WO-001 M5 — Smooth auto-scroll during audio playback
 
 ### Roadmap
 
-**R1: Go Live** (blocked on hosting)
-- [ ] SSH shell enabled for astrowhi → deploy via SFTP
-- [ ] Visual smoke test on astro.whiteport.com
+**R1: Go Live** (done)
+- [x] SFTP deploy verified for `whiteport` and `astrowhi` Hostup accounts
+- [x] HTTP smoke test on whiteport.com
 - [ ] Fix 3 broken WP project images (fyndiqsvajpen, indoor-energy, skargardspartner)
 - [ ] WP logo SVG (currently text "WHITEPORT")
 - [ ] Delete old `aiwhitep` cPanel account via WHM
@@ -78,7 +82,7 @@
 
 | Task | Started | Agent | Status |
 |------|---------|-------|--------|
-| R1: Go Live | 2026-03-06 | Claude | Blocked — waiting on Hostup ticket #126273 (SSH shell) |
+| R1: Go Live | 2026-05-03 | Codex | Done — whiteport.com deploy verified on Hostup |
 
 ---
 
@@ -114,7 +118,7 @@
 | Blog enhancements | New feature | Published-also platform images | built | 2026-03-06 |
 | Blog enhancements | New feature | Related posts masonry grid | built | 2026-03-06 |
 | Blog enhancements | New feature | YouTube video support | built | 2026-03-06 |
-| Deployment | Infrastructure | Hostup (astro.whiteport.com) | blocked | 2026-03-06 |
+| Deployment | Infrastructure | Hostup (whiteport.com) | built | 2026-05-03 |
 
 **Status values:** `discussed` → `wireframed` → `specified` → `explored` → `building` → `built` → `approved` | `removed`
 
@@ -212,6 +216,14 @@
 - Stories remain manual (Instagram/Facebook/LinkedIn) for now
 - Existing infrastructure ready: `socialPosts` schema in content.config.ts, `SOCIAL_PLATFORMS` type in consts.ts, "Also posted on" display in stream posts
 - Next: research API requirements per platform, auth flows, rate limits
+
+### 2026-05-03 — WO-001 M2-M4 + Hostup live deploy
+- Re-enabled article word wrapping via rehype so blog output includes `.word[data-word-index]` spans.
+- Added the audio player shell with Wavesurfer and optional podcast/download menu; it renders only when matching MP3 + alignment JSON exist.
+- Added M4 current-word highlighting from alignment JSON during playback.
+- Deployed `dist/` to both Hostup roots: `/home/whiteport/public_html` for `whiteport.com` and `/home/astrowhi/public_html` for `astro.whiteport.com`.
+- Verified `https://whiteport.com/blog/mcp-sucks-i-deleted-them-all/`: HTTP 200 and 644 `class="word"` matches.
+- Audio player is absent on that article until ElevenLabs credentials and article-specific MP3/JSON assets are present.
 
 ---
 
