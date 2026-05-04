@@ -72,6 +72,8 @@ const blog = defineCollection({
     // Content metadata
     creativeNote: z.string().optional(),
     excerpt: z.string().optional(),
+    audioIntro: z.string().optional(),
+    audioOutro: z.string().optional(),
     hideFromStream: z.boolean().default(false),
     gdriveLink: z.string().optional(),
 

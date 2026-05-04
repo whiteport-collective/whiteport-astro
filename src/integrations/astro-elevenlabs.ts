@@ -129,6 +129,31 @@ function stripFrontmatter(content: string): string {
   return afterMarker === -1 ? '' : content.slice(afterMarker + 1);
 }
 
+function readFrontmatterString(content: string, key: string): string | undefined {
+  if (!content.startsWith('---')) return undefined;
+  const end = content.indexOf('\n---', 3);
+  if (end === -1) return undefined;
+
+  const frontmatter = content.slice(3, end);
+  const pattern = new RegExp(`^${key}:\\s*(.*)$`, 'm');
+  const match = frontmatter.match(pattern);
+  if (!match) return undefined;
+
+  const raw = match[1]?.trim();
+  if (!raw || raw === 'null') return undefined;
+
+  if ((raw.startsWith('"') && raw.endsWith('"')) || (raw.startsWith("'") && raw.endsWith("'"))) {
+    return raw
+      .slice(1, -1)
+      .replace(/\\"/g, '"')
+      .replace(/\\'/g, "'")
+      .replace(/\\n/g, '\n')
+      .trim();
+  }
+
+  return raw.trim();
+}
+
 function naturalizeLine(line: string, sentenceBreak = false): string {
   const trimmed = line.replace(/\s+/g, ' ').trim();
   if (!trimmed) return '';
@@ -165,6 +190,16 @@ export function markdownToPlainText(markdown: string): string {
   }
 
   return lines.join('\n\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+export function articleAudioText(markdown: string): string {
+  const body = markdownToPlainText(markdown);
+  const intro = readFrontmatterString(markdown, 'audioIntro');
+  const outro = readFrontmatterString(markdown, 'audioOutro');
+
+  return [intro, body, outro]
+    .filter((part): part is string => Boolean(part?.trim()))
+    .join('\n\n');
 }
 
 export function contentHash(text: string): string {
@@ -213,7 +248,7 @@ function scanArticles(projectRoot: string): ArticleInput[] {
   return scanFiles(contentDir)
     .map((sourcePath) => {
       const raw = readFileSync(sourcePath, 'utf-8');
-      const text = markdownToPlainText(raw);
+      const text = articleAudioText(raw);
       return {
         sourcePath,
         slug: safeSlug(sourcePath, contentDir),

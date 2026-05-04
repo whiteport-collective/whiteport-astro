@@ -145,6 +145,24 @@ test('keeps contractions intact via apostrophe-aware word boundaries', async () 
   );
 });
 
+test('includes optional article audio intro and outro frontmatter in generated speech', async () => {
+  const { articleAudioText } = await loadIntegrationModule();
+  const text = articleAudioText(`---
+title: Framed Article
+audioIntro: "Hi, this is Marten's clone. I will read this article from whiteport.com about testing."
+audioOutro: "That was the article. Visit whiteport.com for more."
+---
+
+# Main headline
+
+This is the body.`);
+
+  assert.equal(
+    text,
+    "Hi, this is Marten's clone. I will read this article from whiteport.com about testing.\n\nMain headline.\n\nThis is the body.\n\nThat was the article. Visit whiteport.com for more.",
+  );
+});
+
 test('honors MAX_AUDIO_PER_BUILD guard for uncached articles', async () => {
   const { runElevenLabsPipeline } = await loadIntegrationModule();
   const root = await makeProject({
