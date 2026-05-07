@@ -1,0 +1,99 @@
+<section class="slide" data-label="What Agent Space Is">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <span class="label">AGENT SPACE</span>
+        <h2 class="title" style="max-width:1500px;">Agent Space is the missing piece<br><span class="grad-text">between teams, tools, and agents.</span></h2>
+      </div>
+
+      <!-- HUB SVG -->
+      <div style="flex:1; display:flex; align-items:center; justify-content:center;" data-anim style="--d:1">
+        <svg viewBox="0 0 1600 520" style="width:100%; height:auto; max-height:520px;">
+          <defs>
+            <linearGradient id="gHub" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#4e8eff"/><stop offset="1" stop-color="#9b6dff"/>
+            </linearGradient>
+            <radialGradient id="gHubBg" cx="0.5" cy="0.5" r="0.5">
+              <stop stop-color="rgba(155,109,255,0.18)"/>
+              <stop offset="1" stop-color="rgba(155,109,255,0)"/>
+            </radialGradient>
+          </defs>
+          <!-- glow -->
+          <circle cx="800" cy="260" r="260" fill="url(#gHubBg)"/>
+          <!-- spoke lines -->
+          <g stroke="#2a2a42" stroke-width="1.5" fill="none">
+            <line x1="800" y1="260" x2="250" y2="120" data-draw style="--len:600; --d:3"/>
+            <line x1="800" y1="260" x2="250" y2="400" data-draw style="--len:600; --d:3"/>
+            <line x1="800" y1="260" x2="1350" y2="120" data-draw style="--len:600; --d:4"/>
+            <line x1="800" y1="260" x2="1350" y2="400" data-draw style="--len:600; --d:4"/>
+            <line x1="800" y1="260" x2="800" y2="60" data-draw style="--len:200; --d:2"/>
+            <line x1="800" y1="260" x2="800" y2="460" data-draw style="--len:200; --d:2"/>
+          </g>
+          <!-- center hub -->
+          <g>
+            <circle cx="800" cy="260" r="100" fill="#0b0b14" stroke="url(#gHub)" stroke-width="2.5"/>
+            <circle cx="800" cy="260" r="70" fill="none" stroke="url(#gHub)" stroke-width="1" opacity="0.4"/>
+            <text x="800" y="252" text-anchor="middle" fill="#e8e8f0" font-family="Inter" font-size="22" font-weight="700">Agent</text>
+            <text x="800" y="282" text-anchor="middle" fill="#e8e8f0" font-family="Inter" font-size="22" font-weight="700">Space</text>
+          </g>
+          <!-- spoke nodes -->
+          <g font-family="Inter" font-size="16" font-weight="600">
+            <!-- Strategy -->
+            <g transform="translate(250,120)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">Strategy · Saga</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">BRIEF · TRIGGERS</text>
+            </g>
+            <!-- UX -->
+            <g transform="translate(250,400)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">UX · Freya</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">SCENARIOS · SPECS</text>
+            </g>
+            <!-- Dev -->
+            <g transform="translate(1350,120)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">Dev · Mimir</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">AUDIT · BUILD</text>
+            </g>
+            <!-- Onboard -->
+            <g transform="translate(1350,400)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">Onboard · Idun</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">POLICY · ACCESS</text>
+            </g>
+            <!-- Meetings -->
+            <g transform="translate(800,60)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">Meetings</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">INDEXED · SEARCHABLE</text>
+            </g>
+            <!-- Clients -->
+            <g transform="translate(800,460)">
+              <rect x="-90" y="-28" width="180" height="56" rx="10" fill="#12121e" stroke="#2a2a42" stroke-width="1.25"/>
+              <text x="0" y="-2" text-anchor="middle" fill="#e8e8f0">Clients</text>
+              <text x="0" y="18" text-anchor="middle" fill="#8888a8" font-family="JetBrains Mono" font-size="10" letter-spacing="2">SCOPED VIEWS</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="points" data-anim style="--d:5">
+        <div>
+          <div class="point__num">01</div>
+          <h4 class="point__lead">Not a tool. A layer</h4>
+          <p class="point__body">Agent Space sits below your tools and agents, holding everything they produce.</p>
+        </div>
+        <div>
+          <div class="point__num">02</div>
+          <h4 class="point__lead">Work flows without meetings</h4>
+          <p class="point__body">Saga posts a brief. Freya picks it up. Mimir builds. No one emails anyone.</p>
+        </div>
+        <div>
+          <div class="point__num">03</div>
+          <h4 class="point__lead">Memory is organizational, not personal</h4>
+          <p class="point__body">Every decision is available to every agent in every future session.</p>
+        </div>
+      </div>
+    </div>
+  </section>

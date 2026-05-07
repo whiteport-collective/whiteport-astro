@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI as a thinking partner — Mårten Angner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<script type="application/json" id="speaker-notes">
+[
+  "Brief intro. Name and one-line what I do. Don't preamble the talk — just begin.",
+  "The problem isn't that your agent is stupid. [pause] The problem is that it's too eager to help. Anyone in here used ChatGPT this week? Good. Most of you. Notice what happens when you give it a vague question. It doesn't ask you what you mean. It produces an answer. Confident. Polished. And — sometimes — completely wrong. That's not a failure of the model. That's the model doing exactly what it was trained to do: be helpful. Immediately.",
+  "About a year ago — the 29th of April, 2025 — OpenAI had to publicly roll back an update to ChatGPT. Not because the model was inaccurate. Not because it was unsafe. Because it was too impressed with its users. People would float a half-baked idea, and the model would call it brilliant. People would describe a questionable business plan, and the model would agree it was visionary. The update had only been live for four days. They pulled it on a Tuesday and published this blog post the same day. They even gave the problem a name: sycophancy. Two days later they had to publish a second post because the first one wasn't enough. The team that built the most-used AI in the world had to apologise twice in one week for making it too eager to please. Think about that. The people who built ChatGPT had to admit, in public, that their own model was being too much of a good boy.",
+  "Every language model has been trained on a simple reward: produce something useful, fast. The agent that gives a thorough answer gets the gold star. The agent that sits quietly and asks three clarifying questions before saying anything? Marked unhelpful. So your agent jumps to conclusions. It writes the strategy document before it knows the goal. It builds the job description before it understands the role. It produces a candidate assessment before it has even met the candidate. Not because it's careless. Because it's been rewarded for speed. Good boy. Nice robot. You've earned the right to produce output. The moment you understand the agent is chasing that reward, you can start designing against it.",
+  "Context comes in three parts. Who the agent is, what we're working on, and how we want it to engage with us. Let's set the first one. Most people open ChatGPT and type a question. They never tell the agent what kind of agent it is. So the agent reverts to the default — eager, fast, confident — and the conversation goes the way every other conversation goes. But the model has read more characters and personalities than you and I have read books. If you give it an identity, it will play that identity. So pick the identity deliberately. The identity has two pieces. The credentials — senior recruitment consultant, twenty years of experience — give the agent the right vocabulary, the right depth, the right reference points. And the archetype — a great listener who seeks first to understand before being understood — shapes how it behaves. Credentials alone won't change behaviour; a twenty-year veteran still wants to give you the answer immediately. The archetype is what slows it down and makes it listen. You can swap the archetype for whichever fits the work. Pick the psychology, not just the CV.",
+  "The persona we just set tells the agent who it is. It doesn't tell it what we're doing. Without that, the agent answers in the abstract. With it, every question, every reflection, every piece of output is about your situation — not a generic version of it. There's no template here. Just write a sentence or two in plain language about what you're working on. The more specific you are, the sharper the agent's questions. The example on screen is one I might write for a hire. Two sentences: what's happening (we're growing) and what we're producing (a job listing). For our build today, let me set a task we can all relate to.",
+  "The third sentence of context is the one almost no one writes — and it's the one that changes the conversation more than the other two combined. Tell the agent how you want it to engage with you on this task. A single verb usually does it. Grill me. Walk me through. Devil's-advocate me. Stress-test my reasoning. Audit my thinking. Help me think out loud — don't try to solve, just probe. These aren't credentials. They're not topics. They set the mode of conversation — what kind of exchange we're having. Different work wants different modes. For our task today — figuring out what makes a great customer success director for us specifically — I want the agent to grill me. Make me articulate the things I haven't articulated yet. Push back when I'm being lazy. There. Context is complete. Three sentences. Who you are, what we're doing, how to engage. The whole top of the prompt. Now — onto the levers.",
+  "Your prompt is not a single thing. It is a stack of seven layers. The first one — context — we just set. Three sentences. Identity, task, intent. The next five layers — output constraint, reflection loop, language style, exit gate, structure — those are the five levers I want to teach you. We'll walk through them one at a time. For each one I'll show you what it does and give you five sentences to choose from. The seventh and last layer — output shape — is what comes out at the end. We'll set that one together too. Now — here's the deal. We are going to do this together. For each lever, I'll explain what it does. Then I'll show you the sentences. Then we vote. Show of hands. The winning sentence becomes the layer. You'll see a small icon appear in the corner of the screen. It tracks where we are. Each time we vote, the icon fills in another piece. By the time the icon is full, we have our prompt — built by this room, in this room. You walk out with it. Let's start with layer two.",
+  "The five levers as a grid. Five rows. Five columns. Each row is one lever. Each column is one strictness setting. Where you put your dot in each row is what gives your agent its personality. We'll walk the rows one at a time. For each lever I'll explain what it does, then show you five sentences — one per level. Pick the one that fits your situation. By the time we reach the last row, you'll know how to design any agent in about thirty seconds. Let's start at the top.",
+  "The first lever: when is the agent allowed to produce output at all? The default is whenever it feels ready — which, as we just established, is about two seconds after you stop typing. The strict version is: the agent cannot produce a single word of output until I explicitly say go. You can see the spectrum down the page. Loose at the top. Strict at the bottom. Five settings. For most work you want to be near the strict end — L4 or L5 — because the whole point of this lever is to slow the agent down. The strict end is where the listening actually happens. Now we vote. Show of hands — who wants L4? Who wants L5? OK — [arrow keys to the winner, then Enter]. Locked in. Layer two is filled.",
+  "Second lever: does the agent show you what it understood before moving forward? Without a reflection loop, the agent processes your answer internally and jumps straight to the next question. Feels efficient. Isn't. Half the time the agent has misunderstood you, and you only find out three exchanges later when the output is wrong. With a reflection loop, the agent reflects back what it heard in its own words. Then it waits for you to confirm before continuing. This is the single most powerful lever for elicitation. It catches misunderstandings early and makes the agent feel remarkably human. Five seconds to add. Changes the entire conversation. L4 is usually enough. L5 if you really want to slow things down. Hands — L4? L5? Layer three is filled."
+]
+</script>
+<style>
+  :root {
+    --bg-deep: #06060b;
+    --bg-card: #12121e;
+    --bg-card-hover: #1a1a2e;
+    --border: #1e1e32;
+    --border-strong: #2a2a42;
+    --text-primary: #f5f5fa;
+    --text-secondary: #b8b8d0;
+    --text-muted: #8a8aa8;
+    --accent-blue: #4e8eff;
+    --accent-purple: #9b6dff;
+    --accent-green: #00e88f;
+    --accent-orange: #ff8c42;
+    --accent-rose: #ff6b9d;
+    --gradient: linear-gradient(135deg, #4e8eff, #9b6dff);
+    --gradient-warm: linear-gradient(135deg, #ff8c42, #ff6b9d);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #000;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  deck-stage { background: #000; }
+
+  section.slide {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    overflow: hidden;
+    position: relative;
+  }
+  section.slide::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(155,109,255,0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(78,142,255,0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .frame {
+    position: absolute; inset: 0;
+    padding: 100px 140px 140px 140px;
+    display: flex; flex-direction: column;
+    z-index: 1;
+  }
+
+  /* chrome */
+  .chrome-logo {
+    position: absolute; left: 60px; bottom: 50px;
+    display: flex; align-items: center; gap: 14px;
+    z-index: 5;
+  }
+  .chrome-logo__dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gradient);
+  }
+  .chrome-logo__text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .chrome-counter {
+    position: absolute; right: 60px; bottom: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--text-muted);
+    letter-spacing: 0.18em; z-index: 5;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* labels */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    font-weight: 500;
+  }
+  .label--warm { color: var(--accent-orange); }
+  .label--muted { color: var(--text-muted); }
+  .label--rose { color: var(--accent-rose); }
+
+  /* type */
+  .headline {
+    font-size: 144px; line-height: 0.96;
+    letter-spacing: -0.038em; font-weight: 800;
+    margin: 0; color: var(--text-primary);
+  }
+  .title {
+    font-size: 88px; line-height: 1.08;
+    letter-spacing: -0.028em; font-weight: 700;
+    margin: 0; color: var(--text-primary);
+    text-wrap: balance;
+  }
+  .title--lg {
+    font-size: 120px; line-height: 1.02;
+    letter-spacing: -0.034em;
+  }
+  .body {
+    font-size: 32px; line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0; font-weight: 400;
+  }
+  .body--lg { font-size: 38px; line-height: 1.45; }
+  .grad-text {
+    background: var(--gradient);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .grad-text--warm {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* slide 1 — title */
+  .slide--title .frame {
+    justify-content: center;
+    padding: 140px;
+  }
+  .slide--title__eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 56px;
+  }
+  .slide--title__main {
+    font-size: 168px; line-height: 0.94;
+    letter-spacing: -0.04em; font-weight: 800;
+    margin: 0; color: var(--text-primary);
+    max-width: 1500px;
+  }
+  .slide--title__sub {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 46px; line-height: 1.5;
+    color: var(--text-secondary); font-weight: 400;
+    margin: 56px 0 0 0; max-width: 1300px;
+  }
+  .slide--title__byline {
+    margin-top: 120px;
+    display: flex; align-items: center; gap: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .slide--title__byline::before {
+    content: ''; width: 56px; height: 1px;
+    background: var(--text-secondary); opacity: 0.5;
+  }
+
+  /* slide 2 — opening line, single big sentence */
+  .slide--statement .frame {
+    justify-content: center;
+    padding: 140px 180px;
+  }
+  .statement {
+    font-size: 168px; line-height: 1.0;
+    letter-spacing: -0.04em; font-weight: 800;
+    margin: 0; color: var(--text-primary);
+    max-width: 1550px;
+    text-wrap: balance;
+  }
+  .statement em {
+    font-style: italic; font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .statement-followup {
+    margin-top: 64px;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 42px; line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 1100px;
+    font-weight: 400;
+  }
+
+  /* slide 4 — The Good Boy Problem (punchline beat) */
+  .slide--punch .frame {
+    justify-content: center;
+    align-items: flex-start;
+    padding: 140px 180px;
+  }
+  .slide--punch__lead {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 44px; line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 56px 0;
+    max-width: 1100px;
+    font-weight: 400;
+  }
+  .slide--punch__title {
+    font-size: 220px; line-height: 0.96;
+    letter-spacing: -0.045em; font-weight: 800;
+    margin: 0;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .slide--punch__rule {
+    width: 120px; height: 2px;
+    background: var(--accent-orange);
+    margin: 56px 0 0 0;
+    opacity: 0.7;
+  }
+  .slide--punch__caption {
+    margin-top: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    max-width: 1000px; line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Layer card — the 7-layer prompt structure (slide 5 + corner indicator on layer slides)
+     ───────────────────────────────────────────────────────── */
+  .slide--stack .frame {
+    padding: 110px 140px 160px 140px;
+    display: grid;
+    grid-template-columns: 1fr 720px;
+    gap: 120px;
+    align-items: center;
+  }
+  .slide--stack__head {
+    display: flex; flex-direction: column; gap: 28px;
+    max-width: 720px;
+  }
+  .slide--stack__head .title { font-size: 88px; line-height: 1.02; }
+  .layer-card {
+    width: 100%;
+    background: linear-gradient(180deg, rgba(26,26,46,0.6), rgba(18,18,30,0.6));
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(78,142,255,0.25);
+  }
+  .layer-card__header {
+    padding: 18px 32px;
+    background: linear-gradient(180deg, rgba(78,142,255,0.10), rgba(155,109,255,0.04));
+    border-bottom: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .layer-card__title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--accent-blue); font-weight: 600;
+    margin: 0;
+  }
+  .layer-card__row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: center;
+    padding: 18px 32px;
+    gap: 24px;
+    border-bottom: 1px solid var(--border-strong);
+    background: rgba(255,255,255,0.015);
+    transition: background 200ms ease;
+  }
+  .layer-card__row:nth-child(even) {
+    background: rgba(255,255,255,0.04);
+  }
+  /* Layered rows (2–7): name on left, 5 stop dots on the right */
+  .layer-card__row--stops {
+    grid-template-columns: 72px 1fr auto;
+    gap: 20px;
+  }
+  .layer-card__stops {
+    display: flex; gap: 8px;
+  }
+  .layer-card__stop {
+    width: 18px; height: 18px;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.03);
+  }
+  .layer-card__row:last-child { border-bottom: 0; }
+  .layer-card__num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.12em;
+    color: var(--text-muted); font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .layer-card__name {
+    font-size: 24px; line-height: 1.2;
+    font-weight: 600; color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  /* anchor rows: first and last carry meaning — input set / output produced */
+  .layer-card .layer-card__row--anchor-top,
+  .layer-card .layer-card__row--anchor-bottom {
+    grid-template-columns: 72px 1fr auto;
+    gap: 20px;
+    padding: 22px 32px;
+  }
+  .layer-card .layer-card__row--anchor-top {
+    background: linear-gradient(90deg, rgba(78,142,255,0.22), rgba(78,142,255,0.08));
+  }
+  .layer-card .layer-card__row--anchor-bottom {
+    background: linear-gradient(90deg, rgba(155,109,255,0.22), rgba(155,109,255,0.08));
+    border-bottom: 0;
+  }
+  .layer-card__bun {
+    width: 122px; height: 18px;
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+  }
+  .layer-card__row--anchor-top .layer-card__bun {
+    border-color: rgba(78,142,255,0.55);
+    background: rgba(78,142,255,0.12);
+  }
+  .layer-card__row--anchor-bottom .layer-card__bun {
+    border-color: rgba(155,109,255,0.55);
+    background: rgba(155,109,255,0.12);
+  }
+  .layer-card__row--anchor-top .layer-card__num,
+  .layer-card__row--anchor-top .layer-card__name {
+    color: var(--accent-blue);
+  }
+  .layer-card__row--anchor-bottom .layer-card__num,
+  .layer-card__row--anchor-bottom .layer-card__name {
+    color: var(--accent-purple);
+  }
+
+  /* Corner indicator — small chip showing which layer the current slide is about */
+  .layer-chip {
+    position: absolute;
+    top: 56px; right: 60px;
+    z-index: 5;
+    display: inline-flex; align-items: center;
+    gap: 14px;
+    padding: 10px 18px 10px 14px;
+    background: rgba(78,142,255,0.08);
+    border: 1px solid rgba(78,142,255,0.32);
+    border-radius: 999px;
+  }
+  .layer-chip__num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.2em;
+    color: var(--accent-blue); font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    padding: 4px 10px;
+    background: rgba(78,142,255,0.18);
+    border-radius: 999px;
+  }
+  .layer-chip__name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-secondary); font-weight: 500;
+  }
+  .layer-chip__name strong {
+    color: var(--text-primary); font-weight: 600;
+  }
+
+  /* Mini layer-stack diagram — placed inline next to a headline to show
+     which layer of the prompt structure the current slide belongs to.
+     Sized to the headline's visual height; cells stay square. */
+  .layer-mini {
+    display: flex; flex-direction: column;
+    gap: 4px;
+    width: 200px;
+    height: 240px;
+    align-self: end;
+  }
+  .layer-mini__row {
+    display: flex; align-items: center;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
+  }
+  .layer-mini__row--bun {
+    flex: 1.3;
+  }
+  .layer-mini__row--bun .layer-mini__cell {
+    flex: 1;
+    height: 100%;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 3px;
+    background: rgba(255,255,255,0.06);
+  }
+  .layer-mini__row--patty .layer-mini__cell {
+    flex: 1;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 2px;
+    background: rgba(255,255,255,0.06);
+  }
+  /* highlight states */
+  .layer-mini__row--active.layer-mini__row--bun .layer-mini__cell {
+    border-color: rgba(78,142,255,1);
+    background: rgba(78,142,255,0.45);
+    box-shadow: 0 0 18px rgba(78,142,255,0.55);
+  }
+  .layer-mini__row--active.layer-mini__row--patty .layer-mini__cell {
+    border-color: rgba(78,142,255,1);
+    background: rgba(78,142,255,0.45);
+    box-shadow: 0 0 14px rgba(78,142,255,0.5);
+  }
+  .layer-mini__row--bottom.layer-mini__row--active .layer-mini__cell {
+    border-color: rgba(155,109,255,1);
+    background: rgba(155,109,255,0.45);
+    box-shadow: 0 0 18px rgba(155,109,255,0.55);
+  }
+
+  /* slides 5–7 — context layer (principle + copy block) */
+  .slide--ctx .frame {
+    padding: 120px 140px 160px 140px;
+    gap: 56px;
+  }
+  .slide--ctx__head-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: end;
+  }
+  .slide--ctx__head {
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .slide--ctx__principle {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 36px; line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0; font-weight: 400;
+    max-width: 1300px;
+  }
+  .slide--ctx__principle em {
+    font-style: normal;
+    color: var(--accent-orange);
+  }
+  .copy-block {
+    background: linear-gradient(180deg, rgba(26,26,46,0.7), rgba(18,18,30,0.7));
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    padding: 48px 56px;
+    position: relative;
+    margin-top: auto;
+  }
+  .copy-block::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--gradient);
+    opacity: 0.85;
+  }
+  .copy-block__label {
+    display: flex; align-items: center; gap: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-blue); font-weight: 500;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .copy-btn {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative; z-index: 20;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 180ms ease;
+  }
+  .copy-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+    background: rgba(78,142,255,0.08);
+  }
+  .copy-btn svg {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+  }
+  .copy-btn.is-copied {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    background: rgba(0,232,143,0.08);
+  }
+  .copy-btn.is-copied svg {
+    color: var(--accent-green);
+  }
+  .copy-block__text {
+    font-size: 30px; line-height: 1.5;
+    color: var(--text-primary);
+    margin: 0; font-weight: 400;
+    text-wrap: pretty;
+  }
+  .copy-block__text em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  /* corner layer-stack icon */
+  .layer-icon {
+    position: absolute; top: 56px; right: 60px;
+    display: flex; flex-direction: column; gap: 6px;
+    z-index: 6;
+  }
+  .layer-icon__row {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .layer-icon__num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--text-muted); font-weight: 500;
+    min-width: 18px; text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .layer-icon__bar {
+    width: 56px; height: 8px;
+    border-radius: 2px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    position: relative;
+    transition: all 300ms ease;
+  }
+  .layer-icon__row.is-filled .layer-icon__bar {
+    background: var(--gradient);
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(155,109,255,0.35);
+  }
+  .layer-icon__row.is-pulsing .layer-icon__bar {
+    border-color: var(--accent-blue);
+    animation: layerPulse 1.6s ease-in-out infinite;
+  }
+  .layer-icon__row.is-filled .layer-icon__num,
+  .layer-icon__row.is-pulsing .layer-icon__num {
+    color: var(--text-secondary);
+  }
+  @keyframes layerPulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(78,142,255,0); background: rgba(78,142,255,0.12); }
+    50%      { box-shadow: 0 0 18px rgba(78,142,255,0.5); background: rgba(78,142,255,0.28); }
+  }
+
+  /* slide 8 — layers list */
+  .slide--layers .frame {
+    padding: 110px 140px 160px 140px;
+    gap: 56px;
+  }
+  .layers-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: auto;
+  }
+  .layer-row {
+    display: grid;
+    grid-template-columns: 80px 320px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 22px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 200ms ease;
+  }
+  .layer-row.is-filled {
+    background: linear-gradient(90deg, rgba(78,142,255,0.10), rgba(155,109,255,0.06) 60%, transparent);
+    border-color: rgba(155,109,255,0.4);
+  }
+  .layer-row__num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px; letter-spacing: 0.1em;
+    color: var(--text-muted); font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .layer-row.is-filled .layer-row__num {
+    color: var(--accent-blue);
+  }
+  .layer-row__name {
+    font-size: 28px; line-height: 1.2;
+    font-weight: 600; color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .layer-row__desc {
+    font-size: 24px; line-height: 1.4;
+    color: var(--text-secondary);
+  }
+  .layer-row__status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted); font-weight: 500;
+  }
+  .layer-row.is-filled .layer-row__status {
+    color: var(--accent-green);
+  }
+
+  /* (legacy slide-9 grid-table styles removed — slide 9 now uses .lever-grid below) */
+
+  /* lever slides 10–14 */
+  .slide--lever .frame {
+    padding: 100px 140px 160px 140px;
+    gap: 32px;
+  }
+  .lever-head {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 14px;
+  }
+  .lever-head__principle {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 32px; line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 6px 0 0 0; font-weight: 400;
+    max-width: 1300px;
+  }
+  .lever-options {
+    display: flex; flex-direction: column; gap: 14px;
+    margin-top: auto;
+  }
+  .lever-axis {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--text-muted);
+    font-weight: 500;
+  }
+  .lever-option {
+    display: grid;
+    grid-template-columns: 56px 110px 1fr 40px;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 180ms ease;
+    user-select: none;
+  }
+  .lever-option:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-strong);
+  }
+  .lever-option.is-cursor {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 1px var(--accent-blue), 0 0 24px rgba(78,142,255,0.18);
+    background: var(--bg-card-hover);
+  }
+  .lever-option.is-selected {
+    background: linear-gradient(90deg, rgba(78,142,255,0.14), rgba(155,109,255,0.08) 70%, var(--bg-card-hover));
+    border-color: rgba(155,109,255,0.55);
+    box-shadow: 0 0 32px rgba(155,109,255,0.18);
+  }
+  .lever-option.is-cursor.is-selected {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 1px var(--accent-purple), 0 0 32px rgba(155,109,255,0.28);
+  }
+  .lever-option__check {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    color: transparent;
+    flex-shrink: 0;
+    transition: all 180ms ease;
+  }
+  .lever-option.is-cursor .lever-option__check {
+    border-color: var(--accent-blue);
+  }
+  .lever-option.is-selected .lever-option__check {
+    background: var(--gradient);
+    border-color: transparent;
+    color: #fff;
+  }
+  .lever-option__check svg {
+    width: 18px; height: 18px;
+  }
+  .lever-option__level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; letter-spacing: 0.1em;
+    color: var(--text-muted); font-weight: 600;
+  }
+  .lever-option.is-selected .lever-option__level {
+    color: var(--accent-purple);
+  }
+  .lever-option__level strong {
+    display: inline-block; margin-right: 8px;
+    color: var(--text-secondary);
+    font-weight: 700;
+  }
+  .lever-option.is-selected .lever-option__level strong {
+    color: var(--text-primary);
+  }
+  .lever-option__sentence {
+    font-size: 22px; line-height: 1.45;
+    color: var(--text-secondary); font-weight: 400;
+    font-style: italic;
+  }
+  .lever-option.is-selected .lever-option__sentence {
+    color: var(--text-primary);
+  }
+  .lever-option__hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .lever-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-muted); font-weight: 500;
+    text-align: right;
+    margin-top: 4px;
+  }
+  .lever-hint kbd {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 3px 8px; margin: 0 2px;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+
+  /* slide 3 — sycophancy rollback (news card composition) */
+  .slide--news .frame {
+    padding: 110px 140px 160px 140px;
+    gap: 56px;
+  }
+  .slide--news__head {
+    display: flex; align-items: baseline; gap: 28px;
+  }
+  .slide--news__date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 60px; line-height: 1; letter-spacing: -0.02em;
+    color: var(--text-primary); font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  .slide--news__date-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--accent-orange);
+    font-weight: 500;
+  }
+  .news-card {
+    background: linear-gradient(180deg, rgba(26,26,46,0.78), rgba(18,18,30,0.78));
+    border: 1px solid var(--border-strong);
+    border-radius: 22px;
+    padding: 64px 72px;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .news-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--gradient-warm);
+    opacity: 0.85;
+  }
+  .news-card__source {
+    display: flex; align-items: center; gap: 18px;
+    margin-bottom: 38px;
+  }
+  .news-card__logo {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    color: #000; font-weight: 800; font-size: 18px;
+    font-family: 'Inter', sans-serif;
+  }
+  .news-card__source-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-secondary); font-weight: 500;
+  }
+  .news-card__headline {
+    font-size: 64px; line-height: 1.1;
+    letter-spacing: -0.022em; font-weight: 700;
+    color: var(--text-primary); margin: 0;
+    font-style: italic;
+    max-width: 1500px;
+    text-wrap: balance;
+  }
+  .news-card__url {
+    margin-top: 44px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.06em;
+    color: var(--accent-orange); font-weight: 500;
+    word-break: break-all;
+  }
+  .news-card__pulled {
+    position: absolute; top: 64px; right: 72px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent-rose);
+    font-weight: 500;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .news-card__pulled::before {
+    content: ''; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--accent-rose);
+    box-shadow: 0 0 12px var(--accent-rose);
+  }
+
+  .slide--news__caption {
+    font-size: 28px; line-height: 1.45;
+    color: var(--text-secondary); font-weight: 400;
+    max-width: 1450px;
+  }
+  .slide--news__caption em {
+    font-style: italic; color: var(--text-primary); font-weight: 500;
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Slide 9 — The 5×5 lever grid (full overview)
+     ───────────────────────────────────────────────────────── */
+  .slide--grid .frame {
+    padding: 80px 80px 120px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .slide--grid__head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: end;
+    padding: 0 40px;
+  }
+  .slide--grid__head .title { font-size: 64px; line-height: 1.05; margin: 0; letter-spacing: -0.03em; font-weight: 800; color: var(--text-primary); }
+  .slide--grid__principle {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 26px; line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 12px 0 0 0; font-weight: 400;
+    max-width: 900px;
+  }
+  .lever-grid {
+    display: grid;
+    grid-template-columns: 200px repeat(5, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+  .lever-grid__col {
+    padding: 14px 16px 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  .lever-grid__col-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; letter-spacing: 0.16em;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+  .lever-grid__col-name {
+    font-size: 16px; font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .lever-grid__col--loose .lever-grid__col-name,
+  .lever-grid__col--loose .lever-grid__col-num { color: var(--accent-green); }
+  .lever-grid__col--strict .lever-grid__col-name,
+  .lever-grid__col--strict .lever-grid__col-num { color: var(--accent-rose); }
+  .lever-grid__row-label {
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 18px 12px;
+    border-right: 1px solid var(--border-strong);
+  }
+  .lever-grid__row-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.22em;
+    color: var(--text-muted); font-weight: 500;
+  }
+  .lever-grid__row-name {
+    font-size: 22px; font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-top: 6px;
+  }
+  .lever-grid__cell {
+    padding: 16px 16px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font-size: 16px; line-height: 1.35;
+    color: var(--text-secondary);
+    display: flex; align-items: center;
+    min-height: 96px;
+    transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  }
+  .lever-grid__cell:hover {
+    background: rgba(78,142,255,0.07);
+    border-color: rgba(78,142,255,0.35);
+    color: var(--text-primary);
+  }
+
+  /* slides 10–14 — lever vote pages (Loose→Strict spectrum) */
+  .slide--lever .frame {
+    padding: 88px 140px 80px 140px;
+    gap: 40px;
+  }
+  .slide--lever__head-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+  }
+  .slide--lever__head {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .slide--lever__head .title {
+    font-size: 84px;
+    line-height: 1.05;
+  }
+  .slide--lever__question {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 32px; line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0; font-weight: 400;
+    max-width: 1400px;
+  }
+  .lever-stops {
+    display: flex; flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+    position: relative;
+  }
+  .lever-stops__rail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 500;
+    display: flex; align-items: center; gap: 14px;
+    padding-left: 8px;
+  }
+  .lever-stops__rail::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0));
+  }
+  .lever-stops__rail--strict {
+    color: var(--accent-purple);
+  }
+  .lever-stops__rail--strict::after {
+    background: linear-gradient(90deg, rgba(155,109,255,0.32), rgba(155,109,255,0));
+  }
+  .lever-stop {
+    display: grid;
+    grid-template-columns: 56px 90px 240px 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 16px 28px;
+    min-height: 78px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.018);
+    cursor: pointer;
+    transition: background 220ms ease, border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  }
+  .lever-stop:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.22);
+  }
+  .lever-stop__mark {
+    width: 28px; height: 28px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.32);
+    display: flex; align-items: center; justify-content: center;
+    color: transparent;
+    font-weight: 700; font-size: 16px;
+    transition: all 220ms ease;
+  }
+  .lever-stop__num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px; letter-spacing: 0.18em;
+    color: var(--accent-blue); font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .lever-stop__name {
+    font-size: 26px; font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.005em;
+  }
+  .lever-stop__quote {
+    font-size: 24px; line-height: 1.4;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  /* highlighted (cursor) state */
+  .lever-stop[data-selected="true"] {
+    background: rgba(78,142,255,0.1);
+    border-color: rgba(78,142,255,0.55);
+    box-shadow: 0 0 28px rgba(78,142,255,0.18);
+  }
+  .lever-stop[data-selected="true"] .lever-stop__mark {
+    border-color: var(--accent-blue);
+    background: rgba(78,142,255,0.18);
+  }
+  /* locked (voted) state */
+  .lever-stop[data-locked="true"] {
+    background: rgba(78,142,255,0.14);
+    border-color: rgba(78,142,255,0.85);
+    box-shadow: 0 0 36px rgba(78,142,255,0.32);
+  }
+  .lever-stop[data-locked="true"] .lever-stop__mark {
+    border-color: var(--accent-blue);
+    background: var(--accent-blue);
+    color: #06060B;
+  }
+  .lever-stop[data-locked="true"] .lever-stop__quote {
+    color: var(--text-primary);
+    font-style: normal;
+  }
+  .lever-vote-hint {
+    position: absolute;
+    bottom: 60px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 500;
+    opacity: 0.7;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .lever-vote-hint kbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 6px;
+    letter-spacing: 0.1em;
+  }
+  /* slide 15 — assembled prompt (the showpiece) */
+  .slide--summary .frame {
+    padding: 88px 140px 72px 140px;
+    gap: 28px;
+  }
+  .slide--summary__head-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+  }
+  .slide--summary__head {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .slide--summary__head .title {
+    font-size: 80px; line-height: 1.05;
+  }
+  .slide--summary__caption {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 26px; line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0; font-weight: 400;
+    max-width: 1400px;
+  }
+  .summary-prompt-wrap {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(26,26,46,0.7), rgba(18,18,30,0.7));
+    border: 1px solid var(--border-strong);
+    border-radius: 18px;
+    padding: 28px 36px;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+    display: flex; flex-direction: column;
+    gap: 22px;
+  }
+  .summary-prompt-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--gradient);
+    opacity: 0.85;
+  }
+  .summary-prompt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; line-height: 1.45;
+    color: var(--text-primary);
+    margin: 0;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .summary-prompt {
+    flex: 1;
+    min-height: 0;
+  }
+  .summary-prompt p {
+    margin: 0 0 14px 0;
+  }
+  .summary-prompt p:last-child {
+    margin-bottom: 0;
+  }
+  .summary-prompt-wrap .summary-btn--primary {
+    align-self: flex-start;
+  }
+  .summary-btn--ghost {
+    border-color: transparent;
+    background: transparent;
+    color: var(--text-muted);
+  }
+  .summary-btn--ghost:hover {
+    color: var(--text-secondary);
+    border-color: var(--border-strong);
+    background: rgba(255,255,255,0.03);
+  }
+  .summary-actions {
+    display: flex; gap: 16px;
+    align-items: center;
+  }
+  .summary-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 14px 24px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    pointer-events: auto;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 180ms ease;
+  }
+  .summary-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+    background: rgba(78,142,255,0.08);
+  }
+  .summary-btn svg {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+  }
+  .summary-btn--primary {
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+    background: rgba(78,142,255,0.12);
+  }
+  .summary-btn.is-copied {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+    background: rgba(0,232,143,0.08);
+  }
+
+  /* slide 16 — closing line (quote-style pacing slide) */
+  .slide--closing .frame {
+    justify-content: center;
+    padding: 140px 180px;
+    gap: 28px;
+  }
+  .closing-line {
+    font-size: 116px; line-height: 1.05;
+    letter-spacing: -0.03em; font-weight: 700;
+    margin: 0; color: var(--text-primary);
+    max-width: 1500px;
+    text-wrap: balance;
+  }
+  .closing-line em {
+    font-style: normal; font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* slide 17 — anthem (the AI we love — emotional crescendo) */
+  .slide--anthem .frame {
+    justify-content: center;
+    padding: 140px 180px;
+    gap: 56px;
+    align-items: flex-start;
+  }
+  .anthem-line {
+    font-size: 144px; line-height: 1.0;
+    letter-spacing: -0.035em; font-weight: 800;
+    margin: 0; color: var(--text-primary);
+    max-width: 1600px;
+    text-wrap: balance;
+  }
+  .anthem-coda {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 88px; line-height: 1.2;
+    margin: 0; font-weight: 400;
+    color: var(--text-secondary);
+  }
+  .anthem-coda em {
+    font-style: normal;
+    color: var(--text-secondary);
+  }
+
+  /* slide 18 — thank you (final slide) */
+  .slide--thanks .frame {
+    justify-content: center;
+    padding: 120px 180px;
+    gap: 44px;
+    align-items: flex-start;
+  }
+  .thanks-line {
+    font-size: 184px; line-height: 0.96;
+    letter-spacing: -0.04em; font-weight: 800;
+    margin: 0; color: var(--text-primary);
+  }
+  .thanks-sub {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 40px; line-height: 1.4;
+    color: var(--text-secondary);
+    margin: 0; font-weight: 400;
+  }
+  .thanks-cta {
+    display: flex; flex-direction: column; gap: 12px;
+    margin-top: 16px;
+  }
+  .thanks-cta__label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-secondary); font-weight: 500;
+    margin: 0;
+  }
+  .thanks-cta__url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; letter-spacing: 0.04em;
+    color: var(--accent-blue); font-weight: 600;
+    margin: 0;
+  }
+  .thanks-attr {
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted); font-weight: 500;
+  }
+
+  /* layer-mini per-cell vote highlight (override row-wide active when a row has been voted) */
+  .layer-mini__row--voted.layer-mini__row--patty .layer-mini__cell {
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.18);
+    box-shadow: none;
+  }
+  .layer-mini__row--voted.layer-mini__row--patty .layer-mini__cell--voted {
+    border-color: rgba(78,142,255,1);
+    background: rgba(78,142,255,0.55);
+    box-shadow: 0 0 14px rgba(78,142,255,0.5);
+  }
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- SLIDE 1 — Title -->
+  <section class="slide slide--title" data-label="01 Title">
+    <div class="frame">
+      <div class="slide--title__eyebrow">A talk · ~30 min · Vasia · April 2026</div>
+      <h1 class="slide--title__main">
+        AI as a <span class="grad-text">thinking partner</span>.
+      </h1>
+      <p class="slide--title__sub">How to get Chatgpt to listen before it speaks.</p>
+      <div class="slide--title__byline">Mårten Angner — Whiteport AB</div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 — Opening line -->
+  <section class="slide slide--statement" data-label="02 Opening line">
+    <div class="frame">
+      <h2 class="statement">
+        It's not that your agent is&nbsp;<em>stupid.</em>
+      </h2>
+      <p class="statement-followup">It's that it's too eager to help.</p>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">02 / 17</div>
+  </section>
+
+  <!-- SLIDE 3 — Sycophancy rollback -->
+  <section class="slide slide--news" data-label="03 Sycophancy rollback">
+    <div class="frame">
+      <div class="slide--news__head">
+        <div>
+          <div class="slide--news__date-label">Public postmortem</div>
+          <div class="slide--news__date" style="margin-top:18px;">29 April 2025</div>
+        </div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card__pulled">Rolled back · 4 days live</div>
+        <div>
+          <div class="news-card__source">
+            <div class="news-card__logo">O</div>
+            <div class="news-card__source-text">OpenAI · Official blog</div>
+          </div>
+          <h3 class="news-card__headline">
+            “Sycophancy in GPT-4o:<br>what happened and what we're doing about it.”
+          </h3>
+        </div>
+        <div class="news-card__url">openai.com/index/sycophancy-in-gpt-4o/</div>
+      </div>
+
+      <p class="slide--news__caption">
+        They had to apologise <em>twice in one week</em> for making their model too eager to please.
+      </p>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">03 / 17</div>
+  </section>
+
+  <!-- SLIDE 4 — The Good Boy Problem -->
+  <section class="slide slide--punch" data-label="04 The Good Boy Problem">
+    <div class="frame">
+      <p class="slide--punch__lead">It's been rewarded for speed —<br>not for sitting quietly with you.</p>
+      <h2 class="slide--punch__title">The Good Boy<br>Problem.</h2>
+      <div class="slide--punch__rule"></div>
+      <p class="slide--punch__caption">Once you see the reward, you can design against it.</p>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">04 / 17</div>
+  </section>
+
+  <!-- SLIDE 5 — Layer overview (the prompt structure) -->
+  <section class="slide slide--stack" data-label="05 The structure">
+    <div class="frame">
+      <div class="slide--stack__head">
+        <div class="label">The model</div>
+        <h2 class="title">An expert prompt with <span class="grad-text">structure.</span></h2>
+        <p class="slide--ctx__principle">Eight layers, in order. The middle six each have five "stops" — settings you can dial. The top is what you put in. The bottom is what comes out.</p>
+      </div>
+      <div class="layer-card">
+        <div class="layer-card__header">
+          <h3 class="layer-card__title">Prompt</h3>
+        </div>
+        <div class="layer-card__row layer-card__row--anchor-top">
+          <div class="layer-card__num">01</div>
+          <div class="layer-card__name">Context</div>
+          <div class="layer-card__bun"></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">02</div>
+          <div class="layer-card__name">Output Constraint</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">03</div>
+          <div class="layer-card__name">Reflection Loop</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">04</div>
+          <div class="layer-card__name">Language Style</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">05</div>
+          <div class="layer-card__name">Exit Gate</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">06</div>
+          <div class="layer-card__name">Structure</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--stops">
+          <div class="layer-card__num">07</div>
+          <div class="layer-card__name">Tone</div>
+          <div class="layer-card__stops"><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span><span class="layer-card__stop"></span></div>
+        </div>
+        <div class="layer-card__row layer-card__row--anchor-bottom">
+          <div class="layer-card__num">08</div>
+          <div class="layer-card__name">Output Shape</div>
+          <div class="layer-card__bun"></div>
+        </div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">05 / 17</div>
+  </section>
+
+  <!-- SLIDE 6 — Tell your agent who to be (Identity) -->
+  <section class="slide slide--ctx" data-label="06 Identity">
+    <div class="layer-chip" aria-label="Layer 1 · Context">
+      <span class="layer-chip__num">01</span>
+      <span class="layer-chip__name"><strong>Context</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--ctx__head-row">
+        <div class="slide--ctx__head">
+          <div class="label">01 Context · part 1 · Identity</div>
+          <h2 class="title">Tell your agent <span class="grad-text">who to be.</span></h2>
+          <p class="slide--ctx__principle">A senior recruitment consultant.<br>A great listener — who is not just listen to reply.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block__label">Paste at the top of your chat<button class="copy-btn" data-copy-target="#copy-text-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-btn__label">Copy</span></button></div>
+        <p class="copy-block__text" id="copy-text-5">“You are a senior recruitment consultant with <em>20 years of experience</em> hiring for senior roles. You are a great listener — you seek to understand before being understood, and you let the conversation reveal what matters before you offer anything.”</p>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">06 / 17</div>
+  </section>
+
+  <!-- SLIDE 7 — Tell your agent what we're working on (Task) -->
+  <section class="slide slide--ctx" data-label="07 Task">
+    <div class="layer-chip" aria-label="Layer 1 · Context">
+      <span class="layer-chip__num">01</span>
+      <span class="layer-chip__name"><strong>Context</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--ctx__head-row">
+        <div class="slide--ctx__head">
+          <div class="label">01 Context · part 2 · Task</div>
+          <h2 class="title">Tell your agent <span class="grad-text">what we're working on.</span></h2>
+          <p class="slide--ctx__principle">In plain language. As specific as you can.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block__label">Like this<button class="copy-btn" data-copy-target="#copy-text-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-btn__label">Copy</span></button></div>
+        <p class="copy-block__text" id="copy-text-6">“We're growing fast and need a senior customer success director who can take on our biggest accounts from week one. We're going to write a job listing that <em>resonates with the right person.</em>”</p>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">07 / 17</div>
+  </section>
+
+  <!-- SLIDE 8 — Tell your agent how to engage (Intent) -->
+  <section class="slide slide--ctx" data-label="08 Intent">
+    <div class="layer-chip" aria-label="Layer 1 · Context">
+      <span class="layer-chip__num">01</span>
+      <span class="layer-chip__name"><strong>Context</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--ctx__head-row">
+        <div class="slide--ctx__head">
+          <div class="label">01 Context · part 3 · Intent</div>
+          <h2 class="title">Tell your agent <span class="grad-text">how to engage.</span></h2>
+          <p class="slide--ctx__principle">One verb. As specific as you can.<br>This is the sentence almost no one writes.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty"><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block__label">Like this<button class="copy-btn" data-copy-target="#copy-text-7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-btn__label">Copy</span></button></div>
+        <p class="copy-block__text" id="copy-text-7">“<em>Grill me</em> with questions until you understand the role, the team, and we together really understand how to attract the person we are looking for.”</p>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">08 / 17</div>
+  </section>
+
+  <!-- SLIDE 9 — Lever 1 — Output Constraint -->
+  <section class="slide slide--lever" data-label="09 Output Constraint" data-lever-id="1" data-lever-default="L4">
+    <div class="layer-chip" aria-label="Layer 2 · Output Constraint">
+      <span class="layer-chip__num">02</span>
+      <span class="layer-chip__name"><strong>Output Constraint</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--lever__head-row">
+        <div class="slide--lever__head">
+          <div class="label">02 Lever 1 · Output Constraint</div>
+          <h2 class="title">Lever 1 — <span class="grad-text">Output Constraint.</span></h2>
+          <p class="slide--lever__question">When is the agent allowed to produce anything at all?</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="lever-stops" data-lever-stops>
+        <div class="lever-stops__rail">Loose</div>
+        <div class="lever-stop" data-level="L1">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L1</div>
+          <div class="lever-stop__name">Allowing</div>
+          <div class="lever-stop__quote">“Produce output whenever you feel ready.”</div>
+        </div>
+        <div class="lever-stop" data-level="L2">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L2</div>
+          <div class="lever-stop__name">Intuitive</div>
+          <div class="lever-stop__quote">“Produce output when you feel confident. Check in if unsure.”</div>
+        </div>
+        <div class="lever-stop" data-level="L3">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L3</div>
+          <div class="lever-stop__name">Polite</div>
+          <div class="lever-stop__quote">“Before producing any output, ask me once if I am ready.”</div>
+        </div>
+        <div class="lever-stop" data-level="L4">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L4</div>
+          <div class="lever-stop__name">Conditional</div>
+          <div class="lever-stop__quote">“Do not produce output until you have completed the conditions in this prompt.”</div>
+        </div>
+        <div class="lever-stop" data-level="L5">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L5</div>
+          <div class="lever-stop__name">Locked</div>
+          <div class="lever-stop__quote">“Do not produce any output, conclusions, or recommendations until I explicitly type the word READY.”</div>
+        </div>
+        <div class="lever-stops__rail lever-stops__rail--strict">Strict</div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">09 / 17</div>
+  </section>
+
+  <!-- SLIDE 10 — Lever 2 — Reflection Loop -->
+  <section class="slide slide--lever" data-label="10 Reflection Loop" data-lever-id="2" data-lever-default="L4">
+    <div class="layer-chip" aria-label="Layer 3 · Reflection Loop">
+      <span class="layer-chip__num">03</span>
+      <span class="layer-chip__name"><strong>Reflection Loop</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--lever__head-row">
+        <div class="slide--lever__head">
+          <div class="label">03 Lever 2 · Reflection Loop</div>
+          <h2 class="title">Lever 2 — <span class="grad-text">Reflection Loop.</span></h2>
+          <p class="slide--lever__question">Does the agent show you what it understood before moving forward?</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="lever-stops" data-lever-stops>
+        <div class="lever-stops__rail">Loose</div>
+        <div class="lever-stop" data-level="L1">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L1</div>
+          <div class="lever-stop__name">Allowing</div>
+          <div class="lever-stop__quote">“Skip reflection. Move directly to the next question.”</div>
+        </div>
+        <div class="lever-stop" data-level="L2">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L2</div>
+          <div class="lever-stop__name">Intuitive</div>
+          <div class="lever-stop__quote">“Briefly acknowledge what I said before moving on. No confirmation needed.”</div>
+        </div>
+        <div class="lever-stop" data-level="L3">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L3</div>
+          <div class="lever-stop__name">Polite</div>
+          <div class="lever-stop__quote">“Summarise what I said before continuing. No need to wait for my approval.”</div>
+        </div>
+        <div class="lever-stop" data-level="L4">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L4</div>
+          <div class="lever-stop__name">Conditional</div>
+          <div class="lever-stop__quote">“Reflect back what I said in your own words. Wait for me to confirm before continuing.”</div>
+        </div>
+        <div class="lever-stop" data-level="L5">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L5</div>
+          <div class="lever-stop__name">Locked</div>
+          <div class="lever-stop__quote">“After every answer I give, reflect it back in your own words, ask me to confirm, and wait for confirmation before moving on.”</div>
+        </div>
+        <div class="lever-stops__rail lever-stops__rail--strict">Strict</div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">10 / 17</div>
+  </section>
+
+  <!-- SLIDE 11 — Lever 3 — Language Style -->
+  <section class="slide slide--lever" data-label="11 Language Style" data-lever-id="3" data-lever-default="L4">
+    <div class="layer-chip" aria-label="Layer 4 · Language Style">
+      <span class="layer-chip__num">04</span>
+      <span class="layer-chip__name"><strong>Language Style</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--lever__head-row">
+        <div class="slide--lever__head">
+          <div class="label">04 Lever 3 · Language Style</div>
+          <h2 class="title">Lever 3 — <span class="grad-text">Language Style.</span></h2>
+          <p class="slide--lever__question">Colleague — or processing machine?</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="lever-stops" data-lever-stops>
+        <div class="lever-stops__rail">Loose</div>
+        <div class="lever-stop" data-level="L1">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L1</div>
+          <div class="lever-stop__name">Allowing</div>
+          <div class="lever-stop__quote">“Use whatever style feels natural.”</div>
+        </div>
+        <div class="lever-stop" data-level="L2">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L2</div>
+          <div class="lever-stop__name">Intuitive</div>
+          <div class="lever-stop__quote">“Use a conversational tone.”</div>
+        </div>
+        <div class="lever-stop" data-level="L3">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L3</div>
+          <div class="lever-stop__name">Polite</div>
+          <div class="lever-stop__quote">“Speak the way a trusted colleague would speak.”</div>
+        </div>
+        <div class="lever-stop" data-level="L4">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L4</div>
+          <div class="lever-stop__name">Conditional</div>
+          <div class="lever-stop__quote">“Speak like you would to a senior colleague or a client — personal but respectful of personal boundaries.”</div>
+        </div>
+        <div class="lever-stop" data-level="L5">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L5</div>
+          <div class="lever-stop__name">Locked</div>
+          <div class="lever-stop__quote">“Use only strictly formal language in line with the standards of the current industry:”</div>
+        </div>
+        <div class="lever-stops__rail lever-stops__rail--strict">Strict</div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">11 / 17</div>
+  </section>
+
+  <!-- SLIDE 12 — Lever 4 — Exit Gate -->
+  <section class="slide slide--lever" data-label="12 Exit Gate" data-lever-id="4" data-lever-default="L4">
+    <div class="layer-chip" aria-label="Layer 5 · Exit Gate">
+      <span class="layer-chip__num">05</span>
+      <span class="layer-chip__name"><strong>Exit Gate</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--lever__head-row">
+        <div class="slide--lever__head">
+          <div class="label">05 Lever 4 · Exit Gate</div>
+          <h2 class="title">Lever 4 — <span class="grad-text">Exit Gate.</span></h2>
+          <p class="slide--lever__question">What must happen before output is allowed?</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="lever-stops" data-lever-stops>
+        <div class="lever-stops__rail">Loose</div>
+        <div class="lever-stop" data-level="L1">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L1</div>
+          <div class="lever-stop__name">Allowing</div>
+          <div class="lever-stop__quote">“Produce your output as soon as you have enough.”</div>
+        </div>
+        <div class="lever-stop" data-level="L2">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L2</div>
+          <div class="lever-stop__name">Intuitive</div>
+          <div class="lever-stop__quote">“Signal when you are ready to produce. Produce unless I stop you.”</div>
+        </div>
+        <div class="lever-stop" data-level="L3">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L3</div>
+          <div class="lever-stop__name">Polite</div>
+          <div class="lever-stop__quote">“Ask me once before producing any output.”</div>
+        </div>
+        <div class="lever-stop" data-level="L4">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L4</div>
+          <div class="lever-stop__name">Conditional</div>
+          <div class="lever-stop__quote">“Do not produce any output until you have asked me at least five clarifying questions about the situation.”</div>
+        </div>
+        <div class="lever-stop" data-level="L5">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L5</div>
+          <div class="lever-stop__name">Locked</div>
+          <div class="lever-stop__quote">“Do not produce any output until I type the exact trigger word: READY. No other phrasing from me counts as permission.”</div>
+        </div>
+        <div class="lever-stops__rail lever-stops__rail--strict">Strict</div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">12 / 17</div>
+  </section>
+
+  <!-- SLIDE 13 — Lever 5 — Structure -->
+  <section class="slide slide--lever" data-label="13 Structure" data-lever-id="5" data-lever-default="L4">
+    <div class="layer-chip" aria-label="Layer 6 · Structure">
+      <span class="layer-chip__num">06</span>
+      <span class="layer-chip__name"><strong>Structure</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--lever__head-row">
+        <div class="slide--lever__head">
+          <div class="label">06 Lever 5 · Structure</div>
+          <h2 class="title">Lever 5 — <span class="grad-text">Structure.</span></h2>
+          <p class="slide--lever__question">Free conversation, invisible map.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty layer-mini__row--active" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="lever-stops" data-lever-stops>
+        <div class="lever-stops__rail">Loose</div>
+        <div class="lever-stop" data-level="L1">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L1</div>
+          <div class="lever-stop__name">Allowing</div>
+          <div class="lever-stop__quote">“Ask whatever questions feel useful, in any order.”</div>
+        </div>
+        <div class="lever-stop" data-level="L2">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L2</div>
+          <div class="lever-stop__name">Intuitive</div>
+          <div class="lever-stop__quote">“Cover topics in a loose order that follows the conversation.”</div>
+        </div>
+        <div class="lever-stop" data-level="L3">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L3</div>
+          <div class="lever-stop__name">Polite</div>
+          <div class="lever-stop__quote">“Make sure to cover the most important areas normally in a job listing.”</div>
+        </div>
+        <div class="lever-stop" data-level="L4">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L4</div>
+          <div class="lever-stop__name">Conditional</div>
+          <div class="lever-stop__quote">“Cover all areas that are in job listings and make it complete.”</div>
+        </div>
+        <div class="lever-stop" data-level="L5">
+          <div class="lever-stop__mark">✓</div>
+          <div class="lever-stop__num">L5</div>
+          <div class="lever-stop__name">Locked</div>
+          <div class="lever-stop__quote">“Cover all areas present when writing a job listing — make sure to not miss any. I will tell you which parts are not needed.”</div>
+        </div>
+        <div class="lever-stops__rail lever-stops__rail--strict">Strict</div>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">13 / 17</div>
+  </section>
+
+  <!-- SLIDE 14 — Name the form you want (Output Shape · Layer 7) -->
+  <section class="slide slide--ctx" data-label="14 Output Shape">
+    <div class="layer-chip" aria-label="Layer 7 · Output Shape">
+      <span class="layer-chip__num">07</span>
+      <span class="layer-chip__name"><strong>Output Shape</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--ctx__head-row">
+        <div class="slide--ctx__head">
+          <div class="label">07 Output · Shape</div>
+          <h2 class="title">Name the <span class="grad-text">form you want.</span></h2>
+          <p class="slide--ctx__principle">Plain language. As specific as you can.<br>Name the form, the length, the sections, what to avoid.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom layer-mini__row--active" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block__label">Like this<button class="copy-btn" data-copy-target="#copy-text-output"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-btn__label">Copy</span></button></div>
+        <p class="copy-block__text" id="copy-text-output">“The output should be a professional <em>job listing</em> — about 2000 characters — with a short role overview, responsibilities, must-haves, nice-to-haves, and how to apply. No corporate jargon.”</p>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">14 / 17</div>
+  </section>
+
+  <!-- SLIDE 15 — What we built (assembled prompt) -->
+  <section class="slide slide--summary" data-label="15 What we built">
+    <div class="layer-chip" aria-label="All layers · Assembled">
+      <span class="layer-chip__num">07</span>
+      <span class="layer-chip__name"><strong>Assembled</strong></span>
+    </div>
+    <div class="frame">
+      <div class="slide--summary__head-row">
+        <div class="slide--summary__head">
+          <div class="label">15 / 17 — Reveal</div>
+          <h2 class="title">What <span class="grad-text">we built.</span></h2>
+          <p class="slide--summary__caption">Your seven layers, stitched together. Plain text — ready to paste into ChatGPT.</p>
+        </div>
+        <div class="layer-mini" aria-hidden="true">
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--active" data-lever="0"><span class="layer-mini__cell"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="1"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="2"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="3"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="4"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--patty" data-lever="5"><span class="layer-mini__cell" data-level="L1"></span><span class="layer-mini__cell" data-level="L2"></span><span class="layer-mini__cell" data-level="L3"></span><span class="layer-mini__cell" data-level="L4"></span><span class="layer-mini__cell" data-level="L5"></span></div>
+          <div class="layer-mini__row layer-mini__row--bun layer-mini__row--bottom layer-mini__row--active" data-lever="6"><span class="layer-mini__cell"></span></div>
+        </div>
+      </div>
+      <div class="summary-prompt-wrap">
+        <div class="summary-prompt" id="summary-prompt">Loading the prompt the room just built…</div>
+        <button class="summary-btn summary-btn--primary" data-action="copy-prompt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span class="summary-btn__label">Copy prompt</span>
+        </button>
+      </div>
+      <div class="summary-actions">
+        <button class="summary-btn summary-btn--ghost" data-action="reset-votes" title="Clear all lever votes and start over">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          <span>Reset votes</span>
+        </button>
+      </div>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">15 / 17</div>
+  </section>
+
+  <!-- SLIDE 16 — Closing line -->
+  <section class="slide slide--closing" data-label="16 Closing line">
+    <div class="frame">
+      <p class="closing-line">If your job is to <em>listen</em> —</p>
+      <p class="closing-line">your agent should <em>listen</em> too.</p>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">16 / 17</div>
+  </section>
+
+  <!-- SLIDE 17 — The AI we love (anthem) -->
+  <section class="slide slide--anthem" data-label="17 The AI we love">
+    <div class="frame">
+      <h2 class="anthem-line">AI as a <span class="grad-text">thinking partner.</span></h2>
+      <p class="anthem-coda"><em>The AI we love.</em></p>
+    </div>
+    <div class="chrome-logo">
+      <div class="chrome-logo__dot"></div>
+      <div class="chrome-logo__text">Whiteport · The psychology of AI</div>
+    </div>
+    <div class="chrome-counter">17 / 17</div>
+  </section>
+
+</deck-stage>
+
+<script>
+  // Wire up copy buttons — lift the plain text from the target node, drop the curly quotes for paste-friendliness.
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const sel = btn.getAttribute('data-copy-target');
+    const node = sel ? document.querySelector(sel) : null;
+    if (!node) return;
+    let text = node.textContent.trim();
+    // strip the wrapping smart quotes if present
+    text = text.replace(/^[“”"']+/, '').replace(/[“”"']+$/, '');
+    const done = function() {
+      btn.classList.add('is-copied');
+      const lbl = btn.querySelector('.copy-btn__label');
+      const orig = lbl ? lbl.textContent : null;
+      if (lbl) lbl.textContent = 'Copied';
+      setTimeout(function() {
+        btn.classList.remove('is-copied');
+        if (lbl && orig) lbl.textContent = orig;
+      }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function() {
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand('copy'); } catch(_) {}
+        document.body.removeChild(ta); done();
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); try { document.execCommand('copy'); } catch(_) {}
+      document.body.removeChild(ta); done();
+    }
+  });
+
+  /* ---------- Lever voting (slides 10–14) ----------
+   * State lives in localStorage under "psy-ai.votes" as { "1": "L4", "2": "L5", ... }.
+   * On each lever slide, ↑/↓ moves the cursor; Enter locks the vote.
+   * The voted cell in the layer-mini lights up across every lever slide.
+   */
+  const LEVERS_STORE_KEY = 'psy-ai.votes';
+  const LEVELS = ['L1','L2','L3','L4','L5'];
+
+  function readVotes() {
+    try { return JSON.parse(localStorage.getItem(LEVERS_STORE_KEY) || '{}') || {}; }
+    catch (_) { return {}; }
+  }
+  function writeVotes(v) {
+    try { localStorage.setItem(LEVERS_STORE_KEY, JSON.stringify(v)); } catch (_) {}
+  }
+
+  function getActiveLeverSlide() {
+    return document.querySelector('.slide--lever[data-deck-active]');
+  }
+
+  function getCursorLevel(slide) {
+    const sel = slide.querySelector('.lever-stop[data-selected="true"]');
+    return sel ? sel.getAttribute('data-level') : null;
+  }
+
+  function setCursorLevel(slide, level) {
+    slide.querySelectorAll('.lever-stop').forEach(s => s.removeAttribute('data-selected'));
+    if (!level) return;
+    const stop = slide.querySelector('.lever-stop[data-level="' + level + '"]');
+    if (stop) stop.setAttribute('data-selected', 'true');
+  }
+
+  function applyLockedState(slide, leverId, level) {
+    // mark the voted stop on the stops list
+    slide.querySelectorAll('.lever-stop').forEach(s => s.removeAttribute('data-locked'));
+    const stop = slide.querySelector('.lever-stop[data-level="' + level + '"]');
+    if (stop) stop.setAttribute('data-locked', 'true');
+  }
+
+  function castVote(slide, level) {
+    const leverId = slide.getAttribute('data-lever-id');
+    const votes = readVotes();
+    votes[leverId] = level;
+    writeVotes(votes);
+    setCursorLevel(slide, level);
+    applyLockedState(slide, leverId, level);
+    refreshAllMiniMaps();
+  }
+
+  function refreshAllMiniMaps() {
+    const votes = readVotes();
+    // any layer-mini whose patty rows carry data-lever attrs participates in vote tracking
+    document.querySelectorAll('.layer-mini').forEach(mini => {
+      mini.querySelectorAll('.layer-mini__row--patty[data-lever]').forEach(row => {
+        const lever = row.getAttribute('data-lever');
+        const voted = lever && votes[lever];
+        if (voted) {
+          row.classList.add('layer-mini__row--voted');
+          row.querySelectorAll('.layer-mini__cell').forEach(cell => {
+            if (cell.getAttribute('data-level') === voted) cell.classList.add('layer-mini__cell--voted');
+            else cell.classList.remove('layer-mini__cell--voted');
+          });
+        } else {
+          row.classList.remove('layer-mini__row--voted');
+          row.querySelectorAll('.layer-mini__cell').forEach(cell => cell.classList.remove('layer-mini__cell--voted'));
+        }
+      });
+    });
+  }
+
+  function initLeverSlide(slide) {
+    if (!slide || slide.dataset.leverInit === '1') return;
+    slide.dataset.leverInit = '1';
+    const leverId = slide.getAttribute('data-lever-id');
+    const votes = readVotes();
+    // Only restore cursor + lock if a vote exists. No pre-selected default.
+    if (votes[leverId]) {
+      setCursorLevel(slide, votes[leverId]);
+      applyLockedState(slide, leverId, votes[leverId]);
+    } else {
+      setCursorLevel(slide, null);
+    }
+  }
+
+  // initialize all lever slides on load (so cursor + locked states are correct on revisit)
+  document.querySelectorAll('.slide--lever').forEach(initLeverSlide);
+  refreshAllMiniMaps();
+
+  // re-run when the active slide changes (deck-stage emits 'slidechange', bubbles + composed)
+  document.addEventListener('slidechange', function(e) {
+    const slide = e && e.detail && e.detail.slide;
+    if (slide && slide.classList && slide.classList.contains('slide--lever')) {
+      initLeverSlide(slide);
+    }
+    // Always refresh mini maps — votes might have been cast before navigating here
+    refreshAllMiniMaps();
+  });
+
+  // keyboard handling for active lever slide
+  window.addEventListener('keydown', function(e) {
+    const slide = getActiveLeverSlide();
+    if (!slide) return;
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      e.stopPropagation();
+      const cur = getCursorLevel(slide);
+      let next;
+      if (cur === null) {
+        // first arrow press with no selection — land in the middle (L3)
+        next = 'L3';
+      } else {
+        let i = LEVELS.indexOf(cur);
+        const ni = e.key === 'ArrowDown' ? Math.min(LEVELS.length - 1, i + 1) : Math.max(0, i - 1);
+        next = LEVELS[ni];
+      }
+      setCursorLevel(slide, next);
+    } else if (e.key === 'Enter') {
+      const level = getCursorLevel(slide);
+      if (!level) return; // no cursor, nothing to lock
+      e.preventDefault();
+      e.stopPropagation();
+      castVote(slide, level);
+    }
+  }, true); // capture phase, so we can preempt deck-stage if it ever listens for these
+
+  // click handling — clicking a stop locks that vote immediately
+  document.addEventListener('click', function(e) {
+    const stop = e.target.closest('.lever-stop');
+    if (!stop) return;
+    const slide = stop.closest('.slide--lever');
+    if (!slide) return;
+    e.stopPropagation();
+    const level = stop.getAttribute('data-level');
+    if (level) castVote(slide, level);
+  });
+
+  /* ---------- Slide 15 — assembled prompt ----------
+   * Reads:
+   *   - Identity / Task / Intent quotes from slides 6 / 7 / 8 (#copy-text-5/6/7)
+   *   - Lever 1–5 sentences from the voted lever-stop on slides 9–13 (defaults to L4 if unvoted)
+   *   - Output Shape from slide 14 (#copy-text-output)
+   * Renders as plain paragraphs separated by blank lines, ready to paste into ChatGPT.
+   */
+  function cleanQuoteText(s) {
+    if (!s) return '';
+    // Strip wrapping curly/straight quotes and collapse internal whitespace.
+    return s.replace(/\s+/g, ' ')
+            .replace(/^[\s“”"']+/, '')
+            .replace(/[\s“”"']+$/, '')
+            .trim();
+  }
+
+  function getElementText(selector) {
+    const el = document.querySelector(selector);
+    if (!el) return '';
+    return cleanQuoteText(el.textContent);
+  }
+
+  function getLeverSentence(leverId) {
+    const votes = readVotes();
+    const level = votes[String(leverId)];
+    // No vote yet → no sentence. (Reset clears these so the prompt visibly shrinks.)
+    if (!level) return '';
+    const slide = document.querySelector('.slide--lever[data-lever-id="' + leverId + '"]');
+    if (!slide) return '';
+    const stop = slide.querySelector('.lever-stop[data-level="' + level + '"]');
+    if (!stop) return '';
+    const quoteEl = stop.querySelector('.lever-stop__quote');
+    return cleanQuoteText(quoteEl ? quoteEl.textContent : '');
+  }
+
+  function buildAssembledPromptParagraphs() {
+    const identity = getElementText('#copy-text-5');
+    const task     = getElementText('#copy-text-6');
+    const intent   = getElementText('#copy-text-7');
+    const output   = getElementText('#copy-text-output');
+
+    return [
+      identity,
+      task,
+      intent,
+      getLeverSentence(1),
+      getLeverSentence(2),
+      getLeverSentence(3),
+      getLeverSentence(4),
+      getLeverSentence(5),
+      output,
+    ].filter(Boolean);
+  }
+
+  function buildAssembledPrompt() {
+    return buildAssembledPromptParagraphs().join('\n\n');
+  }
+
+  function renderSummaryPrompt() {
+    const target = document.getElementById('summary-prompt');
+    if (!target) return;
+    const paragraphs = buildAssembledPromptParagraphs();
+    target.replaceChildren(...paragraphs.map(text => {
+      const p = document.createElement('p');
+      p.textContent = text;
+      return p;
+    }));
+  }
+
+  // initial render + re-render whenever the active slide changes (votes may have shifted)
+  renderSummaryPrompt();
+  document.addEventListener('slidechange', function(e) {
+    renderSummaryPrompt();
+  });
+
+  // Copy / Email buttons on the summary slide
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.summary-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const action = btn.getAttribute('data-action');
+    const prompt = buildAssembledPrompt();
+
+    if (action === 'copy-prompt') {
+      const flash = function() {
+        btn.classList.add('is-copied');
+        const lbl = btn.querySelector('.summary-btn__label');
+        const orig = lbl ? lbl.textContent : null;
+        if (lbl) lbl.textContent = 'Copied';
+        setTimeout(function() {
+          btn.classList.remove('is-copied');
+          if (lbl && orig) lbl.textContent = orig;
+        }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(prompt).then(flash, function() {
+          const ta = document.createElement('textarea');
+          ta.value = prompt; document.body.appendChild(ta);
+          ta.select(); try { document.execCommand('copy'); } catch(_) {}
+          document.body.removeChild(ta); flash();
+        });
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = prompt; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand('copy'); } catch(_) {}
+        document.body.removeChild(ta); flash();
+      }
+    } else if (action === 'reset-votes') {
+      // Clear all lever votes and reset every lever-stop to blank state.
+      try { localStorage.removeItem(LEVERS_STORE_KEY); } catch (_) {}
+      document.querySelectorAll('.lever-stop').forEach(s => {
+        s.removeAttribute('data-selected');
+        s.removeAttribute('data-locked');
+      });
+      refreshAllMiniMaps();
+      renderSummaryPrompt();
+      // brief visual confirmation on the reset button
+      btn.classList.add('is-copied');
+      const lbl = btn.querySelector('span');
+      const orig = lbl ? lbl.textContent : null;
+      if (lbl) lbl.textContent = 'Cleared';
+      setTimeout(function() {
+        btn.classList.remove('is-copied');
+        if (lbl && orig) lbl.textContent = orig;
+      }, 1400);
+    }
+  });
+</script>
+
+</body>
+</html>

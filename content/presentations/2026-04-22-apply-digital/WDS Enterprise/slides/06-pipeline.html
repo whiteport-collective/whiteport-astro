@@ -1,0 +1,105 @@
+<section class="slide" data-label="Pipeline">
+    <div class="progress"><div class="progress__bar"></div></div>
+    <div class="frame">
+      <div class="slide-head" data-anim>
+        <span class="label">APPLY DIGITAL · CLIENT PIPELINE</span>
+        <h2 class="title" style="max-width:1600px;">Every asset you deliver —<br><span class="grad-text">Agent Space knows how it got there.</span></h2>
+      </div>
+
+      <!-- Pipeline SVG -->
+      <div style="flex:1; display:flex; align-items:center; justify-content:center; margin:10px 0;" data-anim style="--d:1">
+        <svg viewBox="-10 -20 1700 470" style="width:100%; height:auto; max-height:470px;">
+          <defs>
+            <linearGradient id="gPipe" x1="0" x2="1"><stop stop-color="#4e8eff"/><stop offset="1" stop-color="#9b6dff"/></linearGradient>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#9b6dff"/>
+            </marker>
+          </defs>
+          <!-- long backbone line -->
+          <line x1="60" y1="210" x2="1620" y2="210" stroke="url(#gPipe)" stroke-width="2" opacity="0.3" data-draw style="--len:1600; --d:1"/>
+
+          <!-- Nodes -->
+          <g font-family="Inter" font-weight="600">
+            <!-- 1 Kickoff -->
+            <g transform="translate(80,210)">
+              <circle r="10" fill="#4e8eff" stroke="#0b0b14" stroke-width="4"/>
+              <rect x="-130" y="-198" width="260" height="150" rx="12" fill="#12121e" stroke="#2a2a42"/>
+              <text x="0" y="-176" text-anchor="middle" fill="#4e8eff" font-family="JetBrains Mono" font-size="10" letter-spacing="2" dominant-baseline="middle">INGEST</text>
+              <text x="0" y="-152" text-anchor="middle" fill="#f4f4f8" font-size="20" dominant-baseline="middle">Kickoff Call</text>
+              <text x="0" y="-130" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Structured brief</text>
+              <line x1="-100" y1="-110" x2="100" y2="-110" stroke="#4e8eff" stroke-opacity="0.25"/>
+              <text x="0" y="-90" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Meeting saved as</text>
+              <text x="0" y="-70" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">semantic meaning</text>
+            </g>
+            <!-- 2 Saga -->
+            <g transform="translate(440,210)">
+              <circle r="14" fill="#9b6dff" stroke="#0b0b14" stroke-width="4"/>
+              <rect x="-130" y="64" width="260" height="150" rx="12" fill="#12121e" stroke="#9b6dff" stroke-opacity="0.4"/>
+              <text x="0" y="86" text-anchor="middle" fill="#9b6dff" font-family="JetBrains Mono" font-size="10" letter-spacing="2" dominant-baseline="middle">PHASE · STRATEGY</text>
+              <text x="0" y="110" text-anchor="middle" fill="#f4f4f8" font-size="20" dominant-baseline="middle">Saga</text>
+              <text x="0" y="132" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Brief + trigger map</text>
+              <line x1="-100" y1="152" x2="100" y2="152" stroke="#9b6dff" stroke-opacity="0.25"/>
+              <text x="0" y="172" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Session insights saved,</text>
+              <text x="0" y="192" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">shared with Freya</text>
+            </g>
+            <!-- 3 Freya -->
+            <g transform="translate(820,210)">
+              <circle r="14" fill="#4e8eff" stroke="#0b0b14" stroke-width="4"/>
+              <rect x="-130" y="-214" width="260" height="150" rx="12" fill="#12121e" stroke="#4e8eff" stroke-opacity="0.4"/>
+              <text x="0" y="-192" text-anchor="middle" fill="#4e8eff" font-family="JetBrains Mono" font-size="10" letter-spacing="2" dominant-baseline="middle">PHASE · UX</text>
+              <text x="0" y="-168" text-anchor="middle" fill="#f4f4f8" font-size="20" dominant-baseline="middle">Freya</text>
+              <text x="0" y="-146" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Scenarios &middot; wireframes</text>
+              <line x1="-100" y1="-126" x2="100" y2="-126" stroke="#4e8eff" stroke-opacity="0.25"/>
+              <text x="0" y="-106" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">User taste saved, handed</text>
+              <text x="0" y="-86" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">over to Mimir</text>
+            </g>
+            <!-- 4 Mimir -->
+            <g transform="translate(1200,210)">
+              <circle r="14" fill="#00e88f" stroke="#0b0b14" stroke-width="4"/>
+              <rect x="-130" y="64" width="260" height="150" rx="12" fill="#12121e" stroke="#00e88f" stroke-opacity="0.4"/>
+              <text x="0" y="86" text-anchor="middle" fill="#00e88f" font-family="JetBrains Mono" font-size="10" letter-spacing="2" dominant-baseline="middle">PHASE · DEV</text>
+              <text x="0" y="110" text-anchor="middle" fill="#f4f4f8" font-size="20" dominant-baseline="middle">Mimir</text>
+              <text x="0" y="132" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Tech audit &middot; build</text>
+              <line x1="-100" y1="152" x2="100" y2="152" stroke="#00e88f" stroke-opacity="0.25"/>
+              <text x="0" y="172" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Dev insights saved</text>
+              <text x="0" y="192" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">in Agent Space</text>
+            </g>
+            <!-- 5 New team member -->
+            <g transform="translate(1560,210)">
+              <circle r="10" fill="#ff8c42" stroke="#0b0b14" stroke-width="4"/>
+              <rect x="-130" y="-214" width="260" height="150" rx="12" fill="#12121e" stroke="#ff8c42" stroke-opacity="0.4"/>
+              <text x="0" y="-192" text-anchor="middle" fill="#ff8c42" font-family="JetBrains Mono" font-size="10" letter-spacing="2" dominant-baseline="middle">NEXT PROJECT</text>
+              <text x="0" y="-168" text-anchor="middle" fill="#f4f4f8" font-size="20" dominant-baseline="middle">/start</text>
+              <text x="0" y="-146" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">Zero onboarding</text>
+              <line x1="-100" y1="-126" x2="100" y2="-126" stroke="#ff8c42" stroke-opacity="0.25"/>
+              <text x="0" y="-106" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">100% context</text>
+              <text x="0" y="-86" text-anchor="middle" fill="#b8b8cc" font-size="13" dominant-baseline="middle">0% onboarding</text>
+            </g>
+          </g>
+
+          <!-- small arrow segments between nodes -->
+          <g stroke="#9b6dff" stroke-width="1.5" fill="none" opacity="0.6">
+            <path d="M 92 210 L 420 210" marker-end="url(#arr)" data-draw style="--len:330; --d:2"/>
+            <path d="M 460 210 L 800 210" marker-end="url(#arr)" data-draw style="--len:340; --d:3"/>
+            <path d="M 840 210 L 1180 210" marker-end="url(#arr)" data-draw style="--len:340; --d:4"/>
+            <path d="M 1220 210 L 1540 210" marker-end="url(#arr)" data-draw style="--len:320; --d:5"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="points" style="margin-top:40px;" data-anim style="--d:6">
+        <div>
+          <div class="point__num">THE DELIVERABLE</div>
+          <p class="point__body">Product briefs. UX scenarios. Architecture decisions. In the repo, available to every agent.</p>
+        </div>
+        <div>
+          <div class="point__num">THE REASONING</div>
+          <p class="point__body">Why that direction. What was rejected. What the client said that changed it. Stored alongside the output — not lost in Slack.</p>
+        </div>
+        <div>
+          <div class="point__num">THE PAYOFF</div>
+          <p class="point__body">Six months later, a new strategist picks up the client. They see what was built — and understand why.</p>
+        </div>
+      </div>
+    </div>
+  </section>

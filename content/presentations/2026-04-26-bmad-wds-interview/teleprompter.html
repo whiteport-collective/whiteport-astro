@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WDS × BMad — Talking Points</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #060606;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: pointer;
+    }
+
+    #app {
+      position: relative;
+      width: 100%; height: 100%;
+    }
+
+    /* ── Chapter labels ─────────────────────── */
+    #chapter-current {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 2.8vmin 6vmin 2vmin;
+      text-align: center;
+      font-size: clamp(9px, 1.8vmin, 22px);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #2d78e8;
+      z-index: 20;
+    }
+
+    #chapter-next {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5vmin 6vmin 2.5vmin;
+      text-align: center;
+      font-size: clamp(7px, 1.4vmin, 16px);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #222;
+      z-index: 20;
+    }
+
+    /* ── Progress / nav hint ───────────────── */
+    #progress {
+      position: absolute;
+      bottom: 2.2vmin;
+      right: 3.5vmin;
+      font-size: clamp(6px, 1.3vmin, 14px);
+      color: #1e1e1e;
+      z-index: 20;
+      letter-spacing: 0.12em;
+    }
+
+    #nav-hint {
+      position: absolute;
+      bottom: 2.2vmin;
+      left: 3.5vmin;
+      font-size: clamp(6px, 1.2vmin, 13px);
+      color: #1a1a1a;
+      z-index: 20;
+    }
+
+    /* ── 3D Stage ───────────────────────────── */
+    #stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    #perspective {
+      position: absolute;
+      inset: 0;
+    }
+
+    #drum {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+    }
+
+    .bullet {
+      position: absolute;
+      width: 48vw;
+      left: -24vw;
+      top: 0;           /* drum origin = screen center */
+      text-align: center;
+      will-change: transform, opacity;
+      transition: transform 0.42s cubic-bezier(0.33, 1, 0.68, 1),
+                  opacity  0.42s ease;
+    }
+
+    .bullet-inner {
+      display: block;
+      line-height: 1.6;
+      padding: 0 1vmin;
+      transition: font-size 0.4s ease, color 0.4s ease, font-weight 0.4s ease;
+    }
+
+    /* ── Center highlight bar ───────────────── */
+    #center-bar {
+      position: absolute;
+      top: 50%; left: 5%;
+      width: 90%;
+      height: 0;
+      margin-top: -5vmin;
+      z-index: 2;
+      pointer-events: none;
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #111;
+      padding: 5vmin 0;
+      /* subtle glow behind current item */
+    }
+
+    /* ── Edge fade gradients ────────────────── */
+    #fade-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to bottom, #060606 0%, #060606 30%, transparent 100%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    #fade-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to top, #060606 0%, #060606 30%, transparent 100%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* ── Chapter dots ───────────────────────── */
+    #dots {
+      position: absolute;
+      top: 50%;
+      right: 2.5vmin;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7vmin;
+      z-index: 20;
+    }
+
+    .dot {
+      width: clamp(3px, 0.7vmin, 7px);
+      height: clamp(3px, 0.7vmin, 7px);
+      border-radius: 50%;
+      background: #1a1a1a;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.active {
+      background: #2d78e8;
+      transform: scale(1.4);
+    }
+
+    .dot.done {
+      background: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <div id="chapter-current"></div>
+
+  <div id="stage">
+    <div id="perspective">
+      <div id="drum"></div>
+    </div>
+    <div id="center-bar"></div>
+    <div id="fade-top"></div>
+    <div id="fade-bottom"></div>
+  </div>
+
+  <div id="chapter-next"></div>
+  <div id="progress"></div>
+  <div id="nav-hint">← → ↑↓ space scroll click</div>
+  <div id="dots"></div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════════════
+const SLIDES = [
+  // ── INTRO ────────────────────────────────────────────
+  { chapter: "Intro",
+    text: "You started in UX in 1999.\nTake us back." },
+  { chapter: "Intro",
+    text: "26 years. Founded Whiteport 2003.\nWhat kind of work?" },
+  { chapter: "Intro",
+    text: "Then AI came along.\nWhat changed for you?" },
+
+  // ── BMAD ─────────────────────────────────────────────
+  { chapter: "BMad & Getting Started",
+    text: "How did you first\ncome across BMad?" },
+  { chapter: "BMad & Getting Started",
+    text: "You're a designer —\nwhat made you go deep\ninto a developer tool?" },
+  { chapter: "BMad & Getting Started",
+    text: "When did you realise BMad\nwas the right home for WDS?" },
+  { chapter: "BMad & Getting Started",
+    text: "What does WDS actually\nadd to the BMad workflow?" },
+  { chapter: "BMad & Getting Started",
+    text: "And now other people\nare using it — like me.\nHow did that happen?" },
+
+  // ── CORE THESIS ─────────────────────────────────────
+  { chapter: "The Core Thesis",
+    text: "You say almost everyone\ndoes UX backwards.\nWhat does backwards look like?" },
+  { chapter: "The Core Thesis",
+    text: "Walk me through\nwhat a typical process looks like today." },
+  { chapter: "The Core Thesis",
+    text: "Sound familiar to anyone watching?" },
+  { chapter: "The Core Thesis",
+    text: "So what's the right order?" },
+
+  // ── PHASE 1 ─────────────────────────────────────────
+  { chapter: "Phase 1 — The Product Brief",
+    text: "Clarity first.\nWhat does that mean in practice?" },
+  { chapter: "Phase 1 — The Product Brief",
+    text: "How does AI change this phase?" },
+  { chapter: "Phase 1 — The Product Brief",
+    text: "There's a practical output here\nthat I don't think people expect." },
+
+  // ── PHASE 2 ─────────────────────────────────────────
+  { chapter: "Phase 2 — The Trigger Map",
+    text: "Phase two. You've got your brief.\nWhat's next?" },
+  { chapter: "Phase 2 — The Trigger Map",
+    text: "What is psychology\nin this context?" },
+  { chapter: "Phase 2 — The Trigger Map",
+    text: "And the AI runs this\nas a conversation?" },
+  { chapter: "Phase 2 — The Trigger Map",
+    text: "This is the part that most\ndesigners skip entirely." },
+
+  // ── PHASE 3 ─────────────────────────────────────────
+  { chapter: "Phase 3 — Scenarios",
+    text: "Clarity, psychology —\nnow interaction. Scenarios." },
+  { chapter: "Phase 3 — Scenarios",
+    text: "What is selective ignorance?" },
+  { chapter: "Phase 3 — Scenarios",
+    text: "And then the agent\nwireframes it?" },
+  { chapter: "Phase 3 — Scenarios",
+    text: "How does the wireframe\nbecome a real design?" },
+
+  // ── PHASE 4 ─────────────────────────────────────────
+  { chapter: "Phase 4 — Visual + Code",
+    text: "Now we're in design and code.\nWhat does this look like?" },
+  { chapter: "Phase 4 — Visual + Code",
+    text: "The backend has been running\nin parallel this whole time?" },
+  { chapter: "Phase 4 — Visual + Code",
+    text: "And the test feeds back\ninto the scenario?" },
+
+  // ── CLOSE ────────────────────────────────────────────
+  { chapter: "Close",
+    text: "For the designer watching —\nwhat's the one shift?" },
+  { chapter: "Close",
+    text: "WDS.\nWhiteport Design Studio method." },
+
+  // ── PHRASES TO LAND ─────────────────────────────────
+  { chapter: "Phrases to Land",
+    text: "\"They do UX backwards.\"" },
+  { chapter: "Phrases to Land",
+    text: "\"That's not psychology.\nThat's a costume.\"" },
+  { chapter: "Phrases to Land",
+    text: "\"Selective ignorance.\"" },
+  { chapter: "Phrases to Land",
+    text: "\"Forwards from purpose.\"" },
+  { chapter: "Phrases to Land",
+    text: "\"The barrier was skill.\nSuddenly it was only thinking.\"" },
+];
+
+// ════════════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════════════
+const ANGLE_STEP = 22;   // degrees between drum slots
+const VISIBLE    = 5;    // show ±N items from current
+const DRUM_R     = 46;   // drum radius in vmin
+
+// Per-distance visual config [d=0, d=1, d=2, d=3, d=4, d=5]
+const OPACITY   = [1,    0.68, 0.40, 0.20, 0.08, 0.03];
+const COLORS    = ['#ffffff', '#909090', '#555', '#303030', '#1a1a1a', '#111'];
+const FONTSIZE  = [3.6,  2.6,  1.85, 1.35, 1.05, 0.80]; // vmin
+const FONTWEIGHT= ['600','400','400','400','400','400'];
+
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
+let current = 0;
+
+// ════════════════════════════════════════════════════════
+// DOM
+// ════════════════════════════════════════════════════════
+const drumEl    = document.getElementById('drum');
+const chCurrent = document.getElementById('chapter-current');
+const chNext    = document.getElementById('chapter-next');
+const progressEl= document.getElementById('progress');
+const dotsEl    = document.getElementById('dots');
+
+// Build bullets
+const bulletEls = SLIDES.map((slide, i) => {
+  const div = document.createElement('div');
+  div.className = 'bullet';
+  const span = document.createElement('span');
+  span.className = 'bullet-inner';
+  span.innerHTML = slide.text.replace(/\n/g, '<br>');
+  div.appendChild(span);
+  drumEl.appendChild(div);
+  return div;
+});
+
+// Build chapter dots
+const chapters = [...new Set(SLIDES.map(s => s.chapter))];
+const dotEls = chapters.map((ch, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.title = ch;
+  dotsEl.appendChild(d);
+  return d;
+});
+
+// ════════════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════════════
+function vmin() {
+  return Math.min(window.innerWidth, window.innerHeight) / 100;
+}
+
+function render() {
+  const vm = vmin();
+  const R  = DRUM_R * vm;
+
+  bulletEls.forEach((el, i) => {
+    const offset   = i - current;
+    const d        = Math.abs(offset);
+    const angleRad = offset * ANGLE_STEP * Math.PI / 180;
+
+    // 2D drum simulation — offset=0 always lands at screen center
+    const yOffset = R * Math.sin(angleRad);
+    const scaleY  = Math.max(0.25, Math.cos(angleRad));
+
+    el.style.transform = `translateY(calc(-50% + ${yOffset}px)) scaleY(${scaleY})`;
+    el.style.zIndex    = String(VISIBLE - d + 1);
+
+    if (d > VISIBLE) {
+      el.style.opacity = '0';
+      return;
+    }
+
+    const span = el.querySelector('.bullet-inner');
+    el.style.opacity      = String(OPACITY[d]);
+    span.style.color      = COLORS[d];
+    span.style.fontSize   = `${FONTSIZE[d]}vmin`;
+    span.style.fontWeight = FONTWEIGHT[d];
+  });
+
+  // Chapter labels
+  const currChapter = SLIDES[current].chapter;
+  chCurrent.textContent = currChapter;
+
+  let nextChapter = '';
+  for (let i = current + 1; i < SLIDES.length; i++) {
+    if (SLIDES[i].chapter !== currChapter) {
+      nextChapter = `Next: ${SLIDES[i].chapter}`;
+      break;
+    }
+  }
+  chNext.textContent = nextChapter;
+
+  // Progress
+  progressEl.textContent = `${current + 1} / ${SLIDES.length}`;
+
+  // Dots
+  const chIdx = chapters.indexOf(currChapter);
+  dotEls.forEach((d, i) => {
+    const iDone = i < chIdx;
+    const iActive = i === chIdx;
+    d.className = 'dot' + (iActive ? ' active' : iDone ? ' done' : '');
+  });
+}
+
+// ════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════
+function go(dir) {
+  const n = current + dir;
+  if (n < 0 || n >= SLIDES.length) return;
+  current = n;
+  render();
+}
+
+// Jump to chapter (dot click)
+dotEls.forEach((d, i) => {
+  d.addEventListener('click', e => {
+    e.stopPropagation();
+    const chName = chapters[i];
+    const idx    = SLIDES.findIndex(s => s.chapter === chName);
+    if (idx !== -1) { current = idx; render(); }
+  });
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); go(1);  }
+  if (['ArrowLeft',  'ArrowUp'       ].includes(e.key)) { e.preventDefault(); go(-1); }
+  // Home / End
+  if (e.key === 'Home') { e.preventDefault(); current = 0; render(); }
+  if (e.key === 'End')  { e.preventDefault(); current = SLIDES.length - 1; render(); }
+});
+
+// Click → forward
+document.addEventListener('click', () => go(1));
+
+// Scroll wheel → throttled
+let wheelLock = false;
+document.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (wheelLock) return;
+  wheelLock = true;
+  setTimeout(() => { wheelLock = false; }, 180);
+  go(e.deltaY > 0 ? 1 : -1);
+}, { passive: false });
+
+// Touch swipe
+let touchY0 = 0;
+document.addEventListener('touchstart', e => { touchY0 = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const dy = e.changedTouches[0].clientY - touchY0;
+  if (Math.abs(dy) > 30) go(dy < 0 ? 1 : -1);
+});
+
+// Resize → re-render
+window.addEventListener('resize', render);
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+render();
+</script>
+</body>
+</html>

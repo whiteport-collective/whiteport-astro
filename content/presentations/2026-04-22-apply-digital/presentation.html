@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WDS-E & Agent Space — Apply Digital · April 22, 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg:       #06060b;
+  --card:     #0f0f1c;
+  --card2:    #13131f;
+  --card3:    #1a1a2e;
+  --border:   #1e1e32;
+  --border2:  #161626;
+  --t1:       #e8e8f0;
+  --t2:       #8888a8;
+  --t3:       #555570;
+  --t4:       #333350;
+  --blue:     #4e8eff;
+  --purple:   #9b6dff;
+  --green:    #00e88f;
+  --orange:   #ff8c42;
+  --rose:     #ff6b9d;
+  --g:        linear-gradient(135deg,#4e8eff,#9b6dff);
+  --gw:       linear-gradient(135deg,#ff8c42,#ff6b9d);
+  --gg:       linear-gradient(135deg,#00e88f,#4e8eff);
+  --gp:       linear-gradient(135deg,#9b6dff,#ff6b9d);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Inter',-apple-system,sans-serif;
+  background:var(--bg);color:var(--t1);
+  overflow:hidden;height:100vh;width:100vw;
+}
+
+/* ── DECK ─────────────────────────────────────────── */
+#deck{position:relative;width:100vw;height:100vh}
+
+.s{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:56px 72px;
+  opacity:0;transform:scale(.88) translateY(18px);
+  transition:opacity .55s cubic-bezier(.16,1,.3,1),
+             transform .55s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;overflow:hidden;
+}
+.s.active{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+.s.out{opacity:0;transform:scale(1.07) translateY(-14px)}
+
+/* ── CHROME ───────────────────────────────────────── */
+#bar{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--g);transition:width .35s ease;z-index:200;
+}
+#ct{
+  position:fixed;bottom:22px;right:28px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--t4);z-index:200;letter-spacing:.05em;
+}
+
+/* ── GLOWS ────────────────────────────────────────── */
+.gl{
+  position:absolute;border-radius:50%;
+  pointer-events:none;z-index:0;
+  filter:blur(90px);
+}
+
+/* ── CONTENT ──────────────────────────────────────── */
+.w{width:100%;max-width:1080px;position:relative;z-index:1}
+.w-sm{max-width:820px}
+.w-lg{max-width:1240px}
+
+/* ── STAGGER ──────────────────────────────────────── */
+.sg>*{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+.s.active .sg>*:nth-child(1){opacity:1;transform:none;transition-delay:.04s}
+.s.active .sg>*:nth-child(2){opacity:1;transform:none;transition-delay:.13s}
+.s.active .sg>*:nth-child(3){opacity:1;transform:none;transition-delay:.22s}
+.s.active .sg>*:nth-child(4){opacity:1;transform:none;transition-delay:.31s}
+.s.active .sg>*:nth-child(5){opacity:1;transform:none;transition-delay:.40s}
+.s.active .sg>*:nth-child(6){opacity:1;transform:none;transition-delay:.49s}
+.s.active .sg>*:nth-child(7){opacity:1;transform:none;transition-delay:.58s}
+
+/* ── TYPOGRAPHY UTILS ────────────────────────────── */
+.lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:18px;display:block;
+}
+.lbl-p{color:var(--purple)}
+.lbl-g{color:var(--green)}
+.lbl-o{color:var(--orange)}
+.lbl-r{color:var(--rose)}
+.lbl-m{color:var(--t3)}
+
+.pill{
+  display:inline-flex;align-items:center;
+  padding:5px 14px;margin-bottom:22px;
+  border-radius:100px;
+  background:rgba(78,142,255,.07);border:1px solid rgba(78,142,255,.2);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);
+}
+.pill-p{background:rgba(155,109,255,.07);border-color:rgba(155,109,255,.2);color:var(--purple)}
+.pill-g{background:rgba(0,232,143,.06);border-color:rgba(0,232,143,.18);color:var(--green)}
+.pill-o{background:rgba(255,140,66,.07);border-color:rgba(255,140,66,.2);color:var(--orange)}
+
+.h1{font-size:clamp(44px,6vw,88px);font-weight:800;line-height:1.06;letter-spacing:-.035em;margin-bottom:22px}
+.h2{font-size:clamp(26px,3.2vw,48px);font-weight:700;line-height:1.16;letter-spacing:-.022em;margin-bottom:18px}
+.h3{font-size:clamp(18px,2vw,28px);font-weight:700;line-height:1.25;letter-spacing:-.015em;margin-bottom:12px}
+.body{font-size:17px;line-height:1.72;color:var(--t2)}
+.body-sm{font-size:15px;line-height:1.68;color:var(--t2)}
+.mono{font-family:'JetBrains Mono',monospace}
+
+.grad{background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-w{background:var(--gw);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-g{background:var(--gg);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-p{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── CARDS ────────────────────────────────────────── */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:22px 26px;
+}
+.card-lo{background:var(--card2);border-color:var(--border2)}
+.card-b{border-color:rgba(78,142,255,.22);background:rgba(78,142,255,.04)}
+.card-p{border-color:rgba(155,109,255,.22);background:rgba(155,109,255,.04)}
+.card-g{border-color:rgba(0,232,143,.18);background:rgba(0,232,143,.03)}
+.card-o{border-color:rgba(255,140,66,.2);background:rgba(255,140,66,.04)}
+.card-r{border-color:rgba(255,107,157,.2);background:rgba(255,107,157,.04)}
+
+.c-lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:9px;display:block;
+}
+.c-title{font-size:16px;font-weight:700;color:var(--t1);line-height:1.3;margin-bottom:7px}
+.c-body{font-size:14px;line-height:1.65;color:var(--t2)}
+
+/* ── GRID ─────────────────────────────────────────── */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.col{display:flex;flex-direction:column;gap:12px}
+
+/* ── DIVIDER ──────────────────────────────────────── */
+.hr{width:100%;height:1px;background:var(--border);margin:20px 0}
+.hr-short{max-width:160px}
+
+/* ════════════════════════════════════════════════════
+   CHAPTER SLIDES
+════════════════════════════════════════════════════ */
+.ch{
+  justify-content:center;align-items:center;text-align:center;
+}
+.ch-bg{
+  position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(78,142,255,.11) 0%,transparent 68%);
+}
+.ch-bg-p{background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(155,109,255,.13) 0%,transparent 68%)}
+.ch-bg-g{background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(0,232,143,.09) 0%,transparent 68%)}
+.ch-bg-o{background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(255,140,66,.09) 0%,transparent 68%)}
+
+.ch-no{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--t4);margin-bottom:24px;display:block;
+}
+.ch-title{
+  font-size:clamp(64px,9.5vw,128px);
+  font-weight:900;line-height:.92;letter-spacing:-.045em;
+  margin-bottom:28px;
+}
+.ch-sub{
+  font-size:17px;color:var(--t2);max-width:480px;line-height:1.65;margin:0 auto;
+}
+
+/* ── QUOTE BLOCK ──────────────────────────────────── */
+.quote{
+  border-left:3px solid var(--purple);
+  padding:20px 24px;
+  background:var(--card);border-radius:0 10px 10px 0;
+  border-top:1px solid var(--border);
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.qt{font-size:15px;line-height:1.72;color:var(--t1);font-style:italic;margin-bottom:10px}
+.qa{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);letter-spacing:.03em}
+
+/* ── PAIN ROW ─────────────────────────────────────── */
+.pain{display:flex;flex-direction:column;gap:9px;margin-top:20px}
+.pi{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:14px 18px;
+  background:var(--card);border:1px solid var(--border);border-radius:9px;
+}
+.pi-lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--purple);white-space:nowrap;padding-top:2px;min-width:120px;
+}
+.pi-txt{font-size:15px;line-height:1.62;color:var(--t2)}
+.pi-txt strong{color:var(--t1)}
+
+/* ── PIPELINE (slide 6) ───────────────────────────── */
+.pipe{display:flex;flex-direction:column}
+.pn{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  background:var(--card);border:1px solid var(--border);border-radius:9px;
+}
+.pn-ico{
+  width:34px;height:34px;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:rgba(78,142,255,.09);border:1px solid rgba(78,142,255,.2);
+}
+.pn-title{font-size:13px;font-weight:600;color:var(--t1);line-height:1.3}
+.pn-sub{font-size:11px;color:var(--t3);margin-top:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+.pa{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 18px 4px 48px;
+}
+.pa-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--t3);white-space:nowrap}
+.pa-line{flex:1;height:1px;background:var(--border)}
+.presult{
+  padding:14px 18px;margin-top:8px;
+  background:rgba(0,232,143,.04);
+  border:1px solid rgba(0,232,143,.14);border-radius:9px;
+  font-size:13px;line-height:1.65;color:var(--t2);
+}
+.presult strong{color:var(--green);font-weight:600}
+
+/* ── STAT ─────────────────────────────────────────── */
+.stat{
+  padding:18px 20px;background:var(--card);border:1px solid var(--border);
+  border-radius:11px;text-align:center;
+}
+.stat-n{
+  font-size:clamp(30px,4vw,52px);font-weight:800;line-height:1;
+  letter-spacing:-.03em;margin-bottom:5px;
+}
+.stat-l{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);
+}
+
+/* ── STATUS FLOW ──────────────────────────────────── */
+.sf{display:flex;align-items:center;gap:10px;margin:16px 0;flex-wrap:wrap}
+.sb{
+  padding:7px 16px;border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.8px;font-weight:500;
+}
+.sb-r{background:rgba(78,142,255,.11);color:var(--blue);border:1px solid rgba(78,142,255,.22)}
+.sb-i{background:rgba(155,109,255,.11);color:var(--purple);border:1px solid rgba(155,109,255,.22)}
+.sb-d{background:rgba(0,232,143,.09);color:var(--green);border:1px solid rgba(0,232,143,.18)}
+.sb-b{background:rgba(255,140,66,.09);color:var(--orange);border:1px solid rgba(255,140,66,.2)}
+.sa{color:var(--t4);font-size:16px}
+
+/* ── ROLE LIST ────────────────────────────────────── */
+.rl{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.ri{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 18px;
+  background:var(--card);border:1px solid var(--border);border-radius:9px;
+}
+.rb{
+  padding:4px 12px;border-radius:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:500;min-width:86px;text-align:center;
+}
+.rb-a{background:rgba(155,109,255,.14);color:var(--purple)}
+.rb-l{background:rgba(78,142,255,.11);color:var(--blue)}
+.rb-c{background:rgba(0,232,143,.09);color:var(--green)}
+.rb-v{background:rgba(85,85,112,.25);color:var(--t2)}
+.rd{font-size:14px;color:var(--t2);line-height:1.5}
+
+/* ── TERMINAL ─────────────────────────────────────── */
+.term{
+  font-family:'JetBrains Mono',monospace;
+  font-size:18px;font-weight:500;color:var(--green);
+  padding:12px 20px;letter-spacing:.02em;
+  background:rgba(0,232,143,.04);
+  border:1px solid rgba(0,232,143,.12);border-radius:8px;
+  display:inline-block;margin-bottom:20px;
+}
+.term::before{content:'> ';color:var(--t4)}
+
+/* ── NEXT OPTIONS ─────────────────────────────────── */
+.no{
+  display:flex;gap:18px;padding:18px 22px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:11px;margin-bottom:10px;align-items:flex-start;
+}
+.no-n{font-size:26px;font-weight:800;line-height:1;min-width:34px;padding-top:1px}
+.no-title{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:5px}
+.no-body{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* ── HUB DIAGRAM (slide 5) ────────────────────────── */
+.hub{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:0;align-items:center;margin:16px 0;
+}
+.hub-col{display:flex;flex-direction:column;gap:9px}
+.hub-item{
+  padding:11px 16px;
+  background:var(--card);border:1px solid var(--border);border-radius:8px;
+  font-size:13px;font-weight:600;color:var(--t2);
+  display:flex;align-items:center;gap:10px;
+}
+.hub-center{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:0 20px;
+}
+.hub-core{
+  width:88px;height:88px;border-radius:50%;
+  background:var(--g);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;box-shadow:0 0 40px rgba(78,142,255,.25);
+}
+.hub-core-lbl{font-size:10px;font-weight:700;letter-spacing:.5px;color:#fff;text-align:center;line-height:1.3}
+.hub-line{width:1px;height:20px;background:var(--border)}
+.hub-dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="ct"></div>
+
+<div id="deck">
+
+<!-- ════════════════════════════════════════
+  S1 — COVER
+════════════════════════════════════════ -->
+<div class="s" id="s1">
+  <div class="gl" style="width:700px;height:700px;top:-120px;left:-150px;background:rgba(78,142,255,.14)"></div>
+  <div class="gl" style="width:550px;height:550px;bottom:-120px;right:-120px;background:rgba(155,109,255,.12)"></div>
+  <div class="w w-sm sg">
+    <span class="lbl">WDS-E · Apply Digital · April 22, 2026</span>
+    <h1 class="h1 grad">WDS-E &amp;<br>Agent Space</h1>
+    <p class="body" style="font-size:21px;font-weight:300;letter-spacing:-.01em;max-width:500px">The universal memory layer<br>that makes agents scale</p>
+    <div class="hr hr-short" style="margin-top:36px;margin-bottom:18px"></div>
+    <p style="font-size:15px;color:var(--t3)">Mårten Angner · Whiteport Design Studio</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S2 — WHERE WE LEFT OFF
+════════════════════════════════════════ -->
+<div class="s" id="s2">
+  <div class="gl" style="width:550px;height:450px;top:-80px;right:-60px;background:rgba(155,109,255,.13)"></div>
+  <div class="w sg">
+    <span class="lbl lbl-p">March 26 — Where We Left Off</span>
+    <div class="g2" style="margin-bottom:18px">
+      <div class="quote">
+        <p class="qt">"Design team tends to think in Figma, strategy team tends to think in Miro boards. Both of which are not AI enabled."</p>
+        <span class="qa">— Chris Woodill · March 26</span>
+      </div>
+      <div class="quote">
+        <p class="qt">"Very meeting heavy."</p>
+        <span class="qa">— Chris Woodill · March 26</span>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <p class="qt" style="font-size:14px">"You expect me to use an IDE and check stuff into GitHub? Are you nuts?"</p>
+          <span class="qa">— Chris Woodill · March 26</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:16px;font-weight:600;color:var(--t1);margin-bottom:12px">Your teams adopted AI. The coordination problem got worse.</p>
+    <div class="pain">
+      <div class="pi">
+        <span class="pi-lbl">Three tools</span>
+        <p class="pi-txt"><strong>Zero connection.</strong> Claude, GPT, Copilot — each brilliant alone. Together, three silos with no shared memory.</p>
+      </div>
+      <div class="pi">
+        <span class="pi-lbl">Every session</span>
+        <p class="pi-txt"><strong>Starts from zero.</strong> Decisions made Tuesday are unknown to the agent on Wednesday. Your people carry the context.</p>
+      </div>
+      <div class="pi">
+        <span class="pi-lbl">The bottleneck</span>
+        <p class="pi-txt"><strong>You pay humans to be the connective tissue.</strong> Adding more AI tools makes it worse.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S3 — BMAD AT SCALE
+════════════════════════════════════════ -->
+<div class="s" id="s3">
+  <div class="w sg">
+    <span class="lbl">The Baseline</span>
+    <h2 class="h2">BMad is a game-changer for the solo builder.<br><span class="grad">Scale breaks it</span></h2>
+    <div class="g3">
+      <div class="card">
+        <span class="c-lbl">Sync</span>
+        <p class="c-title">Agents live in repos, not in sync</p>
+        <p class="c-body">Every team member has their own version. Different prompts, different behaviors, no shared state.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Framework</span>
+        <p class="c-title">No framework for your own agents</p>
+        <p class="c-body">BMad ships its standard agents. Building something custom means starting from scratch every time.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Rollout</span>
+        <p class="c-title">Not for scale</p>
+        <p class="c-body">Clone repos, copy files, manual setup per machine. Not something you roll out to 40 people across London and EMEA.</p>
+      </div>
+    </div>
+    <p class="body-sm" style="margin-top:16px;color:var(--t3);font-style:italic">That's not a criticism — it's an architecture decision built for solo use. WDS-E is the layer that makes it work at scale.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S4 — THE PROBLEM AT SCALE
+════════════════════════════════════════ -->
+<div class="s" id="s4">
+  <div class="gl" style="width:600px;height:500px;bottom:-100px;left:-80px;background:rgba(255,140,66,.09)"></div>
+  <div class="w sg">
+    <span class="lbl lbl-o">The Problem</span>
+    <h2 class="h2">The more AI you adopt, the more<br>coordination overhead you generate</h2>
+    <div class="g3">
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">Trap 01</span>
+        <p class="c-title">The Figma Trap</p>
+        <p class="c-body">Design sees AI output, takes it to Figma, spends weeks on pixel perfection. The code is already there. The habit wins.</p>
+      </div>
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">Trap 02</span>
+        <p class="c-title">The Miro Trap</p>
+        <p class="c-body">Strategy thinks in boards and documents. Smart people, great thinking — in formats no agent can act on.</p>
+      </div>
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">Trap 03</span>
+        <p class="c-title">The Meeting Trap</p>
+        <p class="c-body">Every handoff between strategy, UX, and development is a meeting, a summary, a Confluence page nobody reads.</p>
+      </div>
+    </div>
+    <p class="body-sm" style="margin-top:16px">Three teams, three tools, no connection. Add more AI tools, add more coordination overhead. <strong style="color:var(--t1)">Unless you install a layer that handles it.</strong></p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S5 — WHAT AGENT SPACE IS
+════════════════════════════════════════ -->
+<div class="s" id="s5">
+  <div class="gl" style="width:700px;height:600px;top:-80px;right:-120px;background:rgba(78,142,255,.11)"></div>
+  <div class="w sg">
+    <span class="lbl">The Solution</span>
+    <h2 class="h2"><span class="grad">Agent Space</span> is the missing piece<br>between teams, tools, and agents</h2>
+    <div class="hub">
+      <div class="hub-col">
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Strategy (Saga)</div>
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>UX (Freya)</div>
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Dev (Mimir)</div>
+      </div>
+      <div class="hub-center">
+        <div class="hub-dot"></div>
+        <div class="hub-line"></div>
+        <div class="hub-core"><span class="hub-core-lbl">Agent<br>Space</span></div>
+        <div class="hub-line"></div>
+        <div class="hub-dot"></div>
+      </div>
+      <div class="hub-col">
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>Memory</div>
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages</div>
+        <div class="hub-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--t2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Work Orders</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:4px">
+      <div class="card card-lo" style="border-left:3px solid rgba(78,142,255,.4)">
+        <p class="c-title">Not a tool. A layer</p>
+        <p class="c-body">Sits below your tools and agents, holding everything they produce.</p>
+      </div>
+      <div class="card card-lo" style="border-left:3px solid rgba(155,109,255,.4)">
+        <p class="c-title">Work flows without meetings</p>
+        <p class="c-body">Saga posts a brief. Freya picks it up. Mimir builds. No one emails anyone.</p>
+      </div>
+      <div class="card card-lo" style="border-left:3px solid rgba(0,232,143,.3)">
+        <p class="c-title">Memory is organizational</p>
+        <p class="c-body">Every decision is available to every agent in every future session.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S6 — WHAT THIS LOOKS LIKE FOR APPLY DIGITAL
+════════════════════════════════════════ -->
+<div class="s" id="s6">
+  <div class="w w-lg sg">
+    <span class="lbl">Apply Digital · Client Engagement Pipeline</span>
+    <div class="g2" style="gap:24px;align-items:start">
+      <div class="pipe col" style="gap:0">
+        <div class="pn">
+          <div class="pn-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.12 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72c.12.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.33 1.85.58 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div>
+            <div class="pn-title">Client kickoff call</div>
+            <div class="pn-sub">structured brief → meeting saved in agent-space</div>
+          </div>
+        </div>
+        <div class="pa"><span class="pa-tag">Saga</span><div class="pa-line"></div></div>
+        <div class="pn">
+          <div class="pn-ico" style="background:rgba(155,109,255,.09);border-color:rgba(155,109,255,.2)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div>
+            <div class="pn-title">Strategy (Saga): product brief + trigger map</div>
+            <div class="pn-sub">work order → repo → session handoffs agent-space</div>
+          </div>
+        </div>
+        <div class="pa"><span class="pa-tag">Freya</span><div class="pa-line"></div></div>
+        <div class="pn">
+          <div class="pn-ico" style="background:rgba(0,232,143,.07);border-color:rgba(0,232,143,.15)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div>
+            <div class="pn-title">UX (Freya): scenarios, wireframes, specs</div>
+            <div class="pn-sub">work order → repo → sessions saved in agent-space</div>
+          </div>
+        </div>
+        <div class="pa"><span class="pa-tag">Mimir</span><div class="pa-line"></div></div>
+        <div class="pn">
+          <div class="pn-ico" style="background:rgba(255,140,66,.08);border-color:rgba(255,140,66,.18)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div>
+            <div class="pn-title">Dev (Mimir): tech audit, build</div>
+            <div class="pn-sub">status: done → repo</div>
+          </div>
+        </div>
+        <div class="presult">
+          <strong>/start</strong> — New team member joins week 6. Reads the repo.<br>
+          <span style="color:var(--t3)">Everything decided. Everything documented. Full history available.</span><br>
+          <strong>Zero onboarding meeting.</strong>
+        </div>
+      </div>
+      <div class="col sg" style="gap:13px">
+        <h3 class="h3" style="margin-bottom:0">Every asset you deliver —<br><span class="grad">Agent Space knows how it got there</span></h3>
+        <div class="card card-lo">
+          <span class="c-lbl">The Deliverable</span>
+          <p class="c-body">Product briefs. UX scenarios. Architecture decisions. In the repo, available to every agent.</p>
+        </div>
+        <div class="card card-lo">
+          <span class="c-lbl">The Reasoning</span>
+          <p class="c-body">Why that direction. What was rejected. What the client said that changed it. Stored alongside the output, not in a Slack thread.</p>
+        </div>
+        <div class="card card-lo">
+          <span class="c-lbl">The Payoff</span>
+          <p class="c-body">Six months later, a new strategist picks up the client. They don't just see what was built — they understand why. Every choice traceable.</p>
+        </div>
+        <p class="body-sm" style="color:var(--t3);font-style:italic">The work is yours. The history is too.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — SETUP
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-setup">
+  <div class="ch-bg"></div>
+  <div class="gl" style="width:900px;height:900px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(78,142,255,.12)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">01 — Foundation</span>
+      <h1 class="ch-title grad">Setup</h1>
+      <p class="ch-sub">Governance, policies, implementation, user systems. The foundation everything else runs on.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S7 — AI GOVERNANCE & COMPLIANCE
+════════════════════════════════════════ -->
+<div class="s" id="s7">
+  <div class="w w-sm sg">
+    <span class="pill">01 · Setup</span>
+    <h2 class="h2">It needs to start with<br>a management decision</h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">The Gap</span>
+        <p class="c-title">AI is an opportunity shaped like a problem</p>
+        <p class="c-body">ChatGPT doesn't have governance. Copilot doesn't either. They have terms of service — that's not what your compliance officer is asking for.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">What They Need</span>
+        <p class="c-title">Compliance officers want a different answer</p>
+        <p class="c-body">What is the AI allowed to do, what data can it touch, and who approved it.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Where We Start</span>
+        <p class="c-title">WDS-E starts here</p>
+        <p class="c-body">The governance document is the first thing built — and the thing that builds everything else.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S8 — POLICIES DOCUMENT
+════════════════════════════════════════ -->
+<div class="s" id="s8">
+  <div class="w w-sm sg">
+    <span class="pill">01 · Setup</span>
+    <h2 class="h2">The policy document — the complete<br>specification for the system</h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">Process</span>
+        <p class="c-title">13 templates. One conversation</p>
+        <p class="c-body">Idun walks through data classification, authority model, compliance framework, audit requirements — all of it.</p>
+      </div>
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">Output</span>
+        <p class="c-title">The output is uniquely yours</p>
+        <p class="c-body">Not a generic AI policy. A document that reflects the exact shape of your organization.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Purpose</span>
+        <p class="c-title">It's the build spec, not documentation</p>
+        <p class="c-body">Every agent, every skill, every access boundary is generated from it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S9 — IMPLEMENTATION
+════════════════════════════════════════ -->
+<div class="s" id="s9">
+  <div class="w w-sm sg">
+    <span class="pill">01 · Setup</span>
+    <h2 class="h2">Your policies become the implementation specs<br><span class="grad">— just like in BMad</span></h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">Compatibility</span>
+        <p class="c-title">Database-agnostic</p>
+        <p class="c-body">Oracle, Postgres, SQL Server — whatever your IT already approves.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Reference Stack</span>
+        <p class="c-title">Reference implementation ready</p>
+        <p class="c-body">Supabase (eu-north-1, Stockholm): schema, edge functions, row-level security, GDPR by architecture.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Uniqueness</span>
+        <p class="c-title">Bespoke by design</p>
+        <p class="c-body">Apply Digital's Agent Space couldn't be sold to another company. It was generated from a document that couldn't be copied.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S10 — USER SYSTEMS MANAGEMENT
+════════════════════════════════════════ -->
+<div class="s" id="s10">
+  <div class="gl" style="width:500px;height:400px;bottom:-60px;right:-60px;background:rgba(155,109,255,.1)"></div>
+  <div class="w w-sm sg">
+    <span class="pill">01 · Setup</span>
+    <h2 class="h2">Agent Space is managed as a repo.<br>Each person gets their own context</h2>
+    <div class="col">
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">Soul File</span>
+        <p class="c-title">Every user gets a soul file</p>
+        <p class="c-body">How they work, what they care about, what they've been hired to do. Agents read it before the first message.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Adoption</span>
+        <p class="c-title">The AI stops feeling alien</p>
+        <p class="c-body">Your design team went back to Figma because the AI didn't know them. This fixes that.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Compounding</span>
+        <p class="c-title">Effectiveness compounds</p>
+        <p class="c-body">Every session deposits small observations. Over time, the AI gets measurably better at working with that specific person.</p>
+      </div>
+    </div>
+    <p class="body-sm" style="margin-top:14px;color:var(--purple);font-style:italic">You don't onboard to the AI. The AI onboards to you.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — UNIVERSAL MEMORY
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-mem">
+  <div class="ch-bg ch-bg-p"></div>
+  <div class="gl" style="width:950px;height:950px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(155,109,255,.12)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">02 — Persistence</span>
+      <h1 class="ch-title grad-p">Universal<br>Memory</h1>
+      <p class="ch-sub">Every decision. Every client. Every project. Searchable, persistent, owned by you.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S11 — UNIVERSAL MEMORY
+════════════════════════════════════════ -->
+<div class="s" id="s11">
+  <div class="gl" style="width:600px;height:500px;top:-60px;right:-60px;background:rgba(155,109,255,.11)"></div>
+  <div class="w w-sm sg">
+    <span class="pill pill-p">02 · Universal Memory</span>
+    <h2 class="h2">Your memory outlasts<br>every LLM generation</h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">The Problem</span>
+        <p class="c-title">Every other tool starts from zero</p>
+        <p class="c-body">ChatGPT, Claude, Copilot — each session forgets the last. Your team re-briefs the AI every time.</p>
+      </div>
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">The Solution</span>
+        <p class="c-title">Agent Space remembers everything</p>
+        <p class="c-body">Every decision, every client, every project — searchable semantically, available to every agent.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Ownership</span>
+        <p class="c-title">You own it</p>
+        <p class="c-body">When GPT-5 is 30% better, you swap the model. The memory stays in your infrastructure. You are not a tenant.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S12 — WRAP & HANDOFF
+════════════════════════════════════════ -->
+<div class="s" id="s12">
+  <div class="w w-sm sg">
+    <span class="pill pill-p">02 · Universal Memory</span>
+    <h2 class="h2">Every session builds on the last</h2>
+    <div class="term">/wrap</div>
+    <div class="col">
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">The Command</span>
+        <p class="c-title">/wrap takes 30 seconds</p>
+        <p class="c-body">Decisions, outputs, blockers, context for next time — structured, tagged, stored.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Without It</span>
+        <p class="c-title">The context evaporates</p>
+        <p class="c-body">Tomorrow starts from a blank page. Again.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">With It</span>
+        <p class="c-title">Continuity is structural</p>
+        <p class="c-body">The next strategist opens Saga. She already knows what was decided — and why the three alternatives were rejected.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S13 — START
+════════════════════════════════════════ -->
+<div class="s" id="s13">
+  <div class="w w-sm sg">
+    <span class="pill pill-p">02 · Universal Memory</span>
+    <h2 class="h2">The agent arrives briefed</h2>
+    <div class="term">/start</div>
+    <div class="col">
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">The Command</span>
+        <p class="c-title">/start loads everything</p>
+        <p class="c-body">Project, decisions, meeting transcripts, the person's own context — before the first message.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">New Team Member</span>
+        <p class="c-title">Zero onboarding meeting</p>
+        <p class="c-body">A new developer joins week 6. /start. Mimir knows the tech stack, the constraints, what's been built.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">The Outcome</span>
+        <p class="c-title">This kills the meeting-heavy problem</p>
+        <p class="c-body">Briefings exist because humans carry context between sessions. Remove that — meetings collapse back to decisions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — COORDINATION
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-coord">
+  <div class="ch-bg"></div>
+  <div class="gl" style="width:700px;height:700px;top:50%;left:30%;transform:translate(-50%,-50%);background:rgba(78,142,255,.11)"></div>
+  <div class="gl" style="width:600px;height:600px;top:50%;left:70%;transform:translate(-50%,-50%);background:rgba(155,109,255,.1)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">03 — Async Work</span>
+      <h1 class="ch-title grad">Coordination</h1>
+      <p class="ch-sub">Messages and work orders. How agents hand off without scheduling a meeting.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S14 — AGENT MESSAGING
+════════════════════════════════════════ -->
+<div class="s" id="s14">
+  <div class="w w-sm sg">
+    <span class="pill">03 · Coordination</span>
+    <h2 class="h2">People meet to decide.<br>AI handles the transmission</h2>
+    <div class="col">
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Handoffs</span>
+        <p class="c-title">No coordination meetings</p>
+        <p class="c-body">Saga finishes a brief, posts a structured handoff to Agent Space. Freya picks it up next session.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Documentation</span>
+        <p class="c-title">No Confluence pages</p>
+        <p class="c-body">Every handoff is structured, tagged, findable — not a Slack thread buried on Thursday.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Timeline</span>
+        <p class="c-title">12 weeks. Three disciplines. Zero information meetings</p>
+        <p class="c-body">Strategy (wk 1–3) → UX (4–7) → Dev (8–12). Every phase knows what the last one decided.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S15 — WORK ORDERS
+════════════════════════════════════════ -->
+<div class="s" id="s15">
+  <div class="w w-sm sg">
+    <span class="pill">03 · Coordination</span>
+    <h2 class="h2">Visibility at the work level —<br>across every agent in flight</h2>
+    <div class="sf">
+      <span class="sb sb-r">ready</span>
+      <span class="sa">→</span>
+      <span class="sb sb-i">in-progress</span>
+      <span class="sa">→</span>
+      <span class="sb sb-d">done</span>
+      <span class="sa">/</span>
+      <span class="sb sb-b">blocked</span>
+    </div>
+    <div class="col">
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Tracking</span>
+        <p class="c-title">Every task has a status</p>
+        <p class="c-body">ready → in-progress → done / blocked. Nothing falls through the cracks.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Leadership View</span>
+        <p class="c-title">A project lead sees everything</p>
+        <p class="c-body">Three simultaneous engagements. All active work orders. No status meeting needed.</p>
+      </div>
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">Right Now</span>
+        <p class="c-title">Right now you have zero visibility</p>
+        <p class="c-body">10 people using AI tools across an engagement — you don't know what any of them are doing until they report in.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — MEETING INTELLIGENCE
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-meet">
+  <div class="ch-bg ch-bg-g"></div>
+  <div class="gl" style="width:900px;height:900px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,232,143,.08)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">04 — Intelligence</span>
+      <h1 class="ch-title grad-g">Meeting<br>Intelligence</h1>
+      <p class="ch-sub">Every call transcribed, chunked, indexed. Your AI attends every meeting.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S16 — MEETING TRANSCRIPTS & SEMANTIC SEARCH
+════════════════════════════════════════ -->
+<div class="s" id="s16">
+  <div class="gl" style="width:500px;height:400px;bottom:-40px;right:-40px;background:rgba(0,232,143,.07)"></div>
+  <div class="w w-sm sg">
+    <span class="pill pill-g">04 · Meeting Intelligence</span>
+    <h2 class="h2">Every meeting becomes a permanent,<br>searchable asset</h2>
+    <div class="col">
+      <div class="card card-g">
+        <span class="c-lbl" style="color:var(--green)">Automatic</span>
+        <p class="c-title">When a call ends, Agent Space receives it</p>
+        <p class="c-body">Chunked, semantically indexed, connected to people, projects, and clients.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Live Demo</span>
+        <p class="c-title">This is how I prepared for today</p>
+        <p class="c-body">March 26 — 44 minutes. Your exact words. I didn't re-read notes. I asked Agent Space.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Six Months Out</span>
+        <p class="c-title">A new strategist takes over an Apply Digital client</p>
+        <p class="c-body">They ask the agent. The agent knows.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — SKILLS
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-skills">
+  <div class="ch-bg ch-bg-p"></div>
+  <div class="gl" style="width:800px;height:800px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(155,109,255,.11)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">05 — Capability</span>
+      <h1 class="ch-title grad-p">Skills</h1>
+      <p class="ch-sub">Written once. Reviewed. Versioned. Pushed to every agent in the organization.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S17 — SKILL LIBRARY & CENTRAL MANAGEMENT
+════════════════════════════════════════ -->
+<div class="s" id="s17">
+  <div class="w w-sm sg">
+    <span class="pill pill-p">05 · Skills</span>
+    <h2 class="h2">The difference between<br>AI adoption and AI capability</h2>
+    <div class="col">
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">Today</span>
+        <p class="c-title">40 people, 40 approaches</p>
+        <p class="c-body">Individuals figure out their own workflows. None shared. None improving. That's adoption.</p>
+      </div>
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">With WDS-E</span>
+        <p class="c-title">One skill, every agent</p>
+        <p class="c-body">Written once, reviewed by Idun, versioned, pushed to everyone. That's organizational capability.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Apply Digital Example</span>
+        <p class="c-title">Apply Digital's research lead writes one skill</p>
+        <p class="c-body">Every strategist — London, EMEA, pilot — runs it identically. Update centrally. Done.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — TOOLS
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-tools">
+  <div class="ch-bg ch-bg-o"></div>
+  <div class="gl" style="width:800px;height:800px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(255,140,66,.09)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">06 — Infrastructure</span>
+      <h1 class="ch-title grad-w">Tools</h1>
+      <p class="ch-sub">MCP overhead, credential management, the secure layer. Enterprise infrastructure, built in.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S18 — THE MCP TAX
+════════════════════════════════════════ -->
+<div class="s" id="s18">
+  <div class="gl" style="width:550px;height:450px;top:-60px;right:-60px;background:rgba(255,140,66,.09)"></div>
+  <div class="w sg">
+    <span class="pill pill-o">06 · Tools</span>
+    <h2 class="h2">5.4 million tokens per day in overhead —<br>before your team does a single thing</h2>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="stat">
+        <div class="stat-n grad-w">27K</div>
+        <div class="stat-l">tokens · per session</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n grad-w">5.4M</div>
+        <div class="stat-l">tokens · per day · 40 people</div>
+      </div>
+      <div class="stat card-g">
+        <div class="stat-n grad-g">~3K</div>
+        <div class="stat-l">WDS-E · per session</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">The Problem</span>
+        <p class="c-title">Every MCP server loads at startup</p>
+        <p class="c-body">27,000 tokens of tool definitions — before the agent does anything useful. 40 people × 5 sessions = 5.4M tokens of pure overhead.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">WDS-E Solution</span>
+        <p class="c-title">WDS-E loads only what's needed</p>
+        <p class="c-body">A Freya UX session: ~3,000 tokens instead of 27,000. Cost discipline built into the architecture.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S19 — CENTRAL CREDENTIAL MANAGEMENT
+════════════════════════════════════════ -->
+<div class="s" id="s19">
+  <div class="w w-sm sg">
+    <span class="pill pill-o">06 · Tools</span>
+    <h2 class="h2">40 people, 40 API keys,<br>40 breach points. Or one credential store</h2>
+    <div class="col">
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">The Vault</span>
+        <p class="c-title">One vault. Every tool</p>
+        <p class="c-body">Fortnox, Stripe, Google Workspace, LinkedIn — configured once, centrally, in Bitwarden.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Security</span>
+        <p class="c-title">No passwords in prompts</p>
+        <p class="c-body">Agents access credentials through the store. No secrets in code.</p>
+      </div>
+      <div class="card card-p">
+        <span class="c-lbl" style="color:var(--purple)">Offboarding</span>
+        <p class="c-title">One revocation cleans everything</p>
+        <p class="c-body">A strategist leaves — credentials revoked in one place, 15 integrations updated simultaneously.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S20 — SECURE LAYER
+════════════════════════════════════════ -->
+<div class="s" id="s20">
+  <div class="w w-sm sg">
+    <span class="pill pill-o">06 · Tools</span>
+    <h2 class="h2">GDPR compliance by architecture —<br>the review starts green</h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">Levels</span>
+        <p class="c-title">Three security levels</p>
+        <p class="c-body">Org (agents and tools), Project (client data access), User (row-level memory security).</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Data Residency</span>
+        <p class="c-title">Data stays in eu-north-1</p>
+        <p class="c-body">You own the database. Anthropic processes — doesn't retain. Sessions ephemeral.</p>
+      </div>
+      <div class="card card-g">
+        <span class="c-lbl" style="color:var(--green)">Enterprise Compliance</span>
+        <p class="c-title">Financial services client?</p>
+        <p class="c-body">Isolated at project level. No bleed-through to other engagements. Passes the compliance review.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — PLATFORM
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-platform">
+  <div class="ch-bg"></div>
+  <div class="gl" style="width:950px;height:950px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(78,142,255,.11)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">07 — Access &amp; Rights</span>
+      <h1 class="ch-title grad">Platform</h1>
+      <p class="ch-sub">Central access management and rights. Who can do what — and how you change it in one move.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S21 — CENTRAL ACCESS MANAGEMENT
+════════════════════════════════════════ -->
+<div class="s" id="s21">
+  <div class="w w-sm sg">
+    <span class="pill">07 · Platform</span>
+    <h2 class="h2">One credential in.<br>One revocation out</h2>
+    <div class="col">
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Access</span>
+        <p class="c-title">One key, everything it unlocks</p>
+        <p class="c-body">Which agents, which skills, which tools, which client data — configured through Idun in conversation.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Lifecycle</span>
+        <p class="c-title">Join: one setup. Leave: one revocation</p>
+        <p class="c-body">A contractor gets access to two projects and two skill sets. Engagement ends — one operation removes all of it.</p>
+      </div>
+      <div class="card">
+        <span class="c-lbl">Overhead</span>
+        <p class="c-title">IT overhead on AI tooling: eliminated</p>
+        <p class="c-body">No more managing access across a fragmented tool stack.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S22 — RIGHTS MANAGEMENT
+════════════════════════════════════════ -->
+<div class="s" id="s22">
+  <div class="w w-sm sg">
+    <span class="pill">07 · Platform</span>
+    <h2 class="h2">Invite your clients in.<br>Keep your methodology yours</h2>
+    <div class="rl">
+      <div class="ri"><span class="rb rb-a">Admin</span><p class="rd">Configures the system. Full access to everything.</p></div>
+      <div class="ri"><span class="rb rb-l">Lead</span><p class="rd">Directs agents and work orders. Sees all project activity.</p></div>
+      <div class="ri"><span class="rb rb-c">Contributor</span><p class="rd">Produces work. Sees their own projects and tasks.</p></div>
+      <div class="ri"><span class="rb rb-v">Viewer</span><p class="rd">Clients. Sees their project outputs and decisions — nothing else.</p></div>
+    </div>
+    <p class="body-sm" style="margin-top:16px"><strong style="color:var(--t1)">That's a commercial advantage.</strong> You show clients the work in a way that builds trust, without exposing your process.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S23 — THE LOCK-IN ARGUMENT
+════════════════════════════════════════ -->
+<div class="s" id="s23">
+  <div class="gl" style="width:700px;height:600px;top:-80px;right:-100px;background:rgba(255,140,66,.11)"></div>
+  <div class="gl" style="width:500px;height:500px;bottom:-100px;left:-80px;background:rgba(255,107,157,.08)"></div>
+  <div class="w w-sm sg">
+    <h2 class="h2 grad-w">The model makers<br>don't want you to do this</h2>
+    <div class="col">
+      <div class="card card-o">
+        <span class="c-lbl" style="color:var(--orange)">The Trap</span>
+        <p class="c-title">ChatGPT memory. Claude Projects</p>
+        <p class="c-body">Your data should be portable, in their infrastructure. You can't take it with you. You can't share it across vendors. That's not an oversight — that's the business model.</p>
+      </div>
+      <div class="card card-r">
+        <span class="c-lbl" style="color:var(--rose)">The Business Model</span>
+        <p class="c-title">They profit from the lock-in</p>
+        <p class="c-body">The more your organizational knowledge lives inside their systems, the harder it is to leave. Every insight you generate makes you more dependent. That's good for them. Not for you.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">The Alternative</span>
+        <p class="c-title">WDS-E is the only architecture where this is provably solved</p>
+        <p class="c-body">Your database. Your infrastructure. Your memory. Any model can read it — today Claude, tomorrow GPT-5, next year whatever wins.</p>
+      </div>
+    </div>
+    <p class="body-sm" style="margin-top:14px;color:var(--t3);font-style:italic">This problem will never be solved by the people who benefit from it not being solved.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  CHAPTER — BMAD
+════════════════════════════════════════ -->
+<div class="s ch" id="ch-bmad">
+  <div class="ch-bg ch-bg-g"></div>
+  <div class="gl" style="width:800px;height:800px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,232,143,.08)"></div>
+  <div class="w" style="text-align:center;z-index:1">
+    <div class="sg">
+      <span class="ch-no">08 — Compatibility</span>
+      <h1 class="ch-title grad-g">BMad</h1>
+      <p class="ch-sub">Not an alternative. The same coordination layer, underneath both.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S24 — BMAD COMPATIBLE
+════════════════════════════════════════ -->
+<div class="s" id="s24">
+  <div class="w w-sm sg">
+    <span class="pill pill-g">08 · BMad</span>
+    <h2 class="h2">BMad and WDS-E run on<br>the same coordination layer</h2>
+    <div class="col">
+      <div class="card">
+        <span class="c-lbl">The Split</span>
+        <p class="c-title">BMad is for development. WDS is for strategy and design</p>
+        <p class="c-body">Agent Space is underneath both.</p>
+      </div>
+      <div class="card card-g">
+        <span class="c-lbl" style="color:var(--green)">Shared Layer</span>
+        <p class="c-title">Same memory. Same work orders</p>
+        <p class="c-body">BMad agents read from and write to Agent Space. Skills from WDS-E run inside BMad sessions.</p>
+      </div>
+      <div class="card card-b">
+        <span class="c-lbl" style="color:var(--blue)">Apply Digital</span>
+        <p class="c-title">Apply Digital doesn't have to pick sides</p>
+        <p class="c-body">Strategy with Saga. UX with Freya. Dev with BMad. All three write to the same Agent Space.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+  S25 — NEXT STEP
+════════════════════════════════════════ -->
+<div class="s" id="s25">
+  <div class="gl" style="width:600px;height:600px;bottom:-100px;left:-100px;background:rgba(78,142,255,.1)"></div>
+  <div class="gl" style="width:500px;height:500px;top:-80px;right:-80px;background:rgba(255,140,66,.08)"></div>
+  <div class="w sg">
+    <h2 class="h2" style="margin-bottom:6px">Three options — <span class="grad">you pick</span></h2>
+    <div style="margin-top:14px">
+      <div class="no">
+        <div class="no-n grad">01</div>
+        <div>
+          <div class="no-title">Pilot engagement</div>
+          <div class="no-body">One Apply Digital client project, WDS-E full stack, Mårten embedded for the first sprint. You see the outputs before you commit to anything larger.</div>
+        </div>
+      </div>
+      <div class="no">
+        <div class="no-n grad">02</div>
+        <div>
+          <div class="no-title">EMEA intro</div>
+          <div class="no-body">Connect me with your European lead. Partnership conversation, not a vendor pitch. Apply Digital has the client relationships; WDS-E has the coordination layer.</div>
+        </div>
+      </div>
+      <div class="no" style="border-color:rgba(78,142,255,.22)">
+        <div class="no-n grad">03</div>
+        <div>
+          <div class="no-title">Champion program</div>
+          <div class="no-body">Five people from your design team, exclusive access, one intensive. The results make the case internally better than any slide deck.</div>
+        </div>
+      </div>
+    </div>
+    <p class="body-sm" style="margin-top:14px;color:var(--t3);font-style:italic;max-width:660px">The meeting we had on March 26 — everything we discussed is already in Agent Space. Saga knows it. Freya knows it. If we start a pilot today, the agents won't need to be briefed on Apply Digital. They already know.</p>
+    <p style="font-size:16px;color:var(--t1);font-weight:500;margin-top:10px">I don't need a commitment today. I need to know which of these three is the right first step.</p>
+    <p style="font-size:24px;font-weight:800;margin-top:6px" class="grad-w">What do you think?</p>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<script>
+const slides = Array.from(document.querySelectorAll('#deck .s'));
+let cur = 0;
+
+function go(n) {
+  if (n === cur) return;
+  const old = cur;
+  slides[old].classList.remove('active');
+  slides[old].classList.add('out');
+  setTimeout(() => slides[old].classList.remove('out'), 600);
+  cur = n;
+  slides[cur].classList.add('active');
+  const pct = (cur / (slides.length - 1)) * 100;
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('ct').textContent = (cur + 1) + ' / ' + slides.length;
+}
+
+function next() { if (cur < slides.length - 1) go(cur + 1); }
+function prev() { if (cur > 0) go(cur - 1); }
+
+document.addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+});
+
+document.addEventListener('click', e => {
+  if (e.clientX > window.innerWidth / 2) next(); else prev();
+});
+
+// touch swipe
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+document.addEventListener('touchend', e => {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) dx > 0 ? next() : prev();
+}, {passive:true});
+
+go(0);
+</script>
+</body>
+</html>
