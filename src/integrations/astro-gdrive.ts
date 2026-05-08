@@ -362,39 +362,37 @@ function formatSize(bytes: number): string {
 
 // ── Drive Backup Fallback ──
 
+// Pre-built filename → Drive file ID map. No API search needed, works without auth.
+let _backupManifest: Record<string, string> | null = null;
+function getBackupManifest(): Record<string, string> {
+  if (_backupManifest) return _backupManifest;
+  try {
+    const manifestPath = join(process.cwd(), 'src/data/gdrive-backup-manifest.json');
+    _backupManifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+  } catch {
+    _backupManifest = {};
+  }
+  return _backupManifest!;
+}
+
 /**
- * Look up a file by name in the backup folder and download it.
- * Used as last-resort fallback when all other sources are unavailable.
+ * Download a file from the Drive backup folder using the pre-built manifest.
+ * No Drive API search needed — resolves file ID directly from the manifest.
  */
 async function downloadFromBackup(
   filename: string,
   outputPath: string,
   accessToken: string | null,
 ): Promise<number> {
-  try {
-    const encodedName = filename.replace(/'/g, "\\'");
-    const query = `name='${encodedName}' and '${BACKUP_FOLDER_ID}' in parents and trashed=false`;
-    const searchUrl = `${DRIVE_API}?q=${encodeURIComponent(query)}&fields=files(id)&supportsAllDrives=true&includeItemsFromAllDrives=true`;
+  const manifest = getBackupManifest();
+  const fileId = manifest[filename];
+  if (!fileId) return 0;
 
-    const headers: Record<string, string> = { 'User-Agent': 'WhiteportAstro/1.0' };
-    if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
-
-    const res = await fetch(searchUrl, { headers });
-    if (!res.ok) return 0;
-
-    const data = await res.json() as { files: { id: string }[] };
-    if (!data.files?.length) return 0;
-
-    const fileId = data.files[0].id;
-    if (accessToken) {
-      const size = await downloadViaApi(fileId, accessToken, outputPath);
-      if (size > 0) return size;
-    }
-    // Public fallback
-    return await downloadPublicImage(fileId, outputPath);
-  } catch {
-    return 0;
+  if (accessToken) {
+    const size = await downloadViaApi(fileId, accessToken, outputPath);
+    if (size > 0) return size;
   }
+  return await downloadPublicImage(fileId, outputPath);
 }
 
 // ── Main Pipeline ──
