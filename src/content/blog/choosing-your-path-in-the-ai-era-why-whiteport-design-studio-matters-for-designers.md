@@ -11,6 +11,20 @@ tags:
   - design-teams
   - design-process
   - ai-agents
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/00-Getting-started-Course-Thiumbnail-reference.jpg"
+    alt: 00-Getting-started-Course-Thiumbnail-reference.jpg
+    type: image
+    width: 1920
+    height: 1080
+    display:
+      - archive
+      - gallery
+      - share_image
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "⚡ AI can make mockups, but your creative thinking is irreplaceable.\n🎓 Whiteport Design Studio (WDS) is a free, open-source course to help you become a linchpin designer.\n🚀 Start with Module 00 – Get"

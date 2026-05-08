@@ -2,6 +2,17 @@
 title: "Birdie Gold Tours is a happy client!"
 publishDate: 2023-12-01T18:58:00.000Z
 author: Ray Kamran
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-185939.png"
+    alt: Screenshot-2025-02-06-185939.png
+    type: image
+    width: 591
+    height: 592
+    display:
+      - archive
+      - gallery
+      - linkedin
+      - thumbnail
 # WordPress migration metadata
 wpId: 1311
 wpPermalink: "https://whiteport.com/blog/birdie-gold-tours-is-a-happy-client/"

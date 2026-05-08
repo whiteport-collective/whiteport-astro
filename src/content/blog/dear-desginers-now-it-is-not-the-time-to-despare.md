@@ -5,6 +5,19 @@ publishDate: 2025-12-19T12:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/Talktocamera-invite-WDS-session1-2.mp4"
+    alt: Talktocamera-invite-WDS-session1-2.mp4
+    type: video
+    width: 1080
+    height: 1920
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "Feeling overwhelmed by all the AI noise? 🤯\nI’m Mårten Angner — UX/CX/UI designer and founder of Whiteport and I want to show you how the BMAD-powered Whiteport Design Studio (WDS) that actually makes"

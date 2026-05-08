@@ -9,6 +9,18 @@ tags:
   - design
   - strategy
   - ux
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2024/10/6.-Tickin.jpg"
+    alt: 6.-Tickin.jpg
+    type: image
+    width: 822
+    height: 609
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
 socialPosts:
   - platform: facebook
     postText: "Transform Your Digital Presence with Design That Works 🎨✨\nAt [Your Company Name], we craft digital designs that make business sense—combining creativity, strategy, and data to deliver measurable resu"

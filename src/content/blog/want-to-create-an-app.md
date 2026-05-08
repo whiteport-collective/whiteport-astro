@@ -2,6 +2,17 @@
 title: Want to create an app?
 publishDate: 2023-11-21T18:07:00.000Z
 author: Ray Kamran
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-180822.png"
+    alt: Screenshot-2025-02-06-180822.png
+    type: image
+    width: 593
+    height: 336
+    display:
+      - archive
+      - gallery
+      - linkedin
+      - thumbnail
 # WordPress migration metadata
 wpId: 1275
 wpPermalink: "https://whiteport.com/blog/want-to-create-an-app/"

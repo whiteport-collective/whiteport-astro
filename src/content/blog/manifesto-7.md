@@ -2,6 +2,17 @@
 title: Manifesto 7
 publishDate: 2024-09-09T18:33:00.000Z
 author: Ray Kamran
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-183442.png"
+    alt: Screenshot-2025-02-06-183442.png
+    type: image
+    width: 591
+    height: 592
+    display:
+      - archive
+      - gallery
+      - linkedin
+      - thumbnail
 # WordPress migration metadata
 wpId: 1297
 wpPermalink: "https://whiteport.com/blog/manifesto-7/"

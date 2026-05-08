@@ -15,6 +15,30 @@ tags:
   - frameworks
   - leadership
 excerpt: "Strategy is one of those words that gets tossed around like confetti. At Whiteport Design Studio, we treat strategy as a tool with a sharp edge."
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-13-9-Step-Strategy-Masterclass-HD.jpg"
+    alt: 2026-01-13-9-Step-Strategy-Masterclass-HD.jpg
+    type: image
+    width: 1920
+    height: 1080
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/IMG_3487.jpg"
+    alt: IMG_3487.jpg
+    type: image
+    width: 3024
+    height: 4032
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/Generated-Image-January-14-2026-11_47AM.jpg"
+    alt: Generated-Image-January-14-2026-11_47AM.jpg
+    type: image
+    width: 1920
+    height: 1080
+    display:
+      - archive
+      - gallery
+      - share_image
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "Good strategy creates momentum. Bad strategy creates meetings.\nIf your next project needs clarity, focus, and evidence — this is a good place to start: Our 9-step digital strategy masterclass shows ho"

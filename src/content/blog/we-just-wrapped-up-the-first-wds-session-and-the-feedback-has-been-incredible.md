@@ -5,6 +5,19 @@ publishDate: 2025-12-25T12:00:00.000Z
 author: Camilla Andersson
 categories:
   - wds
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/2025-12-22-WDS-Sessions-1-Instagram.psd-Instagram-Post-45-9.jpg"
+    alt: 2025-12-22-WDS-Sessions-1-Instagram.psd-Instagram-Post-45-9.jpg
+    type: image
+    width: 1080
+    height: 1350
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "&#8220;insightful&#8221; doesn&#8217;t even begin to cover it. In this session I expected another AI UI generator. What I saw instead was a complete paradigm shift in how we build products.\nThe three "

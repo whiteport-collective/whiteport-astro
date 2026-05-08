@@ -2,6 +2,17 @@
 title: Manifesto 9
 publishDate: 2025-01-15T18:47:00.000Z
 author: Ray Kamran
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-184721.png"
+    alt: Screenshot-2025-02-06-184721.png
+    type: image
+    width: 581
+    height: 579
+    display:
+      - archive
+      - gallery
+      - linkedin
+      - thumbnail
 # WordPress migration metadata
 wpId: 1309
 wpPermalink: "https://whiteport.com/blog/manifesto-9/"

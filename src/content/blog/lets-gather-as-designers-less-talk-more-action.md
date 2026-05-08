@@ -5,6 +5,19 @@ publishDate: 2025-12-20T00:00:00.000Z
 author: Marten Angner
 categories:
   - wds
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/Dialog-with-designer-1.jpg"
+    alt: Dialog-with-designer-1.jpg
+    type: image
+    width: 1576
+    height: 1320
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "CX/UX/UI Designers och AI: Låt oss träffas, Prata mindre. Får mer gjort!\nSkapa forum där designers kan mötas, testa och resonera praktiskt kring AI tillsammans. Mindre snack, mer göra.” Så skrev en de"

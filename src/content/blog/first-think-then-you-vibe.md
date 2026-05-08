@@ -9,6 +9,19 @@ tags:
   - strategy
   - wds
   - design-process
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2026/01/WDS-Session-2-invitation.mp4"
+    alt: WDS-Session-2-invitation.mp4
+    type: video
+    width: 1080
+    height: 1920
+    display:
+      - archive
+      - gallery
+      - instagram
+      - facebook
+      - linkedin
+      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "AI makes it ridiculously fast to build things.  But, what if, now with AI, you just built the 𝑤𝑟𝑜𝑛𝑔 thing… faster? 🤔\nVibe-coding tools hand you that instant dopamine: “It runs!” ✅\n\nBut here’s th"

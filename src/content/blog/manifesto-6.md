@@ -2,6 +2,17 @@
 title: Manifesto 6
 publishDate: 2024-03-18T18:29:00.000Z
 author: Ray Kamran
+gallery:
+  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-183039.png"
+    alt: Screenshot-2025-02-06-183039.png
+    type: image
+    width: 592
+    height: 592
+    display:
+      - archive
+      - gallery
+      - linkedin
+      - thumbnail
 # WordPress migration metadata
 wpId: 1293
 wpPermalink: "https://whiteport.com/blog/manifesto-6/"
