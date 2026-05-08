@@ -33,6 +33,9 @@ const DRIVE_API = 'https://www.googleapis.com/drive/v3/files';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const SCOPES = 'https://www.googleapis.com/auth/drive.readonly';
 
+// Backup folder in Whiteport Team Drive — fallback when original sources are unavailable
+const BACKUP_FOLDER_ID = '1oFwAiqZFLpul6ZGhHd0Gn4m6OvBCMy6G';
+
 // ── Types ──
 
 interface ManifestEntry {
@@ -357,6 +360,43 @@ function formatSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
 }
 
+// ── Drive Backup Fallback ──
+
+/**
+ * Look up a file by name in the backup folder and download it.
+ * Used as last-resort fallback when all other sources are unavailable.
+ */
+async function downloadFromBackup(
+  filename: string,
+  outputPath: string,
+  accessToken: string | null,
+): Promise<number> {
+  try {
+    const encodedName = filename.replace(/'/g, "\\'");
+    const query = `name='${encodedName}' and '${BACKUP_FOLDER_ID}' in parents and trashed=false`;
+    const searchUrl = `${DRIVE_API}?q=${encodeURIComponent(query)}&fields=files(id)&supportsAllDrives=true&includeItemsFromAllDrives=true`;
+
+    const headers: Record<string, string> = { 'User-Agent': 'WhiteportAstro/1.0' };
+    if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`;
+
+    const res = await fetch(searchUrl, { headers });
+    if (!res.ok) return 0;
+
+    const data = await res.json() as { files: { id: string }[] };
+    if (!data.files?.length) return 0;
+
+    const fileId = data.files[0].id;
+    if (accessToken) {
+      const size = await downloadViaApi(fileId, accessToken, outputPath);
+      if (size > 0) return size;
+    }
+    // Public fallback
+    return await downloadPublicImage(fileId, outputPath);
+  } catch {
+    return 0;
+  }
+}
+
 // ── Main Pipeline ──
 
 interface PipelineResult {
@@ -471,6 +511,22 @@ async function runPipeline(logger: { info: (msg: string) => void }): Promise<Pip
       if (item.source === 'wp-migrate' && item.wpUrl) {
         logger.info(`  Migrating WP media: ${item.wpUrl.split('/').pop()}`);
         size = await downloadPublicFile(item.wpUrl, cachePath);
+
+        // Fallback 1: production server copy
+        if (size === 0) {
+          const prodExt = item.type === 'video' ? '.mp4' : '.jpg';
+          const prodUrl = `https://whiteport.com/media/gdrive/${item.id}${prodExt}`;
+          logger.info(`  WP source dead — trying production: ${item.id}${prodExt}`);
+          size = await downloadPublicFile(prodUrl, cachePath);
+        }
+
+        // Fallback 2: Drive backup folder
+        if (size === 0) {
+          const backupExt = item.type === 'video' ? '.mp4' : '.webp';
+          const backupFilename = `${item.id}${backupExt}`;
+          logger.info(`  Trying Drive backup: ${backupFilename}`);
+          size = await downloadFromBackup(backupFilename, cachePath, accessToken);
+        }
       } else if (accessToken) {
         logger.info(`  Downloading via API: ${item.id} (${item.type})`);
         size = await downloadViaApi(item.id, accessToken, cachePath);
