@@ -11,20 +11,6 @@ tags:
   - ai-search
   - visibility
 excerpt: "Visibility is currency. Your site is polished and primed to convert — but are people actually finding it? SEO is the engine that drives organic growth."
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/02/SoMe-Instagram-4x5-10.jpg"
-    alt: SoMe-Instagram-4x5-10.jpg
-    type: image
-    width: 1080
-    height: 1350
-    display:
-      - archive
-      - gallery
-      - share_image
-      - instagram
-      - facebook
-      - linkedin
-      - thumbnail
 socialPosts:
   - platform: instagram
     postText: Visibility is currency. You've invested time and resources into created your website to perfectly represents your business. It's polished, professional and primed to convert visitors into customers. B

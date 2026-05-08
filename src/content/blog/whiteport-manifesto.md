@@ -2,17 +2,6 @@
 title: "The Whiteport Manifesto!"
 publishDate: 2023-11-08T18:01:00.000Z
 author: Ray Kamran
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-180050.png"
-    alt: Screenshot-2025-02-06-180050.png
-    type: image
-    width: 591
-    height: 589
-    display:
-      - archive
-      - gallery
-      - linkedin
-      - thumbnail
 # WordPress migration metadata
 wpId: 1269
 wpPermalink: "https://whiteport.com/blog/whiteport-manifesto/"

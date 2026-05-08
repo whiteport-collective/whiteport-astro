@@ -9,26 +9,6 @@ tags:
   - agentic-development
   - design-process
   - workshops
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-29-WDS-Sessions-3-FacebookEvent.jpg"
-    alt: 2026-01-29-WDS-Sessions-3-FacebookEvent.jpg
-    type: image
-    width: 1920
-    height: 1005
-    display:
-      - gallery
-      - share_image
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-29-WDS-Sessions-3-Instagram.jpg"
-    alt: 2026-01-29-WDS-Sessions-3-Instagram.jpg
-    type: image
-    width: 1440
-    height: 1920
-    display:
-      - archive
-      - instagram
-      - facebook
-      - linkedin
-      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "WDS Session 3: Let&#8217;s get going\nFrom “White Panic” to First Commit\n📅 Thursday, January 29th\n⏰ 17:00–19:00 CEST\n📍 Online\n🎤 with Mårten Angner\nSession 3 is where we connect, install, and get sta"

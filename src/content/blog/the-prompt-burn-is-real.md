@@ -15,12 +15,6 @@ tags:
   - strategy
   - prompt-engineering
 excerpt: "Not thinking before you make things is waste that sounds productive. Under the guise of 'release fast', we act recklessly while AI companies profit."
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-14-The-burn-is-real.jpg"
-    alt: The Prompt Burn is real
-    type: image
-    width: 620
-    height: 960
 ---
 
 "Prompt and burn" — the new way we waste hard earned money for useless things and stay ignorant! Not thinking before you make things is a new kind of waste creeping into digital projects, and it *sounds* productive. Under the guise of release fast, we act reckless while the AI companies line their pockets!

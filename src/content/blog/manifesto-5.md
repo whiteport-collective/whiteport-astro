@@ -2,17 +2,6 @@
 title: Manifesto 5
 publishDate: 2024-03-09T18:25:00.000Z
 author: Ray Kamran
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2025/02/Screenshot-2025-02-06-182633.png"
-    alt: Screenshot-2025-02-06-182633.png
-    type: image
-    width: 590
-    height: 591
-    display:
-      - archive
-      - gallery
-      - linkedin
-      - thumbnail
 # WordPress migration metadata
 wpId: 1289
 wpPermalink: "https://whiteport.com/blog/manifesto-5/"

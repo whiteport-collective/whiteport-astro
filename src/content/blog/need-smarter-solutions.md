@@ -2,17 +2,6 @@
 title: Need smarter solutions?
 publishDate: 2024-12-09T18:42:00.000Z
 author: Ray Kamran
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2025/02/Marten-Whiteport.mp4"
-    alt: Marten-Whiteport.mp4
-    type: video
-    width: 720
-    height: 1280
-    display:
-      - archive
-      - gallery
-      - linkedin
-      - thumbnail
 # WordPress migration metadata
 wpId: 1305
 wpPermalink: "https://whiteport.com/blog/need-smarter-solutions/"

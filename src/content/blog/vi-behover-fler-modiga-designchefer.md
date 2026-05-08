@@ -15,11 +15,13 @@ tags:
   - produktdesign
 excerpt: "Det finns ett mönster hos designorg som ger sig på AI: verktygen och viljan finns — men det tar inte fart. Det är ett ledarskapsproblem."
 featuredImage:
-  gdriveId: 1iEpwcGtX9lOSfwCRc8XUFdhl0WutUIxJ
+  src: /images/blog/vi-behover-fler-modiga/hero.webp
 gallery:
-  - gdriveId: 1iEpwcGtX9lOSfwCRc8XUFdhl0WutUIxJ
+  - src: /images/blog/vi-behover-fler-modiga/hero.webp
     alt: "Chalk board illustration — Vi behöver fler modiga designchefer"
     type: image
+    width: 928
+    height: 1152
 socialPosts:
   - platform: linkedin
     postText: |

@@ -3,20 +3,6 @@ title: "Årets bästa fest: att implementera AI på designavdelningen 🎈"
 seoTitle: "Årets bästa fest: AI på designavdelningen"
 publishDate: 2026-01-19T00:00:00.000Z
 author: Marten Angner
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/IMG_3487.jpg"
-    alt: IMG_3487.jpg
-    type: image
-    width: 3024
-    height: 4032
-    display:
-      - archive
-      - gallery
-      - share_image
-      - instagram
-      - facebook
-      - linkedin
-      - thumbnail
 socialPosts:
   - platform: instagram
     postText: "AI i designteamet ska vara kul 🤖✨\nInte ett gravallvarligt transformationsprojekt med 14 styrgrupper och en PowerPoint som aldrig dör.\nMed AI kan designers bli:\n✅ mer produktiva\n✅ skapa bättre produkt"

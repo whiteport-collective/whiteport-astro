@@ -2,19 +2,6 @@
 title: "WDS Sessions 2: Speed isn’t a strategy!"
 publishDate: 2026-01-12T12:00:00.000Z
 author: Camilla Andersson
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/MartenAnna-8833-edit-1.jpg"
-    alt: MartenAnna-8833-edit-1.jpg
-    type: image
-    width: 2460
-    height: 3280
-    display:
-      - archive
-      - gallery
-      - instagram
-      - facebook
-      - linkedin
-      - thumbnail
 socialPosts:
   - platform: facebook
     postText: "Speed isn’t a strategy.\nVibe-coding makes it feel like you’re done after a couple of prompts. Then reality shows up, wearing a spreadsheet. 😅\nAI doesn’t fix weak thinking, it accelerates it. That’s w"

@@ -6,30 +6,6 @@ draft: true
 author: Camilla Andersson
 categories:
   - wds
-gallery:
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-29-WDS-Sessions-3-FacebookEvent.jpg"
-    alt: 2026-01-29-WDS-Sessions-3-FacebookEvent.jpg
-    type: image
-    width: 1920
-    height: 1005
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-01-29-WDS-Sessions-3-Instagram.jpg"
-    alt: 2026-01-29-WDS-Sessions-3-Instagram.jpg
-    type: image
-    width: 1440
-    height: 1920
-  - src: "https://whiteport.com/wp-content/uploads/2026/01/2026-02-11-WDS-Session-4-FB-Event-Banner-Hires.jpg"
-    alt: 2026-02-11-WDS-Session-4-FB-Event-Banner-Hires.jpg
-    type: image
-    width: 2848
-    height: 1504
-    display:
-      - archive
-      - gallery
-      - share_image
-      - instagram
-      - facebook
-      - linkedin
-      - thumbnail
 # WordPress migration metadata
 wpId: 2870
 wpPermalink: "https://whiteport.com/?post_type=stream_post&p=2870"
