@@ -1,5 +1,7 @@
 # Post — Fortnox AI-diskussion i Växjö
 
+⚠️ Väntar på bild: fortnox-entremattan.jpg — lägg filen i denna mapp för att publicera
+
 **Datum:** 2026-05-09 (förslag)
 **Bild:** `fortnox-entremattan.jpg`
 **Artikel:** whiteport.com/blog/agentisk-design-kraver-battre-ledarskap/
@@ -18,11 +20,15 @@ Jag träffade tre designledare — 𝗞𝗿𝗶𝘀𝘁𝗶𝗮𝗻 𝗘𝗹𝗺
 
 Inte verktyg. Inte demos. Utan de riktiga frågorna:
 
-Hur förändrar vi sättet vi arbetar — utan att förlora det som gör oss bra på det vi gör?
+Vad krävs för att ett helt team ska kunna agera självständigt med AI, utan att fråga om lov varje gång?
 
-Det är precis vad jag skriver om i min senaste artikel. Att det modiga steget inte är att köpa en ny prenumeration. Det är att ge teamet 𝗺𝗮𝗻𝗱𝗮𝘁, 𝘁𝗶𝗱 och 𝗿𝗮𝗺𝗮𝗿 — och sedan kliva ur vägen.
+Svaret är inte entusiasm. Det är inte en ny prenumeration.
 
-Fortnox gör det. Det var tydligt i rummet.
+Det är ramar. Mandat. Tydliga gränser för vad man får göra på egen hand.
+
+Paradoxen som sällan lyfts: 𝗺𝗲𝗿 𝘀𝘁𝗿𝘂𝗸𝘁𝘂𝗿 𝗴𝗲𝗿 𝗺𝗲𝗿 𝗳𝗿𝗶𝗵𝗲𝘁. Utan en tydlig ram vet ingen var gränsen går. Då väntar alla på ett godkännande som aldrig kommer.
+
+Det är precis vad jag skriver om i min senaste artikel. Och det var tydligt i rummet på Fortnox.
 
 Länk i kommentarerna.
 
