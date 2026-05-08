@@ -66,10 +66,10 @@ interface GalleryItem {
  */
 export function resolveMediaSrc(item: GalleryItem): string {
   if (item.src) {
-    // WP-hosted files were downloaded as .jpg/.mp4 and served locally
+    // WP-hosted files were downloaded as .webp/.mp4 and served locally
     if (item.src.includes('whiteport.com/wp-content/')) {
       const filename = item.src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-      const ext = item.type === 'video' ? '.mp4' : '.jpg';
+      const ext = item.type === 'video' ? '.mp4' : '.webp';
       return `/media/gdrive/wp-${filename}${ext}`;
     }
     return item.src;
@@ -97,7 +97,7 @@ export function resolveMediaPoster(item: GalleryItem): string {
     if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
     if (item.src?.includes('whiteport.com/wp-content/')) {
       const filename = item.src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-      return `/media/gdrive/wp-${filename}.jpg`;
+      return `/media/gdrive/wp-${filename}.webp`;
     }
   }
   return '';

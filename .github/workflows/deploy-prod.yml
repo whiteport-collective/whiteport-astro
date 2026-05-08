@@ -44,6 +44,14 @@ jobs:
           restore-keys: |
             astro-content-${{ runner.os }}-
 
+      - name: Restore GDrive media cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/gdrive
+          key: gdrive-media-${{ runner.os }}-${{ hashFiles('src/content/**/*.md', 'src/content/**/*.mdx') }}
+          restore-keys: |
+            gdrive-media-${{ runner.os }}-
+
       - name: Build production site
         run: npm run build
         env:
