@@ -502,8 +502,8 @@ async function runPipeline(logger: { info: (msg: string) => void }): Promise<Pip
     const publicPath = join(projectRoot, PUBLIC_DIR, `${item.id}${ext}`);
     const servePath = `/media/gdrive/${item.id}${ext}`;
 
-    // Step 1: Ensure file is in cache (skip if stale)
-    if (manifest[item.id] && existsSync(cachePath) && !staleIds.has(item.id)) {
+    // Step 1: Ensure file is in cache (skip if already served or cached and not stale)
+    if (manifest[item.id] && !staleIds.has(item.id) && (existsSync(publicPath) || existsSync(cachePath))) {
       cached++;
     } else {
       let size = 0;
