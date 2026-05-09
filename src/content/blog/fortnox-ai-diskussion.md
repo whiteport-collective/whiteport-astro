@@ -19,6 +19,8 @@ gallery:
   - src: /images/blog/fortnox-ai-diskussion/hero.jpg
     alt: "Fortnox kontor i Växjö"
     type: image
+    width: 2325
+    height: 3100
     display:
       - gallery
       - thumbnail
