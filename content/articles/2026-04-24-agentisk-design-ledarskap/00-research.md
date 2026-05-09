@@ -110,3 +110,30 @@ Ramverket bär processens tyngd. Det gör det möjligt för chefen att ge mandat
 
 - [Instagram-post](./post.md)
 - [Från pixelputtare till agentdirigerare](../2026-04-28-designer-som-agenttraenare/01-article.md)
+
+---
+
+## Post 05 — Fortnox AI-diskussion (research)
+
+**Syfte**
+Koppla ett välkänt varumärke (Fortnox) till Mårtens namn. Visa att de verkliga frågorna om AI i designteam — de han skriver om — faktiskt ställs av designledare i välkända bolag. Positionera WDS som den naturliga lösningen utan att sälja det explicit.
+
+**Story-fakta**
+- Mårten besökte Fortnox i Växjö
+- Träffade **Kristian Elmefall** + **Gabriel Svennerberg** (samma besök)
+- Veckan efter: separat samtal med **Sebastian Lofvall** — specifikt om AI
+- Samtalen handlade inte om verktyg eller demos — utan om autonomi, mandat och vad som faktiskt krävs för att ett team ska kunna agera självständigt
+
+**Kärnpoäng i posten**
+Dessa ledare bekräftade i rummet exakt det Mårten skriver om: frågan är inte verktyg — det är struktur och mandat. Det är validering, inte pitch.
+
+**Constraint: Overclaiming**
+Mårten har inget officiellt uppdrag hos Fortnox. Det var samtal — peer-diskussion, inte konsultjobb.
+
+Balansen: Fortnox är *beviset på att frågan finns på riktigt* och att Mårten är den folk söker upp för att diskutera den. Inte klienten — valideraren.
+
+- ✅ "Jag var där och vi pratade om X"
+- ✅ Tagga personerna (reach om de gillar)
+- ✅ Fortnox som ett exempel i verkligheten
+- ❌ Formuleringar som antyder uppdrag eller anställning
+- ❌ "Vi löste X åt Fortnox"
