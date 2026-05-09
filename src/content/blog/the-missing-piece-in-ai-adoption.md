@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "The Missing Piece in AI Adoption"
 seoTitle: "The Missing Piece in AI Adoption for Design Teams"
 publishDate: 2026-04-18T00:00:00.000Z
