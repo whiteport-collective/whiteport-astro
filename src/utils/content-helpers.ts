@@ -91,14 +91,6 @@ export function resolveMediaPoster(item: GalleryItem): string {
     if (item.poster.startsWith('http')) return item.poster;
     return `/media/gdrive/${item.poster}.jpg`;
   }
-  // Auto-derive poster for videos — pipeline downloads .jpg thumbnail alongside .mp4
-  if (item.type === 'video') {
-    if (item.gdriveId) return `/media/gdrive/${item.gdriveId}.jpg`;
-    if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
-    if (item.src?.includes('whiteport.com/wp-content/')) {
-      const filename = item.src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
-      return `/media/gdrive/wp-${filename}.webp`;
-    }
-  }
+  if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
   return '';
 }
