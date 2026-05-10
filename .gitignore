@@ -31,7 +31,9 @@ service-account-key.json
 .cache/
 
 # astro-gdrive media output (populated at build time, not in repo)
-public/media/gdrive/
+# Use glob (not trailing slash) so we can un-ignore .jpg poster thumbnails
+public/media/gdrive/*
+!public/media/gdrive/*.jpg
 
 # astro-elevenlabs audio output (populated at build time, not in repo)
 public/audio/
