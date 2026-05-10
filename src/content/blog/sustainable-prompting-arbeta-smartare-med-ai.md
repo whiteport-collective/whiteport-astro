@@ -14,6 +14,7 @@ tags:
   - cost-efficiency
   - ai-strategy
 excerpt: "Token prices are rising. The teams that learn to work methodically with AI now will have a structural advantage that's hard to close."
+draft: true
 gallery: []
 ---
 
