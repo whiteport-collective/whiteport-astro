@@ -15,9 +15,9 @@ const thumbnailImage = hasMedia ? gallery.find(g => g.display?.includes('thumbna
 const firstImage = thumbnailImage || (hasMedia ? gallery[0] : null);
 const isVideo = firstImage?.type === 'video';
 const isYouTube = !!firstImage?.youtubeId;
-// For video cards, use poster thumbnail (lightweight) instead of the video file
+// For video cards, only use poster if one exists — no fallback to the raw .mp4 src
 const thumbSrc = firstImage
-  ? (isVideo ? resolveMediaPoster(firstImage) || resolveMediaSrc(firstImage) : resolveMediaSrc(firstImage))
+  ? (isVideo ? resolveMediaPoster(firstImage) : resolveMediaSrc(firstImage))
   : '';
 ---
 
