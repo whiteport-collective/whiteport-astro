@@ -91,6 +91,9 @@ export function resolveMediaPoster(item: GalleryItem): string {
     if (item.poster.startsWith('http')) return item.poster;
     return `/media/gdrive/${item.poster}.jpg`;
   }
-  if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
+  if (item.type === 'video') {
+    if (item.gdriveId) return `/media/gdrive/${item.gdriveId}.jpg`;
+    if (item.youtubeId) return `https://img.youtube.com/vi/${item.youtubeId}/maxresdefault.jpg`;
+  }
   return '';
 }
