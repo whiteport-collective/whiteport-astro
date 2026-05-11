@@ -1,6 +1,7 @@
 ---
 title: "Vi behöver fler modiga designchefer"
 publishDate: 2026-04-26T00:00:00.000Z
+draft: false
 author: Mårten Angner
 categories:
   - ai
