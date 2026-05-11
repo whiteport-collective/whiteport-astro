@@ -31,10 +31,13 @@ jobs:
       - name: Reinstall sharp for Linux
         run: npm install --os=linux --cpu=x64 sharp
 
+      - name: Generate media manifest
+        run: node scripts/generate-media-manifest.mjs
+
       - name: Restore Astro content cache
         uses: actions/cache@v4
         with:
-          path: node_modules/.astro
+          path: .astro
           key: astro-content-${{ runner.os }}-${{ hashFiles('src/content/**/*', 'astro.config.mjs', 'package-lock.json') }}
           restore-keys: |
             astro-content-${{ runner.os }}-
@@ -43,7 +46,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cache/gdrive
-          key: gdrive-media-${{ runner.os }}-${{ hashFiles('src/content/**/*.md', 'src/content/**/*.mdx') }}
+          key: gdrive-media-${{ runner.os }}-${{ hashFiles('media-manifest.json') }}
           restore-keys: |
             gdrive-media-${{ runner.os }}-
 
