@@ -101,19 +101,6 @@ jobs:
           done
           exit 1
 
-      - name: Rebase preview onto master
-        id: rebase_preview
-        shell: bash
-        continue-on-error: true
-        run: |
-          git config user.name "whiteport-deploy-bot"
-          git config user.email "deploy-bot@whiteport.com"
-          git reset --hard
-          git fetch origin master preview
-          git checkout preview
-          git rebase origin/master
-          git push --force-with-lease origin preview
-
       - name: Notify Agent Space
         if: always()
         run: node scripts/notify-agent-message.cjs
@@ -123,15 +110,8 @@ jobs:
             Production deploy finished with status: ${{ job.status }}
             URL: https://whiteport.com/
             Commit: ${{ github.sha }}
-            Preview rebase status: ${{ steps.rebase_preview.outcome }}
           AGENT_MESSAGE_TO: MartenAngner
           AGENT_MESSAGE_PRIORITY: normal
-
-      - name: Fail if preview rebase failed
-        if: steps.rebase_preview.outcome == 'failure'
-        run: |
-          echo "Preview rebase failed after production deploy. Marten has been notified."
-          exit 1
 
       - name: Summary
         shell: bash
@@ -142,5 +122,4 @@ jobs:
             echo "- URL: https://whiteport.com/"
             echo "- Remote: /home/whiteport/public_html/"
             echo "- Commit: $GITHUB_SHA"
-            echo "- Preview rebase: ${{ steps.rebase_preview.outcome }}"
           } >> "$GITHUB_STEP_SUMMARY"

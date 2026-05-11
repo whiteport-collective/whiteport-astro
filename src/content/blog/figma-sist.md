@@ -20,10 +20,8 @@ offers:
     description: "I help design teams flip the script — from pixel-first to spec-first. Book a free 30-min call and I'll walk you through the WDS method."
     cta: "Book a free consultation →"
     href: https://cal.com/whiteport
-featuredImage:
-  src: /images/blog/figma-sist/hero.png
 gallery:
-  - src: /images/blog/figma-sist/hero-portrait.png
+  - gdriveId: 1am5PLsObCQzXli6_Bamgparkxq-bTr7u
     alt: "Figma First vs Figma Last — two workflow paths on a chalkboard"
     type: image
     width: 3584
@@ -35,7 +33,7 @@ gallery:
       - instagram
       - facebook
       - linkedin
-  - src: /images/blog/figma-sist/hero.png
+  - gdriveId: 1tdLz1UIevBv-b7j2EaJbbuEd977QEfh9
     alt: "Chalkboard diagram comparing Figma First (red X marks, messy delivery) vs Figma Last WDS method (green checkmarks, solid delivery)"
     type: image
     width: 5504
