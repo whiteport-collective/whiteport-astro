@@ -1,4 +1,4 @@
-# Figma first is killing your agentic design projects
+# Figma first is killing your agentic design workflow
 
 **The sooner we desginers learn how to work with our design i code the bettter!**
 

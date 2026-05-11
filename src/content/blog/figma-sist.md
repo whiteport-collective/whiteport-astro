@@ -1,5 +1,5 @@
 ---
-title: "Figma first is killing your agentic design projects"
+title: "Figma first is killing your agentic design workflow"
 publishDate: 2026-05-11T00:00:00.000Z
 author: Marten Angner
 categories:
