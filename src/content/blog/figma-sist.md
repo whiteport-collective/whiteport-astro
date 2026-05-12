@@ -84,15 +84,23 @@ And the kicker: the process will make you a better and more insightful designer.
 
 ## Lo-fi: Design by following the user journey
 
-The next step in the WDS process is to wireframe your solution in Scenarios. Each scenario has steps that are visualised by a wireframe and a detailed specification where you describe the purpose of every object on the screen to the best of your ability.
+The next step in the WDS process is to wireframe your solution in Scenarios. Each scenario has steps that are visualised by a wireframe — a rough sketch of the layout — and a detailed specification that turns your sketch into a dense, agent-readable brief.
 
-This is your second opportunity to deepen your understanding of the product you are building. You connect each object to your design system and add content and translations, error texts, and explain functionality, animations and anything the agents need to know to design the system.
+This is where the magic happens. You share your sketch with the agents and describe your idea for the page and each object on it. The agents read the wireframe and together you establish a complete specification:
+
+- **Page sections** — the structural breakdown of the layout
+- **Objects with unique IDs** — every button, card, input and component named and referenced
+- **Design system connections** — each object mapped to your existing components and tokens
+- **Content and translations** — real copy, not Lorem Ipsum, in every language you support
+- **Error codes and field labels** — every validation message, placeholder and error state defined up front
+- **Storyboards** — animations, transitions and frontend interactions specified step by step
+- **Functional specifications** — exactly how each object behaves, including edge cases
 
 > *"By all means, let the AI dream up things and surprise you — but make wireframes and specifications to define your chosen direction!"*
 
-Again, the agents will be super helpful in suggesting solutions, layout and writing copy based on the knowledge you outlined in the strategic documentation. When your scenario is outlined and you can confirm that your solution fits together logically, you are ready to let the agents build the product for you.
+This is your second opportunity to deepen your understanding of the product. When your scenario is outlined and you can confirm that the solution fits together logically, you are ready to let the agents build the product for you.
 
-Making the documents also makes sense from a token sustainability standpoint. The documentation you can in many cases produce using simpler tier or open source models at a fraction of the price compared with the most flagship versions.
+Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
 
 ## Make it real: Autonomous agentic implementation
 
