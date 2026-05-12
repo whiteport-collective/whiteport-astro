@@ -102,7 +102,7 @@ When you have found clarity in your page hypothesis it is time to create the spe
   - **Content and translations** — real copy, not Lorem Ipsum, in every language you support
   - **Error codes and field labels** — every validation message, placeholder and error state defined up front
   - **Storyboards** — animations, transitions and frontend interactions specified step by step
-- **Functional specifications** — exactly how each object behaves, including edge cases
+  - **Functional specifications** — exactly how each object behaves, including edge cases
 
 ## Make it real: Autonomous agentic implementation
 
@@ -116,7 +116,11 @@ With real code you can now validate functionality, content and the user experien
 
 ## Figma for agent training
 
-Now the time has come to open your code in Figma. As it does, it creates perfectly flexible designs and keeps all the content in seconds, and every layer in the document has maintained IDs — and the agents can see each adjustment and refinement you make.
+Now the time has come to open your code in Figma. The tool that makes this possible is [html.to.design](https://www.html.to.design/) — it reads your live code and imports it directly into Figma as fully editable layers in seconds. Every layer gets maintained IDs that the agents can reference, and every visual adjustment you make in Figma can be picked up by the Figma MCP and translated back into code.
+
+Instead of starting from a blank canvas, you are refining something that already works.
+
+Since the Figma images are opened from HTML you will get pixel perfect flexible design and document hierarchy by design! Magic!
 
 Instead of flat and lifeless designs, messy code and a complete lack of awareness, your project now has an unbroken chain of logic and context for all views ready for future iterations.
 
