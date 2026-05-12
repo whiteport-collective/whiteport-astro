@@ -48,17 +48,17 @@ This is your second opportunity to deepen your understanding of the product. Whe
 
 Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
 
-## Specifications is the new code
+## Define: Specifications is the new code
 
 When you have found clarity in your page hypothesis it is time to create the specifications. The agents read your sketches and describe your idea for the page in a high level of detail with each object identified and described in its look and functionality. Here is really where the magic happens because your visual and textual explanation is the best possible context for the agents to turn your vision into code:
 
-- **Page sections** — the structural breakdown of the layout
-- **Objects with unique IDs** — every button, card, input and component named and referenced
-- **Design system connections** — each object mapped to your existing components and tokens
-- **Content and translations** — real copy, not Lorem Ipsum, in every language you support
-- **Error codes and field labels** — every validation message, placeholder and error state defined up front
-- **Storyboards** — animations, transitions and frontend interactions specified step by step
-- **Functional specifications** — exactly how each object behaves, including edge cases
+  - **Page sections** — the structural breakdown of the layout
+  - **Objects with unique IDs** — every button, card, input and component named and referenced
+  - **Design system connections** — each object mapped to your existing components and tokens
+  - **Content and translations** — real copy, not Lorem Ipsum, in every language you support
+  - **Error codes and field labels** — every validation message, placeholder and error state defined up front
+  - **Storyboards** — animations, transitions and frontend interactions specified step by step
+  - **Functional specifications** — exactly how each object behaves, including edge cases
 
 ## Make it real: Autonomous agentic implementation
 
