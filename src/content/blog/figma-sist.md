@@ -92,9 +92,9 @@ This is your second opportunity to deepen your understanding of the product. Whe
 
 Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
 
-## Specifications: this is where the magic happens
+## Specifications is the new code
 
-You share your sketch with the agents and describe your idea for the page and each object on it. The agents read the wireframe and together you establish a complete specification:
+When you have found clarity in your page hypothesis it is time to create the specifications. The agents read your sketches and describe your idea for the page in a high level of detail with each object identified and described in its look and functionality. Here is really where the magic happens because your visual and textual explanation is the best possible context for the agents to turn your vision into code:
 
 - **Page sections** — the structural breakdown of the layout
 - **Objects with unique IDs** — every button, card, input and component named and referenced

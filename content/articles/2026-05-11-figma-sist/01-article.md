@@ -40,15 +40,25 @@ And the kicker: the process will make you a better and more insightful designer.
 
 ## Lo-fi: Design by following the user journey
 
-The next step in the WDS process is to wireframe your solution in Scenarios. Each scenario has steps that are visualised by a wireframe and a detailed specification where you describe the purpose of every object on the screen to the best of your ability.
+The next step in the WDS process is to wireframe your solution in Scenarios. Each scenario has steps that are visualised by a wireframe — a rough sketch of the layout — and a detailed specification that turns your sketch into a dense, agent-readable brief.
 
-This is your second opportunity to deepen your understanding of the product you are building. You connect each object to your design system and add content and translations, error texts, and explain functionality, animations and anything the agents need to know to design the system.
+*By all means, let the AI dream up things and surprise you — but make wireframes and specifications to define your chosen direction!*
 
-*By all means, let the AI dream up things and surprise you — But, make wireframes and specifications to define your choosen direction!*
+This is your second opportunity to deepen your understanding of the product. When your scenario is outlined and you can confirm that the solution fits together logically, you are ready to let the agents build the product for you.
 
-Again, the agents will be super helpful in suggesting solutions, layout and writing copy based on the knowledge you outlined in the strategic documentation. When your scenario is outlined and you can confirm that your solution fits together logically, you are ready to let the agents build the product for you.
+Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
 
-Making the documents also makes sense from a token sustainability standpoint. The documentation you can in many cases produce using simpler tier or open source models at a fraction of the price compared with the most flagship versions.
+## Specifications is the new code
+
+When you have found clarity in your page hypothesis it is time to create the specifications. The agents read your sketches and describe your idea for the page in a high level of detail with each object identified and described in its look and functionality. Here is really where the magic happens because your visual and textual explanation is the best possible context for the agents to turn your vision into code:
+
+- **Page sections** — the structural breakdown of the layout
+- **Objects with unique IDs** — every button, card, input and component named and referenced
+- **Design system connections** — each object mapped to your existing components and tokens
+- **Content and translations** — real copy, not Lorem Ipsum, in every language you support
+- **Error codes and field labels** — every validation message, placeholder and error state defined up front
+- **Storyboards** — animations, transitions and frontend interactions specified step by step
+- **Functional specifications** — exactly how each object behaves, including edge cases
 
 ## Make it real: Autonomous agentic implementation
 
