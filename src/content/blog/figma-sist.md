@@ -86,7 +86,15 @@ And the kicker: the process will make you a better and more insightful designer.
 
 The next step in the WDS process is to wireframe your solution in Scenarios. Each scenario has steps that are visualised by a wireframe — a rough sketch of the layout — and a detailed specification that turns your sketch into a dense, agent-readable brief.
 
-This is where the magic happens. You share your sketch with the agents and describe your idea for the page and each object on it. The agents read the wireframe and together you establish a complete specification:
+> *"By all means, let the AI dream up things and surprise you — but make wireframes and specifications to define your chosen direction!"*
+
+This is your second opportunity to deepen your understanding of the product. When your scenario is outlined and you can confirm that the solution fits together logically, you are ready to let the agents build the product for you.
+
+Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
+
+## Specifications: this is where the magic happens
+
+You share your sketch with the agents and describe your idea for the page and each object on it. The agents read the wireframe and together you establish a complete specification:
 
 - **Page sections** — the structural breakdown of the layout
 - **Objects with unique IDs** — every button, card, input and component named and referenced
@@ -95,12 +103,6 @@ This is where the magic happens. You share your sketch with the agents and descr
 - **Error codes and field labels** — every validation message, placeholder and error state defined up front
 - **Storyboards** — animations, transitions and frontend interactions specified step by step
 - **Functional specifications** — exactly how each object behaves, including edge cases
-
-> *"By all means, let the AI dream up things and surprise you — but make wireframes and specifications to define your chosen direction!"*
-
-This is your second opportunity to deepen your understanding of the product. When your scenario is outlined and you can confirm that the solution fits together logically, you are ready to let the agents build the product for you.
-
-Making these documents also makes sense from a token sustainability standpoint. You can produce them using simpler or open source models at a fraction of the cost of the most capable flagship versions.
 
 ## Make it real: Autonomous agentic implementation
 
