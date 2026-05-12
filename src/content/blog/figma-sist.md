@@ -21,11 +21,11 @@ offers:
     cta: "Book a free consultation →"
     href: https://cal.com/whiteport
 gallery:
-  - gdriveId: 1am5PLsObCQzXli6_Bamgparkxq-bTr7u
+  - gdriveId: 1P3gmghIDzRNxybWYfNPBQZi62LAfrES0
     alt: "Figma First vs Figma Last — two workflow paths on a chalkboard"
     type: image
-    width: 3584
-    height: 4800
+    width: 3000
+    height: 3822
     display:
       - archive
       - thumbnail
@@ -33,11 +33,11 @@ gallery:
       - instagram
       - facebook
       - linkedin
-  - gdriveId: 1tdLz1UIevBv-b7j2EaJbbuEd977QEfh9
+  - gdriveId: 1KgTUs6NP2exRKzdPD8PXpWC9th33cFFl
     alt: "Chalkboard diagram comparing Figma First (red X marks, messy delivery) vs Figma Last WDS method (green checkmarks, solid delivery)"
     type: image
-    width: 5504
-    height: 3072
+    width: 3000
+    height: 1674
     display:
       - gallery
 ---
