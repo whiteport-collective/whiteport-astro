@@ -75,7 +75,7 @@ The world is not waiting.
 
 [Whiteport Design Studio (WDS)](https://github.com/whiteport-collective/whiteport-design-studio) — the UX module for the BMad method. Free and open source.
 
-[BMad Method](https://github.com/bmad-agile/bmad-method) — the agentic development framework WDS is built on. 45,500+ stars on GitHub.
+[BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) — the agentic development framework WDS is built on. 45,500+ stars on GitHub.
 
 ---
 
