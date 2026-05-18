@@ -22,11 +22,11 @@ offers:
     cta: "Comment Training on LinkedIn →"
     href: https://www.linkedin.com/in/martenangner/
 gallery:
-  - gdriveId: 1_JEl--VAsIVRb7YPLfZFEE3JA9eB5RFo
-    alt: "300 dots in a grid — each colored by response: grey (no reply), red (declined), faded yellow (ghosted), bright yellow (signed up), green (showed up)"
+  - gdriveId: 1UmvXbWeP3ws7ElpQW1wJii7TEugLjBo4
+    alt: "300 muted dots — only 3 glowing green in the top-left corner. The 3 people who showed up to free AI design training."
     type: image
-    width: 3712
-    height: 4608
+    width: 3584
+    height: 4800
     display:
       - archive
       - thumbnail
