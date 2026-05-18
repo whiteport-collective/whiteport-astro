@@ -19,13 +19,19 @@ Do not imply WDS is universally embraced or that the training was perfect. Do no
 
 **Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (134). Light red: kindly declined (58). Faded yellow: replied but never followed through (87). Bright yellow: signed up (18). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
 
+**Image file:** [300-designers-dot-grid.png](https://drive.google.com/file/d/1mYjHilCS1KRW5I64kKZDS11bR24apUHH/view) — Whiteport Team/Communication/2026-05-11-figma-sist/
+
 ---
 
-I reached out to 300 designers.
+I reached out to 300 designers with free AI Design agent training! What happened next was truly shocking!  
 
-I offered them a free, practical, hands-on introduction to agentic design. No pitch. No sales. No subscription. Just a morning of learning how to work with AI agents the way designers actually think — starting from strategy, through wireframes and specifications, arriving at working code.
+AI agents are disrupting the design market right now, as I see it we designers have to adapt fast to not be simply pushed aside. My responce to this was to create the WDS module for BMad method, an open source Agent Harness with 45,5K stars on Github and used by thousands of people worldwide. 
 
-Here is what happened.
+I decided to offer any designer a free, practical, hands-on introduction to agentic design. For free. No pitch. No sales. No subscription. 
+
+I reached out to 300 designers with the invitation to connect, and learn this new field together. Just a session of learning how to work with AI agents the way designers actually think — starting from strategy, through wireframes and specifications, visual desgin and arriving at working code.
+
+I was shoched by the result. Here is what happened.
 
 134 people never replied.
 
@@ -37,86 +43,30 @@ Here is what happened.
 
 3 showed up.
 
----
+For me, 1 in 100 is a staggering number. I know people have a lot to do, but in a world where designers no longer are the gatekeepers of design, we need to ride with the tide and simply can not resist like this. What was even more shocking was that the response was not better from the currently unimployed designer. one designer actuall wrote back to me: 
 
-*One person wrote back: "I have too much work jobsearching so I don't have time to learn AI right now."*
+*"I am sorry, I have too much work jobsearching so I don't have time to learn AI right now."*
 
----
+I can not find a single job add for a designer that do not list prominecce in AI as a required skill. Let that land for a moment.
 
-Let that land for a moment.
+This disinterest is not only from me, it is also something I hear from design leaders everywhere. One design leader wrote to me. 
 
-Jobsearching. Too busy looking for work to spend a morning learning the skill that is actively reshaping what work means in this field.
-
-## Before you say "maybe your training just wasn't good"
-
-I hear that thought. It is fair to ask.
+*"I can not get my designers to embrace AI. I gave them a Lovable prototype, my team re-drew the whole thing by hand in figma"*
 
 WDS — Whiteport Design Studio — is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm. Design leaders at companies you know are using it to rethink how products get built.
 
-The interest from that broader group is not the problem.
-
-The problem is designer-specific.
-
-When I run the same conversation with a developer or a product manager, they lean in. They want to understand how agents can accelerate their work. They ask good questions. They show up.
-
-When I have the same conversation with a practising designer, I often get something else. Polite deflection. Reassurance that they are "already using AI." A subtle resistance that is hard to name but impossible to miss.
-
-This is not an argument that WDS is perfect or that the training was ideal. It is an argument that something structurally different is happening in the design profession.
-
-## This is not an isolated story
-
-When I talk to design leaders — and I talk to many of them — I hear the same thing, worded slightly differently, over and over.
-
-The design team is resistant.
-
-A design director at a major company told me that every attempt to introduce AI-assisted workflows is met with passive non-cooperation. Designers don't refuse outright. They just don't adopt. They try it once, find it imperfect, and return to the way they have always worked.
-
-A head of design at a fintech told me his team spent three months trialing an AI workflow tool, produced zero real deliverables, and concluded that "the tool isn't ready yet."
-
-*The tool isn't ready.* That phrase keeps coming back.
-
-## Is it fear, or is it something deeper?
-
-The easy answer is fear. Designers are afraid of being replaced, so they avoid the thing they fear might replace them.
-
-But I don't think it's that simple.
-
 I think the resistance runs deeper. I think it's about identity.
-
-Design is a craft. Designers spent years developing fluency in a visual language, in the tools of that language, in the rituals of that craft. Sketch notes. Whiteboard sessions. The language of a good wireframe critique. These are not just workflows. They are who designers are.
-
-AI doesn't just threaten the job. It threatens the identity.
-
-To adopt AI is to admit that some of the things that made you special can now be automated. That is a genuinely hard thing to face. So instead of facing it, a lot of designers don't.
-
-## I refuse to accept that designers are going to stop mattering
-
-Here is what I know to be true.
-
-No AI agent woke up this morning with a burning insight about what users actually need. No system trained on pattern completion has ever felt the moment in a user interview when someone stops talking and looks away because the thing they are trying to say is too embarrassing to say out loud. No model knows what it means when a user says "it's fine" and actually means "I gave up."
-
-Designers know these things. They live in these things.
-
-The question is not whether designers are needed. Of course they are.
 
 The question is whether designers will do the hard work of evolving — from pixel craftspeople into the strategic, agent-commanding, clarity-generating professionals the agentic era requires.
 
-300 invitations. 3 people in the room.
-
 I am not giving up on designers. I am asking designers to not give up on themselves.
 
-The world is not waiting.
-
-## I refuse to believe designers are simply not interested
-
-Maybe I was unlucky with the selection. Maybe the timing was off. Maybe the way I reached out didn't land the way I hoped.
+The world is not waiting. 
 
 Whatever the reason, I am not turning my back on the design community.
 
-So I am trying again.
+You all will get another chance!
 
-If you are a designer reading this — comment **Training** and I will send you a personal invitation to a 4-hour agentic design session. Just you and the tools. We will go through the full WDS + BMad workflow together: strategy, trigger mapping, wireframes, specifications, agentic implementation. Everything you need to know to start working with AI agents the way a designer thinks.
-
-No sales. No upsell. Just four hours that might change how you work.
+If you are a designer reading this, or you know a designer who wishes to become better I am offering another 4-hour agentic design session tailor made for desiners. We will go through the full WDS + BMad workflow together: strategy, trigger mapping, wireframes, specifications, agentic implementation. Everything you need to know to start working with AI agents the way a designer thinks.
 
 Comment **Training**. I'll reach out personally.

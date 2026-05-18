@@ -34,12 +34,16 @@ In my latest article I discuss the 𝘍𝘪𝘨𝘮𝘢 𝘓𝘢𝘴𝘵 approac
 
 #figma #uxdesign #aidesign #agenticdesign #wds #bmad #designsystems #productdesign
 
-First comment:
+## LinkedIn — first comment
 
-Read the full article → 
+```
+Read the full article →
 https://whiteport.com/blog/figma-last-is-saving-your-agentic-design/
 
-Second comment:
+#figma #uxdesign #aidesign #agenticdesign #wds #bmad #designsystems #productdesign
+```
+
+## LinkedIn — second comment
 
 For opening your code in Figma I use html.to.design — it imports your live code as fully editable Figma layers in seconds, with maintained object IDs throughout.
 https://www.html.to.design/
