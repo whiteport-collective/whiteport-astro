@@ -1,7 +1,6 @@
 ---
 title: "I Contacted 300 Designers to Offer Free AI Training. The Result Left Me in Shock."
 publishDate: 2026-05-18T00:00:00.000Z
-draft: true
 author: Marten Angner
 categories:
   - ai
@@ -22,7 +21,7 @@ offers:
     cta: "Comment Training on LinkedIn →"
     href: https://www.linkedin.com/in/martenangner/
 gallery:
-  - gdriveId: 1UmvXbWeP3ws7ElpQW1wJii7TEugLjBo4
+  - gdriveId: 1iwwCiCna75LeEJu8zwUqZbrRqK_7B1YP
     alt: "300 muted dots — only 3 glowing green in the top-left corner. The 3 people who showed up to free AI design training."
     type: image
     width: 3584
