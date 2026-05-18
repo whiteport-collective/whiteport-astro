@@ -23,50 +23,52 @@ Do not imply WDS is universally embraced or that the training was perfect. Do no
 
 ---
 
-I reached out to 300 designers with free AI Design agent training! What happened next was truly shocking!  
+𝗜 𝘀𝗲𝗻𝘁 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹 𝗶𝗻𝘃𝗶𝘁𝗮𝘁𝗶𝗼𝗻𝘀 𝘁𝗼 𝗔𝗜 𝗗𝗲𝘀𝗶𝗴𝗻 𝗔𝗴𝗲𝗻𝘁 𝗧𝗿𝗮𝗶𝗻𝗶𝗻𝗴 𝘁𝗼 𝟯𝟬𝟬 𝗗𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀.
 
-AI agents are disrupting the design market right now, as I see it we designers have to adapt fast to not be simply pushed aside. My responce to this was to create the WDS module for BMad method, an open source Agent Harness with 45,5K stars on Github and used by thousands of people worldwide. 
+AI agents are disrupting the design market right now. As I see it, we designers have to adapt fast to not be simply pushed aside. My response to this was to create the WDS module for the BMad method, an open source agentic framework with 45,5K stars on GitHub, used by thousands of people worldwide.
 
-I decided to offer any designer a free, practical, hands-on introduction to agentic design. For free. No pitch. No sales. No subscription. 
+I decided to offer any designer a free, practical, hands-on introduction to agentic design. For free. No pitch. No sales. No subscription.
 
-I reached out to 300 designers with the invitation to connect, and learn this new field together. Just a session of learning how to work with AI agents the way designers actually think — starting from strategy, through wireframes and specifications, visual desgin and arriving at working code.
+I reached out to 𝟯𝟬𝟬 designers with the invitation to connect and learn this new field together. Just a session of learning how to work with AI agents the way designers actually think, starting from strategy, through wireframes and specifications, visual design and arriving at working code.
 
-I was shoched by the result. Here is what happened.
+I was shocked by the result. Here is what happened.
 
-134 people never replied.
+𝟭𝟯𝟰 never replied.
 
-58 kindly declined.
+𝟱𝟴 kindly declined.
 
-87 replied with interest, then went quiet.
+𝟴𝟳 replied with interest, then went quiet.
 
-18 signed up.
+𝟭𝟴 signed up.
 
-3 showed up.
+𝟯 showed up.
 
-For me, 1 in 100 is a staggering number. I know people have a lot to do, but in a world where designers no longer are the gatekeepers of design, we need to ride with the tide and simply can not resist like this. What was even more shocking was that the response was not better from the currently unimployed designer. one designer actuall wrote back to me: 
+For me, 1 in 100 is a staggering number. What was even more shocking was that the response was not better from designers who were actively job searching. One designer wrote back to me:
 
-*"I am sorry, I have too much work jobsearching so I don't have time to learn AI right now."*
+𝘐 𝘢𝘮 𝘴𝘰𝘳𝘳𝘺, 𝘐 𝘩𝘢𝘷𝘦 𝘵𝘰𝘰 𝘮𝘶𝘤𝘩 𝘸𝘰𝘳𝘬 𝘫𝘰𝘣𝘴𝘦𝘢𝘳𝘤𝘩𝘪𝘯𝘨 𝘴𝘰 𝘐 𝘥𝘰𝘯'𝘵 𝘩𝘢𝘷𝘦 𝘵𝘪𝘮𝘦 𝘵𝘰 𝘭𝘦𝘢𝘳𝘯 𝘈𝘐 𝘳𝘪𝘨𝘩𝘵 𝘯𝘰𝘸.
 
-I can not find a single job add for a designer that do not list prominecce in AI as a required skill. Let that land for a moment.
+I cannot find a single job listing for a designer that does not list AI as a required skill. Let that land for a moment.
 
-This disinterest is not only from me, it is also something I hear from design leaders everywhere. One design leader wrote to me. 
+This is not only something I experience. I hear the same story from design leaders everywhere. One design leader wrote to me:
 
-*"I can not get my designers to embrace AI. I gave them a Lovable prototype, my team re-drew the whole thing by hand in figma"*
+𝘐 𝘤𝘢𝘯𝘯𝘰𝘵 𝘨𝘦𝘵 𝘮𝘺 𝘥𝘦𝘴𝘪𝘨𝘯𝘦𝘳𝘴 𝘵𝘰 𝘦𝘮𝘣𝘳𝘢𝘤𝘦 𝘈𝘐. 𝘐 𝘨𝘢𝘷𝘦 𝘵𝘩𝘦𝘮 𝘢 𝘓𝘰𝘷𝘢𝘣𝘭𝘦 𝘱𝘳𝘰𝘵𝘰𝘵𝘺𝘱𝘦, 𝘮𝘺 𝘵𝘦𝘢𝘮 𝘳𝘦-𝘥𝘳𝘦𝘸 𝘵𝘩𝘦 𝘸𝘩𝘰𝘭𝘦 𝘵𝘩𝘪𝘯𝘨 𝘣𝘺 𝘩𝘢𝘯𝘥 𝘪𝘯 𝘍𝘪𝘨𝘮𝘢.
 
-WDS — Whiteport Design Studio — is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm. Design leaders at companies you know are using it to rethink how products get built.
+𝗪𝗗𝗦, Whiteport Design Studio, is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm.
 
-I think the resistance runs deeper. I think it's about identity.
+I think the resistance runs deeper than job fear. 𝗜 𝘁𝗵𝗶𝗻𝗸 𝗶𝘁'𝘀 𝗮𝗯𝗼𝘂𝘁 𝗶𝗱𝗲𝗻𝘁𝗶𝘁𝘆.
 
-The question is whether designers will do the hard work of evolving — from pixel craftspeople into the strategic, agent-commanding, clarity-generating professionals the agentic era requires.
+The question is whether designers will do the hard work of evolving, from pixel craftspeople into the strategic, agent-commanding, clarity-generating professionals the agentic era requires.
 
-I am not giving up on designers. I am asking designers to not give up on themselves.
+𝗜 𝗮𝗺 𝗻𝗼𝘁 𝗴𝗶𝘃𝗶𝗻𝗴 𝘂𝗽 𝗼𝗻 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀. I am asking designers to not give up on themselves.
 
-The world is not waiting. 
+The world is not waiting.
 
-Whatever the reason, I am not turning my back on the design community.
+---
 
-You all will get another chance!
+[Whiteport Design Studio (WDS)](https://github.com/whiteport-collective/whiteport-design-studio) — the UX module for the BMad method. Free and open source.
 
-If you are a designer reading this, or you know a designer who wishes to become better I am offering another 4-hour agentic design session tailor made for desiners. We will go through the full WDS + BMad workflow together: strategy, trigger mapping, wireframes, specifications, agentic implementation. Everything you need to know to start working with AI agents the way a designer thinks.
+[BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) — the agentic development framework WDS is built on. 45,500+ stars on GitHub.
 
-Comment **Training**. I'll reach out personally.
+---
+
+𝗪𝗵𝗮𝘁 𝗱𝗼 𝘆𝗼𝘂 𝘁𝗵𝗶𝗻𝗸? 𝗪𝗵𝘆 𝗶𝘀 𝗲𝘃𝗲𝗿𝘆𝗼𝗻𝗲 𝗯𝘂𝘁 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁𝗲𝗱 𝗶𝗻 𝗮𝗴𝗲𝗻𝘁𝘀?

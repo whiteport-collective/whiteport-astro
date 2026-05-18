@@ -17,12 +17,12 @@ excerpt: "I personally reached out to 300 designers with free hands-on agentic d
 offers:
   - title: "Want to learn agentic design the way designers think?"
     label: "Free 4-hour training session"
-    description: "Comment Training on LinkedIn and I'll reach out personally. We'll go through the full WDS + BMad workflow together — strategy, trigger mapping, wireframes, specifications, agentic implementation."
+    description: "Comment Training on LinkedIn and I'll reach out personally. We'll go through the full WDS + BMad workflow together, strategy, trigger mapping, wireframes, specifications, agentic implementation."
     cta: "Comment Training on LinkedIn →"
     href: https://www.linkedin.com/in/martenangner/
 gallery:
   - gdriveId: 1iwwCiCna75LeEJu8zwUqZbrRqK_7B1YP
-    alt: "300 muted dots — only 3 glowing green in the top-left corner. The 3 people who showed up to free AI design training."
+    alt: "300 muted dots, only 3 glowing green in the top-left corner. The 3 people who showed up to free AI design training."
     type: image
     width: 3584
     height: 4800
@@ -37,11 +37,11 @@ gallery:
 
 I reached out to 300 designers with free AI Design agent training! What happened next was truly shocking!
 
-AI agents are disrupting the design market right now. As I see it, we designers have to adapt fast to not be simply pushed aside. My response to this was to create the WDS module for the BMad method — an open source Agent Harness with 45,500+ stars on Github, used by thousands of people worldwide.
+AI agents are disrupting the design market right now. As I see it, we designers have to adapt fast to not be simply pushed aside. My response to this was to create the WDS module for the BMad method, an open source Agent Harness with 45,500+ stars on Github, used by thousands of people worldwide.
 
 I decided to offer any designer a free, practical, hands-on introduction to agentic design. No pitch. No sales. No subscription.
 
-I reached out to 300 designers with the invitation to connect and learn this new field together. Just a session of learning how to work with AI agents the way designers actually think — starting from strategy, through wireframes and specifications, visual design and arriving at working code.
+I reached out to 300 designers with the invitation to connect and learn this new field together. Just a session of learning how to work with AI agents the way designers actually think, starting from strategy, through wireframes and specifications, visual design and arriving at working code.
 
 I was shocked by the result. Here is what happened.
 
@@ -61,11 +61,11 @@ This pattern is not just from my outreach. I hear the same story from design lea
 
 > "I cannot get my designers to embrace AI. I gave them a Lovable prototype, my team re-drew the whole thing by hand in Figma."
 
-WDS — Whiteport Design Studio — is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm.
+WDS, Whiteport Design Studio, is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm.
 
 I think the resistance runs deeper than job fear. I think it's about identity.
 
-The question is whether designers will do the hard work of evolving — from pixel craftspeople into the strategic, agent-commanding, clarity-generating professionals the agentic era requires.
+The question is whether designers will do the hard work of evolving, from pixel craftspeople into the strategic, agent-commanding, clarity-generating professionals the agentic era requires.
 
 I am not giving up on designers. I am asking designers to not give up on themselves.
 
@@ -73,9 +73,9 @@ The world is not waiting.
 
 ---
 
-[Whiteport Design Studio (WDS)](https://github.com/whiteport-collective/whiteport-design-studio) — the UX module for the BMad method. Free and open source.
+[Whiteport Design Studio (WDS)](https://github.com/whiteport-collective/whiteport-design-studio), the UX module for the BMad method. Free and open source.
 
-[BMad Method](https://github.com/bmad-code-org/BMAD-METHOD) — the agentic development framework WDS is built on. 45,500+ stars on GitHub.
+[BMad Method](https://github.com/bmad-code-org/BMAD-METHOD), the agentic development framework WDS is built on. 45,500+ stars on GitHub.
 
 ---
 
