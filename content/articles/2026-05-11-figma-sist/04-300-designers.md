@@ -93,3 +93,17 @@ The question is whether designers will do the hard work of evolving — from pix
 I am not giving up on designers. I am asking designers to not give up on themselves.
 
 The world is not waiting.
+
+## I refuse to believe designers are simply not interested
+
+Maybe I was unlucky with the selection. Maybe the timing was off. Maybe the way I reached out didn't land the way I hoped.
+
+Whatever the reason, I am not turning my back on the design community.
+
+So I am trying again.
+
+If you are a designer reading this — comment **Training** and I will send you a personal invitation to a 4-hour agentic design session. Just you and the tools. We will go through the full WDS + BMad workflow together: strategy, trigger mapping, wireframes, specifications, agentic implementation. Everything you need to know to start working with AI agents the way a designer thinks.
+
+No sales. No upsell. Just four hours that might change how you work.
+
+Comment **Training**. I'll reach out personally.
