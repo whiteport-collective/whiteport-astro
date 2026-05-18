@@ -1,10 +1,23 @@
 # I Contacted 300 Designers to Offer Free AI Training. The Result Left Me in Shock.
 
-**The numbers tell a story nobody wants to hear.**
+## Research
+
+**Syfte**
+Spark conversation about designer resistance to AI adoption. Establish Mårten as someone who genuinely cares about the design community — not someone attacking it. Generate engagement through the comment CTA (Training) and drive sign-ups to the next training session.
+
+**Story**
+Mårten personally reached out to 300 designers to offer free training in WDS + BMad agentic design. 134 never replied. 58 kindly declined. 87 replied with interest then went quiet. 18 signed up. 3 showed up. One person said they were too busy jobsearching to learn AI. Design leaders report the same pattern: design teams are passively resistant to AI adoption, even when introduced at the leadership level. In contrast, WDS + BMad sees strong global interest from developers, PMs, founders and design leaders. The resistance is designer-specific. Mårten refuses to give up and is offering another round of personal free training to anyone who comments "Training."
+
+**Constraint**
+Do not imply WDS is universally embraced or that the training was perfect. Do not blame designers as individuals. The argument is about a systemic pattern, not individual failures. Do not overclaim WDS + BMad adoption numbers.
 
 ---
 
-**Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (134). Light red: said no thank you (87). Faded yellow: replied but never followed through (58). Bright yellow: signed up (18). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
+**Article arc:** What happened with 300 outreach invitations (the numbers) → the "maybe your training just sucked" objection addressed with WDS+BMad traction data → design leaders confirm the same pattern → root cause: identity threat, not just job fear → refusal to accept designers are going to stop mattering → personal invitation to try again.
+
+---
+
+**Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (134). Light red: kindly declined (58). Faded yellow: replied but never followed through (87). Bright yellow: signed up (18). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
 
 ---
 
@@ -16,9 +29,9 @@ Here is what happened.
 
 134 people never replied.
 
-87 said no thank you.
+58 kindly declined.
 
-58 replied with interest, then went quiet.
+87 replied with interest, then went quiet.
 
 18 signed up.
 
