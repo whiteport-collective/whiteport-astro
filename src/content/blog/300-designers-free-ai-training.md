@@ -22,11 +22,11 @@ offers:
     cta: "Comment Training on LinkedIn →"
     href: https://www.linkedin.com/in/martenangner/
 gallery:
-  - gdriveId: 1mYjHilCS1KRW5I64kKZDS11bR24apUHH
+  - gdriveId: 1_JEl--VAsIVRb7YPLfZFEE3JA9eB5RFo
     alt: "300 dots in a grid — each colored by response: grey (no reply), red (declined), faded yellow (ghosted), bright yellow (signed up), green (showed up)"
     type: image
-    width: 1024
-    height: 1024
+    width: 3712
+    height: 4608
     display:
       - archive
       - thumbnail

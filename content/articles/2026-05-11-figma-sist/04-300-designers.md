@@ -19,7 +19,7 @@ Do not imply WDS is universally embraced or that the training was perfect. Do no
 
 **Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (134). Light red: kindly declined (58). Faded yellow: replied but never followed through (87). Bright yellow: signed up (18). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
 
-**Image file:** [300-designers-dot-grid.png](https://drive.google.com/file/d/1mYjHilCS1KRW5I64kKZDS11bR24apUHH/view) — Whiteport Team/Communication/2026-05-11-figma-sist/
+**Image file:** [300-designers-infographic.png](https://drive.google.com/file/d/1_JEl--VAsIVRb7YPLfZFEE3JA9eB5RFo/view) — Whiteport Team/Communication/2026-05-11-figma-sist/ (4:5, 3712×4608)
 
 ---
 
