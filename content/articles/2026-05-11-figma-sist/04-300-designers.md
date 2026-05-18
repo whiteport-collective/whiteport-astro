@@ -4,7 +4,7 @@
 
 ---
 
-**Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (100). Light red: said no thank you (100). Faded yellow: replied but never followed through (75). Bright yellow: signed up (25). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
+**Image:** Infographic. A grid of dots — 300 total, arranged in a square — each colored by group. Dark grey: did not respond (134). Light red: said no thank you (87). Faded yellow: replied but never followed through (58). Bright yellow: signed up (18). Green: showed up (3). Clean, minimal, brutal. No decorative elements — just the dots and a legend.
 
 ---
 
@@ -14,13 +14,13 @@ I offered them a free, practical, hands-on introduction to agentic design. No pi
 
 Here is what happened.
 
-100 people never replied.
+134 people never replied.
 
-100 said no thank you.
+87 said no thank you.
 
-75 replied with interest, then went quiet.
+58 replied with interest, then went quiet.
 
-25 signed up.
+18 signed up.
 
 3 showed up.
 
