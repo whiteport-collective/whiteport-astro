@@ -72,3 +72,35 @@ The world is not waiting.
 ---
 
 𝗪𝗵𝗮𝘁 𝗱𝗼 𝘆𝗼𝘂 𝘁𝗵𝗶𝗻𝗸? 𝗪𝗵𝘆 𝗶𝘀 𝗲𝘃𝗲𝗿𝘆𝗼𝗻𝗲 𝗯𝘂𝘁 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁𝗲𝗱 𝗶𝗻 𝗮𝗴𝗲𝗻𝘁𝘀?
+
+---
+
+## Instagram
+
+**Image:** `300-designers-instagram-4x5.png` — `G:\Shared drives\Whiteport Team\Communication\2026-05-11 Figma sist\`
+
+```
+𝗜 𝘀𝗲𝗻𝘁 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹 𝗶𝗻𝘃𝗶𝘁𝗮𝘁𝗶𝗼𝗻𝘀 𝘁𝗼 𝗳𝗿𝗲𝗲 𝗔𝗜 𝗗𝗲𝘀𝗶𝗴𝗻 𝘁𝗿𝗮𝗶𝗻𝗶𝗻𝗴 𝘁𝗼 𝟯𝟬𝟬 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀.
+
+I was shocked by the result. Here is what happened.
+
+𝟭𝟯𝟰 never replied.
+𝟱𝟴 kindly declined.
+𝟴𝟳 replied with interest, then went quiet.
+𝟭𝟴 signed up.
+𝟯 showed up.
+
+Why so little interest from designers. No one can have missed how important AI is, especially for us digital creatives. Not even designers between jobs showed an elevated curiosity. One designer actively job searching wrote back to me:
+
+𝘐 𝘢𝘮 𝘴𝘰𝘳𝘳𝘺, 𝘐 𝘩𝘢𝘷𝘦 𝘵𝘰𝘰 𝘮𝘶𝘤𝘩 𝘸𝘰𝘳𝘬 𝘫𝘰𝘣𝘴𝘦𝘢𝘳𝘤𝘩𝘪𝘯𝘨 𝘴𝘰 𝘐 𝘥𝘰𝘯'𝘵 𝘩𝘢𝘷𝘦 𝘵𝘪𝘮𝘦 𝘵𝘰 𝘭𝘦𝘢𝘳𝘯 𝘈𝘐 𝘳𝘪𝘨𝘩𝘵 𝘯𝘰𝘸.
+
+I cannot find a single job listing for a designer that does not list AI as a required skill.
+
+𝗪𝗗𝗦, Whiteport Design Studio, is part of the BMad ecosystem, one of the most widely adopted open-source agentic development frameworks in the world. The broader community is growing fast. Developers, entrepreneurs, project managers, startup founders, and design leaders from across Europe, the US, and beyond have engaged with the framework with genuine enthusiasm.
+
+𝗜 𝗮𝗺 𝗻𝗼𝘁 𝗴𝗶𝘃𝗶𝗻𝗴 𝘂𝗽 𝗼𝗻 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀. I am asking designers to not give up on themselves.
+
+What do you think? Why is everyone but designers so excited about Agents? 
+
+#agenticdesign #wds #bmad #uxdesign #aidesign #designers
+```
