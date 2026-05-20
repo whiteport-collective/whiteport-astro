@@ -34,9 +34,13 @@ I reached out to 𝟯𝟬𝟬 designers with the invitation to connect and learn
 I was shocked by the result. Here is what happened.
 
 𝟭𝟯𝟰 never replied.
+
 𝟱𝟴 kindly declined.
+
 𝟴𝟳 replied with interest, then went quiet.
+
 𝟭𝟴 signed up.
+
 𝟯 showed up.
 
 For me, 1 in 100 is a staggering number. What was even more shocking was that the response was not better from designers who were actively job searching. One designer wrote back to me:
@@ -59,6 +63,8 @@ The question is whether designers will do the hard work of evolving, from pixel 
 
 The world is not waiting.
 
+𝗪𝗵𝗮𝘁 𝗱𝗼 𝘆𝗼𝘂 𝘁𝗵𝗶𝗻𝗸? 𝗪𝗵𝘆 𝗶𝘀 𝗲𝘃𝗲𝗿𝘆𝗼𝗻𝗲 𝗯𝘂𝘁 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁𝗲𝗱 𝗶𝗻 𝗮𝗴𝗲𝗻𝘁𝘀?
+
 ---
 
 [Whiteport Design Studio (WDS)](https://github.com/whiteport-collective/whiteport-design-studio) — the UX module for the BMad method. Free and open source.
@@ -67,13 +73,9 @@ The world is not waiting.
 
 ---
 
-𝗪𝗵𝗮𝘁 𝗱𝗼 𝘆𝗼𝘂 𝘁𝗵𝗶𝗻𝗸? 𝗪𝗵𝘆 𝗶𝘀 𝗲𝘃𝗲𝗿𝘆𝗼𝗻𝗲 𝗯𝘂𝘁 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁𝗲𝗱 𝗶𝗻 𝗮𝗴𝗲𝗻𝘁𝘀?
-
----
-
 ## Instagram
 
-**Image:** `300-designers-instagram-4x5.png` — `G:\Shared drives\Whiteport Team\Communication\2026-05-11 Figma sist\`
+**Image file:** [300-designers-instagram-4x5.png](https://drive.google.com/file/d/1eTFdIY083nqEtfvt6Uf-K2RoZow9l5gM/view) — Whiteport Team/Communication/2026-05-11 Figma sist/ (4:5, 3712×4608)
 
 ```
 𝗜 𝘀𝗲𝗻𝘁 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗹 𝗶𝗻𝘃𝗶𝘁𝗮𝘁𝗶𝗼𝗻𝘀 𝘁𝗼 𝗳𝗿𝗲𝗲 𝗔𝗜 𝗗𝗲𝘀𝗶𝗴𝗻 𝘁𝗿𝗮𝗶𝗻𝗶𝗻𝗴 𝘁𝗼 𝟯𝟬𝟬 𝗱𝗲𝘀𝗶𝗴𝗻𝗲𝗿𝘀.
