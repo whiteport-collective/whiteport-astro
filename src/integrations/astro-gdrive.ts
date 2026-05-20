@@ -24,7 +24,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, copyFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { createSign } from 'crypto';
-import sharp from 'sharp';
 import type { AstroIntegration } from 'astro';
 
 const CACHE_DIR = '.cache/gdrive';
@@ -342,6 +341,7 @@ const IMAGE_MAX_WIDTH = 1600;
 async function writeImage(buffer: Buffer, outputPath: string): Promise<void> {
   mkdirSync(dirname(outputPath), { recursive: true });
   if (outputPath.endsWith('.webp')) {
+    const { default: sharp } = await import('sharp');
     await sharp(buffer)
       .resize({ width: IMAGE_MAX_WIDTH, withoutEnlargement: true })
       .webp({ quality: 85 })
