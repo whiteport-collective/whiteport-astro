@@ -1,6 +1,6 @@
 ---
-title: "One of Sweden's Biggest Design Teams. Same Questions as a Startup."
-seoTitle: "Same Questions. Different Scale: Design Process at Any Size"
+title: "2026-05-19"
+draft: true
 publishDate: 2026-05-20T00:00:00.000Z
 author: Marten Angner
 categories:
