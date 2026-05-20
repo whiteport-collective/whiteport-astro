@@ -6,6 +6,8 @@ gallery:
   - gdriveId: 1W7bY1ORxwvQ3lhLVGyVbPgo5NwSr18az
     alt: collaboration.mp4
     type: video
+    width: 1080
+    height: 1350
     display:
       - archive
       - gallery

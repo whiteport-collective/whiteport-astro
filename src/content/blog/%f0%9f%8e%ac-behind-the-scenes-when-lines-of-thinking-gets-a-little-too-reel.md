@@ -7,6 +7,8 @@ gallery:
   - gdriveId: 16DFWhkglMeuZdJby4SHrBgvVVw89e-i0
     alt: outtakes.mp4
     type: video
+    width: 1088
+    height: 1920
     display:
       - archive
       - gallery

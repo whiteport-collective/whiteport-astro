@@ -6,6 +6,8 @@ gallery:
   - gdriveId: 1FuVD99PFb6PtOpoV54BnyOpRa6HclC6P
     alt: 1230(2).mp4
     type: video
+    width: 1088
+    height: 1920
     display:
       - archive
       - gallery

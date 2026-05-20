@@ -7,6 +7,8 @@ gallery:
   - gdriveId: 11WmCUv_uBH8hlNmsVPUp-1LAmmx48DAk
     alt: copy_A77C3B9E-A329-4EF5-93CA-E5813C0BA588.mov
     type: video
+    width: 1088
+    height: 1920
     display:
       - archive
       - gallery

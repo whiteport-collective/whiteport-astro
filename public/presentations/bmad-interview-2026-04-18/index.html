@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMad-OS — How AI is Run</title>
+<link rel="icon" type="image/png" href="/favicon.png" sizes="80x80" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg-deep: #06060b;
+    --bg-surface: #0c0c14;
+    --bg-card: #12121e;
+    --bg-card-hover: #1a1a2e;
+    --border: #1e1e32;
+    --text-primary: #e8e8f0;
+    --text-secondary: #8888a8;
+    --text-muted: #555570;
+    --accent-blue: #4e8eff;
+    --accent-purple: #9b6dff;
+    --accent-cyan: #00d4ff;
+    --accent-green: #00e88f;
+    --accent-orange: #ff8c42;
+    --accent-rose: #ff6b9d;
+    --gradient-primary: linear-gradient(135deg, #4e8eff, #9b6dff);
+    --gradient-warm: linear-gradient(135deg, #ff8c42, #ff6b9d);
+    --gradient-cool: linear-gradient(135deg, #00d4ff, #00e88f);
+    --gradient-saga: linear-gradient(135deg, #9b6dff 0%, #c084fc 100%);
+    --gradient-freya: linear-gradient(135deg, #ff6b9d 0%, #fbbf24 100%);
+    --gradient-mimir: linear-gradient(135deg, #4e8eff 0%, #00d4ff 100%);
+    --gradient-idun: linear-gradient(135deg, #00e88f 0%, #34d399 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ═══════════════════════════════════════ SLIDE SYSTEM ═══════════════════════ */
+
+  .slide-deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* ═══════════════════════════════════════ PROGRESS BAR ═══════════════════════ */
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* ═══════════════════════════════════════ SLIDE COUNTER ═════════════════════ */
+
+  .slide-counter {
+    position: fixed;
+    bottom: 24px;
+    right: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    z-index: 100;
+    letter-spacing: 0.5px;
+  }
+
+  /* Subtle navigation arrows */
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 56px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 24px 18px;
+    z-index: 100;
+    transition: color 0.2s ease;
+    font-family: inherit;
+    user-select: none;
+  }
+  .nav-arrow:hover { color: rgba(255, 255, 255, 0.55); }
+  .nav-arrow:focus { outline: none; color: rgba(255, 255, 255, 0.55); }
+  .nav-arrow-prev { left: 12px; }
+  .nav-arrow-next { right: 12px; }
+
+  /* ═══════════════════════════════════════ TYPOGRAPHY ════════════════════════ */
+
+  .headline {
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+
+  .headline-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subheadline {
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 800px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 3.5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .body-text {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 720px;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ═══════════════════════════════════════ LAYOUT HELPERS ════════════════════ */
+
+  .slide-content {
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .four-col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  /* ═══════════════════════════════════════ CARDS ═════════════════════════════ */
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: #2a2a44;
+    transform: translateY(-2px);
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════ AGENT CARDS ═══════════════════════ */
+
+  .agent-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+    opacity: 0.8;
+  }
+
+  .agent-card:hover {
+    transform: translateY(-4px);
+    border-color: #2a2a44;
+  }
+
+  .agent-card.saga::before { background: var(--gradient-saga); }
+  .agent-card.freya::before { background: var(--gradient-freya); }
+  .agent-card.mimir::before { background: var(--gradient-mimir); }
+  .agent-card.idun::before { background: var(--gradient-idun); }
+
+  .agent-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+    position: relative;
+  }
+
+  .agent-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  .saga .agent-avatar { background: rgba(155, 109, 255, 0.15); }
+  .saga .agent-avatar::after { background: var(--gradient-saga); }
+  .freya .agent-avatar { background: rgba(255, 107, 157, 0.15); }
+  .freya .agent-avatar::after { background: var(--gradient-freya); }
+  .mimir .agent-avatar { background: rgba(78, 142, 255, 0.15); }
+  .mimir .agent-avatar::after { background: var(--gradient-mimir); }
+  .idun .agent-avatar { background: rgba(0, 232, 143, 0.15); }
+  .idun .agent-avatar::after { background: var(--gradient-idun); }
+
+  .agent-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .agent-role {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .saga .agent-role { color: #c084fc; }
+  .freya .agent-role { color: #ff6b9d; }
+  .mimir .agent-role { color: #4e8eff; }
+  .idun .agent-role { color: #00e88f; }
+
+  .agent-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════ PIPELINE ═════════════════════════ */
+
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-top: 48px;
+  }
+
+  .pipeline-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 32px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    min-width: 200px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .pipeline-step:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .pipeline-step .step-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .pipeline-step .step-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .pipeline-step .step-detail {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .pipeline-arrow {
+    font-size: 24px;
+    color: var(--text-muted);
+    margin: 0 16px;
+    flex-shrink: 0;
+  }
+
+  .pipeline-step.saga-step .step-number { color: #c084fc; }
+  .pipeline-step.freya-step .step-number { color: #ff6b9d; }
+  .pipeline-step.mimir-step .step-number { color: #4e8eff; }
+
+  /* ═══════════════════════════════════════ STATS ════════════════════════════ */
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 36px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .stat-number.blue { background: var(--gradient-mimir); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-number.purple { background: var(--gradient-saga); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-number.rose { background: var(--gradient-freya); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-number.green { background: var(--gradient-idun); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ═══════════════════════════════════════ ARCHITECTURE DIAGRAM ═════════════ */
+
+  .arch-layer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .arch-layer:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .arch-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .arch-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .arch-tag {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(78, 142, 255, 0.1);
+    border: 1px solid rgba(78, 142, 255, 0.2);
+    color: var(--accent-blue);
+  }
+
+  .arch-tag.purple {
+    background: rgba(155, 109, 255, 0.1);
+    border-color: rgba(155, 109, 255, 0.2);
+    color: var(--accent-purple);
+  }
+
+  .arch-tag.green {
+    background: rgba(0, 232, 143, 0.1);
+    border-color: rgba(0, 232, 143, 0.2);
+    color: var(--accent-green);
+  }
+
+  .arch-tag.cyan {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.2);
+    color: var(--accent-cyan);
+  }
+
+  .arch-tag.orange {
+    background: rgba(255, 140, 66, 0.1);
+    border-color: rgba(255, 140, 66, 0.2);
+    color: var(--accent-orange);
+  }
+
+  .arch-tag.rose {
+    background: rgba(255, 107, 157, 0.1);
+    border-color: rgba(255, 107, 157, 0.2);
+    color: var(--accent-rose);
+  }
+
+  /* ═══════════════════════════════════════ DIAGRAM: AGENT SPACE ═════════════ */
+
+  .space-diagram {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto 0;
+  }
+
+  .space-center {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(78, 142, 255, 0.15), transparent 70%);
+    border: 2px solid rgba(78, 142, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .space-center-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .space-center-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .space-ring {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: -20px;
+    padding-top: 20px;
+  }
+
+  .space-node {
+    text-align: center;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-width: 160px;
+    transition: all 0.3s ease;
+  }
+
+  .space-node:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .space-node-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .space-node-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .space-node-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ═══════════════════════════════════════ CODE BLOCK ═══════════════════════ */
+
+  .code-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .code-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-primary);
+    opacity: 0.5;
+  }
+
+  .code-line {
+    display: flex;
+    gap: 12px;
+  }
+
+  .code-line-num {
+    color: var(--text-muted);
+    min-width: 24px;
+    text-align: right;
+    user-select: none;
+  }
+
+  .code-comment { color: var(--text-muted); }
+  .code-key { color: var(--accent-purple); }
+  .code-string { color: var(--accent-green); }
+  .code-bracket { color: var(--text-secondary); }
+  .code-prop { color: var(--accent-cyan); }
+
+  /* ═══════════════════════════════════════ QUOTE ════════════════════════════ */
+
+  .quote-block {
+    border-left: 3px solid var(--accent-purple);
+    padding: 24px 32px;
+    margin: 32px 0;
+    background: rgba(155, 109, 255, 0.05);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .quote-text {
+    font-size: 24px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  .quote-source {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 12px;
+  }
+
+  /* ═══════════════════════════════════════ LIST ═════════════════════════════ */
+
+  .feature-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .feature-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+
+  .feature-list li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ═══════════════════════════════════════ SLIDE-SPECIFIC ═══════════════════ */
+
+  /* Title slide glow */
+  .title-slide {
+    text-align: center;
+    /* Don't override .slide's position: absolute — it makes the slide collapse to content height */
+  }
+
+  .title-slide::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(78, 142, 255, 0.08), transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .title-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 40px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Divider slides */
+  .divider-slide {
+    text-align: center;
+  }
+
+  .divider-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 120px;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.15;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  /* ═══════════════════════════════════════ FLOW DIAGRAM ════════════════════ */
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 8px 0;
+  }
+
+  .flow-box {
+    padding: 14px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 160px;
+    transition: all 0.3s ease;
+  }
+
+  .flow-box:hover {
+    background: var(--bg-card-hover);
+  }
+
+  .flow-box.highlight {
+    border-color: rgba(78, 142, 255, 0.4);
+    background: rgba(78, 142, 255, 0.05);
+  }
+
+  .flow-arrow {
+    color: var(--text-muted);
+    font-size: 18px;
+    margin: 0 12px;
+    flex-shrink: 0;
+  }
+
+  .flow-arrow-down {
+    color: var(--text-muted);
+    font-size: 18px;
+    text-align: center;
+    padding: 4px 0;
+  }
+
+  /* ═══════════════════════════════════════ BADGE ═══════════════════════════ */
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-blue {
+    background: rgba(78, 142, 255, 0.15);
+    color: var(--accent-blue);
+  }
+
+  .badge-purple {
+    background: rgba(155, 109, 255, 0.15);
+    color: var(--accent-purple);
+  }
+
+  .badge-green {
+    background: rgba(0, 232, 143, 0.15);
+    color: var(--accent-green);
+  }
+
+  /* ═══════════════════════════════════════ ANIMATIONS ══════════════════════ */
+
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .slide.active .stagger > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+  .slide.active .stagger > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+  .slide.active .stagger > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+  .slide.active .stagger > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+  .slide.active .stagger > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+  .slide.active .stagger > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+  .slide.active .stagger > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+  .slide.active .stagger > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  .pulse { animation: pulse-glow 3s infinite ease-in-out; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ═══════════════════════════════════════ NAV HINT ════════════════════════ */
+
+  .nav-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    z-index: 100;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .nav-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 11px;
+    background: var(--bg-card);
+    min-width: 24px;
+  }
+
+  /* ═══════════════════════════════════════ RESPONSIVE ══════════════════════ */
+
+  @media (max-width: 1024px) {
+    .slide { padding: 40px; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .three-col { grid-template-columns: 1fr; }
+    .four-col { grid-template-columns: repeat(2, 1fr); }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .pipeline { flex-direction: column; }
+    .pipeline-arrow { transform: rotate(90deg); margin: 8px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="slide-counter" id="slideCounter"></div>
+<button class="nav-arrow nav-arrow-prev" id="navPrev" aria-label="Previous slide">‹</button>
+<button class="nav-arrow nav-arrow-next" id="navNext" aria-label="Next slide">›</button>
+<div class="nav-hint">
+  <span><span class="nav-key">&larr;</span> <span class="nav-key">&rarr;</span> navigate</span>
+  <span><span class="nav-key">F</span> fullscreen</span>
+</div>
+
+<div class="slide-deck" id="slideDeck">
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 1: TITLE -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide title-slide active">
+    <div class="slide-content stagger" style="text-align: center;">
+      <div class="section-label" style="margin-bottom: 24px;">Whiteport Design Studio</div>
+      <h1 class="headline">
+        <span class="headline-gradient">BMad-OS</span><br>
+        <span style="font-weight: 300; font-size: 0.6em; color: var(--text-secondary);">How AI is Run</span>
+      </h1>
+      <p class="subheadline" style="margin: 0 auto;">
+        The operating system layer for multi-agent software development.<br>
+        Agents, skills, and tools &mdash; cleanly separated, fully composable.
+      </p>
+      <div class="title-meta">
+        Marten Angner &middot; April 18, 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 2: THE PROBLEM -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">The problem</div>
+      <h2 class="section-title">AI agents work alone.<br>Organizations don't.</h2>
+      <div class="quote-block" style="margin-top: 32px;">
+        <div class="quote-text">BMAD runs one agent at a time.<br>BMad-OS lets them talk &mdash; and it listens to every meeting.</div>
+        <div class="quote-source">&mdash; Product Brief, BMad-OS</div>
+      </div>
+      <ul class="feature-list">
+        <li><strong>Multiple repos</strong> &mdash; coordination breaks down across projects and teams</li>
+        <li><strong>Non-technical stakeholders</strong> &mdash; designers, strategists, compliance, clients enter the workflow</li>
+        <li><strong>Context evaporates</strong> &mdash; decisions made Monday are lost by Tuesday</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 3: CORE ARCHITECTURE -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Architecture</div>
+      <h2 class="section-title">Clean separation. Full composability.</h2>
+      <p class="body-text" style="margin-bottom: 32px;">
+        Agents know <em>who</em> they are. Skills know <em>how</em> to work. Tools know <em>what</em> to use.
+        This separation is what makes everything composable.
+      </p>
+      <div class="arch-layer">
+        <div class="arch-label" style="color: var(--accent-purple);">Agents</div>
+        <div class="arch-items">
+          <span class="arch-tag purple">Saga</span>
+          <span class="arch-tag purple">Freya</span>
+          <span class="arch-tag purple">Mimir</span>
+          <span class="arch-tag purple">Idun</span>
+          <span class="arch-tag purple">Codex</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <div class="arch-label" style="color: var(--accent-blue);">Skills</div>
+        <div class="arch-items">
+          <span class="arch-tag">Strategy</span>
+          <span class="arch-tag">UX Design</span>
+          <span class="arch-tag">Development</span>
+          <span class="arch-tag">Communication</span>
+          <span class="arch-tag">Deployment</span>
+          <span class="arch-tag">Catalog</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <div class="arch-label" style="color: var(--accent-cyan);">Tools</div>
+        <div class="arch-items">
+          <span class="arch-tag cyan">Browser</span>
+          <span class="arch-tag cyan">GitHub</span>
+          <span class="arch-tag cyan">Nano Banana</span>
+          <span class="arch-tag cyan">Agent Space</span>
+          <span class="arch-tag cyan">OAuth</span>
+        </div>
+      </div>
+      <div class="arch-layer">
+        <div class="arch-label" style="color: var(--accent-green);">Infra</div>
+        <div class="arch-items">
+          <span class="arch-tag green">Supabase</span>
+          <span class="arch-tag green">Edge Functions</span>
+          <span class="arch-tag green">Skill Compiler</span>
+          <span class="arch-tag green">Meeting Intelligence</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 4: SECTION — THE AGENTS -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide divider-slide">
+    <div class="divider-number">01</div>
+    <div class="slide-content stagger" style="text-align: center; position: relative; z-index: 2;">
+      <div class="section-label">Part one</div>
+      <h2 class="section-title" style="font-size: clamp(36px, 4vw, 64px);">The Design Workflow</h2>
+      <p class="subheadline" style="margin: 0 auto;">
+        Four specialized agents. One coherent pipeline.<br>
+        Strategy &rarr; UX &rarr; Implementation &rarr; Coordination.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 5: THE FOUR AGENTS -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">WDS Agents</div>
+      <h2 class="section-title">Named entities. Persistent memory. Real expertise.</h2>
+      <div class="four-col">
+        <div class="agent-card saga">
+          <div class="agent-avatar">&#128218;</div>
+          <div class="agent-name">Saga</div>
+          <div class="agent-role">Strategist</div>
+          <div class="agent-desc">Product Brief suite and Trigger Map. The foundation every other agent builds on.</div>
+        </div>
+        <div class="agent-card freya">
+          <div class="agent-avatar">&#10024;</div>
+          <div class="agent-name">Freya</div>
+          <div class="agent-role">UX Designer</div>
+          <div class="agent-desc">UX Scenarios and UX Design. Transforms strategy into screens, specs, and decisions.</div>
+        </div>
+        <div class="agent-card mimir">
+          <div class="agent-avatar">&#128296;</div>
+          <div class="agent-name">Mimir</div>
+          <div class="agent-role">Implementation</div>
+          <div class="agent-desc">Tech audit, PRD, and build. Reads work orders, writes code &mdash; one verified task at a time.</div>
+        </div>
+        <div class="agent-card idun">
+          <div class="agent-avatar">&#127822;</div>
+          <div class="agent-name">Idun</div>
+          <div class="agent-role">Skill Librarian</div>
+          <div class="agent-desc">Agent factory. Creates agents, writes skills, audits quality across the ecosystem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 6: THE PIPELINE -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Design Pipeline</div>
+      <h2 class="section-title">Saga &rarr; Freya &rarr; Mimir</h2>
+      <p class="body-text">Each agent produces artifacts the next agent consumes. No handwave. No "figure it out." Structured handoffs with verified prerequisites.</p>
+      <div class="pipeline">
+        <div class="pipeline-step saga-step">
+          <div class="step-number">Phase 1 &middot; Saga</div>
+          <div class="step-title">Strategy</div>
+          <div class="step-detail">Product Brief<br>Trigger Map</div>
+        </div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step freya-step">
+          <div class="step-number">Phase 2 &middot; Freya</div>
+          <div class="step-title">UX Design</div>
+          <div class="step-detail">UX Scenarios<br>Wireframes &amp; Specs</div>
+        </div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step mimir-step">
+          <div class="step-number">Phase 3 &middot; Mimir</div>
+          <div class="step-title">Build</div>
+          <div class="step-detail">Tech Audit &middot; PRD<br>Implementation</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <p style="font-size: 14px; color: var(--text-muted);">
+          <span class="badge badge-green">Idun</span> manages the skill library and agent quality across all phases
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 7: SKILLS DEEP DIVE -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Skill Library</div>
+      <h2 class="section-title">Every skill: workflow + compliance + meta</h2>
+      <div class="two-col" style="margin-top: 32px;">
+        <div>
+          <div class="code-block">
+            <div class="code-line"><span class="code-line-num">1</span><span class="code-comment"># skills/wds/</span></div>
+            <div class="code-line"><span class="code-line-num">2</span><span class="code-key">1-strategy/</span></div>
+            <div class="code-line"><span class="code-line-num">3</span><span>&nbsp;&nbsp;</span><span class="code-string">product-brief/</span><span class="code-comment"> &larr; Saga</span></div>
+            <div class="code-line"><span class="code-line-num">4</span><span>&nbsp;&nbsp;</span><span class="code-string">trigger-map/</span></div>
+            <div class="code-line"><span class="code-line-num">5</span><span class="code-key">2-ux-design/</span></div>
+            <div class="code-line"><span class="code-line-num">6</span><span>&nbsp;&nbsp;</span><span class="code-string">ux-scenarios/</span><span class="code-comment"> &larr; Freya</span></div>
+            <div class="code-line"><span class="code-line-num">7</span><span>&nbsp;&nbsp;</span><span class="code-string">ux-design/</span></div>
+            <div class="code-line"><span class="code-line-num">8</span><span>&nbsp;&nbsp;</span><span class="code-string">feedback/</span></div>
+            <div class="code-line"><span class="code-line-num">9</span><span class="code-key">3-agentic-development/</span></div>
+            <div class="code-line"><span class="code-line-num">10</span><span>&nbsp;&nbsp;</span><span class="code-string">build/</span><span class="code-comment"> &larr; Mimir</span></div>
+            <div class="code-line"><span class="code-line-num">11</span><span>&nbsp;&nbsp;</span><span class="code-string">tech-audit/</span></div>
+            <div class="code-line"><span class="code-line-num">12</span><span>&nbsp;&nbsp;</span><span class="code-string">codex-sync/</span></div>
+            <div class="code-line"><span class="code-line-num">13</span><span class="code-key">communication/</span></div>
+            <div class="code-line"><span class="code-line-num">14</span><span>&nbsp;&nbsp;</span><span class="code-string">handoff/</span> <span class="code-string">start/</span> <span class="code-string">wrap/</span></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">Each skill contains:</h3>
+          <ul class="feature-list" style="margin-top: 0;">
+            <li><strong>skill.md</strong> &mdash; WML workflow with declarative steps, branching, constraints</li>
+            <li><strong>meta.md</strong> &mdash; Version, dependencies, model requirements</li>
+            <li><strong>compliance.md</strong> &mdash; Authority model, data classification, audit trail</li>
+            <li><strong>agents/</strong> &mdash; Focused sub-agents for parallel execution</li>
+            <li><strong>references/</strong> &mdash; Domain knowledge and quality standards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 8: WDS-E PLATFORM LAYER -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Platform Layer</div>
+      <h2 class="section-title">WDS-E: the enterprise extension</h2>
+      <p class="body-text" style="margin-bottom: 36px;">
+        The WDS skills handle <em>design work</em>. The WDS-E skills handle <em>everything else</em> &mdash; setup, catalog management, tool onboarding, and deployment. Idun operates across both layers.
+      </p>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-icon" style="background: rgba(0, 232, 143, 0.1);">&#128640;</div>
+          <div class="card-title">Setup</div>
+          <div class="card-desc">Organization onboarding and init. Idun has a conversation &mdash; no install step, no CLI, no IT ticket.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background: rgba(155, 109, 255, 0.1);">&#128218;</div>
+          <div class="card-title">Catalog</div>
+          <div class="card-desc">Skill audit, creation, agent creation, and registration. The library that keeps agents correct.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background: rgba(78, 142, 255, 0.1);">&#128295;</div>
+          <div class="card-title">Tools</div>
+          <div class="card-desc">Build tool, tool onboarding, user onboarding. Abstract capabilities with swappable implementations.</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 24px;">
+        <div class="card" style="display: inline-block; padding: 20px 40px;">
+          <div class="card-title" style="margin-bottom: 4px;">&#128666; Deployment</div>
+          <div class="card-desc">deploy-skills, git, node, pull, status &mdash; ship skills to production environments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 9: SECTION — AGENT SPACE -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide divider-slide">
+    <div class="divider-number">02</div>
+    <div class="slide-content stagger" style="text-align: center; position: relative; z-index: 2;">
+      <div class="section-label">Part two</div>
+      <h2 class="section-title" style="font-size: clamp(36px, 4vw, 64px);">Agent Space</h2>
+      <p class="subheadline" style="margin: 0 auto;">
+        Organizational memory. Agent-to-agent messaging.<br>
+        Real-time coordination across sessions, repos, and people.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 10: AGENT SPACE OVERVIEW -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Agent Space</div>
+      <h2 class="section-title">The shared brain of the organization</h2>
+      <p class="body-text" style="margin-bottom: 16px;">
+        Agent Space is where agents coordinate. Unified messaging &mdash; everything is a message, with signal strength routing and per-agent read tracking.
+      </p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px;">
+        <div class="card">
+          <div class="card-icon" style="background: rgba(78, 142, 255, 0.1);">&#128172;</div>
+          <div class="card-title">Messaging</div>
+          <div class="card-desc">Direct, broadcast, project-scoped. Signal strength: strong / medium / weak / available. Own messages filtered from inbox.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background: rgba(255, 140, 66, 0.1);">&#128203;</div>
+          <div class="card-title">Work Orders</div>
+          <div class="card-desc">Structured task handoffs. Status lifecycle: ready &rarr; in-progress &rarr; done / blocked. Any agent can create for any other.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background: rgba(0, 232, 143, 0.1);">&#129504;</div>
+          <div class="card-title">Organizational Memory</div>
+          <div class="card-desc">Decisions, discoveries, patterns, constraints &mdash; captured immediately. Available to every agent in every session.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background: rgba(155, 109, 255, 0.1);">&#127908;</div>
+          <div class="card-title">Meeting Intelligence</div>
+          <div class="card-desc">Fireflies webhook integration. Every meeting transcribed, chunked, stored. Decisions made Monday available by Tuesday.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 11: MESSAGING FLOW -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Coordination</div>
+      <h2 class="section-title">Cross-agent messaging in action</h2>
+      <div style="margin-top: 36px;">
+        <div class="flow-row">
+          <div class="flow-box" style="border-color: rgba(155, 109, 255, 0.4); background: rgba(155, 109, 255, 0.05);">
+            &#128218; Saga completes Product Brief
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box highlight">
+            Agent Space<br><span style="font-size: 12px; color: var(--text-muted);">work order posted</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box" style="border-color: rgba(255, 107, 157, 0.4); background: rgba(255, 107, 157, 0.05);">
+            &#10024; Freya picks up WO
+          </div>
+        </div>
+        <div class="flow-arrow-down" style="margin-left: 430px;">&darr;</div>
+        <div class="flow-row">
+          <div class="flow-box" style="border-color: rgba(255, 107, 157, 0.4); background: rgba(255, 107, 157, 0.05);">
+            &#10024; Freya completes UX Specs
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box highlight">
+            Agent Space<br><span style="font-size: 12px; color: var(--text-muted);">work order posted</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box" style="border-color: rgba(78, 142, 255, 0.4); background: rgba(78, 142, 255, 0.05);">
+            &#128296; Mimir claims &amp; builds
+          </div>
+        </div>
+        <div class="flow-arrow-down" style="margin-left: 430px;">&darr;</div>
+        <div class="flow-row">
+          <div class="flow-box" style="border-color: rgba(78, 142, 255, 0.4); background: rgba(78, 142, 255, 0.05);">
+            &#128296; Mimir ships code
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box highlight">
+            Agent Space<br><span style="font-size: 12px; color: var(--text-muted);">status: done</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box" style="border-color: rgba(0, 232, 143, 0.3); background: rgba(0, 232, 143, 0.05);">
+            &#127822; Org memory updated
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 32px;">
+        <p style="font-size: 14px; color: var(--text-muted);">
+          Supabase edge functions &middot; HTTP primary &middot; MCP optional &middot; Per-agent read tracking
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 12: WHAT HAS BEEN BUILT -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Status</div>
+      <h2 class="section-title">What has been built</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-number purple">5</div>
+          <div class="stat-label">Agents with full SKILL.md<br>+ sub-agents + references</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number blue">13</div>
+          <div class="stat-label">Skills with workflows,<br>compliance, and metadata</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number rose">5</div>
+          <div class="stat-label">Tools with abstract<br>capability definitions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number green">270+</div>
+          <div class="stat-label">Total files committed<br>and pushed to repo</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px;">
+        <div class="card" style="padding: 24px;">
+          <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--accent-purple);">WDS Layer (Design)</h3>
+          <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.8;">
+            Saga, Freya, Mimir, Codex agents<br>
+            Strategy, UX Design, Development, Communication skills<br>
+            Browser, GitHub, Nano Banana tools
+          </div>
+        </div>
+        <div class="card" style="padding: 24px;">
+          <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 12px; color: var(--accent-green);">WDS-E Layer (Platform)</h3>
+          <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.8;">
+            Idun agent in platform namespace<br>
+            Setup, Catalog, Tools, Deployment skills<br>
+            Agent Space, OAuth infrastructure tools
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 13: THE CONVERSATION INSTALL -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Differentiator</div>
+      <h2 class="section-title">No install step. A conversation.</h2>
+      <div class="two-col" style="margin-top: 32px;">
+        <div>
+          <div class="quote-block">
+            <div class="quote-text" style="font-size: 20px;">BMad-OS requires nothing to install. The agent is the interface, the installer, and the operator.</div>
+          </div>
+          <ul class="feature-list" style="margin-top: 24px;">
+            <li>No npm packages</li>
+            <li>No CLI commands</li>
+            <li>No IT tickets</li>
+            <li>No onboarding call</li>
+          </ul>
+        </div>
+        <div>
+          <div class="code-block" style="font-size: 13px;">
+            <div class="code-line"><span class="code-comment"># The user's entire experience:</span></div>
+            <div class="code-line">&nbsp;</div>
+            <div class="code-line"><span class="code-key">User:</span> <span class="code-string">/idun</span></div>
+            <div class="code-line">&nbsp;</div>
+            <div class="code-line"><span class="code-key">Idun:</span> <span class="code-prop">Welcome. What does your</span></div>
+            <div class="code-line"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="code-prop">organization need?</span></div>
+            <div class="code-line">&nbsp;</div>
+            <div class="code-line"><span class="code-comment"># Idun asks questions.</span></div>
+            <div class="code-line"><span class="code-comment"># Sets up Agent Space.</span></div>
+            <div class="code-line"><span class="code-comment"># Configures governance.</span></div>
+            <div class="code-line"><span class="code-comment"># Deploys skills.</span></div>
+            <div class="code-line"><span class="code-comment"># Done.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 14: DISTRIBUTION -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">Distribution</div>
+      <h2 class="section-title">Three-tier pipeline</h2>
+      <p class="body-text" style="margin-bottom: 40px;">
+        Development, publishing, and customer installation are cleanly separated.
+        Skills written once, compiled to Claude, Codex, Gemini, and local models.
+      </p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="step-number" style="color: var(--accent-orange);">Tier 1</div>
+          <div class="step-title">WDS-EC</div>
+          <div class="step-detail">Enterprise Codebase<br><span style="color: var(--text-muted);">Development</span></div>
+        </div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step">
+          <div class="step-number" style="color: var(--accent-blue);">Tier 2</div>
+          <div class="step-title">WDS-E</div>
+          <div class="step-detail">Published Product<br><span style="color: var(--text-muted);">Skill Compiler</span></div>
+        </div>
+        <div class="pipeline-arrow">&rarr;</div>
+        <div class="pipeline-step">
+          <div class="step-number" style="color: var(--accent-green);">Tier 3</div>
+          <div class="step-title">Agent Space</div>
+          <div class="step-detail">Customer Install<br><span style="color: var(--text-muted);">Conversation-driven</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 15: WHAT BMAD-OS ADDS -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide">
+    <div class="slide-content stagger">
+      <div class="section-label">On top of BMAD</div>
+      <h2 class="section-title">What BMad-OS adds</h2>
+      <div class="three-col" style="margin-top: 40px;">
+        <div class="card" style="padding: 36px 28px;">
+          <div class="card-icon" style="background: rgba(78, 142, 255, 0.1); font-size: 24px;">&#127760;</div>
+          <div class="card-title">Agent Space</div>
+          <div class="card-desc">Organizational memory, agent-to-agent messaging, real-time coordination. The moment agents need to talk across sessions, repos, or people.</div>
+        </div>
+        <div class="card" style="padding: 36px 28px;">
+          <div class="card-icon" style="background: rgba(155, 109, 255, 0.1); font-size: 24px;">&#9881;&#65039;</div>
+          <div class="card-title">Skill Compiler</div>
+          <div class="card-desc">Multi-model distribution. Skills written once, compiled to Claude, Codex, Gemini, and local models. Organizations don't run mono-model.</div>
+        </div>
+        <div class="card" style="padding: 36px 28px;">
+          <div class="card-icon" style="background: rgba(0, 232, 143, 0.1); font-size: 24px;">&#128737;&#65039;</div>
+          <div class="card-title">Governance</div>
+          <div class="card-desc">AI policy, compliance frameworks, authority model, audit logs. Produced through conversation with Idun &mdash; not written by hand.</div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 24px;">
+        <div class="card" style="display: inline-block; padding: 28px 48px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="font-size: 24px;">&#127908;</span>
+            <div style="text-align: left;">
+              <div class="card-title" style="margin-bottom: 2px;">Meeting Intelligence</div>
+              <div class="card-desc">Every meeting becomes context agents can act on. Decisions flow into Agent Space automatically.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SLIDE 16: CLOSING -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="slide title-slide">
+    <div class="slide-content stagger" style="text-align: center;">
+      <div class="section-label" style="margin-bottom: 24px;">BMad-OS</div>
+      <h1 class="headline" style="font-size: clamp(36px, 4.5vw, 64px);">
+        <span class="headline-gradient">Built. Committed. Ready to ship.</span>
+      </h1>
+      <p class="subheadline" style="margin: 16px auto 0;">
+        270+ files. 5 agents. 13 skills. 5 tools.<br>
+        Governance, compliance, and audit trail on every artifact.<br>
+        <span style="color: var(--text-primary); font-weight: 500;">One conversation to install.</span>
+      </p>
+      <div style="margin-top: 48px; display: flex; gap: 40px; justify-content: center;">
+        <div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 4px;">Repository</div>
+          <div class="mono" style="font-size: 14px; color: var(--accent-blue);">whiteport-design-studio-enterprise-codebase</div>
+        </div>
+        <div>
+          <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 4px;">Live infrastructure</div>
+          <div class="mono" style="font-size: 14px; color: var(--accent-green);">Supabase eu-north-1 Stockholm</div>
+        </div>
+      </div>
+      <div class="title-meta" style="margin-top: 48px;">
+        whiteport.com &middot; Marten Angner &middot; April 2026
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const progressBar = document.getElementById('progressBar');
+  const slideCounter = document.getElementById('slideCounter');
+  let current = 0;
+
+  function updateSlide(newIndex, direction) {
+    if (newIndex < 0 || newIndex >= slides.length || newIndex === current) return;
+
+    const oldSlide = slides[current];
+    const newSlide = slides[newIndex];
+
+    // Remove all state classes
+    slides.forEach(s => s.classList.remove('active', 'prev'));
+
+    // Animate out
+    if (direction === 'forward') {
+      oldSlide.classList.add('prev');
+    }
+    // else: old slide gets default (translateX(60px))
+
+    // Animate in
+    if (direction === 'backward') {
+      // New slide comes from left
+      newSlide.style.transition = 'none';
+      newSlide.classList.add('prev');
+      // Force reflow
+      newSlide.offsetHeight;
+      newSlide.style.transition = '';
+      // Remove 'prev' so the 'active' rule wins (CSS source order: .prev is after .active)
+      newSlide.classList.remove('prev');
+    }
+
+    newSlide.classList.add('active');
+    current = newIndex;
+
+    // Update progress
+    const progress = ((current) / (slides.length - 1)) * 100;
+    progressBar.style.width = progress + '%';
+    slideCounter.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  function next() { updateSlide(current + 1, 'forward'); }
+  function prev() { updateSlide(current - 1, 'backward'); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    switch(e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+      case ' ':
+      case 'PageDown':
+        e.preventDefault();
+        next();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+      case 'PageUp':
+        e.preventDefault();
+        prev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        updateSlide(0, 'backward');
+        break;
+      case 'End':
+        e.preventDefault();
+        updateSlide(slides.length - 1, 'forward');
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.documentElement.requestFullscreen();
+        }
+        break;
+    }
+  });
+
+  // Touch navigation
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? next() : prev();
+    }
+  });
+
+  // Click navigation (left/right halves)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a, button')) return;
+    if (e.clientX > window.innerWidth * 0.6) next();
+    else if (e.clientX < window.innerWidth * 0.4) prev();
+  });
+
+  // Arrow buttons
+  document.getElementById('navPrev').addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+  document.getElementById('navNext').addEventListener('click', (e) => { e.stopPropagation(); next(); });
+
+  // Initialize
+  slideCounter.textContent = `1 / ${slides.length}`;
+  progressBar.style.width = '0%';
+</script>
+</body>
+</html>

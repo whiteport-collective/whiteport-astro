@@ -8,6 +8,8 @@ gallery:
   - gdriveId: 1a3V4KdWxkneKOrZa_7BmxhdKl4qGFhFQ
     alt: Designers know how...mp4
     type: video
+    width: 1088
+    height: 1920
     display:
       - archive
       - gallery

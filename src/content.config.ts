@@ -52,6 +52,10 @@ const blog = defineCollection({
 
     // Social media posts
     socialPosts: z.array(socialPostSchema).default([]),
+    podcast: z.object({
+      spotify_url: z.string().url().optional(),
+      apple_url: z.string().url().optional(),
+    }).optional(),
 
     // Sidebar offers (manual override for auto-matched services)
     offers: z.array(z.object({
@@ -139,4 +143,16 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, projects };
+// --- Presentations collection (hidden, static HTML decks) ---
+
+const presentations = defineCollection({
+  loader: glob({ base: './src/content/presentations', pattern: '**/*.json' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    description: z.string().optional(),
+    noindex: z.boolean().default(true),
+  }),
+});
+
+export const collections = { blog, projects, presentations };

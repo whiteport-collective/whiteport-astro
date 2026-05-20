@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+
+const allPresentations = await getCollection('presentations');
+const presentations = allPresentations.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Presentations"
+      description="Presentation decks by Whiteport."
+      noindex={true}
+    />
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 min-h-screen font-sans">
+    <main class="max-w-2xl mx-auto px-6 py-16">
+      <h1 class="text-2xl font-semibold mb-12">Presentations</h1>
+      <ul class="space-y-10">
+        {presentations.map((p) => (
+          <li>
+            <span class="text-xs text-zinc-500 tabular-nums tracking-wide">{p.data.date}</span>
+            <a
+              href={`/presentations/${p.id}/`}
+              class="group mt-1 block"
+            >
+              <h2 class="text-base font-medium text-zinc-100 group-hover:text-white transition-colors">
+                {p.data.title} →
+              </h2>
+              {p.data.description && (
+                <p class="mt-1 text-sm text-zinc-500 leading-relaxed">{p.data.description}</p>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

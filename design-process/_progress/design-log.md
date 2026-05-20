@@ -27,6 +27,10 @@
 - [x] RSS feed — stream + blog combined
 - [x] Google Drive media pipeline — 98/98 items, service account, staleness check
 - [x] Blog post enhancements — 2-column layout, sidebar offers, published-also with platform images, related posts masonry, YouTube video support
+- [x] WO-001 M1 — Audio + alignment generation pipeline
+- [x] WO-001 M1.5 — ElevenLabs Drive cache in article media folders
+- [x] WO-001 M2 — Custom audio player with waveform + menu
+- [x] WO-001 M3 — Build-time word wrapping for sync playback
 
 - [x] WO-002 — Publishing Platform: deploy pipeline (GitHub Actions → Hostup)
 
@@ -213,6 +217,29 @@
 - Stories remain manual (Instagram/Facebook/LinkedIn) for now
 - Existing infrastructure ready: `socialPosts` schema in content.config.ts, `SOCIAL_PLATFORMS` type in consts.ts, "Also posted on" display in stream posts
 - Next: research API requirements per platform, auth flows, rate limits
+
+### 2026-05-02 — WO-001 M1: ElevenLabs audio pipeline
+- Added `astro-elevenlabs` build integration for blog read-aloud audio
+- Generates hash-addressed MP3 + word-level alignment JSON in `public/audio/`
+- Added M1.5 Drive cache using article `mediaFolder` paths; audio/alignment are stored next to each article's images/video as `<slug>-elevenlabs-<hash>.mp3` and `.json`
+- Missing `ELEVENLABS_API_KEY` / `ELEVENLABS_VOICE_ID` skips gracefully
+- Added `npm run audio:backfill` and mocked unit tests for skip, cache, word aggregation, and generation guard
+- Verification: `node --test tests/astro-elevenlabs.test.mjs`, `tsc --noEmit`, and `GDRIVE_STRICT=false node node_modules/astro/astro.js build`
+
+### 2026-05-03 — WO-001 M2: Custom audio player
+- Added `AudioPlayer.astro` with native `<audio>`, wavesurfer waveform, play/pause, mute, volume, keyboard timeline controls, and menu
+- Player renders on blog posts only when matching `<slug>-elevenlabs-<hash>.mp3` and `.json` exist in `public/audio/`
+- Menu conditionally shows Spotify/Apple podcast links from frontmatter and always shows Download MP3
+- Added `wavesurfer.js` dependency and player CSS
+- Added Swedish character preservation test for the audio text pipeline
+- Verification: `node --test tests/astro-elevenlabs.test.mjs`, `tsc --noEmit`, and `GDRIVE_STRICT=false node node_modules/astro/astro.js build`
+
+### 2026-05-03 — WO-001 M3: Build-time word wrapping
+- Added a rehype plugin that wraps rendered article words as inline `<span class="word" data-word-index="...">` elements
+- Word indexes reset per rendered Markdown document and preserve punctuation/whitespace outside the word spans
+- Skips `code`, `kbd`, `pre`, `samp`, `script`, and `style` content
+- Added no-op `.word { display: inline; }` styling so the milestone has no intentional visual change
+- Verification: `node --test tests/astro-elevenlabs.test.mjs tests/word-wrap.test.mjs`, `tsc --noEmit`, `GDRIVE_STRICT=false node node_modules/astro/astro.js build`, and built HTML inspection for `dist/blog/test/index.html`
 
 ---
 

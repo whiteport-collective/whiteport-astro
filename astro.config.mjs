@@ -4,7 +4,9 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import astroElevenLabs from './src/integrations/astro-elevenlabs';
 import astroGdrive from './src/integrations/astro-gdrive';
+import rehypeWrapWords from './src/utils/word-wrap';
 
 import react from '@astrojs/react';
 
@@ -12,10 +14,14 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://whiteport.com',
   markdown: {
-    allowDangerousHtml: true,
+    remarkRehype: {
+      allowDangerousHtml: true,
+    },
+    rehypePlugins: [rehypeWrapWords],
   },
 
   integrations: [
+    astroElevenLabs(),
     astroGdrive(),
     mdx(),
     sitemap({

@@ -1,4 +1,4 @@
----
+﻿---
 /**
  * SocialStreamGallery — CSS scroll-snap slider with smart video delivery.
  *
@@ -80,6 +80,7 @@ const single = resolved.length === 1;
                   alt={item.alt || 'Video'}
                   class="gallery-img"
                   loading={i === 0 ? 'eager' : 'lazy'}
+                  onerror={`this.style.display='none';var p=this.parentElement;p.style.aspectRatio=p.dataset.videoWidth&&p.dataset.videoHeight?p.dataset.videoWidth+'/'+p.dataset.videoHeight:'16/9';p.style.minHeight='200px';`}
                 />
               ) : item.resolvedSrc ? (
                 <div class="gallery-placeholder" style={item.height && item.width ? `aspect-ratio:${item.width}/${item.height}` : 'aspect-ratio:16/9'}>
@@ -224,7 +225,7 @@ const single = resolved.length === 1;
     });
   });
 
-  // ── 2. Native video click-to-play ──
+  // â”€â”€ 2. Native video click-to-play â”€â”€
   document.querySelectorAll('[data-video-src]').forEach((el) => {
     el.addEventListener('click', () => {
       const container = el as HTMLElement;
@@ -249,7 +250,7 @@ const single = resolved.length === 1;
     });
   });
 
-  // ── 3. Preemptive background prefetch queue ──
+  // â”€â”€ 3. Preemptive background prefetch queue â”€â”€
   const videoPosterEls = document.querySelectorAll<HTMLElement>('[data-video-src]');
   const videoQueue: { el: HTMLElement; src: string; priority: number }[] = [];
   const prefetched = new Set<string>();
@@ -324,7 +325,7 @@ const single = resolved.length === 1;
     prefetchQueue();
   }
 
-  // ── 4. Dot indicator sync ──
+  // â”€â”€ 4. Dot indicator sync â”€â”€
   document.querySelectorAll('.gallery-slider:not(.single)').forEach((slider) => {
     const dots = slider.parentElement?.querySelectorAll('[data-dot]');
     if (!dots?.length) return;
@@ -347,3 +348,4 @@ const single = resolved.length === 1;
     }
   }
 </script>
+

@@ -20,6 +20,8 @@ gallery:
   - gdriveId: 1iEpwcGtX9lOSfwCRc8XUFdhl0WutUIxJ
     alt: "Chalk board illustration — Vi behöver fler modiga designchefer"
     type: image
+    width: 928
+    height: 1152
 socialPosts:
   - platform: linkedin
     postText: |
