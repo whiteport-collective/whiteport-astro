@@ -34,13 +34,9 @@ I reached out to 𝟯𝟬𝟬 designers with the invitation to connect and learn
 I was shocked by the result. Here is what happened.
 
 𝟭𝟯𝟰 never replied.
-
 𝟱𝟴 kindly declined.
-
 𝟴𝟳 replied with interest, then went quiet.
-
 𝟭𝟴 signed up.
-
 𝟯 showed up.
 
 For me, 1 in 100 is a staggering number. What was even more shocking was that the response was not better from designers who were actively job searching. One designer wrote back to me:
